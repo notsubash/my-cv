@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, BadgeCheck, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, Shield, FileText, GitBranch, GitFork, Star, Terminal, Lock, Network, Calendar, Percent, UserCheck, Image, TrendingUp, Timer, SkipForward, ThumbsUp, MessageCircle, Share2, ChevronRight, List, Bot, Video, BookOpen, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, BadgeCheck, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, Shield, FileText, GitBranch, GitFork, Star, Terminal, Lock, Network, Calendar, Percent, UserCheck, Image, TrendingUp, Timer, SkipForward, ThumbsUp, MessageCircle, Share2, ChevronRight, List, Bot, Video, BookOpen, MapPin } from 'lucide-react'
 import { translations, seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
@@ -1373,113 +1373,6 @@ function CertLogo({ logo }: { logo: string }) {
   return logos[logo] || null
 }
 
-function ContactForm({ email, successMsg, errorMsg }: { email: string; successMsg: string; errorMsg: string }) {
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setStatus('submitting')
-
-    const form = e.currentTarget
-    const data = new FormData(form)
-
-    try {
-      // TODO: Replace with your Web3Forms or Formspree endpoint
-      // Web3Forms: https://web3forms.com — sign up for free, get an access key
-      // Then replace the URL and add: data.append('access_key', 'YOUR_ACCESS_KEY')
-      // Formspree: https://formspree.io — replace URL with https://formspree.io/f/YOUR_FORM_ID
-      const response = await fetch(`https://formspree.io/f/placeholder`, {
-        method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
-      })
-
-      if (response.ok) {
-        setStatus('success')
-        form.reset()
-      } else {
-        setStatus('error')
-      }
-    } catch {
-      setStatus('error')
-    }
-  }
-
-  if (status === 'success') {
-    return (
-      <div className="max-w-lg mx-auto p-8 rounded-2xl bg-card border border-emerald-500/30 text-center">
-        <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
-        <p className="text-lg font-medium text-foreground">{successMsg}</p>
-      </div>
-    )
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-4">
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="contact-name" className="block text-sm font-medium text-foreground mb-1.5">Name</label>
-          <input
-            id="contact-name"
-            type="text"
-            name="name"
-            required
-            className="w-full px-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
-            placeholder="Your name"
-          />
-        </div>
-        <div>
-          <label htmlFor="contact-email" className="block text-sm font-medium text-foreground mb-1.5">Email</label>
-          <input
-            id="contact-email"
-            type="email"
-            name="email"
-            required
-            className="w-full px-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
-            placeholder="you@company.com"
-          />
-        </div>
-      </div>
-      <div>
-        <label htmlFor="contact-subject" className="block text-sm font-medium text-foreground mb-1.5">Subject</label>
-        <input
-          id="contact-subject"
-          type="text"
-          name="subject"
-          required
-          className="w-full px-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
-          placeholder="What's this about?"
-        />
-      </div>
-      <div>
-        <label htmlFor="contact-message" className="block text-sm font-medium text-foreground mb-1.5">Message</label>
-        <textarea
-          id="contact-message"
-          name="message"
-          required
-          rows={5}
-          className="w-full px-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors resize-y"
-          placeholder="Your message..."
-        />
-      </div>
-      {status === 'error' && (
-        <div className="flex items-center gap-2 text-sm text-red-400">
-          <AlertCircle className="w-4 h-4" />
-          {errorMsg} <a href={`mailto:${email}`} className="underline">{email}</a>
-        </div>
-      )}
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:brightness-110 hover:shadow-lg hover:shadow-primary/25 active:brightness-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <Send className="w-4 h-4" />
-        {status === 'submitting' ? 'Sending...' : 'Send Message'}
-      </button>
-    </form>
-  )
-}
-
 function App() {
   const t = translations.en
   const hydrated = useHydrated()
@@ -1630,10 +1523,13 @@ function App() {
             <div className="mb-12">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-primary/10 flex items-center justify-center shrink-0">
-                    <Code className="w-5 h-5 text-primary" />
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                    <img src="/scopic_software_logo.webp" alt="Scopic Software" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
                   </div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.santifer.company}</h3>
+                  <div>
+                    <h3 className="font-display text-2xl font-bold">{t.experience.santifer.company}</h3>
+                    <a href="https://scopicsoftware.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">scopicsoftware.com</a>
+                  </div>
                 </div>
                 
                 <span className="text-sm text-muted-foreground">{t.experience.santifer.location}</span>
@@ -1649,20 +1545,25 @@ function App() {
                 ))}
               </ul>
 
-              {/* Trusted By - Corporate Logos */}
+              {/* Trusted By - Tech Stack Logos */}
               <div className="pt-4 border-t border-border/50">
                 <p className="text-xs text-muted-foreground/60 uppercase tracking-wider mb-4">{t.experience.santifer.trustedBy.label}</p>
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-3 md:gap-x-8">
-                  {t.experience.santifer.trustedBy.logos.map((logo, i) => (
-                    <div key={i} className="flex items-center gap-2 hover:opacity-90 transition-opacity duration-200">
-                      {'src' in logo ? (
-                        <img src={logo.src} alt={logo.name} className="h-5 w-auto shrink-0 invert opacity-60 hover:opacity-80 dark:invert-0 dark:opacity-70 dark:hover:opacity-90" loading="lazy" width={20} height={20} />
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 shrink-0 opacity-60 dark:opacity-70" aria-hidden="true" dangerouslySetInnerHTML={{ __html: logo.icon ?? '' }} />
-                      )}
-                      <span className="text-sm font-medium opacity-60 dark:opacity-70">{logo.name}</span>
-                    </div>
-                  ))}
+                  {t.experience.santifer.trustedBy.logos.map((logo, i) => {
+                    const techIcon = getTechIcon(logo.name)
+                    return (
+                      <div key={i} className="flex items-center gap-2 hover:opacity-90 transition-opacity duration-200">
+                        {'src' in logo && logo.src ? (
+                          <img src={logo.src} alt={logo.name} className="h-5 w-auto shrink-0 invert opacity-60 hover:opacity-80 dark:invert-0 dark:opacity-70 dark:hover:opacity-90" loading="lazy" width={20} height={20} />
+                        ) : techIcon ? (
+                          <svg viewBox="0 0 24 24" fill={techIcon.color} className="w-5 h-5 shrink-0 opacity-70" aria-hidden="true">
+                            <path d={techIcon.path} />
+                          </svg>
+                        ) : null}
+                        <span className="text-sm font-medium opacity-60 dark:opacity-70">{logo.name}</span>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
 
@@ -1682,13 +1583,9 @@ function App() {
                 <div className="flex-1 flex flex-col">
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center shrink-0">
-                      <svg viewBox="0 0 200 170" className="w-6 h-6" aria-hidden="true">
-                        <path fill="#FCB400" d="M90.039 12.368 24.079 39.66c-3.667 1.519-3.63 6.729.062 8.192l66.235 26.266a24.58 24.58 0 0 0 18.12 0l66.236-26.266c3.69-1.463 3.729-6.673.062-8.192l-65.96-27.292a24.58 24.58 0 0 0-18.795 0"/>
-                        <path fill="#18BFFF" d="M105.312 88.46v65.617c0 3.12 3.147 5.258 6.048 4.108l73.806-28.648a4.42 4.42 0 0 0 2.79-4.108V59.813c0-3.121-3.147-5.258-6.048-4.108l-73.806 28.648a4.42 4.42 0 0 0-2.79 4.108"/>
-                        <path fill="#F82B60" d="m88.078 91.846-21.904 10.576-2.224 1.075-46.238 22.155c-2.93 1.414-6.672-.722-6.672-3.978V60.088c0-1.178.604-2.195 1.414-2.96a5 5 0 0 1 1.12-.84c1.104-.663 2.68-.84 4.02-.31L87.71 83.76c3.564 1.414 3.844 6.408.368 8.087"/>
-                      </svg>
+                      <Bot className="w-6 h-6 text-gold" />
                     </div>
-                    <span className="badge px-3 py-1 bg-gold/20 text-gold">Source of Truth</span>
+                    <span className="badge px-3 py-1 bg-gold/20 text-gold">GenAI · LangGraph</span>
                   </div>
                   <h4 className="font-display text-2xl font-bold mb-4">{t.experience.santifer.businessOS.title}</h4>
                   <p className="text-muted-foreground mb-6">{t.experience.santifer.businessOS.desc}</p>
@@ -1883,10 +1780,13 @@ function App() {
             <div className="mb-6">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-accent/10 flex items-center justify-center shrink-0">
-                    <Briefcase className="w-5 h-5 text-accent" />
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                    <img src="/peace_nepal_dot_com_logo.webp" alt="Peace Nepal Dot Com" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
                   </div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.lico.company}</h3>
+                  <div>
+                    <h3 className="font-display text-2xl font-bold">{t.experience.lico.company}</h3>
+                    <a href="https://peacenepal.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">peacenepal.com</a>
+                  </div>
                 </div>
                 <span className="text-sm text-muted-foreground">{t.experience.lico.location}</span>
               </div>
@@ -1922,6 +1822,63 @@ function App() {
                   <footer className="mt-1 text-xs not-italic">— {t.experience.everis.testimonial.author}, {t.experience.everis.testimonial.role}</footer>
                 </blockquote>
               )}
+            </div>
+          </AnimatedSection>
+
+          {/* Contentio Lab */}
+          <AnimatedSection delay={0.7} className="mt-16">
+            <div className="mb-6">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-accent/10 flex items-center justify-center shrink-0">
+                    <TrendingUp className="w-5 h-5 text-accent" />
+                  </div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.contentio.company}</h3>
+                </div>
+                <span className="text-sm text-muted-foreground">{t.experience.contentio.location}</span>
+              </div>
+              <p className="text-accent font-medium mb-1">{t.experience.contentio.role}</p>
+              <p className="text-sm text-muted-foreground mb-4">{t.experience.contentio.period}</p>
+              <p className="text-muted-foreground">{t.experience.contentio.desc}</p>
+            </div>
+          </AnimatedSection>
+
+          {/* iMark Private Limited */}
+          <AnimatedSection delay={0.8} className="mt-16">
+            <div className="mb-6">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                    <img src="/imark-logo.webp" alt="iMark Private Limited" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-2xl font-bold">{t.experience.imark.company}</h3>
+                    <a href="https://www.imarkdigital.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">imarkdigital.com</a>
+                  </div>
+                </div>
+                <span className="text-sm text-muted-foreground">{t.experience.imark.location}</span>
+              </div>
+              <p className="text-primary font-medium mb-1">{t.experience.imark.role}</p>
+              <p className="text-sm text-muted-foreground mb-4">{t.experience.imark.period}</p>
+              <p className="text-muted-foreground">{t.experience.imark.desc}</p>
+            </div>
+          </AnimatedSection>
+
+          {/* Budhanilkantha Education Services */}
+          <AnimatedSection delay={0.9} className="mt-16">
+            <div className="mb-6">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                    <img src="/budhanilkantha_education_services_logo.webp" alt="Budhanilkantha Education Services" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
+                  </div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.tutor.company}</h3>
+                </div>
+                <span className="text-sm text-muted-foreground">{t.experience.tutor.location}</span>
+              </div>
+              <p className="text-accent font-medium mb-1">{t.experience.tutor.role}</p>
+              <p className="text-sm text-muted-foreground mb-4">{t.experience.tutor.period}</p>
+              <p className="text-muted-foreground">{t.experience.tutor.desc}</p>
             </div>
           </AnimatedSection>
         </div>
@@ -1975,7 +1932,7 @@ function App() {
 
                   {/* Tech badges */}
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {['Claude Code', 'Airtable', 'Shopify', 'Make.com', 'Bash', 'MCP'].map((tech) => (
+                    {['LangGraph', 'RAG', 'Qdrant', 'FastAPI', 'Docker', 'AWS'].map((tech) => (
                       <span key={tech} className="px-2 py-1 rounded-md text-xs bg-gold/10 text-gold border border-gold/20">{tech}</span>
                     ))}
                   </div>
@@ -2478,23 +2435,26 @@ function App() {
               LinkedIn Posts
             </h3>
           </AnimatedSection>
-          {t.linkedinPosts.items.length > 0 ? (
-            <div className="grid md:grid-cols-3 gap-6">
-              {t.linkedinPosts.items.map((post: { hook: string; reactions: string; comments: string; url: string }, i: number) => (
+          {t.linkedinPosts.embeds.length > 0 ? (
+            <div className="grid gap-4">
+              {t.linkedinPosts.embeds.map((post: { hook: string; reactions: string; comments: string; url: string }, i: number) => (
                 <AnimatedSection key={`li-${i}`} delay={0.25 + i * 0.1}>
                   <a
                     href={post.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex flex-col p-5 rounded-2xl bg-card border border-border/50 border-t-2 border-t-[hsl(var(--linkedin))] hover:border-border transition-colors group h-full"
+                    className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 border-l-4 border-l-[hsl(var(--linkedin))] hover:border-border hover:shadow-md transition-all group"
                   >
-                    <div className="flex gap-3 flex-1">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm text-foreground leading-relaxed">{post.hook}<span className="text-muted-foreground">...</span></p>
+                    <div className="flex items-start gap-3 flex-1 min-w-0">
+                      <div className="w-10 h-10 rounded-full bg-[hsl(var(--linkedin))]/10 flex items-center justify-center shrink-0">
+                        <LinkedInLogo className="w-5 h-5 text-[hsl(var(--linkedin))]" />
                       </div>
-                      <LinkedInLogo className="w-4 h-4 text-[hsl(var(--linkedin))] shrink-0 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-muted-foreground mb-1.5 font-medium">Scopic · Reposted</p>
+                        <p className="text-sm text-foreground leading-relaxed line-clamp-3">{post.hook}</p>
+                      </div>
                     </div>
-                    <div className="mt-4 pt-3 border-t border-border/50 flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-2 text-xs text-muted-foreground shrink-0 pl-13 sm:pl-0">
                       <span className="flex items-center gap-1.5">
                         <ThumbsUp className="w-3.5 h-3.5" />
                         {post.reactions}
@@ -2503,7 +2463,7 @@ function App() {
                         <MessageCircle className="w-3.5 h-3.5" />
                         {post.comments}
                       </span>
-                      <span className="ml-auto text-[hsl(var(--linkedin))] group-hover:underline flex items-center gap-1.5 transition-colors">
+                      <span className="ml-auto sm:ml-0 text-[hsl(var(--linkedin))] group-hover:underline flex items-center gap-1 transition-colors font-medium">
                         {t.linkedinPosts.cta}
                         <ExternalLink className="w-3 h-3" aria-hidden="true" />
                       </span>
@@ -2637,6 +2597,10 @@ function App() {
                   <span>{t.skills.english}</span>
                   <span className="text-sm text-muted-foreground">{t.skills.professional}</span>
                 </div>
+                <div className="flex justify-between items-center">
+                  <span>{t.skills.hindi}</span>
+                  <span className="text-sm text-muted-foreground">{t.skills.hindiLevel}</span>
+                </div>
               </div>
 
               <h3 className="font-display font-semibold mb-4 mt-8">{t.skills.soft}</h3>
@@ -2700,22 +2664,16 @@ function App() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.1}>
-            <ContactForm email={t.email} successMsg={t.cta.formSuccess} errorMsg={t.cta.formError} />
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.2}>
-            <div className="mt-8 text-center">
-              <p className="text-sm text-muted-foreground mb-4">Or reach out directly:</p>
-              <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
+              <a
+                href={`mailto:${t.email}`}
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200 text-sm font-medium shadow-lg hover:shadow-xl"
+              >
+                <Mail className="w-5 h-5" />
+                {t.email}
+              </a>
                 <a
-                  href={`mailto:${t.email}`}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
-                >
-                  <Mail className="w-4 h-4" />
-                  {t.email}
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/subash-pandey-73a120168"
+                  href="https://www.linkedin.com/in/notsubash/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-[hsl(var(--linkedin))]/50 transition-colors duration-200 hover:bg-[hsl(var(--linkedin))]/5 text-sm"
@@ -2735,7 +2693,6 @@ function App() {
                   <ExternalLink className="w-3 h-3" aria-hidden="true" />
                 </a>
               </div>
-            </div>
           </AnimatedSection>
 
           <p className="mt-12 text-xs text-muted-foreground text-center">

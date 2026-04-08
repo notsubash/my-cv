@@ -113,11 +113,15 @@ export const translations = {
             'LangGraph',
             'LangFuse',
             'Prompt Engineering',
+            'NLP',
+            'LLM Finetuning',
+            'GenAI Evaluation',
+            'LLMOps',
           ],
         },
         {
           name: 'ML / Data Science',
-          items: ['scikit-learn', 'XGBoost', 'Pandas', 'NumPy', 'Gephi'],
+          items: ['scikit-learn', 'XGBoost', 'Pandas', 'NumPy', 'Gephi', 'MLOps'],
         },
         {
           name: 'Dev',
@@ -128,6 +132,7 @@ export const translations = {
             'Node.js',
             'React',
             'Git',
+            'Stripe',
           ],
         },
         {
@@ -255,7 +260,19 @@ export const translations = {
         exitDesc: '',
         trustedBy: {
           label: 'Tech Stack',
-          logos: [] as { name: string; icon?: string; src?: string }[],
+          logos: [
+            { name: 'Python' },
+            { name: 'LangGraph' },
+            { name: 'LangFuse' },
+            { name: 'TypeScript' },
+            { name: 'Node.js' },
+            { name: 'FastAPI' },
+            { name: 'Docker' },
+            { name: 'AWS' },
+            { name: 'GCP' },
+            { name: 'Redis' },
+            { name: 'MySQL' },
+          ] as { name: string; icon?: string; src?: string }[],
         },
         businessOS: {
           title: 'GenAI Sales Chatbot',
@@ -356,12 +373,32 @@ export const translations = {
           title: '',
           desc: '',
         },
-        // Testimonial format: { quote: "Full testimonial text...", author: "Name", role: "Title at Company" }
         testimonial: {
           quote: '',
           author: '',
           role: '',
         },
+      },
+      contentio: {
+        company: 'Contentio Lab Pvt. Ltd.',
+        location: 'Kathmandu, Nepal',
+        role: 'Data Analyst',
+        period: 'Aug 2021 - Apr 2022',
+        desc: 'Analysed large datasets using Python to identify trends and patterns. Created data visualisations using Matplotlib and Seaborn. Developed data pipelines leading to 20% reduction in processing time. Supported data-driven decisions across marketing and sales via customer segmentation and churn prediction.',
+      },
+      imark: {
+        company: 'iMark Private Limited',
+        location: 'Kathmandu, Nepal',
+        role: 'Frontend Intern',
+        period: 'Oct 2020 - Jan 2021',
+        desc: 'Developed a to-do web application using React.js with task creation, management, and completion features. Implemented a CRUD backend for data persistence. Integrated secure login component using React for user authentication.',
+      },
+      tutor: {
+        company: 'Budhanilkantha Education Services',
+        location: 'Kathmandu, Nepal',
+        role: 'Tutor',
+        period: 'Oct 2018 - Apr 2019',
+        desc: 'Tutored A-Level Computer Science. Helped failing students obtain passing grades. Developed personalised lesson plans and provided targeted exam preparation strategies.',
       },
     },
     linkedinPosts: {
@@ -370,6 +407,26 @@ export const translations = {
       emptyState: 'Posts coming soon — follow me on LinkedIn',
       profileUrl: 'https://www.linkedin.com/in/notsubash/',
       items: [] as { hook: string; reactions: string; comments: string; url: string }[],
+      embeds: [
+        {
+          url: 'https://www.linkedin.com/feed/update/urn:li:activity:7424081279224074240/',
+          hook: "Our Machine Learning Engineer Subash Pandey shared his 5-point checklist for debugging prompts during vibe coding. Fix vagueness, force formats, limit scope, seed style, and restate goals",
+          reactions: '19',
+          comments: '1',
+        },
+      ],
+    },
+    recommendations: {
+      title: 'Recommendations',
+      items: [
+        {
+          quote: "I had the opportunity to work with Subash as an AI consultant on an early-stage AI project, and his expertise was invaluable. He helped my team and me navigate our initial AI strategy, clarify our approach, and identify the right areas to prioritize. His ability to break down complex concepts into actionable steps made the process smooth and insightful. I'd recommend him to anyone looking for guidance on ML/AI strategy or implementation!",
+          author: 'Akash Raghuvanshi',
+          role: 'AI Product Leader | Driving AI Agents & ML Workflows for Enterprise Products',
+          date: 'August 27, 2025',
+          source: 'LinkedIn',
+        },
+      ],
     },
     publications: {
       title: 'Publications',
@@ -433,21 +490,21 @@ export const translations = {
           title: 'AWS Certified Machine Learning Specialty 2024 - Hands On!',
           org: 'Udemy',
           logo: 'udemy',
-          url: 'https://www.udemy.com/certificate/UC-ac23b6a5-0c1c-4f2a-843a-67c0d7e79b',
+          url: 'https://www.udemy.com/certificate/UC-ac23b6a5-0c1c-4f2a-843a-67c0d7e79b07/',
         },
         {
           year: '2024',
           title: 'Jira Project Management',
           org: 'Great Learning',
           logo: 'greatlearning',
-          url: '',
+          url: 'https://www.mygreatlearning.com/certificate/BKJKLQRT',
         },
         {
           year: '2024',
           title: 'AWS SageMaker',
           org: 'Great Learning',
           logo: 'greatlearning',
-          url: '',
+          url: 'https://verify.mygreatlearning.com/verify/WVUELMBV',
         },
       ],
     },
@@ -458,6 +515,8 @@ export const translations = {
       native: 'Native',
       english: 'English',
       professional: 'C1 Proficient',
+      hindi: 'Hindi',
+      hindiLevel: 'C2 / B2 Proficient',
       technical: 'Technical Skills',
       soft: 'Soft Skills',
       softSkills: [
