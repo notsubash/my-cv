@@ -154,6 +154,9 @@ export const translations = {
           desc: 'Classified human physical activities (walking, jogging, sitting, typing, etc.) using XGBoost on accelerometer and gyroscope data from smartphones and watches. Hyperparameter tuning via random search achieved >85% accuracy.',
           tech: ['XGBoost', 'Python', 'scikit-learn', 'Feature Engineering'],
           link: 'github.com/notsubash/Activity-Recognition',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/notsubash/Activity-Recognition', icon: 'github' },
+          ],
         },
         {
           title: 'Steam Video Game ML',
@@ -162,6 +165,11 @@ export const translations = {
           desc: 'Explored the evolution of game genres on Steam using network analysis. Identified emergent sub-genres, influential genre nodes, and key drivers of player engagement including ratings, achievements, and pricing models.',
           tech: ['NetworkX', 'Python', 'Gephi', 'Data Analysis'],
           link: 'github.com/notsubash/Game-Genre-Network-Analysis',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/notsubash/Game-Genre-Network-Analysis', icon: 'github' },
+            { label: 'Paper', url: 'https://zenodo.org/records/17621070', icon: 'fileText' },
+            { label: 'Video', url: 'https://www.youtube.com/watch?v=IjWUKT-kXw4', icon: 'video' },
+          ],
         },
         {
           title: 'Wikipedia Adminship',
@@ -170,6 +178,10 @@ export const translations = {
           desc: "Investigated social network dynamics within Wikipedia's administrator election process. Calculated centrality measures, performed community detection via hierarchical clustering, and analyzed voting blocs.",
           tech: ['NetworkX', 'Python', 'Community Detection', 'Clustering'],
           link: 'github.com/notsubash/WikiVoteNetworkAnalysis',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/notsubash/WikiVoteNetworkAnalysis', icon: 'github' },
+            { label: 'Video', url: 'https://www.youtube.com/watch?v=DywRZz8iRAo', icon: 'video' },
+          ],
         },
         {
           title: 'Stock Variables Analysis',
@@ -178,6 +190,9 @@ export const translations = {
           desc: 'Exploratory data analysis of stock prices across exchanges. Identified significant variables affecting closing prices through correlation analysis, regression, feature selection, and data clustering.',
           tech: ['Python', 'Pandas', 'Matplotlib', 'Regression'],
           link: 'github.com/notsubash/stock-variables',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/notsubash/stock-variables', icon: 'github' },
+          ],
         },
         {
           title: 'Floki eCommerce',
@@ -186,6 +201,9 @@ export const translations = {
           desc: 'Full-stack e-commerce application built with the MERN stack. Features include product browsing, searching, filtering, cart management, user authentication, order processing, and payment integration with Redux state management.',
           tech: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Redux'],
           link: 'github.com/notsubash/Floki-eCommerce',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/notsubash/Floki-eCommerce', icon: 'github' },
+          ],
         },
       ],
       saPlaybook: {
@@ -322,6 +340,7 @@ export const translations = {
         role: 'AI/ML Engineer',
         period: 'Jul 2024 - Nov 2024',
         desc: 'Designed and developed chatbots for Banking, Travel, and Customer Support use cases. Implemented RAG and multi-agent frameworks for enhanced responses. Integrated databases and knowledge sources. Deployed interactive web chat applications.',
+        // Testimonial format: { quote: "Full testimonial text...", author: "Name", role: "Title at Company" }
         testimonial: {
           quote: '',
           author: '',
@@ -337,6 +356,7 @@ export const translations = {
           title: '',
           desc: '',
         },
+        // Testimonial format: { quote: "Full testimonial text...", author: "Name", role: "Title at Company" }
         testimonial: {
           quote: '',
           author: '',
@@ -347,9 +367,35 @@ export const translations = {
     linkedinPosts: {
       title: 'Writing',
       cta: 'View on LinkedIn',
+      emptyState: 'Posts coming soon — follow me on LinkedIn',
+      profileUrl: 'https://www.linkedin.com/in/notsubash/',
       items: [] as { hook: string; reactions: string; comments: string; url: string }[],
     },
-    redditPosts: [] as { hook: string; upvotes: string; comments: string; subreddit: string; cta: string; url: string }[],
+    publications: {
+      title: 'Publications',
+      items: [
+        {
+          year: '2023',
+          title: 'Machine Learning the Steam Video Game Database',
+          org: 'University of Exeter',
+          desc: 'Explored the evolution of game genres on Steam using network analysis and machine learning. MSc thesis.',
+          links: [
+            { label: 'Paper', url: 'https://zenodo.org/records/17621070', icon: 'fileText' },
+            { label: 'Video', url: 'https://www.youtube.com/watch?v=IjWUKT-kXw4', icon: 'video' },
+            { label: 'GitHub', url: 'https://github.com/notsubash/Game-Genre-Network-Analysis', icon: 'github' },
+          ],
+        },
+        {
+          year: '2023',
+          title: 'Wikipedia Adminship Network Analysis',
+          org: 'University of Exeter',
+          desc: "Investigated social network dynamics within Wikipedia's administrator election process using centrality measures and community detection.",
+          links: [
+            { label: 'Video', url: 'https://www.youtube.com/watch?v=DywRZz8iRAo', icon: 'video' },
+          ],
+        },
+      ],
+    },
     speaking: {
       title: 'Sharing',
       slides: 'Slides',
@@ -381,7 +427,29 @@ export const translations = {
     },
     certifications: {
       title: 'Certifications',
-      items: [] as { year: string; title: string; org: string; logo: string; url: string }[],
+      items: [
+        {
+          year: '2024',
+          title: 'AWS Certified Machine Learning Specialty 2024 - Hands On!',
+          org: 'Udemy',
+          logo: 'udemy',
+          url: 'https://www.udemy.com/certificate/UC-ac23b6a5-0c1c-4f2a-843a-67c0d7e79b',
+        },
+        {
+          year: '2024',
+          title: 'Jira Project Management',
+          org: 'Great Learning',
+          logo: 'greatlearning',
+          url: '',
+        },
+        {
+          year: '2024',
+          title: 'AWS SageMaker',
+          org: 'Great Learning',
+          logo: 'greatlearning',
+          url: '',
+        },
+      ],
     },
     skills: {
       title: 'Skills',
@@ -404,8 +472,12 @@ export const translations = {
     },
     cta: {
       title: "Let's talk",
-      desc: "I'm an AI/ML engineer looking to contribute to a team-oriented environment where I can build meaningful AI solutions. Open to remote and on-site opportunities.",
+      desc: "I'm an AI/ML engineer looking to contribute to a team-oriented environment where I can build meaningful AI solutions. Currently seeking remote roles in the APAC timezone.",
       contact: 'Contact',
+      linkedin: 'LinkedIn',
+      formSuccess: "Thanks, I'll get back to you!",
+      formError: 'Something went wrong. Please try emailing me directly.',
+      availability: 'Open to remote opportunities · APAC timezone',
     },
     ui: {
       languageBanner: '',

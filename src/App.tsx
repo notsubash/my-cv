@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, BadgeCheck, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, Shield, FileText, GitBranch, GitFork, Star, Terminal, Lock, Network, Calendar, Percent, UserCheck, Image, TrendingUp, Timer, SkipForward, ThumbsUp, MessageCircle, Share2, ChevronRight, List, ArrowUp, Bot } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, BadgeCheck, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, Shield, FileText, GitBranch, GitFork, Star, Terminal, Lock, Network, Calendar, Percent, UserCheck, Image, TrendingUp, Timer, SkipForward, ThumbsUp, MessageCircle, Share2, ChevronRight, List, Bot, Video, BookOpen, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
 import { translations, seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
@@ -1359,8 +1359,125 @@ function CertLogo({ logo }: { logo: string }) {
         <path d="M12.815 4.085L9.85 19.108a.576.576 0 00.453.677l4.095.826c.314.063.62-.14.681-.454l2.964-15.022a.577.577 0 00-.453-.677l-4.096-.827a.577.577 0 00-.68.454z" fill="url(#make-fill-2)"/>
       </svg>
     ),
+    udemy: (
+      <svg viewBox="0 0 24 24" className="w-6 h-6" fill="#A435F0" aria-hidden="true">
+        <path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.104 24 11.973 24s3.269-.482 4.448-1.474c1.152-.991 1.741-2.384 1.741-4.234v-8.144l-3.573 2.053v5.58c0 .589-.214 1.071-.615 1.474-.4.376-.91.589-1.527.589-.616 0-1.126-.213-1.527-.589-.401-.376-.615-.885-.615-1.474v-5.58z"/>
+      </svg>
+    ),
+    greatlearning: (
+      <svg viewBox="0 0 24 24" className="w-6 h-6" fill="#2D8CFF" aria-hidden="true">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+    ),
   }
   return logos[logo] || null
+}
+
+function ContactForm({ email, successMsg, errorMsg }: { email: string; successMsg: string; errorMsg: string }) {
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setStatus('submitting')
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    try {
+      // TODO: Replace with your Web3Forms or Formspree endpoint
+      // Web3Forms: https://web3forms.com — sign up for free, get an access key
+      // Then replace the URL and add: data.append('access_key', 'YOUR_ACCESS_KEY')
+      // Formspree: https://formspree.io — replace URL with https://formspree.io/f/YOUR_FORM_ID
+      const response = await fetch(`https://formspree.io/f/placeholder`, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      })
+
+      if (response.ok) {
+        setStatus('success')
+        form.reset()
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  if (status === 'success') {
+    return (
+      <div className="max-w-lg mx-auto p-8 rounded-2xl bg-card border border-emerald-500/30 text-center">
+        <CheckCircle className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
+        <p className="text-lg font-medium text-foreground">{successMsg}</p>
+      </div>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="max-w-lg mx-auto space-y-4">
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="contact-name" className="block text-sm font-medium text-foreground mb-1.5">Name</label>
+          <input
+            id="contact-name"
+            type="text"
+            name="name"
+            required
+            className="w-full px-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
+            placeholder="Your name"
+          />
+        </div>
+        <div>
+          <label htmlFor="contact-email" className="block text-sm font-medium text-foreground mb-1.5">Email</label>
+          <input
+            id="contact-email"
+            type="email"
+            name="email"
+            required
+            className="w-full px-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
+            placeholder="you@company.com"
+          />
+        </div>
+      </div>
+      <div>
+        <label htmlFor="contact-subject" className="block text-sm font-medium text-foreground mb-1.5">Subject</label>
+        <input
+          id="contact-subject"
+          type="text"
+          name="subject"
+          required
+          className="w-full px-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
+          placeholder="What's this about?"
+        />
+      </div>
+      <div>
+        <label htmlFor="contact-message" className="block text-sm font-medium text-foreground mb-1.5">Message</label>
+        <textarea
+          id="contact-message"
+          name="message"
+          required
+          rows={5}
+          className="w-full px-4 py-2.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors resize-y"
+          placeholder="Your message..."
+        />
+      </div>
+      {status === 'error' && (
+        <div className="flex items-center gap-2 text-sm text-red-400">
+          <AlertCircle className="w-4 h-4" />
+          {errorMsg} <a href={`mailto:${email}`} className="underline">{email}</a>
+        </div>
+      )}
+      <button
+        type="submit"
+        disabled={status === 'submitting'}
+        className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:brightness-110 hover:shadow-lg hover:shadow-primary/25 active:brightness-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <Send className="w-4 h-4" />
+        {status === 'submitting' ? 'Sending...' : 'Send Message'}
+      </button>
+    </form>
+  )
 }
 
 function App() {
@@ -1407,7 +1524,7 @@ function App() {
                 {/* Inner border */}
                 <div className="absolute inset-2 rounded-full bg-gradient-theme-50 p-[2px]">
                   <div className="w-full h-full rounded-full overflow-hidden">
-                    <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="(max-width: 768px) 160px, 192px" alt="Santiago Fernández de Valderrama" className="w-full h-full object-cover" width={192} height={192} fetchPriority="high" />
+                    <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="(max-width: 768px) 160px, 192px" alt="Subash Pandey" className="w-full h-full object-cover" width={192} height={192} fetchPriority="high" />
                   </div>
                 </div>
               </div>
@@ -1451,6 +1568,19 @@ function App() {
                   </span>
                 ))}
               </div>
+
+              {/* Availability Banner */}
+              <motion.div
+                initial={hydrated ? { opacity: 0, y: 10 } : false}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="mt-4 flex justify-center md:justify-start"
+              >
+                <span className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 beam-pill">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  {t.cta.availability}
+                </span>
+              </motion.div>
             </motion.div>
           </div>
 
@@ -1630,10 +1760,12 @@ function App() {
                     )
                   })}
                 </ul>
-                <Link to={t.experience.santifer.jacobo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                  <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-all duration-200">{t.experience.santifer.jacobo.soldWith}</span>
-                  <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                </Link>
+                {t.experience.santifer.jacobo.caseStudyUrl && t.experience.santifer.jacobo.soldWith && (
+                  <Link to={t.experience.santifer.jacobo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
+                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-all duration-200">{t.experience.santifer.jacobo.soldWith}</span>
+                    <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
+                  </Link>
+                )}
               </div>
             </AnimatedSection>
 
@@ -1664,10 +1796,12 @@ function App() {
                     )
                   })}
                 </ul>
-                <Link to={t.experience.santifer.webSeo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta">
-                  <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-all duration-200">{t.experience.santifer.webSeo.codeAvailable}</span>
-                  <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                </Link>
+                {t.experience.santifer.webSeo.caseStudyUrl && t.experience.santifer.webSeo.codeAvailable && (
+                  <Link to={t.experience.santifer.webSeo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta">
+                    <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-all duration-200">{t.experience.santifer.webSeo.codeAvailable}</span>
+                    <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
+                  </Link>
+                )}
               </div>
             </AnimatedSection>
 
@@ -1685,67 +1819,62 @@ function App() {
 
             {/* ERP card */}
             <AnimatedSection delay={0.3}>
-              <Link to={t.experience.santifer.erp.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
                 <Database className="w-5 h-5 text-primary mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.erp.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.erp.desc}</p>
-                <div className="flex items-center justify-between mt-auto pt-3">
+                <div className="flex items-center mt-auto pt-3">
                   <span className="text-xs font-medium text-primary">{t.experience.santifer.erp.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
 
             {/* GPTs card */}
             <AnimatedSection delay={0.35}>
-              <Link to={t.experience.santifer.gpts.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
                 <Bot className="w-5 h-5 text-accent mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.gpts.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.gpts.desc}</p>
-                <div className="flex items-center justify-between mt-auto pt-3">
+                <div className="flex items-center mt-auto pt-3">
                   <span className="text-xs font-medium text-primary">{t.experience.santifer.gpts.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
 
             {/* Reservas card */}
             <AnimatedSection delay={0.4}>
-              <Link to={t.experience.santifer.reservas.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
                 <Timer className="w-5 h-5 text-primary mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.reservas.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.reservas.desc}</p>
-                <div className="flex items-center justify-between mt-auto pt-3">
+                <div className="flex items-center mt-auto pt-3">
                   <span className="text-xs font-medium text-accent">{t.experience.santifer.reservas.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
 
             {/* CRM card */}
             <AnimatedSection delay={0.45}>
-              <Link to={t.experience.santifer.crm.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
                 <Users className="w-5 h-5 text-accent mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.crm.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.crm.desc}</p>
-                <div className="flex items-center justify-between mt-auto pt-3">
+                <div className="flex items-center mt-auto pt-3">
                   <span className="text-xs font-medium text-primary">{t.experience.santifer.crm.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
 
             {/* GenAI Marketing card */}
             <AnimatedSection delay={0.5}>
-              <Link to={t.experience.santifer.genAI.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
                 <Sparkles className="w-5 h-5 text-primary mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.genAI.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.genAI.desc}</p>
-                <div className="flex items-center justify-between mt-auto pt-3">
+                <div className="flex items-center mt-auto pt-3">
                   <span className="text-xs font-medium text-accent">{t.experience.santifer.genAI.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
           </div>
 
@@ -1764,6 +1893,12 @@ function App() {
               <p className="text-accent font-medium mb-1">{t.experience.lico.role}</p>
               <p className="text-sm text-muted-foreground mb-4">{t.experience.lico.period}</p>
               <p className="text-muted-foreground">{t.experience.lico.desc}</p>
+              {t.experience.lico.testimonial.quote && (
+                <blockquote className="mt-4 pl-4 border-l-2 border-accent/50 italic text-sm text-muted-foreground">
+                  <p>"{t.experience.lico.testimonial.quote}"</p>
+                  <footer className="mt-1 text-xs not-italic">— {t.experience.lico.testimonial.author}, {t.experience.lico.testimonial.role}</footer>
+                </blockquote>
+              )}
             </div>
           </AnimatedSection>
 
@@ -1781,6 +1916,12 @@ function App() {
               <p className="text-primary font-medium mb-1">{t.experience.everis.role}</p>
               <p className="text-sm text-muted-foreground mb-2">{t.experience.everis.period}</p>
               <p className="text-muted-foreground">{t.experience.everis.desc}</p>
+              {t.experience.everis.testimonial.quote && (
+                <blockquote className="mt-4 pl-4 border-l-2 border-primary/50 italic text-sm text-muted-foreground">
+                  <p>"{t.experience.everis.testimonial.quote}"</p>
+                  <footer className="mt-1 text-xs not-italic">— {t.experience.everis.testimonial.author}, {t.experience.everis.testimonial.role}</footer>
+                </blockquote>
+              )}
             </div>
           </AnimatedSection>
         </div>
@@ -1877,6 +2018,7 @@ function App() {
           {/* Projects Grid with Dependency Lines */}
           {(() => {
             // Tipo para proyecto
+            type ProjectLink = { label: string; url: string; icon: string }
             type Project = {
               title: string
               badge: string
@@ -1884,6 +2026,7 @@ function App() {
               desc: string
               tech: readonly string[]
               link: string
+              links?: readonly ProjectLink[]
               isDependency?: boolean
               dependencyRole?: string
               caseStudyUrl?: string
@@ -2070,7 +2213,45 @@ function App() {
                         <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                       </Link>
                     )}
-                    {project.link && (
+                    {project.links && project.links.length > 0 ? (
+                      <div className="flex flex-wrap items-center gap-2">
+                        {project.links.map((pl, li) => {
+                          const plIcons: Record<string, React.ReactNode> = {
+                            github: <Github className="w-3.5 h-3.5" />,
+                            fileText: <FileText className="w-3.5 h-3.5" />,
+                            video: <Video className="w-3.5 h-3.5" />,
+                          }
+                          return (
+                            <a
+                              key={li}
+                              href={pl.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                                isTool
+                                  ? 'bg-tool/10 text-tool hover:bg-tool/20'
+                                  : 'bg-primary/10 text-primary hover:bg-primary/20'
+                              }`}
+                            >
+                              {plIcons[pl.icon] || <ExternalLink className="w-3.5 h-3.5" />}
+                              {pl.label}
+                            </a>
+                          )
+                        })}
+                        {project.stars && (
+                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Star className="w-3.5 h-3.5 text-yellow-500" />
+                            {project.stars}
+                          </span>
+                        )}
+                        {project.forks && (
+                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <GitFork className="w-3.5 h-3.5" />
+                            {project.forks}
+                          </span>
+                        )}
+                      </div>
+                    ) : project.link ? (
                       <div className="flex items-center gap-3">
                         <a
                           href={`https://${project.link}`}
@@ -2092,20 +2273,8 @@ function App() {
                             </>
                           )}
                         </a>
-                        {project.stars && (
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Star className="w-3.5 h-3.5 text-yellow-500" />
-                            {project.stars}
-                          </span>
-                        )}
-                        {project.forks && (
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <GitFork className="w-3.5 h-3.5" />
-                            {project.forks}
-                          </span>
-                        )}
                       </div>
-                    )}
+                    ) : null}
                   </div>
                 </div>
               )
@@ -2212,7 +2381,7 @@ function App() {
         </div>
       </section>
 
-      {/* Sharing — Teaching + LinkedIn */}
+      {/* Sharing — Publications + LinkedIn */}
       <section id="speaking" className="py-16 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
@@ -2224,29 +2393,51 @@ function App() {
             </h2>
           </AnimatedSection>
 
-          {/* Teaching / Speaking cards */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {t.speaking.items.map((talk: { year: string; event: string; eventUrl: string; title: string; desc: string; pdf: string; featured?: boolean; materialUrl?: string; materialLabel?: string }, i: number) => (
-              <AnimatedSection key={i} delay={0.1 + i * 0.1}>
-                {talk.featured ? (
-                  <div className="relative rounded-2xl p-[1.5px] bg-gradient-theme h-full">
-                    <div className="p-6 rounded-[calc(1rem-1.5px)] bg-card h-full flex flex-col">
-                      <span className="text-xs text-primary font-medium">
-                        {talk.year} · {talk.eventUrl ? (
-                          <a href={talk.eventUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                            {talk.event} <ExternalLink className="w-3 h-3 inline" aria-hidden="true" />
-                          </a>
-                        ) : talk.event}
-                      </span>
-                      <h3 className="font-display font-bold mt-2 text-gradient-theme">{talk.title}</h3>
-                      <p className="text-sm text-muted-foreground mt-2 flex-1">{talk.desc}</p>
-                      <span className="mt-4 inline-flex items-center gap-2 text-xs text-muted-foreground/60">
-                        <Lock className="w-3.5 h-3.5" />
-                        {t.speaking.comingSoon}
-                      </span>
-                    </div>
+          {/* Publications */}
+          <AnimatedSection delay={0.1}>
+            <h3 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-accent" />
+              {t.publications.title}
+            </h3>
+          </AnimatedSection>
+          <div className="grid md:grid-cols-2 gap-6 mb-10">
+            {t.publications.items.map((pub, i) => (
+              <AnimatedSection key={i} delay={0.15 + i * 0.1}>
+                <div className="p-6 rounded-2xl bg-card border border-border hover:border-accent/30 transition-colors duration-200 group h-full flex flex-col">
+                  <span className="text-xs text-accent font-medium">{pub.year} · {pub.org}</span>
+                  <h4 className="font-display font-bold mt-2 group-hover:text-accent transition-colors">{pub.title}</h4>
+                  <p className="text-sm text-muted-foreground mt-2 flex-1">{pub.desc}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {pub.links.map((link, j) => {
+                      const linkIcons: Record<string, React.ReactNode> = {
+                        fileText: <FileText className="w-3.5 h-3.5" />,
+                        video: <Video className="w-3.5 h-3.5" />,
+                        github: <Github className="w-3.5 h-3.5" />,
+                      }
+                      return (
+                        <a
+                          key={j}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent/10 text-xs text-muted-foreground hover:text-accent hover:bg-accent/20 transition-colors"
+                        >
+                          {linkIcons[link.icon] || <ExternalLink className="w-3.5 h-3.5" />}
+                          {link.label}
+                        </a>
+                      )
+                    })}
                   </div>
-                ) : (
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+
+          {/* Teaching / Speaking cards */}
+          {t.speaking.items.length > 0 && (
+            <div className="grid md:grid-cols-2 gap-6 mb-10">
+              {t.speaking.items.map((talk: { year: string; event: string; eventUrl: string; title: string; desc: string; pdf: string; featured?: boolean; materialUrl?: string; materialLabel?: string }, i: number) => (
+                <AnimatedSection key={i} delay={0.1 + i * 0.1}>
                   <div className="p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 group h-full flex flex-col">
                     <span className="text-xs text-primary font-medium">
                       {talk.year} · {talk.eventUrl ? (
@@ -2259,143 +2450,83 @@ function App() {
                     <p className="text-sm text-muted-foreground mt-2 flex-1">{talk.desc}</p>
                     <div className="mt-4 flex flex-wrap gap-3">
                       {talk.pdf && (
-                        <a
-                          href={talk.pdf}
-                          download
-                          className="inline-flex items-center gap-2 text-xs text-primary hover:underline"
-                        >
+                        <a href={talk.pdf} download className="inline-flex items-center gap-2 text-xs text-primary hover:underline">
                           <Download className="w-4 h-4" />
                           {t.speaking.slides}
                         </a>
                       )}
                       {talk.materialUrl && (
-                        <Link
-                          to={talk.materialUrl}
-                          className="inline-flex items-center gap-2 text-xs text-primary hover:underline"
-                        >
+                        <Link to={talk.materialUrl} className="inline-flex items-center gap-2 text-xs text-primary hover:underline">
                           <FileText className="w-4 h-4" />
                           {talk.materialLabel || 'Material'}
                         </Link>
                       )}
                     </div>
                   </div>
-                )}
-              </AnimatedSection>
-            ))}
-          </div>
+                </AnimatedSection>
+              ))}
+            </div>
+          )}
 
           {/* Separator */}
           <div className="my-10 border-t border-border/40" />
 
-          {/* Reddit Posts */}
-          {t.redditPosts?.map((rp, i) => (
-            <AnimatedSection key={rp.url} delay={0.15 + i * 0.1}>
-              <div className="mb-4">
-                <a
-                  href={rp.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col p-5 rounded-2xl bg-card border border-border/50 border-t-2 border-t-[#FF4500] hover:border-border transition-colors group"
-                >
-                  <div className="flex gap-3">
-                    <img src="/foto-avatar.webp" alt="" role="presentation" width={384} height={384} className="w-10 h-10 rounded-full shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-start gap-2">
-                        <p className="text-sm text-foreground leading-relaxed">{rp.hook}<span className="text-muted-foreground">...</span> <span className="text-[#FF4500] group-hover:text-[#FF4500] transition-colors">ver más</span></p>
-                        <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0 mt-0.5" fill="#FF4500">
-                          <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-border/50 flex items-center gap-4 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1.5">
-                      <ArrowUp className="w-3.5 h-3.5" />
-                      {rp.upvotes}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      {rp.comments}
-                    </span>
-                    <span className="text-muted-foreground/60">{rp.subreddit}</span>
-                    <span className="ml-auto text-[#FF4500] group-hover:underline flex items-center gap-1.5 transition-colors">
-                      {rp.cta}
-                      <ExternalLink className="w-3 h-3" aria-hidden="true" />
-                    </span>
-                  </div>
-                </a>
-              </div>
-            </AnimatedSection>
-          ))}
-
           {/* LinkedIn Posts */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {t.linkedinPosts.items.map((post: { hook: string; reactions: string; comments: string; url: string }, i: number) => (
-              <AnimatedSection key={`li-${i}`} delay={0.2 + i * 0.1}>
+          <AnimatedSection delay={0.2}>
+            <h3 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
+              <LinkedInLogo className="w-5 h-5" />
+              LinkedIn Posts
+            </h3>
+          </AnimatedSection>
+          {t.linkedinPosts.items.length > 0 ? (
+            <div className="grid md:grid-cols-3 gap-6">
+              {t.linkedinPosts.items.map((post: { hook: string; reactions: string; comments: string; url: string }, i: number) => (
+                <AnimatedSection key={`li-${i}`} delay={0.25 + i * 0.1}>
+                  <a
+                    href={post.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col p-5 rounded-2xl bg-card border border-border/50 border-t-2 border-t-[hsl(var(--linkedin))] hover:border-border transition-colors group h-full"
+                  >
+                    <div className="flex gap-3 flex-1">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-foreground leading-relaxed">{post.hook}<span className="text-muted-foreground">...</span></p>
+                      </div>
+                      <LinkedInLogo className="w-4 h-4 text-[hsl(var(--linkedin))] shrink-0 mt-0.5" />
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-border/50 flex items-center gap-4 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1.5">
+                        <ThumbsUp className="w-3.5 h-3.5" />
+                        {post.reactions}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        {post.comments}
+                      </span>
+                      <span className="ml-auto text-[hsl(var(--linkedin))] group-hover:underline flex items-center gap-1.5 transition-colors">
+                        {t.linkedinPosts.cta}
+                        <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                      </span>
+                    </div>
+                  </a>
+                </AnimatedSection>
+              ))}
+            </div>
+          ) : (
+            <AnimatedSection delay={0.25}>
+              <div className="p-8 rounded-2xl bg-card border border-dashed border-border/60 text-center">
+                <LinkedInLogo className="w-8 h-8 text-[hsl(var(--linkedin))] mx-auto mb-3" />
+                <p className="text-muted-foreground mb-4">{t.linkedinPosts.emptyState}</p>
                 <a
-                  href={post.url}
+                  href={t.linkedinPosts.profileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col p-5 rounded-2xl bg-card border border-border/50 border-t-2 border-t-[hsl(var(--linkedin))] hover:border-border transition-colors group h-full"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[hsl(var(--linkedin))]/10 text-[hsl(var(--linkedin))] font-medium text-sm hover:bg-[hsl(var(--linkedin))]/20 transition-colors"
                 >
-                  <div className="flex gap-3 flex-1">
-                    <img src="/foto-avatar.webp" alt="" role="presentation" width={384} height={384} className="w-10 h-10 rounded-full shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-start gap-2">
-                        <p className="text-sm text-foreground leading-relaxed">{post.hook}<span className="text-muted-foreground">...</span> <span className="text-[hsl(var(--linkedin))] group-hover:text-[hsl(var(--linkedin))] transition-colors">ver más</span></p>
-                        <LinkedInLogo className="w-4 h-4 text-[hsl(var(--linkedin))] shrink-0 mt-0.5" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-border/50 flex items-center gap-4 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1.5">
-                      <ThumbsUp className="w-3.5 h-3.5" />
-                      {post.reactions}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <MessageCircle className="w-3.5 h-3.5" />
-                      {post.comments}
-                    </span>
-                    <span className="ml-auto text-[hsl(var(--linkedin))] group-hover:text-[hsl(var(--linkedin))] group-hover:underline flex items-center gap-1.5 transition-colors">
-                      {t.linkedinPosts.cta}
-                      <ExternalLink className="w-3 h-3" aria-hidden="true" />
-                    </span>
-                  </div>
+                  <LinkedInLogo className="w-4 h-4" />
+                  Follow on LinkedIn
+                  <ExternalLink className="w-3 h-3" aria-hidden="true" />
                 </a>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          {/* AI Fluency Educator card */}
-          {t.speaking.aiFluency && (
-            <AnimatedSection delay={0.3}>
-              <div className="mt-16 p-6 rounded-2xl bg-gradient-to-br from-accent/10 to-primary/10 border border-accent/20">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center shrink-0">
-                    <GraduationCap className="w-6 h-6 text-accent" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2 flex-wrap">
-                      <h3 className="font-display font-bold">{t.speaking.aiFluency.title}</h3>
-                      <span className="badge px-2 py-0.5 bg-accent/10 text-accent text-xs">{t.speaking.aiFluency.badge}</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-4">{t.speaking.aiFluency.desc}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {t.speaking.aiFluency.certs.map((cert: { title: string; url: string }, i: number) => (
-                        <a
-                          key={i}
-                          href={cert.url}
-                          target="_blank"
-                          rel="noopener noreferrer nofollow"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent/10 text-xs text-muted-foreground hover:text-accent hover:bg-accent/20 transition-colors"
-                        >
-                          <BadgeCheck className="w-3.5 h-3.5" />
-                          {cert.title}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
               </div>
             </AnimatedSection>
           )}
@@ -2450,16 +2581,16 @@ function App() {
 
               <div className="space-y-1 rounded-xl overflow-hidden border border-border">
                 {t.certifications.items.map((cert, i) => {
-                  // Alternate background by logical group: 0-3 tech, 4-7 fluency, 8-10 airtable, 11 make
-                  const group = i < 4 ? 0 : i < 8 ? 1 : i < 11 ? 2 : 3
-                  const isAlt = group % 2 === 1
+                  const isAlt = i % 2 === 1
+                  const Wrapper = cert.url ? 'a' : 'div'
+                  const wrapperProps = cert.url
+                    ? { href: cert.url, target: '_blank', rel: 'noopener noreferrer nofollow' }
+                    : {}
                   return (
                   <AnimatedSection key={i} delay={0.1 + i * 0.05}>
-                    <a
-                      href={cert.url}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className={`flex items-center gap-4 p-4 hover:border-accent/30 transition-colors duration-200 group cursor-pointer ${isAlt ? 'bg-muted/40' : 'bg-card'}`}
+                    <Wrapper
+                      {...wrapperProps}
+                      className={`flex items-center gap-4 p-4 hover:border-accent/30 transition-colors duration-200 group ${cert.url ? 'cursor-pointer' : ''} ${isAlt ? 'bg-muted/40' : 'bg-card'}`}
                     >
                       <span className="text-sm font-mono text-accent font-medium">{cert.year}</span>
                       <div className="flex-1">
@@ -2469,7 +2600,7 @@ function App() {
                       <div className="opacity-60 group-hover:opacity-100 transition-opacity">
                         <CertLogo logo={cert.logo} />
                       </div>
-                    </a>
+                    </Wrapper>
                   </AnimatedSection>
                   )
                 })}
@@ -2547,43 +2678,67 @@ function App() {
         </div>
       </section>
 
-      {/* Footer CTA */}
+      {/* Footer CTA + Contact Form */}
       <footer id="contact" className="relative py-16 md:py-24">
-        {/* Vignette horizontal — zona limpia central, puntos en bordes */}
         <div className="absolute inset-0 pointer-events-none" style={{
           background: 'linear-gradient(90deg, transparent 0%, hsl(var(--background)) 25%, hsl(var(--background)) 75%, transparent 100%)',
         }} />
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-5xl mx-auto px-6">
           <AnimatedSection>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              {t.cta.title}
-            </h2>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              {t.cta.desc}
-            </p>
-          </AnimatedSection>
-          <AnimatedSection delay={0.1}>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href={`mailto:${t.email}`}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:brightness-110 hover:shadow-lg hover:shadow-primary/25 active:brightness-95 transition-all duration-200"
-              >
-                <Mail className="w-4 h-4" />
-                {t.cta.contact}
-              </a>
-              <a
-                href="https://github.com/notsubash"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5"
-              >
-                <Github className="w-4 h-4" />
-                GitHub
-                <ExternalLink className="w-3 h-3" aria-hidden="true" />
-              </a>
+            <div className="text-center mb-10">
+              <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
+                {t.cta.title}
+              </h2>
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                {t.cta.desc}
+              </p>
+              <span className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <MapPin className="w-3 h-3" />
+                {t.cta.availability}
+              </span>
             </div>
           </AnimatedSection>
-          <p className="mt-12 text-xs text-muted-foreground">
+
+          <AnimatedSection delay={0.1}>
+            <ContactForm email={t.email} successMsg={t.cta.formSuccess} errorMsg={t.cta.formError} />
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2}>
+            <div className="mt-8 text-center">
+              <p className="text-sm text-muted-foreground mb-4">Or reach out directly:</p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <a
+                  href={`mailto:${t.email}`}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+                >
+                  <Mail className="w-4 h-4" />
+                  {t.email}
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/subash-pandey-73a120168"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-[hsl(var(--linkedin))]/50 transition-colors duration-200 hover:bg-[hsl(var(--linkedin))]/5 text-sm"
+                >
+                  <LinkedInLogo className="w-4 h-4" />
+                  {t.cta.linkedin}
+                  <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                </a>
+                <a
+                  href="https://github.com/notsubash"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+                >
+                  <Github className="w-4 h-4" />
+                  GitHub
+                  <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                </a>
+              </div>
+            </div>
+          </AnimatedSection>
+
+          <p className="mt-12 text-xs text-muted-foreground text-center">
             &copy; {new Date().getFullYear()} Subash Pandey
             <span className="mx-2 text-border">|</span>
             <Link to="/privacy" className="hover:text-primary transition-colors">
