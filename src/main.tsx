@@ -2,6 +2,7 @@ import { StrictMode, lazy, Suspense, useState, useEffect, useRef, type ReactNode
 import { hydrateRoot, createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import './index.css'
 import App from './App.tsx'
 import GlobalNav from './GlobalNav.tsx'
@@ -93,6 +94,7 @@ const app = (
         </Suspense>
       </PageTransition>
       <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   </StrictMode>
 )
