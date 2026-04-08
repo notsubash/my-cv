@@ -30,9 +30,13 @@ function TechBadge({ name }: { name: string }) {
   return (
     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs bg-muted text-foreground">
       {icon && (
-        <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
-          <path d={icon.path} />
-        </svg>
+        icon.src ? (
+          <img src={icon.src} alt="" className="w-3.5 h-3.5 shrink-0 object-contain" width={14} height={14} loading="lazy" />
+        ) : icon.path ? (
+          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
+            <path d={icon.path} />
+          </svg>
+        ) : null
       )}
       {name}
     </span>

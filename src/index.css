@@ -83,28 +83,28 @@ button, a, [role="button"], summary { cursor: pointer; }
     --background: 210 12% 96%;
     --foreground: 210 20% 6%;
     --muted: 210 10% 88%;
-    --muted-foreground: 210 8% 30%;
-    --primary: 200 80% 38%;
+    --muted-foreground: 210 12% 18%;
+    --primary: 200 80% 34%;
     --primary-foreground: 0 0% 100%;
-    --accent: 174 62% 32%;
+    --accent: 174 65% 28%;
     --accent-foreground: 0 0% 100%;
-    --border: 210 10% 85%;
+    --border: 210 12% 78%;
     --card: 0 0% 100%;
     --card-foreground: 210 20% 6%;
     --gradient-from: 200 85% 50%;  /* blue */
     --gradient-to: 174 72% 42%;    /* teal */
-    --gold: 43 76% 38%;
-    --success: 142 72% 29%;
-    --tool: 200 72% 38%;
-    --linkedin: 210 91% 40%;
+    --gold: 43 80% 32%;
+    --success: 142 72% 26%;
+    --tool: 200 72% 34%;
+    --linkedin: 210 91% 36%;
     --codeblock: 210 17% 95%;
     --codeblock-text: 215 25% 17%;
     --code-keyword: 200 60% 40%;
     --code-string: 25 70% 45%;
-    --code-comment: 210 10% 55%;
+    --code-comment: 210 10% 45%;
     --code-number: 30 70% 45%;
-    --code-heading: 174 60% 35%;
-    --code-var: 200 50% 45%;
+    --code-heading: 174 60% 30%;
+    --code-var: 200 50% 40%;
     --hero-orb-primary: 200 80% 38% / 0.15;
     --hero-orb-accent: 174 62% 32% / 0.12;
     --dot-grid: 210 5% 35% / 0.25;
@@ -180,20 +180,20 @@ button, a, [role="button"], summary { cursor: pointer; }
     --background: 210 12% 96%;
     --foreground: 210 20% 6%;
     --muted: 210 10% 88%;
-    --muted-foreground: 210 8% 30%;
-    --primary: 200 80% 38%;
+    --muted-foreground: 210 12% 18%;
+    --primary: 200 80% 34%;
     --primary-foreground: 0 0% 100%;
-    --accent: 174 62% 32%;
+    --accent: 174 65% 28%;
     --accent-foreground: 0 0% 100%;
-    --border: 210 10% 85%;
+    --border: 210 12% 78%;
     --card: 0 0% 100%;
     --card-foreground: 210 20% 6%;
     --gradient-from: 200 85% 50%;
     --gradient-to: 174 72% 42%;
-    --gold: 43 76% 38%;
-    --success: 142 72% 29%;
-    --tool: 200 72% 38%;
-    --linkedin: 210 91% 40%;
+    --gold: 43 80% 32%;
+    --success: 142 72% 26%;
+    --tool: 200 72% 34%;
+    --linkedin: 210 91% 36%;
     --hero-orb-primary: 200 80% 38% / 0.15;
     --hero-orb-accent: 174 62% 32% / 0.12;
     --dot-grid: 210 5% 35% / 0.25;
@@ -462,6 +462,55 @@ button, a, [role="button"], summary { cursor: pointer; }
   }
   .shadow-gradient {
     --tw-shadow-color: hsl(var(--gradient-to) / 0.25);
+  }
+}
+
+/* Data-flow divider — gradient sweep like signal through a pipeline */
+@keyframes data-flow {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.divider-flow {
+  position: relative;
+  overflow: hidden;
+}
+
+.divider-flow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--primary) / 0.5) 45%,
+    hsl(var(--accent) / 0.7) 50%,
+    hsl(var(--primary) / 0.5) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: data-flow 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .divider-flow::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Card hover lift — subtle scale + shadow on interactive cards */
+.card-hover {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px hsl(var(--primary) / 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-hover:hover {
+    transform: none;
   }
 }
 

@@ -422,6 +422,20 @@ function AnimatedSection({ children, className = '', delay = 0 }: { children: Re
   )
 }
 
+function SectionIcon({ children, accent = false }: { children: React.ReactNode, accent?: boolean }) {
+  return (
+    <motion.div
+      initial={{ scale: 0, rotate: -90 }}
+      whileInView={{ scale: 1, rotate: 0 }}
+      viewport={{ once: true, margin: '-20px' }}
+      transition={{ type: 'spring', stiffness: 260, damping: 20, duration: 0.5 }}
+      className={`w-10 h-10 rounded-lg flex items-center justify-center ${accent ? 'bg-accent/10' : 'bg-primary/10'}`}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 // Parsea texto con marcadores de highlight:
 // *texto* = Tipo B: gradiente durante typewriter (frase activa), luego normal
 // +texto+ = Tipo C: normal durante typewriter, gradiente en encendido final
@@ -542,7 +556,7 @@ function renderHighlightedText(
 
   // Opacity states - SEPARADOS para cada tipo
   // Texto normal y Tipo B: atenuados, luego quedan en segundo plano (opacity-50)
-  const textOpacity = dimmed ? (revealed ? 'opacity-50' : 'opacity-15') : 'opacity-100'
+  const textOpacity = dimmed ? (revealed ? 'opacity-90' : 'opacity-15') : 'opacity-100'
   // Tipo C: atenuados hasta que finalReveal=true (se encienden ANTES que el resto)
   const isFinalLowOpacity = dimmed && !finalReveal
 
@@ -585,8 +599,9 @@ function renderHighlightedText(
         parts.push(
           <span key={`${baseKey}w${wIdx}`} className="inline-grid">
             <span
-              className={`col-start-1 row-start-1 font-medium transition-opacity ${timing} ${gOp}`}
+              className={`font-medium transition-opacity ${timing} ${gOp}`}
               style={{
+                gridColumn: 1, gridRow: 1,
                 backgroundImage: 'linear-gradient(to right, hsl(var(--gradient-from)), hsl(var(--gradient-to)))',
                 backgroundSize: `${bgSize}% 100%`,
                 backgroundPosition: `${bgPos}% 0`,
@@ -595,7 +610,11 @@ function renderHighlightedText(
                 color: 'transparent',
               }}
             >{word}</span>
-            <span className={`col-start-1 row-start-1 text-muted-foreground transition-opacity ${timing} ${normalOpacity}`}>{word}</span>
+            <span
+              className={`text-muted-foreground transition-opacity ${timing} ${normalOpacity}`}
+              style={{ gridColumn: 1, gridRow: 1, userSelect: 'none' }}
+              aria-hidden="true"
+            >{word}</span>
           </span>
         )
         charPos += word.length
@@ -1201,13 +1220,13 @@ function StorySection({ t }: { t: typeof translations['en'] }) {
   }, [typewriterComplete])
 
   return (
-    <section ref={sectionRef} id="about" className="relative py-16 md:py-24">
+    <section ref={sectionRef} id="about" className="relative py-10 md:py-24">
       {/* Vignette horizontal: tapa puntos en el centro, se ven en los bordes */}
       <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'linear-gradient(90deg, transparent 0%, hsl(var(--background)) 25%, hsl(var(--background)) 75%, transparent 100%)',
+        background: 'linear-gradient(90deg, transparent 0%, hsl(var(--background)) 15%, hsl(var(--background)) 85%, transparent 100%)',
       }} />
       {/* Fade vertical: transparente arriba → fondo sólido abajo */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background to-background pointer-events-none" />
       <div className="relative z-10 max-w-5xl mx-auto px-6">
         {/* Hook emocional con typewriter reflexivo + botón skip */}
         <div className="relative pb-12">
@@ -1262,7 +1281,7 @@ function StorySection({ t }: { t: typeof translations['en'] }) {
             animate={typewriterComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
             transition={{ duration: 0.6, delay: typewriterComplete ? 0.1 : 0, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <p className={`text-base md:text-lg text-muted-foreground leading-relaxed text-center max-w-3xl mx-auto transition-opacity duration-[2500ms] ease-in-out ${textDimmed ? (textRevealed ? 'opacity-50' : 'opacity-15') : 'opacity-100'}`}>
+            <p className={`text-base md:text-lg text-muted-foreground leading-relaxed text-center max-w-3xl mx-auto transition-opacity duration-[2500ms] ease-in-out ${textDimmed ? (textRevealed ? 'opacity-90' : 'opacity-15') : 'opacity-100'}`}>
               {t.story.why}
             </p>
           </motion.div>
@@ -1272,7 +1291,7 @@ function StorySection({ t }: { t: typeof translations['en'] }) {
               // Spotlight: lines 0 and 2 light up with finalReveal, line 1 stays as background
               const isSpotlit = i === 0 || i === 2
               const dimOpacity = textDimmed
-                ? (isSpotlit ? (finalReveal ? 'opacity-100' : 'opacity-15') : (textRevealed ? 'opacity-50' : 'opacity-15'))
+                ? (isSpotlit ? (finalReveal ? 'opacity-100' : 'opacity-15') : (textRevealed ? 'opacity-90' : 'opacity-15'))
                 : 'opacity-100'
 
               return (
@@ -1365,9 +1384,14 @@ function CertLogo({ logo }: { logo: string }) {
       </svg>
     ),
     greatlearning: (
-      <svg viewBox="0 0 24 24" className="w-6 h-6" fill="#2D8CFF" aria-hidden="true">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-      </svg>
+      <img
+        src="/great_learning.svg"
+        alt=""
+        className="w-6 h-6 object-contain"
+        width={24}
+        height={24}
+        loading="lazy"
+      />
     ),
   }
   return logos[logo] || null
@@ -1484,13 +1508,13 @@ function App() {
       <StorySection t={t} />
 
       {/* Experience - Con preámbulo de competencias */}
-      <section id="experience" className="py-16 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
+      <section id="experience" className="py-10 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <SectionIcon>
                 <Briefcase className="w-5 h-5 text-primary" />
-              </div>
+              </SectionIcon>
               {t.experience.title}
             </h2>
           </AnimatedSection>
@@ -1518,21 +1542,36 @@ function App() {
             </div>
           </AnimatedSection>
 
+          {/* Current divider */}
+          <AnimatedSection delay={0.1} className="mb-8">
+            <div className="flex items-center gap-4">
+              <div className="h-px flex-1 bg-border divider-flow" />
+              <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-emerald-400 shrink-0">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                </span>
+                {t.experience.currentLabel}
+              </span>
+              <div className="h-px flex-1 bg-border divider-flow" />
+            </div>
+          </AnimatedSection>
+
           {/* Scopic Software LLC */}
           <AnimatedSection delay={0.1}>
             <div className="mb-12">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
-                    <img src="/scopic_software_logo.webp" alt="Scopic Software" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold">{t.experience.santifer.company}</h3>
-                    <a href="https://scopicsoftware.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">scopicsoftware.com</a>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                  <img src="/scopic_software_logo.webp" alt="Scopic Software" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.santifer.company}</h3>
+                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
+                    <a href="https://scopicsoftware.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">scopicsoftware.com</a>
+                    <span className="text-border">·</span>
+                    <span>{t.experience.santifer.location}</span>
                   </div>
                 </div>
-                
-                <span className="text-sm text-muted-foreground">{t.experience.santifer.location}</span>
               </div>
               <p className="text-primary font-medium mb-1">{t.experience.santifer.role}</p>
               <p className="text-sm text-muted-foreground mb-4">{t.experience.santifer.period}</p>
@@ -1556,9 +1595,13 @@ function App() {
                         {'src' in logo && logo.src ? (
                           <img src={logo.src} alt={logo.name} className="h-5 w-auto shrink-0 invert opacity-60 hover:opacity-80 dark:invert-0 dark:opacity-70 dark:hover:opacity-90" loading="lazy" width={20} height={20} />
                         ) : techIcon ? (
-                          <svg viewBox="0 0 24 24" fill={techIcon.color} className="w-5 h-5 shrink-0 opacity-70" aria-hidden="true">
-                            <path d={techIcon.path} />
-                          </svg>
+                          techIcon.src ? (
+                            <img src={techIcon.src} alt="" className="w-5 h-5 shrink-0 object-contain opacity-70" width={20} height={20} loading="lazy" />
+                          ) : techIcon.path ? (
+                            <svg viewBox="0 0 24 24" fill={techIcon.color} className="w-5 h-5 shrink-0 opacity-70" aria-hidden="true">
+                              <path d={techIcon.path} />
+                            </svg>
+                          ) : null
                         ) : null}
                         <span className="text-sm font-medium opacity-60 dark:opacity-70">{logo.name}</span>
                       </div>
@@ -1716,7 +1759,7 @@ function App() {
 
             {/* ERP card */}
             <AnimatedSection delay={0.3}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
                 <Database className="w-5 h-5 text-primary mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.erp.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.erp.desc}</p>
@@ -1728,7 +1771,7 @@ function App() {
 
             {/* GPTs card */}
             <AnimatedSection delay={0.35}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
                 <Bot className="w-5 h-5 text-accent mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.gpts.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.gpts.desc}</p>
@@ -1740,7 +1783,7 @@ function App() {
 
             {/* Reservas card */}
             <AnimatedSection delay={0.4}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
                 <Timer className="w-5 h-5 text-primary mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.reservas.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.reservas.desc}</p>
@@ -1752,7 +1795,7 @@ function App() {
 
             {/* CRM card */}
             <AnimatedSection delay={0.45}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
                 <Users className="w-5 h-5 text-accent mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.crm.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.crm.desc}</p>
@@ -1764,7 +1807,7 @@ function App() {
 
             {/* GenAI Marketing card */}
             <AnimatedSection delay={0.5}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
                 <Sparkles className="w-5 h-5 text-primary mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.genAI.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.genAI.desc}</p>
@@ -1775,20 +1818,30 @@ function App() {
             </AnimatedSection>
           </div>
 
+          {/* Previous Experience divider */}
+          <AnimatedSection delay={0.45} className="mt-16 mb-10">
+            <div className="flex items-center gap-4">
+              <div className="h-px flex-1 bg-border divider-flow" />
+              <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground shrink-0">{t.experience.previousLabel}</span>
+              <div className="h-px flex-1 bg-border divider-flow" />
+            </div>
+          </AnimatedSection>
+
           {/* Peace Nepal Dot Com */}
-          <AnimatedSection delay={0.5} className="mt-16">
+          <AnimatedSection delay={0.5}>
             <div className="mb-6">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
-                    <img src="/peace_nepal_dot_com_logo.webp" alt="Peace Nepal Dot Com" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold">{t.experience.lico.company}</h3>
-                    <a href="https://peacenepal.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">peacenepal.com</a>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                  <img src="/peace_nepal_dot_com_logo.webp" alt="Peace Nepal Dot Com" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.lico.company}</h3>
+                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
+                    <a href="https://peacenepal.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">peacenepal.com</a>
+                    <span className="text-border">·</span>
+                    <span>{t.experience.lico.location}</span>
                   </div>
                 </div>
-                <span className="text-sm text-muted-foreground">{t.experience.lico.location}</span>
               </div>
               <p className="text-accent font-medium mb-1">{t.experience.lico.role}</p>
               <p className="text-sm text-muted-foreground mb-4">{t.experience.lico.period}</p>
@@ -1828,14 +1881,14 @@ function App() {
           {/* Contentio Lab */}
           <AnimatedSection delay={0.7} className="mt-16">
             <div className="mb-6">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-accent/10 flex items-center justify-center shrink-0">
-                    <TrendingUp className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.contentio.company}</h3>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-accent/10 flex items-center justify-center shrink-0">
+                  <TrendingUp className="w-5 h-5 text-accent" />
                 </div>
-                <span className="text-sm text-muted-foreground">{t.experience.contentio.location}</span>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.contentio.company}</h3>
+                  <span className="text-xs text-muted-foreground">{t.experience.contentio.location}</span>
+                </div>
               </div>
               <p className="text-accent font-medium mb-1">{t.experience.contentio.role}</p>
               <p className="text-sm text-muted-foreground mb-4">{t.experience.contentio.period}</p>
@@ -1846,17 +1899,18 @@ function App() {
           {/* iMark Private Limited */}
           <AnimatedSection delay={0.8} className="mt-16">
             <div className="mb-6">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
-                    <img src="/imark-logo.webp" alt="iMark Private Limited" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-2xl font-bold">{t.experience.imark.company}</h3>
-                    <a href="https://www.imarkdigital.com/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground hover:text-primary transition-colors">imarkdigital.com</a>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                  <img src="/imark-logo.webp" alt="iMark Private Limited" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.imark.company}</h3>
+                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
+                    <a href="https://www.imarkdigital.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">imarkdigital.com</a>
+                    <span className="text-border">·</span>
+                    <span>{t.experience.imark.location}</span>
                   </div>
                 </div>
-                <span className="text-sm text-muted-foreground">{t.experience.imark.location}</span>
               </div>
               <p className="text-primary font-medium mb-1">{t.experience.imark.role}</p>
               <p className="text-sm text-muted-foreground mb-4">{t.experience.imark.period}</p>
@@ -1867,14 +1921,14 @@ function App() {
           {/* Budhanilkantha Education Services */}
           <AnimatedSection delay={0.9} className="mt-16">
             <div className="mb-6">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
-                    <img src="/budhanilkantha_education_services_logo.webp" alt="Budhanilkantha Education Services" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
-                  </div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.tutor.company}</h3>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                  <img src="/budhanilkantha_education_services_logo.webp" alt="Budhanilkantha Education Services" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
                 </div>
-                <span className="text-sm text-muted-foreground">{t.experience.tutor.location}</span>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.tutor.company}</h3>
+                  <span className="text-xs text-muted-foreground">{t.experience.tutor.location}</span>
+                </div>
               </div>
               <p className="text-accent font-medium mb-1">{t.experience.tutor.role}</p>
               <p className="text-sm text-muted-foreground mb-4">{t.experience.tutor.period}</p>
@@ -1885,14 +1939,14 @@ function App() {
       </section>
 
       {/* Projects & Claude Code */}
-      <section id="projects" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
+      <section id="projects" className="py-10 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <div className="flex items-center justify-between mb-12">
               <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <SectionIcon>
                   <FolderGit2 className="w-5 h-5 text-primary" />
-                </div>
+                </SectionIcon>
                 {t.projects.title}
               </h2>
               <a
@@ -2339,13 +2393,13 @@ function App() {
       </section>
 
       {/* Sharing — Publications + LinkedIn */}
-      <section id="speaking" className="py-16 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
+      <section id="speaking" className="py-10 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <SectionIcon>
                 <Share2 className="w-5 h-5 text-primary" />
-              </div>
+              </SectionIcon>
               {t.speaking.title}
             </h2>
           </AnimatedSection>
@@ -2360,7 +2414,7 @@ function App() {
           <div className="grid md:grid-cols-2 gap-6 mb-10">
             {t.publications.items.map((pub, i) => (
               <AnimatedSection key={i} delay={0.15 + i * 0.1}>
-                <div className="p-6 rounded-2xl bg-card border border-border hover:border-accent/30 transition-colors duration-200 group h-full flex flex-col">
+                <div className="p-6 rounded-2xl bg-card border border-border hover:border-accent/30 transition-colors duration-200 group h-full flex flex-col card-hover">
                   <span className="text-xs text-accent font-medium">{pub.year} · {pub.org}</span>
                   <h4 className="font-display font-bold mt-2 group-hover:text-accent transition-colors">{pub.title}</h4>
                   <p className="text-sm text-muted-foreground mt-2 flex-1">{pub.desc}</p>
@@ -2494,16 +2548,16 @@ function App() {
       </section>
 
       {/* Education & Certifications */}
-      <section id="education" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}>
+      <section id="education" className="py-10 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Education */}
             <div>
               <AnimatedSection>
                 <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <SectionIcon>
                     <GraduationCap className="w-5 h-5 text-primary" />
-                  </div>
+                  </SectionIcon>
                   {t.education.title}
                 </h2>
               </AnimatedSection>
@@ -2511,7 +2565,7 @@ function App() {
               <div className="space-y-4">
                 {t.education.items.map((item, i) => (
                   <AnimatedSection key={i} delay={0.1 + i * 0.1}>
-                    <div className="p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 group">
+                    <div className="p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 group card-hover">
                       <div className="flex items-start justify-between">
                         <div>
                           <span className="text-xs text-primary font-medium">{item.year} · {item.org}</span>
@@ -2532,9 +2586,9 @@ function App() {
             <div>
               <AnimatedSection>
                 <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                  <SectionIcon accent>
                     <Award className="w-5 h-5 text-accent" />
-                  </div>
+                  </SectionIcon>
                   {t.certifications.title}
                 </h2>
               </AnimatedSection>
@@ -2571,13 +2625,13 @@ function App() {
       </section>
 
       {/* Skills */}
-      <section id="tech" className="py-16 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
+      <section id="tech" className="py-10 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-12 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <SectionIcon>
                 <Code className="w-5 h-5 text-primary" />
-              </div>
+              </SectionIcon>
               {t.skills.title}
             </h2>
           </AnimatedSection>
@@ -2616,21 +2670,32 @@ function App() {
             <AnimatedSection delay={0.2} className="md:col-span-3">
               <h3 className="font-display font-semibold mb-4">{t.techStack.title}</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {t.techStack.categories.map((cat) => (
-                  <div key={cat.name} className="p-4 rounded-xl bg-card border border-border">
+                {t.techStack.categories.map((cat, catIdx) => (
+                  <div key={cat.name} className="p-4 rounded-xl bg-card border border-border card-hover">
                     <span className="text-xs font-medium text-primary uppercase tracking-wide">{cat.name}</span>
                     <div className="flex flex-wrap gap-2 mt-3">
-                      {cat.items.map((item) => {
+                      {cat.items.map((item, itemIdx) => {
                         const icon = getTechIcon(item)
                         return (
-                          <span key={item} className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs bg-muted text-foreground">
+                          <motion.span
+                            key={item}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true, margin: '-40px' }}
+                            transition={{ duration: 0.3, delay: catIdx * 0.08 + itemIdx * 0.03 }}
+                            className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs bg-muted text-foreground"
+                          >
                             {icon && (
-                              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
-                                <path d={icon.path} />
-                              </svg>
+                              icon.src ? (
+                                <img src={icon.src} alt="" className="w-3.5 h-3.5 shrink-0 object-contain" width={14} height={14} loading="lazy" />
+                              ) : icon.path ? (
+                                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
+                                  <path d={icon.path} />
+                                </svg>
+                              ) : null
                             )}
                             {item}
-                          </span>
+                          </motion.span>
                         )
                       })}
                     </div>
@@ -2643,7 +2708,7 @@ function App() {
       </section>
 
       {/* Footer CTA + Contact Form */}
-      <footer id="contact" className="relative py-16 md:py-24">
+      <footer id="contact" className="relative py-10 md:py-24">
         <div className="absolute inset-0 pointer-events-none" style={{
           background: 'linear-gradient(90deg, transparent 0%, hsl(var(--background)) 25%, hsl(var(--background)) 75%, transparent 100%)',
         }} />
@@ -2673,7 +2738,7 @@ function App() {
                 {t.email}
               </a>
                 <a
-                  href="https://www.linkedin.com/in/notsubash/"
+                  href={t.linkedinPosts.profileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-[hsl(var(--linkedin))]/50 transition-colors duration-200 hover:bg-[hsl(var(--linkedin))]/5 text-sm"

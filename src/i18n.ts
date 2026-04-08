@@ -22,7 +22,7 @@ export const translations = {
           "*Building* +responsible AI solutions+.",
         ],
       ],
-      why: "At Scopic Software, I build and maintain AI-driven features — from AI receptionists to GenAI sales chatbots with RAG pipelines and evaluation frameworks.",
+      why: "At Scopic Software, I build and maintain AI-driven features: AI receptionists, GenAI sales chatbots with RAG pipelines, and evaluation frameworks.",
       seeking: [
         'Always learning, always building.',
         'Complex problems. Real-world impact.',
@@ -229,10 +229,10 @@ export const translations = {
     claudeCode: {
       title: 'AI/ML Toolkit',
       badge: 'Production Experience',
-      desc: 'My daily work involves building and maintaining AI-driven features in production — from conversational AI systems to evaluation pipelines that ensure quality and reliability.',
+      desc: 'My daily work involves building and maintaining AI-driven features in production, from conversational AI systems to evaluation pipelines that ensure quality and reliability.',
       highlights: [
         'RAG pipelines with LangGraph and Qdrant for lead qualification, intent detection, and user info extraction',
-        'LLM evaluation pipelines assessing chatbot and RAG performance — hallucination rate, accuracy, cost, latency',
+        'LLM evaluation pipelines assessing chatbot and RAG performance: hallucination rate, accuracy, cost, latency',
         'Audio feature extraction using Parselmouth, Librosa, and Praat for voice-based AI applications',
         'Full-stack AI services: question generation, grading logic, prompt engineering, and end-to-end GenAI integration',
       ],
@@ -240,6 +240,8 @@ export const translations = {
     },
     experience: {
       title: 'Work Experience',
+      currentLabel: 'Current',
+      previousLabel: 'Previous Experience',
       santifer: {
         company: 'Scopic Software LLC',
         location: 'Kathmandu, Nepal (Remote)',
@@ -310,7 +312,7 @@ export const translations = {
         webSeo: {
           title: 'Interviewer Platform AI Services',
           badge: 'GenAI Integration',
-          desc: 'Maintained and expanded the AI service layer of an interviewer platform — question generation, grading logic, prompt engineering, and end-to-end GenAI integration.',
+          desc: 'Maintained and expanded the AI service layer of an interviewer platform: question generation, grading logic, prompt engineering, and end-to-end GenAI integration.',
           items: [
             { icon: 'fileText', text: 'Various types of question generation' },
             { icon: 'image', text: 'Automated grading logic' },
@@ -340,7 +342,7 @@ export const translations = {
         },
         crm: {
           title: 'Evaluation Pipelines',
-          desc: 'Assessing RAG hallucination rate, chatbot accuracy, cost, latency — improving grounding fidelity',
+          desc: 'Assessing RAG hallucination rate, chatbot accuracy, cost, latency to improve grounding fidelity',
           metric: 'Quality',
           caseStudyUrl: '',
         },
@@ -404,8 +406,8 @@ export const translations = {
     linkedinPosts: {
       title: 'Writing',
       cta: 'View on LinkedIn',
-      emptyState: 'Posts coming soon — follow me on LinkedIn',
-      profileUrl: 'https://www.linkedin.com/in/notsubash/',
+      emptyState: 'Posts coming soon. Follow me on LinkedIn!',
+      profileUrl: 'https://www.linkedin.com/in/subash-pandey-73a120168',
       items: [] as { hook: string; reactions: string; comments: string; url: string }[],
       embeds: [
         {
@@ -478,7 +480,7 @@ export const translations = {
           year: '2019 - 2021',
           org: 'London Metropolitan University',
           title: 'BSc (Hons) Computing',
-          desc: 'Computer Science Fundamentals, Software Engineering, Databases, Networking, Cloud Computing. Thesis: Floki — An eCommerce Web Application. Grade: 2:1.',
+          desc: 'Computer Science Fundamentals, Software Engineering, Databases, Networking, Cloud Computing. Thesis: Floki, An eCommerce Web Application. Grade: 2:1.',
         },
       ],
     },
