@@ -9,6 +9,11 @@ import GlobalNav from './GlobalNav.tsx'
 
 const PrivacyPolicy = lazy(() => import('./PrivacyPolicy'))
 const AboutPage = lazy(() => import('./AboutPage'))
+const BlogPage = lazy(() => import('./BlogPage'))
+const BlogRagPipeline = lazy(() => import('./articles/blog-rag-pipeline'))
+const ActivityRecognition = lazy(() => import('./articles/activity-recognition'))
+const SteamML = lazy(() => import('./articles/steam-ml'))
+const WikipediaVoting = lazy(() => import('./articles/wikipedia-voting'))
 
 function PageTransition({ children }: { children: ReactNode }) {
   const location = useLocation()
@@ -88,7 +93,12 @@ const app = (
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/rag-pipeline" element={<BlogRagPipeline />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/projects/activity-recognition" element={<ActivityRecognition />} />
+            <Route path="/projects/steam-ml" element={<SteamML />} />
+            <Route path="/projects/wikipedia-voting" element={<WikipediaVoting />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

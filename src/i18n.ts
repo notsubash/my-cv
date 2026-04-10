@@ -159,6 +159,8 @@ export const translations = {
           desc: 'Classified human physical activities (walking, jogging, sitting, typing, etc.) using XGBoost on accelerometer and gyroscope data from smartphones and watches. Hyperparameter tuning via random search achieved >85% accuracy.',
           tech: ['XGBoost', 'Python', 'scikit-learn', 'Feature Engineering'],
           link: 'github.com/notsubash/Activity-Recognition',
+          caseStudyUrl: '/projects/activity-recognition',
+          caseStudyLabel: 'Read case study',
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/Activity-Recognition', icon: 'github' },
           ],
@@ -170,6 +172,8 @@ export const translations = {
           desc: 'Explored the evolution of game genres on Steam using network analysis. Identified emergent sub-genres, influential genre nodes, and key drivers of player engagement including ratings, achievements, and pricing models.',
           tech: ['NetworkX', 'Python', 'Gephi', 'Data Analysis'],
           link: 'github.com/notsubash/Game-Genre-Network-Analysis',
+          caseStudyUrl: '/projects/steam-ml',
+          caseStudyLabel: 'Read case study',
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/Game-Genre-Network-Analysis', icon: 'github' },
             { label: 'Paper', url: 'https://zenodo.org/records/17621070', icon: 'fileText' },
@@ -183,6 +187,8 @@ export const translations = {
           desc: "Investigated social network dynamics within Wikipedia's administrator election process. Calculated centrality measures, performed community detection via hierarchical clustering, and analyzed voting blocs.",
           tech: ['NetworkX', 'Python', 'Community Detection', 'Clustering'],
           link: 'github.com/notsubash/WikiVoteNetworkAnalysis',
+          caseStudyUrl: '/projects/wikipedia-voting',
+          caseStudyLabel: 'Read case study',
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/WikiVoteNetworkAnalysis', icon: 'github' },
             { label: 'Video', url: 'https://www.youtube.com/watch?v=DywRZz8iRAo', icon: 'video' },
@@ -427,6 +433,8 @@ export const translations = {
           role: 'AI Product Leader | Driving AI Agents & ML Workflows for Enterprise Products',
           date: 'August 27, 2025',
           source: 'LinkedIn',
+          url: 'https://www.linkedin.com/in/notsubash/details/recommendations/',
+          avatar: '/akash.webp',
         },
       ],
     },
@@ -539,6 +547,21 @@ export const translations = {
       formSuccess: "Thanks, I'll get back to you!",
       formError: 'Something went wrong. Please try emailing me directly.',
       availability: 'Open to remote opportunities · APAC timezone',
+    },
+    blog: {
+      title: 'Blog',
+      subtitle: 'Writing about ML, data, and things I learn along the way.',
+      readMore: 'Read post',
+      noPosts: 'First posts coming soon. Stay tuned.',
+      items: [
+        {
+          slug: 'rag-pipeline',
+          title: 'Building a Production RAG Pipeline: What I Learned the Hard Way',
+          date: 'April 2026',
+          summary: 'Practical lessons from building a LangGraph + Qdrant RAG pipeline for a real sales chatbot. Covers chunking strategy, hybrid retrieval, query rewriting, and hallucination prevention.',
+          tags: ['LangGraph', 'Qdrant', 'RAG', 'OpenAI', 'Python'],
+        },
+      ],
     },
     ui: {
       languageBanner: '',
