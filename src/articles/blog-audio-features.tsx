@@ -58,10 +58,10 @@ function PipelineDiagram() {
         <DiagramBox x={130} y={10} w={100} h={50} label="Load Audio" sublabel="librosa + soundfile" />
         <DiagramArrow x1={230} y1={35} x2={260} y2={35} />
 
-        <DiagramBox x={260} y={10} w={100} h={50} label="Power" sublabel="RMS · LUFS" accent />
-        <DiagramBox x={370} y={10} w={100} h={50} label="Pitch" sublabel="pyin · Praat" accent />
-        <DiagramBox x={260} y={70} w={100} h={50} label="Placement" sublabel="HNR · VLHR" accent />
-        <DiagramBox x={370} y={70} w={100} h={50} label="Pause" sublabel="Silence detect" accent />
+        <DiagramBox x={260} y={10} w={100} h={50} label="Loudness" sublabel="RMS · LUFS" accent />
+        <DiagramBox x={370} y={10} w={100} h={50} label="Frequency" sublabel="F0 tracking" accent />
+        <DiagramBox x={260} y={70} w={100} h={50} label="Quality" sublabel="Spectral balance" accent />
+        <DiagramBox x={370} y={70} w={100} h={50} label="Timing" sublabel="Silence detect" accent />
 
         <DiagramArrow x1={230} y1={45} x2={260} y2={95} />
         <DiagramArrow x1={360} y1={35} x2={370} y2={35} />
@@ -72,7 +72,7 @@ function PipelineDiagram() {
 
         <DiagramBox x={500} y={50} w={120} h={50} label="JSON Response" sublabel="Metrics + timeseries" />
       </svg>
-      <figcaption className="text-center text-xs text-muted-foreground mt-2">End-to-end: audio in, structured metrics out</figcaption>
+      <figcaption className="text-center text-xs text-muted-foreground mt-2">One possible pipeline: audio in, structured metrics out</figcaption>
     </figure>
   )
 }
@@ -117,7 +117,7 @@ function PlacementDiagram() {
 
         <DiagramBox x={140} y={5} w={120} h={50} label="STFT → HPSS" sublabel="Harmonic / Percussive" accent />
         <DiagramBox x={140} y={70} w={120} h={50} label="Bandpass Filter" sublabel="Semitone filterbank" accent />
-        <DiagramBox x={140} y={135} w={120} h={50} label="Welch PSD" sublabel="Hamming window" accent />
+        <DiagramBox x={140} y={135} w={120} h={50} label="Welch PSD" sublabel="Spectral energy" accent />
 
         <DiagramArrow x1={260} y1={30} x2={310} y2={30} />
         <DiagramArrow x1={260} y1={85} x2={310} y2={85} />
@@ -134,9 +134,9 @@ function PlacementDiagram() {
         <DiagramArrow x1={410} y1={110} x2={450} y2={95} />
         <DiagramArrow x1={410} y1={160} x2={450} y2={110} />
 
-        <DiagramBox x={450} y={55} w={100} h={70} label="Placement" sublabel="4 sub-metrics" accent />
+        <DiagramBox x={450} y={55} w={100} h={70} label="Voice Quality" sublabel="combined output" accent />
       </svg>
-      <figcaption className="text-center text-xs text-muted-foreground mt-2">Placement is the most complex category: three different signal decomposition methods</figcaption>
+      <figcaption className="text-center text-xs text-muted-foreground mt-2">Voice quality is the most complex dimension: three different signal decomposition methods</figcaption>
     </figure>
   )
 }
@@ -182,7 +182,7 @@ function WaveformViz() {
 function MetricsGrid() {
   const categories = [
     {
-      name: 'Power',
+      name: 'Loudness',
       color: 'hsl(var(--primary))',
       metrics: [
         { name: 'RMS Energy', desc: 'Frame-level amplitude' },
@@ -190,7 +190,7 @@ function MetricsGrid() {
       ]
     },
     {
-      name: 'Pitch',
+      name: 'Frequency',
       color: 'hsl(var(--accent))',
       metrics: [
         { name: 'F0 (pyin)', desc: 'Probabilistic fundamental freq' },
@@ -200,17 +200,16 @@ function MetricsGrid() {
       ]
     },
     {
-      name: 'Placement',
+      name: 'Voice Quality',
       color: 'hsl(var(--primary))',
       metrics: [
         { name: 'HNR', desc: 'Harmonic-to-noise via HPSS' },
-        { name: 'Nasal Nasalance', desc: '250-2000 Hz band energy %' },
-        { name: 'Oral Nasalance', desc: '500-5000 Hz band energy %' },
+        { name: 'Nasalance', desc: 'Band energy ratios' },
         { name: 'VLHR', desc: 'Low-to-high frequency ratio' },
       ]
     },
     {
-      name: 'Pause',
+      name: 'Timing',
       color: 'hsl(var(--accent))',
       metrics: [
         { name: 'Count', desc: 'Silences > threshold' },
@@ -238,16 +237,16 @@ function MetricsGrid() {
           </div>
         ))}
       </div>
-      <figcaption className="text-center text-xs text-muted-foreground mt-2">14 metrics across four categories, extracted per audio file</figcaption>
+      <figcaption className="text-center text-xs text-muted-foreground mt-2">Example metrics across four categories — the specific set depends on your use case</figcaption>
     </figure>
   )
 }
 
 export default function BlogAudioFeatures() {
   useBlogSeo({
-    title: 'Audio Feature Extraction for AI: From Parselmouth to Production',
-    description: 'How I built a speech analysis API that extracts pitch, power, voice placement, and pause metrics from audio using Parselmouth, librosa, and FastAPI. Covers dual pitch tracking, HPSS-based HNR, VLHR, and silence detection.',
-    keywords: 'audio feature extraction python, parselmouth praat python tutorial, librosa audio analysis, speech analysis api fastapi, pitch extraction pyin, harmonic to noise ratio hpss, voice quality metrics python, pyloudnorm lufs measurement, voice low to high ratio vlhr, pause detection pydub, speech coaching ai, audio signal processing python, fundamental frequency f0 extraction, nasalance measurement python, semitone filterbank librosa',
+    title: 'Audio Feature Extraction for AI: Designing an Audio Metrics Pipeline',
+    description: 'Techniques for extracting quantitative metrics from human voice recordings using Parselmouth, librosa, and Python. Covers pitch tracking, loudness measurement, spectral analysis, and silence detection.',
+    keywords: 'audio feature extraction python, parselmouth praat python tutorial, librosa audio analysis, speech analysis api fastapi, pitch extraction pyin, harmonic to noise ratio hpss, voice quality metrics python, pyloudnorm lufs measurement, voice low to high ratio vlhr, pause detection pydub, audio signal processing python, fundamental frequency f0 extraction, nasalance measurement python, semitone filterbank librosa',
     ogImage: '/og-blog-audio-features.webp',
     datePublished: '2026-04-10',
     slug: 'audio-feature-extraction',
@@ -274,10 +273,10 @@ export default function BlogAudioFeatures() {
             <span ref={readingTimeRef}>12 min read</span>
           </div>
           <h1 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-            Audio Feature Extraction for AI: From Parselmouth to Production
+            Audio Feature Extraction for AI: Designing an Audio Metrics Pipeline
           </h1>
           <p className="text-base text-muted-foreground leading-relaxed mb-5">
-            I built a speech analysis API for a coaching platform that needed to give users quantitative feedback on how they sound. Not subjective ratings, but actual numbers: pitch variability, loudness, harmonic quality, pause patterns. This post walks through how I pulled 14 voice metrics out of raw WAV files using Parselmouth, librosa, and a handful of scipy calls.
+            This post explores techniques for extracting quantitative metrics from human voice recordings. Not subjective ratings, but actual numbers: pitch variability, loudness, harmonic quality, pause patterns. The approach below shows how to pull a range of speech metrics out of WAV files using Parselmouth, librosa, and a handful of scipy calls.
           </p>
           <div className="flex flex-wrap gap-1.5">
             {['Parselmouth', 'librosa', 'FastAPI', 'Python', 'scipy', 'Audio ML'].map(tag => (
@@ -289,54 +288,58 @@ export default function BlogAudioFeatures() {
           </div>
         </header>
 
+        <div className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-xs text-muted-foreground mb-6">
+          This implementation is a personal reconstruction based on general audio processing techniques and publicly available libraries. It does not represent any proprietary system or production architecture.
+        </div>
+
         <hr className="border-border mb-10" />
 
         <div className="prose-custom space-y-8 text-sm text-muted-foreground leading-relaxed">
 
           <section>
-            <h2 id="overview" className="font-display text-lg font-semibold text-foreground mb-3">What this thing does</h2>
+            <h2 id="overview" className="font-display text-lg font-semibold text-foreground mb-3">The problem</h2>
             <p>
-              The platform records people practicing verbal responses (think sales training, interview prep, presentation coaching). A user uploads a WAV file, the API extracts a set of vocal metrics, and the frontend renders charts comparing their performance against a benchmark recording.
+              Analyzing the human voice is one of those areas where you can get surprisingly far with classical signal processing. No deep learning needed. Upload a voice recording, run some FFTs and autocorrelations, and you get metrics that are actually interpretable.
             </p>
             <p className="mt-3">
-              The metrics fall into four buckets: <strong className="text-foreground">power</strong> (how loud), <strong className="text-foreground">pitch</strong> (how high, how varied), <strong className="text-foreground">placement</strong> (voice resonance and quality), and <strong className="text-foreground">pause</strong> (silence patterns and rhythm). Each of those gets broken down further.
+              When analyzing the human voice, the metrics tend to cluster around a few dimensions: <strong className="text-foreground">loudness</strong> (how loud), <strong className="text-foreground">frequency</strong> (pitch height and variation), <strong className="text-foreground">voice quality</strong> (resonance and spectral balance), and <strong className="text-foreground">timing</strong> (silence patterns and rhythm). Each breaks down further.
             </p>
             <PipelineDiagram />
             <MetricsGrid />
           </section>
 
           <section>
-            <h2 id="power" className="font-display text-lg font-semibold text-foreground mb-3">Power: RMS and LUFS</h2>
+            <h2 id="loudness" className="font-display text-lg font-semibold text-foreground mb-3">Loudness: RMS and LUFS</h2>
             <p>
-              Power was the simplest category. Two metrics: frame-level <strong className="text-foreground">RMS energy</strong> for a timeseries view, and <strong className="text-foreground">integrated LUFS</strong> for a single-number loudness score.
+              Loudness is the simplest dimension. Two metrics: frame-level <strong className="text-foreground">RMS energy</strong> for a timeseries view, and <strong className="text-foreground">integrated LUFS</strong> for a single-number loudness score.
             </p>
             <p className="mt-3">
               RMS comes from <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">librosa.feature.rms</code> with a 512-sample frame length and 256-sample hop. That gives a smooth amplitude envelope you can plot over time. The hop length matters: too large and you lose transient detail, too small and the curve gets noisy without adding information.
             </p>
-            <CodeBlock lang="python" code={`y, sr = librosa.load(file_like)
+            <CodeBlock lang="python" code={`y, sr = librosa.load(path)
 rms = librosa.feature.rms(y=y, frame_length=512, hop_length=256, center=True)
 
-# LUFS needs the original sample rate
-data, rate = sf.read(file_like)
+# LUFS needs the original sample rate — load separately
+data, rate = sf.read(path)
 meter = pyln.Meter(rate)
 loudness = meter.integrated_loudness(data)`} />
             <p className="mt-3">
-              For perceived loudness, raw RMS isn't enough. LUFS (Loudness Units Full Scale) follows the ITU-R BS.1770 standard, which applies K-weighting to match human hearing perception. I used <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">pyloudnorm</code> for this. You feed it the audio signal loaded via <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">soundfile</code> (not librosa, because pyloudnorm expects the original sample rate) and get back a single integrated loudness number. A recording at -14 LUFS is conversational; -6 LUFS is someone yelling into the mic.
+              For perceived loudness, raw RMS isn't enough. LUFS (Loudness Units Full Scale) follows the ITU-R BS.1770 standard, which applies K-weighting to match human hearing perception. <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">pyloudnorm</code> handles this well. You feed it the audio signal loaded via <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">soundfile</code> (not librosa, because pyloudnorm expects the original sample rate) and get back a single integrated loudness number. A recording at -14 LUFS is conversational; -6 LUFS is someone yelling into the mic.
             </p>
             <p className="mt-3">
-              One thing that tripped me up early: <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">librosa.load</code> resamples everything to 22050 Hz by default. That is fine for feature extraction, but LUFS needs the original sample rate. I ended up loading the audio twice: once with librosa (resampled) for most processing, once with soundfile (native rate) for LUFS and Parselmouth.
+              One gotcha: <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">librosa.load</code> resamples everything to 22050 Hz by default. That is fine for feature extraction, but LUFS needs the original sample rate. This means loading the audio twice: once with librosa (resampled) for most processing, once with soundfile (native rate) for LUFS and Parselmouth.
             </p>
           </section>
 
           <section>
-            <h2 id="pitch" className="font-display text-lg font-semibold text-foreground mb-3">Pitch: two extractors, and why I kept both</h2>
+            <h2 id="frequency" className="font-display text-lg font-semibold text-foreground mb-3">Frequency: two pitch extractors, and why both matter</h2>
             <p>
-              Pitch extraction is the most studied problem in audio signal processing and there is still no single algorithm that works for everyone. I ended up running two pitch trackers on every file and returning both results.
+              Pitch extraction is the most studied problem in audio signal processing and there is still no single algorithm that works for everyone. Running two pitch trackers on every file and returning both results gives the most flexibility.
             </p>
 
             <h3 id="librosa-pyin" className="font-display text-base font-semibold text-foreground mt-6 mb-2">librosa pyin</h3>
             <p>
-              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">librosa.pyin</code> implements probabilistic YIN, which estimates fundamental frequency by autocorrelation with a probabilistic threshold. I set <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">fmin=C2</code> (~65 Hz) and <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">fmax=C5</code> (~523 Hz) to cover normal speaking range. The output includes NaN values for unvoiced frames (breaths, silence, consonants), which I filter out before computing statistics.
+              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">librosa.pyin</code> implements probabilistic YIN, which estimates fundamental frequency by autocorrelation with a probabilistic threshold. Setting <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">fmin=C2</code> (~65 Hz) and <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">fmax=C5</code> (~523 Hz) covers the normal speaking range. The output includes NaN values for unvoiced frames (breaths, silence, consonants), which I filter out before computing statistics.
             </p>
             <p className="mt-3">
               From the cleaned F0 series, three derived metrics: <strong className="text-foreground">mean F0</strong> (average speaking pitch), <strong className="text-foreground">pitch variability</strong> (standard deviation of F0, higher means more expressive), and <strong className="text-foreground">pitch range</strong> (max minus min, captures the full span of the voice).
@@ -354,24 +357,25 @@ pitch_range = np.max(f0_clean) - np.min(f0_clean)`} />
             </p>
             <CodeBlock lang="python" code={`sound = parselmouth.Sound(data, rate)
 pitch = sound.to_pitch()
-pm_f0 = pitch.selected_array['frequency']  # 0 Hz = unvoiced
-pm_variability = np.std(pm_f0)
-pm_range = np.max(pm_f0) - np.min(pm_f0)`} />
+pm_f0 = pitch.selected_array['frequency']
+pm_f0_voiced = pm_f0[pm_f0 > 0]  # drop unvoiced (0 Hz) frames
+pm_variability = np.std(pm_f0_voiced)
+pm_range = np.max(pm_f0_voiced) - np.min(pm_f0_voiced)`} />
             <p className="mt-3">
-              The results are noticeably different from librosa's. On the same recording, Parselmouth tends to give a smoother F0 contour with fewer spurious jumps, but it can also miss quieter voiced segments that pyin catches. Neither is "correct" in all cases. Returning both gives the coaching platform more data to work with, and lets the frontend display whichever contour looks more useful for that particular recording.
+              The results are noticeably different from librosa's. On the same recording, Parselmouth tends to give a smoother F0 contour with fewer spurious jumps, but it can also miss quieter voiced segments that pyin catches. Neither is "correct" in all cases. Returning both gives you more data to work with, and whichever contour looks more useful for a particular recording can be used downstream.
             </p>
             <PitchComparisonDiagram />
           </section>
 
           <section>
-            <h2 id="placement" className="font-display text-lg font-semibold text-foreground mb-3">Placement: where it got tricky</h2>
+            <h2 id="voice-quality" className="font-display text-lg font-semibold text-foreground mb-3">Voice quality: where it got tricky</h2>
             <p>
-              Placement refers to where in the body a voice resonates. A "chest voice" has more low frequency energy, a "head voice" has more high frequency energy, and nasal resonance sits in a specific mid-range band. Quantifying this from a raw audio signal took some creative signal processing.
+              The human voice carries a lot of information in its spectral characteristics beyond just pitch. A "chest voice" has more low frequency energy, a "head voice" has more high frequency energy, and nasal resonance sits in a specific mid-range band. Quantifying these qualities from a raw audio signal took some creative signal processing.
             </p>
 
             <h3 id="hnr-hpss" className="font-display text-base font-semibold text-foreground mt-6 mb-2">HNR via HPSS</h3>
             <p>
-              Classical Harmonic-to-Noise Ratio measures how much of a voice signal is periodic (harmonic) versus aperiodic (noise). The standard approach uses autocorrelation, but I went with a different method: <strong className="text-foreground">harmonic/percussive source separation</strong> (HPSS) on the STFT, then computing the energy ratio.
+              Classical Harmonic-to-Noise Ratio measures how much of a voice signal is periodic (harmonic) versus aperiodic (noise). The standard approach uses autocorrelation, but an alternative is <strong className="text-foreground">harmonic/percussive source separation</strong> (HPSS) on the STFT, then computing the energy ratio.
             </p>
             <p className="mt-3">
               <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">librosa.decompose.hpss</code> splits the spectrogram into harmonic (sustained tones) and percussive (transient) components using median filtering. The HNR is then <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">10 * log10(E_harmonic / E_percussive)</code>. Higher values mean a cleaner, more resonant voice. This isn't exactly the same as Praat's HNR (which uses autocorrelation on the time domain), but it captures a similar quality dimension and works well in practice.
@@ -384,42 +388,42 @@ hnr = 10 * np.log10(E_harmonic / E_percussive)`} />
 
             <h3 id="nasalance" className="font-display text-base font-semibold text-foreground mt-6 mb-2">Nasalance via band energy</h3>
             <p>
-              Nasalance is usually measured with a physical device (a nasometer) that separates nasal and oral airflow. I approximated it using frequency band energy ratios instead.
+              Nasalance is usually measured with a physical device (a nasometer) that separates nasal and oral airflow. It can be approximated using frequency band energy ratios instead.
             </p>
             <p className="mt-3">
-              The nasal resonance band (250-2000 Hz) and oral resonance band (500-5000 Hz) get isolated using a <strong className="text-foreground">semitone filterbank</strong>. librosa provides <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">semitone_filterbank</code> to generate 10 second-order-section (SOS) filters between two frequencies, spaced by semitones. I apply each filter with <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">scipy.signal.sosfiltfilt</code> (zero-phase filtering) and sum the results. The nasalance percentage is the filtered band energy divided by total signal energy, times 100.
+              The nasal and oral resonance bands (commonly cited in the literature as roughly the low-to-mid hundreds through low thousands of Hz for nasal, and wider for oral) get isolated using a <strong className="text-foreground">semitone filterbank</strong>. librosa provides <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">semitone_filterbank</code> to generate a set of second-order-section (SOS) filters between two frequencies, spaced by semitones. Each filter is applied with <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">scipy.signal.sosfiltfilt</code> (zero-phase filtering) and the results are summed. The nasalance percentage is the filtered band energy divided by total signal energy, times 100.
             </p>
             <p className="mt-3">
-              This is an approximation. A physical nasometer would give different numbers. But the relative values across recordings are consistent and useful for comparison, which is what the coaching platform needs.
+              This is an approximation. A physical nasometer would give different numbers. But the relative values across recordings are consistent and useful for comparison, which is what most voice analysis applications need.
             </p>
 
             <h3 id="vlhr" className="font-display text-base font-semibold text-foreground mt-6 mb-2">VLHR</h3>
             <p>
-              Voice Low-to-High Ratio measures the balance between low-frequency and high-frequency energy in the voice. I compute the power spectral density using <strong className="text-foreground">Welch's method</strong> (Hamming window, 1024-sample segments), then split the spectrum at a cutoff frequency.
+              Voice Low-to-High Ratio measures the balance between low-frequency and high-frequency energy in the voice. You compute the power spectral density using <strong className="text-foreground">Welch's method</strong> with a windowed FFT, then split the spectrum at a cutoff frequency.
             </p>
             <p className="mt-3">
-              The cutoff is adaptive: if the fundamental frequency F0 is available, the cutoff is set to <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">4.47 * mean_F0</code>. If not, it defaults to 600 Hz. The 4.47 multiplier comes from voice science literature; it roughly separates the fundamental and lower harmonics from the upper harmonics and formant frequencies. Low band is 65 Hz to cutoff, high band is cutoff to 8000 Hz.
+              The cutoff is adaptive: if the fundamental frequency F0 is available, the cutoff is set to a multiple of mean F0 (typically in the 4-5x range, based on voice science literature). If F0 isn't available, a fixed fallback around 600 Hz works as a reasonable default. The idea is to roughly separate the fundamental and lower harmonics from the upper harmonics and formant frequencies. Low band runs from around 65 Hz up to the cutoff, high band from the cutoff up to around 8000 Hz.
             </p>
-            <CodeBlock lang="python" code={`def calculate_vlhr(audio, sr, f0=None, cutoff=600):
+            <CodeBlock lang="python" code={`def calculate_vlhr(audio, sr, f0=None, cutoff=600, f0_mult=4.5):
     if f0 is not None:
-        cutoff = 4.47 * np.mean(f0[f0 > 0])
-    freqs, power = welch(audio * hamming(len(audio)), fs=sr, nperseg=1024)
+        cutoff = f0_mult * np.mean(f0[f0 > 0])
+    freqs, power = welch(audio, fs=sr, nperseg=1024)
     low = np.sum(power[(freqs >= 65) & (freqs < cutoff)])
     high = np.sum(power[(freqs >= cutoff) & (freqs <= 8000)])
     return low / high if high > 0 else float('inf')`} />
             <p className="mt-3">
-              A high VLHR indicates a voice with more chest resonance. A low VLHR indicates more brightness or head resonance. The adaptive cutoff was important because a 600 Hz fixed cutoff is wrong for a deep-voiced speaker with an F0 of 90 Hz (their fourth harmonic is at 360 Hz, well below cutoff), and equally wrong for a high-pitched speaker at 250 Hz (cutoff is only 2.4x their F0).
+              A high VLHR indicates a voice with more chest resonance. A low VLHR indicates more brightness or head resonance. The adaptive cutoff matters because a fixed cutoff is wrong for speakers at both extremes of the pitch range — it'll capture too many or too few harmonics depending on the speaker's fundamental frequency.
             </p>
             <PlacementDiagram />
           </section>
 
           <section>
-            <h2 id="pause-detection" className="font-display text-lg font-semibold text-foreground mb-3">Pause detection</h2>
+            <h2 id="timing" className="font-display text-lg font-semibold text-foreground mb-3">Timing and silence detection</h2>
             <p>
-              Pausing patterns say a lot about a speaker's confidence and preparation. Fast talkers with no pauses sound anxious. Too many long pauses sound unprepared. The right rhythm depends on context, but you need the data first.
+              Pausing patterns say a lot about how someone speaks. Fast talkers with no pauses sound anxious. Too many long pauses sound unprepared. The right rhythm depends on context, but you need the data first.
             </p>
             <p className="mt-3">
-              I used <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">pydub</code>'s <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">detect_silence</code> function with a -20 dBFS threshold and 500ms minimum silence duration. The threshold matters: -20 dBFS is fairly generous (it will catch most pauses but might miss ones with background noise). The 500ms minimum filters out natural inter-word gaps so you only count actual pauses.
+              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">pydub</code>'s <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">detect_silence</code> function works well for this. You configure a dBFS threshold (something in the -20 to -30 range depending on recording quality) and a minimum silence duration (300-500ms is typical for catching real pauses without flagging natural inter-word gaps). Both parameters need tuning for your audio quality — noisier recordings need a lower threshold.
             </p>
             <p className="mt-3">
               From the raw silence segments, four metrics: <strong className="text-foreground">pause count</strong>, <strong className="text-foreground">pauses per minute</strong> (normalized by recording length), <strong className="text-foreground">average pause duration</strong> in milliseconds, and <strong className="text-foreground">pause variability</strong> as the coefficient of variation (standard deviation divided by mean, times 100). The CV is more useful than raw standard deviation here because a 200ms standard deviation means very different things if your average pause is 500ms versus 3000ms.
@@ -428,47 +432,47 @@ hnr = 10 * np.log10(E_harmonic / E_percussive)`} />
           </section>
 
           <section>
-            <h2 id="api" className="font-display text-lg font-semibold text-foreground mb-3">The API and the double-load problem</h2>
+            <h2 id="api" className="font-display text-lg font-semibold text-foreground mb-3">The double-load problem</h2>
             <p>
-              The whole thing runs as a <strong className="text-foreground">FastAPI</strong> endpoint. Upload a WAV file, get back a JSON response with all metrics plus per-stage timing benchmarks. The timing data was useful during development: it told me that pitch extraction (especially Parselmouth) was the bottleneck, not the placement calculations I expected.
+              If you're wrapping this in a <strong className="text-foreground">FastAPI</strong> endpoint, there's an annoying practical issue. librosa's <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">load</code> resamples to 22050 Hz and returns mono float32. Fine for RMS, pitch, and spectral analysis. But <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">pyloudnorm</code> needs the native sample rate, and <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">parselmouth.Sound</code> works best with original rate too.
             </p>
             <p className="mt-3">
-              The most annoying engineering problem was loading the audio. librosa's <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">load</code> resamples to 22050 Hz and returns a mono float32 array. That's what I want for RMS, pitch, and spectral analysis. But <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">pyloudnorm</code> needs the native sample rate, and <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">parselmouth.Sound</code> also works best with the original rate.
+              The workaround: read the full file into a <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">BytesIO</code> buffer and rewind it for each library that needs a fresh read. Not pretty, but for typical speech recordings the memory overhead is nothing compared to the FFT computations.
             </p>
             <p className="mt-3">
-              Since the endpoint receives the file as a stream, I read the full content into a <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">BytesIO</code> buffer, then rewind it for each library that needs a fresh read. Not elegant, but the file sizes are small (voice recordings, usually under a minute) and the memory overhead is negligible compared to the FFT computations.
+              Also worth noting: pitch extraction (Parselmouth specifically) tends to be the performance bottleneck, not spectral decomposition. Adding per-stage timing early on is worth the effort.
             </p>
           </section>
 
           <section>
-            <h2 id="dashboard" className="font-display text-lg font-semibold text-foreground mb-3">The dashboard: benchmark comparisons</h2>
+            <h2 id="dashboard" className="font-display text-lg font-semibold text-foreground mb-3">Making the numbers useful</h2>
             <p>
-              The frontend was a <strong className="text-foreground">Dash</strong> app with Plotly charts. Users upload a "benchmark" recording (the gold standard for that exercise) and one or more practice recordings. The dashboard shows overlaid timeseries for RMS, librosa F0, and Parselmouth F0, plus grouped bar charts for placement and pause metrics.
+              Raw metrics by themselves aren't that helpful. The thing that makes them useful is comparison against a reference. If you have a "good" recording and a recording to evaluate, percent deviation per metric tells you exactly what's different. Pitch variability 40% lower than reference? Pause rate 25% higher? Those are concrete, actionable numbers.
             </p>
             <p className="mt-3">
-              The comparison table was the most useful part. It lists every metric for benchmark and practice recordings side by side, with <strong className="text-foreground">percent deviation</strong> color-coded green (better) or red (worse). A coach glancing at the table can immediately see: "pitch variability is 40% lower than benchmark, pause rate is 25% higher than benchmark." That's actionable feedback without needing to interpret charts.
+              A simple comparison table with <strong className="text-foreground">percent deviation</strong> color-coded green (better) or red (worse) turns out to be more useful than overlaid charts. Someone can glance at the table and immediately know what to focus on.
             </p>
             <div className="rounded-xl border border-border bg-card overflow-hidden mt-4">
               <table className="w-full text-xs">
                 <thead>
                   <tr className="border-b border-border bg-muted/50">
                     <th className="text-left px-3 py-2 text-foreground font-semibold">Metric</th>
-                    <th className="text-right px-3 py-2 text-foreground font-semibold">Benchmark</th>
-                    <th className="text-right px-3 py-2 text-foreground font-semibold">Practice</th>
+                    <th className="text-right px-3 py-2 text-foreground font-semibold">Reference</th>
+                    <th className="text-right px-3 py-2 text-foreground font-semibold">Sample</th>
                     <th className="text-right px-3 py-2 text-foreground font-semibold">Deviation</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    ['LUFS', '-16.2', '-14.8', '+8.6%', true],
-                    ['Pitch variability', '42.3 Hz', '28.1 Hz', '-33.6%', false],
-                    ['Pitch range', '187.4 Hz', '112.9 Hz', '-39.8%', false],
-                    ['HNR', '14.7 dB', '16.2 dB', '+10.2%', true],
-                    ['Nasal nasalance', '32.1%', '35.8%', '+11.5%', null],
-                    ['VLHR', '2.84', '3.21', '+13.0%', null],
-                    ['Pauses/min', '4.2', '6.8', '+61.9%', false],
-                    ['Avg pause (ms)', '680', '1240', '+82.4%', false],
-                    ['Pause variability', '22.1%', '48.7%', '+120.4%', false],
+                    ['LUFS', '-18.0', '-15.5', '+13.9%', true],
+                    ['Pitch variability', '45.0 Hz', '30.0 Hz', '-33.3%', false],
+                    ['Pitch range', '200.0 Hz', '120.0 Hz', '-40.0%', false],
+                    ['HNR', '15.0 dB', '17.0 dB', '+13.3%', true],
+                    ['Nasal nasalance', '30.0%', '34.0%', '+13.3%', null],
+                    ['VLHR', '3.00', '3.50', '+16.7%', null],
+                    ['Pauses/min', '5.0', '8.0', '+60.0%', false],
+                    ['Avg pause (ms)', '700', '1200', '+71.4%', false],
+                    ['Pause variability', '25.0%', '50.0%', '+100.0%', false],
                   ].map(([metric, bench, practice, dev, good], i) => (
                     <tr key={i} className={i % 2 === 0 ? '' : 'bg-muted/30'}>
                       <td className="px-3 py-2 text-foreground font-medium">{metric}</td>
@@ -480,16 +484,16 @@ hnr = 10 * np.log10(E_harmonic / E_percussive)`} />
                 </tbody>
               </table>
             </div>
-            <p className="text-center text-xs text-muted-foreground mt-2">Sample comparison: benchmark vs practice recording</p>
+            <p className="text-center text-xs text-muted-foreground mt-2">Hypothetical comparison: reference vs sample recording (illustrative values)</p>
           </section>
 
           <section>
-            <h2 id="gotchas" className="font-display text-lg font-semibold text-foreground mb-3">Gotchas I ran into</h2>
+            <h2 id="gotchas" className="font-display text-lg font-semibold text-foreground mb-3">Common gotchas</h2>
             <ul className="space-y-3 mt-3">
               <li className="flex items-start gap-2">
                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                 <span>
-                  <strong className="text-foreground">pydub expects file paths, not BytesIO.</strong> The <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">AudioSegment.from_wav</code> function accepts file-like objects in theory, but behavior is inconsistent across versions. I ended up writing the buffer to a temp file for pause detection. Clunky but reliable.
+                  <strong className="text-foreground">pydub expects file paths, not BytesIO.</strong> The <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">AudioSegment.from_wav</code> function accepts file-like objects in theory, but behavior is inconsistent across versions. Writing the buffer to a temp file for pause detection is clunky but reliable.
                 </span>
               </li>
               <li className="flex items-start gap-2">
@@ -501,7 +505,7 @@ hnr = 10 * np.log10(E_harmonic / E_percussive)`} />
               <li className="flex items-start gap-2">
                 <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                 <span>
-                  <strong className="text-foreground">The Hamming window in VLHR is applied to the full signal.</strong> For long recordings, that means you're windowing a signal of potentially millions of samples. In practice, Welch's method handles this fine because it breaks the signal into 1024-sample segments internally. But if you accidentally apply the window before Welch instead of letting Welch do it, you get garbage results on anything longer than a few seconds.
+                  <strong className="text-foreground">Watch how you apply windowing with Welch's method.</strong> Welch internally breaks the signal into segments and windows each one. If you accidentally apply a window to the full signal before passing it to Welch, you get garbage results on anything longer than a few seconds.
                 </span>
               </li>
               <li className="flex items-start gap-2">
@@ -514,19 +518,19 @@ hnr = 10 * np.log10(E_harmonic / E_percussive)`} />
           </section>
 
           <section>
-            <h2 id="retrospective" className="font-display text-lg font-semibold text-foreground mb-3">What I'd do differently</h2>
+            <h2 id="retrospective" className="font-display text-lg font-semibold text-foreground mb-3">Worth trying next</h2>
             <div className="rounded-xl border border-accent/30 bg-accent/5 p-5 space-y-3">
               <p>
                 <strong className="text-foreground">Run pitch extraction on native sample rate for both libraries.</strong> librosa's resample to 22050 Hz loses some pitch resolution for very low-pitched voices. Parselmouth already uses native rate, so the comparison is slightly unfair. In a future version I'd pass <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">sr=None</code> to librosa.load for the pitch stage specifically.
               </p>
               <p>
-                <strong className="text-foreground">Add formant extraction.</strong> Formant frequencies (F1, F2, F3) carry vowel quality information that's relevant for speech coaching. Praat can compute these via LPC analysis, and Parselmouth exposes the API. I didn't include them in v1 because the coaching platform didn't need vowel-level detail yet, but they're the obvious next feature.
+                <strong className="text-foreground">Add formant extraction.</strong> Formant frequencies (F1, F2, F3) carry vowel quality information that's useful for speech analysis. Praat can compute these via LPC analysis, and Parselmouth exposes the API. They're the obvious next feature for any voice analysis pipeline.
               </p>
               <p>
                 <strong className="text-foreground">Use Crepe or FCPE for pitch.</strong> Neural pitch trackers like Crepe and FCPE outperform both pyin and Praat's autocorrelation on noisy recordings. They're heavier (Crepe loads a small CNN), but for a server-side API processing one file at a time, the latency is acceptable.
               </p>
               <p>
-                <strong className="text-foreground">Stream the results.</strong> Right now, the client uploads a file and waits for all metrics to finish. Each metric category is independent, so I could return partial results as they complete (power first since it's fast, Parselmouth pitch last since it's slow). WebSocket or SSE would make the dashboard feel much more responsive.
+                <strong className="text-foreground">Stream the results.</strong> Each metric category is independent, so you could return partial results as they complete (power first since it's fast, Parselmouth pitch last since it's slow). WebSocket or SSE would make the experience much more responsive instead of waiting for everything to finish.
               </p>
             </div>
           </section>
@@ -534,13 +538,13 @@ hnr = 10 * np.log10(E_harmonic / E_percussive)`} />
           <section>
             <h2 id="conclusion" className="font-display text-lg font-semibold text-foreground mb-3">Wrapping up</h2>
             <p>
-              You don't need a deep learning model to do useful audio feature extraction. For speech coaching, classical signal processing (FFTs, autocorrelation, bandpass filters) gives you metrics that coaches can actually work with. "Your pitch variability is 30% below the benchmark" is actionable. "Your latent embedding is 0.3 cosine distance from the reference" is not.
+              You don't need a deep learning model to do useful audio feature extraction. Classical signal processing (FFTs, autocorrelation, bandpass filters) gives you metrics people can actually work with. "Pitch variability is 30% below the reference" is actionable. "Latent embedding is 0.3 cosine distance from the reference" is not.
             </p>
             <p className="mt-3">
               librosa handles most general audio work well. Parselmouth fills the gap for speech-specific analysis where Praat's decades of phonetics research matter. scipy for spectral analysis and pydub for silence detection round it out. Not the most sophisticated stack, but it ships and it's debuggable.
             </p>
             <p className="mt-3">
-              If you're working on something similar, I'm happy to compare notes.
+              If you're working through similar problems, feel free to reach out.
             </p>
           </section>
 

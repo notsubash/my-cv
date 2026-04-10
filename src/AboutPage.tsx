@@ -72,7 +72,7 @@ export default function AboutPage() {
       location: 'Kathmandu, Nepal (Remote)',
       website: 'https://scopicsoftware.com/',
       logo: '/scopic_software_logo.webp',
-      desc: 'AI Receptionist platform, GenAI sales chatbot with LangGraph + RAG + Qdrant, LLM evaluation pipelines, audio feature extraction R&D, SEO SaaS platform as full-stack developer.',
+      desc: 'Conversational AI platform, GenAI chatbot with LangGraph + RAG + Qdrant, LLM evaluation pipelines, audio feature extraction R&D, SEO SaaS platform as full-stack developer.',
       tags: 'Python · LangGraph · FastAPI · AWS · Docker',
     },
     {
@@ -158,7 +158,7 @@ export default function AboutPage() {
           I hold an MSc in Data Science from the <strong className="text-foreground">University of Exeter</strong> (Merit) and a BSc (Hons) in Computing from <strong className="text-foreground">London Metropolitan University</strong> (2:1).
         </p>
         <p>
-          At Scopic Software, I build and maintain AI-driven features — from AI receptionists to GenAI sales chatbots with RAG pipelines, LLM evaluation frameworks, and audio feature extraction. I led the development of a GenAI sales chatbot integrated with Zoho CRM using LangGraph, RAG pipelines, and Qdrant for lead qualification, intent detection, and SEO tracking.
+          I build and maintain AI-driven features — from conversational AI to GenAI chatbots with RAG pipelines, LLM evaluation frameworks, and audio feature extraction. I led the development of a GenAI chatbot integrated with CRM using LangGraph, RAG pipelines, and Qdrant for intent detection, contextual retrieval, and analytics tracking.
         </p>
         <p>
           I take pride in writing clean code, thinking deeply about problems, and building meaningful, responsible AI solutions that create real impact.

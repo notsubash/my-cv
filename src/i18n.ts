@@ -22,7 +22,7 @@ export const translations = {
           "*Building* +responsible AI solutions+.",
         ],
       ],
-      why: "At Scopic Software, I build and maintain AI-driven features: AI receptionists, GenAI sales chatbots with RAG pipelines, and evaluation frameworks.",
+      why: "I build and maintain AI-driven features: conversational AI, GenAI chatbots with RAG pipelines, and evaluation frameworks.",
       seeking: [
         'Always learning, always building.',
         'Complex problems. Real-world impact.',
@@ -237,7 +237,7 @@ export const translations = {
       badge: 'Production Experience',
       desc: 'My daily work involves building and maintaining AI-driven features in production, from conversational AI systems to evaluation pipelines that ensure quality and reliability.',
       highlights: [
-        'RAG pipelines with LangGraph and Qdrant for lead qualification, intent detection, and user info extraction',
+        'RAG pipelines with LangGraph and Qdrant for intent detection, contextual retrieval, and user info extraction',
         'LLM evaluation pipelines assessing chatbot and RAG performance: hallucination rate, accuracy, cost, latency',
         'Audio feature extraction using Parselmouth, Librosa, and Praat for voice-based AI applications',
         'Full-stack AI services: question generation, grading logic, prompt engineering, and end-to-end GenAI integration',
@@ -254,11 +254,11 @@ export const translations = {
         role: 'Remote AI/ML Engineer',
         period: 'Oct 2024 - Present',
         highlights: [
-          'Contributed to development and maintenance of an AI Receptionist platform with AI-driven features',
-          'Led development of GenAI sales chatbot with LangGraph, RAG pipelines, and Qdrant for lead qualification and intent detection',
+          'Contributed to development and maintenance of a conversational AI platform with AI-driven features',
+          'Led development of GenAI chatbot with LangGraph, RAG pipelines, and Qdrant for intent detection and contextual responses',
           'Conducted R&D on audio feature extraction using Parselmouth, Librosa, and Praat',
           'Estimated AI project scope with man-hour granularity for internal and client-facing projects',
-          'Maintained AI service layer of interviewer platform: question generation, grading logic, prompt engineering',
+          'Maintained AI service layer of an assessment platform: question generation, grading logic, prompt engineering',
           'Implemented evaluation pipelines for chatbot and RAG performance assessment',
           'Contributed to keyword research and SEO SaaS platform as full-stack developer',
         ],
@@ -283,18 +283,18 @@ export const translations = {
           ] as { name: string; icon?: string; src?: string }[],
         },
         businessOS: {
-          title: 'GenAI Sales Chatbot',
+          title: 'GenAI Chatbot',
           badge: 'LangGraph · RAG · Qdrant',
-          desc: 'Led development and deployment of a GenAI sales chatbot integrated with Zoho CRM for lead qualification, intent detection, user info extraction, lead scoring, and SEO tracking.',
+          desc: 'Led development and deployment of a GenAI chatbot integrated with CRM for intent detection, user info extraction, contextual responses, and analytics tracking.',
           metrics: [
             { value: 'RAG', label: 'pipelines' },
             { value: 'Qdrant', label: 'vector DB' },
             { value: 'CRM', label: 'integrated' },
           ],
           modules: [
-            { icon: 'database', text: 'Lead qualification and scoring via LLM' },
+            { icon: 'database', text: 'Conversation classification and routing via LLM' },
             { icon: 'users', text: 'Intent detection and user info extraction' },
-            { icon: 'layout', text: 'Zoho CRM integration for sales pipeline' },
+            { icon: 'layout', text: 'CRM integration for sales pipeline' },
             { icon: 'package', text: 'SEO tracking: referrer, session time, last visited page' },
             { icon: 'messageSquare', text: 'RAG pipeline for contextual responses' },
             { icon: 'receipt', text: 'Evaluation pipeline for response quality' },
@@ -302,9 +302,9 @@ export const translations = {
           footer: '',
         },
         jacobo: {
-          title: 'AI Receptionist Platform',
+          title: 'Conversational AI Platform',
           badge: 'Production AI',
-          desc: 'Implementing and maintaining AI-driven features for an AI Receptionist platform, resolving production bugs and ensuring system reliability.',
+          desc: 'Implementing and maintaining AI-driven features for a conversational AI platform, resolving production bugs and ensuring system reliability.',
           items: [
             { icon: 'network', text: 'AI-driven conversational features in production' },
             { icon: 'calendar', text: 'Production bug resolution and system reliability' },
@@ -316,9 +316,9 @@ export const translations = {
           caseStudyUrl: '',
         },
         webSeo: {
-          title: 'Interviewer Platform AI Services',
+          title: 'Assessment Platform AI Services',
           badge: 'GenAI Integration',
-          desc: 'Maintained and expanded the AI service layer of an interviewer platform: question generation, grading logic, prompt engineering, and end-to-end GenAI integration.',
+          desc: 'Maintained and expanded the AI service layer of an assessment platform: question generation, grading logic, prompt engineering, and end-to-end GenAI integration.',
           items: [
             { icon: 'fileText', text: 'Various types of question generation' },
             { icon: 'image', text: 'Automated grading logic' },
@@ -556,17 +556,53 @@ export const translations = {
       items: [
         {
           slug: 'rag-pipeline',
-          title: 'Building a Production RAG Pipeline: What I Learned the Hard Way',
+          title: 'Building a RAG Pipeline: Patterns That Worked',
           date: 'April 2026',
-          summary: 'Practical lessons from building a LangGraph + Qdrant RAG pipeline for a real sales chatbot. Covers chunking strategy, hybrid retrieval, query rewriting, and hallucination prevention.',
+          summary: 'Patterns and techniques for building RAG systems with LangGraph, Qdrant, and OpenAI. Covers chunking, hybrid retrieval, query rewriting, and hallucination prevention.',
           tags: ['LangGraph', 'Qdrant', 'RAG', 'OpenAI', 'Python'],
         },
         {
           slug: 'audio-feature-extraction',
-          title: 'Audio Feature Extraction for AI: From Parselmouth to Production',
+          title: 'Audio Feature Extraction for AI: Designing an Audio Metrics Pipeline',
           date: 'April 2026',
-          summary: 'How I built a speech analysis API extracting 14 voice metrics from raw WAV files. Dual pitch tracking with librosa and Parselmouth, HPSS-based HNR, adaptive VLHR, and silence detection via pydub.',
+          summary: 'Techniques for extracting quantitative voice metrics from raw WAV files. Covers pitch tracking, loudness measurement, spectral analysis, and silence detection using Python libraries.',
           tags: ['Parselmouth', 'librosa', 'FastAPI', 'Audio ML', 'Python'],
+        },
+      ],
+    },
+    technicalNotes: {
+      title: 'Technical Notes',
+      subtitle: 'Bite-sized things I learned building real systems.',
+      items: [
+        {
+          title: 'Hybrid Retrieval in RAG',
+          body: 'Run a metadata-filtered search (e.g. content_type + technology) and an unfiltered similarity search in parallel. Merge filtered-first, dedup by chunk ID. Filtered results give precision; unfiltered results fill context gaps the filters miss.',
+          tags: ['RAG', 'Qdrant'],
+        },
+        {
+          title: 'Query Rewriting Before Vector Search',
+          body: 'Rewrite conversational messages into standalone search queries using an LLM + chat history before hitting the vector store. "Yeah what about that?" becomes "What mobile development services are available?" Single biggest retrieval quality improvement I\'ve made.',
+          tags: ['RAG', 'LLM'],
+        },
+        {
+          title: 'HPSS for Harmonic-to-Noise Ratio',
+          body: 'Instead of autocorrelation-based HNR, split the STFT into harmonic and percussive components via librosa\'s HPSS (median filtering on the spectrogram), then compute 10·log₁₀(E_harmonic / E_percussive). Different from Praat\'s HNR but captures voice quality well.',
+          tags: ['Audio', 'librosa'],
+        },
+        {
+          title: 'Dual Pitch Tracking',
+          body: 'librosa pyin (probabilistic YIN) and Parselmouth (Praat autocorrelation) give noticeably different F0 contours on the same audio. pyin catches quiet voiced segments; Praat handles octave jumps better. Return both and let the consumer decide.',
+          tags: ['Audio', 'Parselmouth'],
+        },
+        {
+          title: 'Parallel LLM Calls for Latency',
+          body: 'When you need multiple independent LLM classifications (intent, entity extraction, query rewriting, ambiguity check), run them concurrently with a ThreadPoolExecutor. Total latency = slowest call, not the sum. deepcopy the state first — mutable dicts + threads = subtle bugs.',
+          tags: ['LangGraph', 'Python'],
+        },
+        {
+          title: 'When Retrieval Returns Nothing',
+          body: 'If the vector store returns zero relevant documents, skip the LLM entirely and return a templated honest response. The retriever is your ground truth. Letting the LLM fill the gap is how hallucinations happen in production.',
+          tags: ['RAG', 'LLM'],
         },
       ],
     },

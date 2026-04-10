@@ -2565,7 +2565,7 @@ function App() {
                         <LinkedInLogo className="w-5 h-5 text-[hsl(var(--linkedin))]" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs text-muted-foreground mb-1.5 font-medium">Scopic · Reposted</p>
+                        <p className="text-xs text-muted-foreground mb-1.5 font-medium">LinkedIn · Reposted</p>
                         <p className="text-sm text-foreground leading-relaxed line-clamp-3">{post.hook}</p>
                       </div>
                     </div>
@@ -2666,6 +2666,42 @@ function App() {
               </AnimatedSection>
             </>
           )}
+        </div>
+      </section>
+
+      {/* Technical Notes */}
+      <section id="notes" className="py-10 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <AnimatedSection>
+            <h2 className="font-display text-2xl font-semibold mb-2 flex items-center gap-3">
+              <SectionIcon>
+                <Zap className="w-5 h-5 text-primary" />
+              </SectionIcon>
+              {t.technicalNotes.title}
+            </h2>
+            <p className="text-muted-foreground text-sm mb-8">{t.technicalNotes.subtitle}</p>
+          </AnimatedSection>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {t.technicalNotes.items.map((note: { title: string; body: string; tags: readonly string[] }, i: number) => (
+              <AnimatedSection key={i} delay={0.1 + i * 0.08}>
+                <div className="h-full p-5 rounded-2xl bg-card border border-border/50 hover:border-border hover:shadow-md transition-all flex flex-col">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <Code className="w-4 h-4 text-primary" />
+                    </div>
+                    <h3 className="text-sm font-semibold text-foreground leading-snug">{note.title}</h3>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed flex-1">{note.body}</p>
+                  <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border/30">
+                    {note.tags.map((tag: string) => (
+                      <span key={tag} className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-primary/8 text-primary/80">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
         </div>
       </section>
 
