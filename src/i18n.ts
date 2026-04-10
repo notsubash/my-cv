@@ -121,7 +121,7 @@ export const translations = {
         },
         {
           name: 'ML / Data Science',
-          items: ['scikit-learn', 'XGBoost', 'Pandas', 'NumPy', 'Gephi', 'MLOps'],
+          items: ['PyTorch', 'scikit-learn', 'XGBoost', 'Pandas', 'NumPy', 'Gephi', 'MLOps'],
         },
         {
           name: 'Dev',
