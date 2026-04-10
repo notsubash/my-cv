@@ -244,7 +244,7 @@ function MetricsGrid() {
 
 export default function BlogAudioFeatures() {
   useBlogSeo({
-    title: 'Audio Feature Extraction for AI: Designing an Audio Metrics Pipeline',
+    title: 'Audio Feature Extraction: Designing an Audio Metrics Pipeline',
     description: 'Techniques for extracting quantitative metrics from human voice recordings using Parselmouth, librosa, and Python. Covers pitch tracking, loudness measurement, spectral analysis, and silence detection.',
     keywords: 'audio feature extraction python, parselmouth praat python tutorial, librosa audio analysis, speech analysis api fastapi, pitch extraction pyin, harmonic to noise ratio hpss, voice quality metrics python, pyloudnorm lufs measurement, voice low to high ratio vlhr, pause detection pydub, audio signal processing python, fundamental frequency f0 extraction, nasalance measurement python, semitone filterbank librosa',
     ogImage: '/og-blog-audio-features.webp',
@@ -273,7 +273,7 @@ export default function BlogAudioFeatures() {
             <span ref={readingTimeRef}>12 min read</span>
           </div>
           <h1 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-            Audio Feature Extraction for AI: Designing an Audio Metrics Pipeline
+            Audio Feature Extraction: Designing an Audio Metrics Pipeline
           </h1>
           <p className="text-base text-muted-foreground leading-relaxed mb-5">
             This post explores techniques for extracting quantitative metrics from human voice recordings. Not subjective ratings, but actual numbers: pitch variability, loudness, harmonic quality, pause patterns. The approach below shows how to pull a range of speech metrics out of WAV files using Parselmouth, librosa, and a handful of scipy calls.

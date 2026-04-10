@@ -71,6 +71,8 @@ export function getAltPaths(): Record<string, string> {
     '/blog': '/blog',
     '/blog/rag-pipeline': '/blog/rag-pipeline',
     '/blog/audio-feature-extraction': '/blog/audio-feature-extraction',
+    '/blog/steam-genre-networks': '/blog/steam-genre-networks',
+    '/blog/ml-from-scratch': '/blog/ml-from-scratch',
     '/privacy': '/privacy',
   }
   for (const article of articleRegistry) {
@@ -87,6 +89,8 @@ export function getPageTitles(): Record<string, string> {
     '/blog': 'Blog',
     '/blog/rag-pipeline': 'Building a Production RAG Pipeline',
     '/blog/audio-feature-extraction': 'Audio Feature Extraction for AI',
+    '/blog/steam-genre-networks': 'What 27,000 Steam Games Reveal About Genre Evolution',
+    '/blog/ml-from-scratch': 'Learning ML and Deep Learning by Building Everything Twice',
   }
   for (const article of articleRegistry) {
     titles[`/${article.slugs.en}`] = article.titles.en

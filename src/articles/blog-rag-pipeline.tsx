@@ -116,7 +116,7 @@ export default function BlogRagPipeline() {
     description: 'Patterns and techniques for building RAG systems with LangGraph, Qdrant, and OpenAI. Covers chunking, hybrid retrieval, query rewriting, and hallucination prevention.',
     keywords: 'rag pipeline tutorial, langgraph qdrant python, how to build rag chatbot, hybrid retrieval augmented generation, prevent llm hallucination production, vector database chunking strategy, query rewriting llm, production rag architecture, langchain alternative langgraph',
     ogImage: '/og-blog-rag-pipeline.webp',
-    datePublished: '2026-04-10',
+    datePublished: '2025-10-01',
     slug: 'rag-pipeline',
   })
   const { articleRef, readingTimeRef } = useReadingTime()

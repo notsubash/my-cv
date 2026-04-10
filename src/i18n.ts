@@ -557,13 +557,27 @@ export const translations = {
         {
           slug: 'rag-pipeline',
           title: 'Building a RAG Pipeline: Patterns That Worked',
-          date: 'April 2026',
+          date: 'October 2025',
           summary: 'Patterns and techniques for building RAG systems with LangGraph, Qdrant, and OpenAI. Covers chunking, hybrid retrieval, query rewriting, and hallucination prevention.',
           tags: ['LangGraph', 'Qdrant', 'RAG', 'OpenAI', 'Python'],
         },
         {
+          slug: 'steam-genre-networks',
+          title: 'What 27,000 Steam Games Reveal About Genre Evolution',
+          date: 'December 2023',
+          summary: 'Building a bipartite genre network from the Steam database, projecting it into a weighted graph, running centrality and community detection, and learning why static game properties cannot predict playtime.',
+          tags: ['Python', 'NetworkX', 'Gephi', 'Louvain', 'Regression'],
+        },
+        {
+          slug: 'ml-from-scratch',
+          title: 'Learning ML and Deep Learning by Building Everything Twice',
+          date: 'January 2024',
+          summary: 'Implementing every ML algorithm twice: first from scratch in NumPy, then in PyTorch. From linear regression through CNNs, RNNs, and transformers, with miniprojects on MNIST, CIFAR-10, CelebA, and IMDB.',
+          tags: ['Python', 'NumPy', 'PyTorch', 'Deep Learning', 'From Scratch'],
+        },
+        {
           slug: 'audio-feature-extraction',
-          title: 'Audio Feature Extraction for AI: Designing an Audio Metrics Pipeline',
+          title: 'Audio Feature Extraction: Designing an Audio Metrics Pipeline',
           date: 'April 2026',
           summary: 'Techniques for extracting quantitative voice metrics from raw WAV files. Covers pitch tracking, loudness measurement, spectral analysis, and silence detection using Python libraries.',
           tags: ['Parselmouth', 'librosa', 'FastAPI', 'Audio ML', 'Python'],
@@ -596,7 +610,7 @@ export const translations = {
         },
         {
           title: 'Parallel LLM Calls for Latency',
-          body: 'When you need multiple independent LLM classifications (intent, entity extraction, query rewriting, ambiguity check), run them concurrently with a ThreadPoolExecutor. Total latency = slowest call, not the sum. deepcopy the state first — mutable dicts + threads = subtle bugs.',
+          body: 'When you need multiple independent LLM classifications (intent, entity extraction, query rewriting, ambiguity check), run them concurrently with a ThreadPoolExecutor. Total latency = slowest call, not the sum. deepcopy the state first; mutable dicts + threads = subtle bugs.',
           tags: ['LangGraph', 'Python'],
         },
         {
