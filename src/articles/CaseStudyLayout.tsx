@@ -1,6 +1,7 @@
-import { useEffect, type ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { type ReactNode } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { ArrowLeft, ExternalLink, Github, FileText, Video } from 'lucide-react'
+import { usePageSeo } from '../hooks/usePageSeo'
 
 export interface CaseStudyLink {
   label: string
@@ -110,27 +111,14 @@ export function ResultTable({ rows }: { rows: { label: string; value: string; no
 }
 
 export default function CaseStudyLayout({ meta, children }: { meta: CaseStudyMeta; children: ReactNode }) {
-  useEffect(() => {
-    document.title = meta.seoTitle
-    const desc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null
-    if (desc) desc.content = meta.seoDescription
-    const ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement | null
-    if (ogTitle) ogTitle.setAttribute('content', meta.seoTitle)
-    const ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement | null
-    if (ogDesc) ogDesc.setAttribute('content', meta.seoDescription)
+  const { pathname } = useLocation()
 
-    let keywords: HTMLMetaElement | null = null
-    if (meta.seoKeywords) {
-      keywords = document.querySelector('meta[name="keywords"]') as HTMLMetaElement | null
-      if (!keywords) { keywords = document.createElement('meta'); keywords.name = 'keywords'; document.head.appendChild(keywords) }
-      keywords.content = meta.seoKeywords
-    }
-
-    return () => {
-      document.title = 'Subash Pandey | AI/ML Engineer · GenAI Developer · Data Scientist'
-      if (keywords) keywords.content = ''
-    }
-  }, [meta.seoTitle, meta.seoDescription, meta.seoKeywords])
+  usePageSeo({
+    title: meta.seoTitle,
+    description: meta.seoDescription,
+    path: pathname,
+    keywords: meta.seoKeywords,
+  })
 
   return (
     <main className="min-h-screen bg-background">

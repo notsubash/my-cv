@@ -1,17 +1,17 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Calendar, Tag, PenLine } from 'lucide-react'
 import { translations } from './i18n'
+import { usePageSeo } from './hooks/usePageSeo'
 
 export default function BlogPage() {
   const t = translations.en
   const posts = t.blog.items
 
-  useEffect(() => {
-    document.title = 'Blog | Subash Pandey'
-    const desc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null
-    if (desc) desc.content = 'Blog by Subash Pandey. Writing about ML, data science, and things learned along the way.'
-  }, [])
+  usePageSeo({
+    title: 'Blog | Subash Pandey',
+    description: 'Blog by Subash Pandey. Writing about ML, data science, and things learned along the way.',
+    path: '/blog',
+  })
 
   return (
     <main className="min-h-screen bg-background">

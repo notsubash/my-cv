@@ -1,10 +1,12 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { usePageSeo } from './hooks/usePageSeo'
 
 export default function PrivacyPolicy() {
-  useEffect(() => {
-    document.title = 'Privacy Policy | Subash Pandey'
-  }, [])
+  usePageSeo({
+    title: 'Privacy Policy | Subash Pandey',
+    description: 'Privacy policy for subash-pandey.com. Learn about what data is collected and how it is used.',
+    path: '/privacy',
+  })
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-16 md:py-24">

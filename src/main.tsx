@@ -1,4 +1,5 @@
 import { StrictMode, lazy, Suspense, useState, useEffect, useRef, type ReactNode } from 'react'
+import { usePageSeo } from './hooks/usePageSeo'
 import { hydrateRoot, createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
@@ -93,13 +94,12 @@ function PageTransition({ children }: { children: ReactNode }) {
 }
 
 function NotFound() {
-  useEffect(() => {
-    let robots = document.querySelector('meta[name="robots"]') as HTMLMetaElement
-    if (!robots) { robots = document.createElement('meta'); robots.name = 'robots'; document.head.appendChild(robots) }
-    robots.content = 'noindex, nofollow'
-    document.title = '404 — Page not found'
-    return () => { robots.content = 'index, follow' }
-  }, [])
+  usePageSeo({
+    title: '404 — Page not found',
+    description: 'The page you are looking for does not exist or has been moved.',
+    path: '/404',
+    noindex: true,
+  })
 
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center text-center px-6">

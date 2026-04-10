@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Mail, ExternalLink, ArrowLeft, Calendar, Briefcase, GraduationCap, Award, FolderGit2, Globe, Quote, MessageCircle, ThumbsUp } from 'lucide-react'
 import { translations } from './i18n'
 import { getTechIcon } from './tech-icons'
+import { usePageSeo } from './hooks/usePageSeo'
 
 function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -58,11 +58,11 @@ export default function AboutPage() {
   const t = translations.en
   const exp = t.experience
 
-  useEffect(() => {
-    document.title = 'About | Subash Pandey'
-    const desc = document.querySelector('meta[name="description"]') as HTMLMetaElement
-    if (desc) desc.content = 'About Subash Pandey — AI/ML Engineer from Nepal, MSc Data Science (Exeter), passionate about GenAI, applied ML, and responsible AI.'
-  }, [])
+  usePageSeo({
+    title: 'About | Subash Pandey',
+    description: 'About Subash Pandey — AI/ML Engineer from Nepal, MSc Data Science (Exeter), passionate about GenAI, applied ML, and responsible AI.',
+    path: '/about',
+  })
 
   const experiences: ExperienceEntry[] = [
     {

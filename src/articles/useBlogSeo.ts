@@ -1,4 +1,5 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useRef, useEffect, useMemo } from 'react'
+import { usePageSeo } from '../hooks/usePageSeo'
 
 interface BlogSeoConfig {
   title: string
@@ -27,32 +28,8 @@ export function useReadingTime() {
 }
 
 export function useBlogSeo(config: BlogSeoConfig) {
-  const setMeta = useCallback(() => {
-    document.title = `${config.title} | Subash Pandey`
-
-    const desc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null
-    if (desc) desc.content = config.description
-
-    let keywords = document.querySelector('meta[name="keywords"]') as HTMLMetaElement | null
-    if (!keywords) { keywords = document.createElement('meta'); keywords.name = 'keywords'; document.head.appendChild(keywords) }
-    keywords.content = config.keywords
-
-    const ogTitle = document.querySelector('meta[property="og:title"]') as HTMLMetaElement | null
-    if (ogTitle) ogTitle.setAttribute('content', config.title)
-    const ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement | null
-    if (ogDesc) ogDesc.setAttribute('content', config.description)
-
-    const ogImg = document.querySelector('meta[property="og:image"]') as HTMLMetaElement | null
-    if (ogImg) ogImg.setAttribute('content', `https://subash-pandey.com${config.ogImage}`)
-
-    let jsonLd = document.querySelector('script[data-blog-jsonld]') as HTMLScriptElement | null
-    if (!jsonLd) {
-      jsonLd = document.createElement('script')
-      jsonLd.type = 'application/ld+json'
-      jsonLd.setAttribute('data-blog-jsonld', 'true')
-      document.head.appendChild(jsonLd)
-    }
-    jsonLd.textContent = JSON.stringify({
+  const jsonLd = useMemo(
+    () => ({
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
       headline: config.title,
@@ -74,14 +51,17 @@ export function useBlogSeo(config: BlogSeoConfig) {
         '@type': 'WebPage',
         '@id': `https://subash-pandey.com/blog/${config.slug}`,
       },
-    })
+    }),
+    [config.title, config.description, config.ogImage, config.datePublished, config.slug],
+  )
 
-    return () => {
-      if (keywords) keywords.content = ''
-      if (ogImg) ogImg.setAttribute('content', 'https://subash-pandey.com/og-image.webp')
-      if (jsonLd) jsonLd.remove()
-    }
-  }, [config.title, config.description, config.keywords, config.ogImage, config.datePublished, config.slug])
-
-  useEffect(setMeta, [setMeta])
+  usePageSeo({
+    title: `${config.title} | Subash Pandey`,
+    description: config.description,
+    path: `/blog/${config.slug}`,
+    ogType: 'article',
+    ogImage: config.ogImage,
+    keywords: config.keywords,
+    jsonLd,
+  })
 }
