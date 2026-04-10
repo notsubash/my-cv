@@ -27,6 +27,7 @@ const meta = {
   seoTitle: 'Steam Video Games ML: Case Study | Subash Pandey',
   seoDescription:
     'Network analysis + machine learning on the Steam Video Game Database. Bipartite genre networks, community detection, and regression to predict average playtime.',
+  seoKeywords: 'steam game genre network analysis, video game machine learning python, bipartite network community detection, networkx gephi game data, predict player engagement ml, louvain algorithm genre clustering',
 }
 
 const regressionResults = [

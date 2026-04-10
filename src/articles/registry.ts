@@ -70,6 +70,7 @@ export function getAltPaths(): Record<string, string> {
     '/about': '/about',
     '/blog': '/blog',
     '/blog/rag-pipeline': '/blog/rag-pipeline',
+    '/blog/audio-feature-extraction': '/blog/audio-feature-extraction',
     '/privacy': '/privacy',
   }
   for (const article of articleRegistry) {
@@ -85,6 +86,7 @@ export function getPageTitles(): Record<string, string> {
     '/about': 'About',
     '/blog': 'Blog',
     '/blog/rag-pipeline': 'Building a Production RAG Pipeline',
+    '/blog/audio-feature-extraction': 'Audio Feature Extraction for AI',
   }
   for (const article of articleRegistry) {
     titles[`/${article.slugs.en}`] = article.titles.en

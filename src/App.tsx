@@ -1617,7 +1617,7 @@ function App() {
               {/* Deep dive CTA */}
               {t.experience.santifer.caseStudyUrl && (
                 <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                  <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-all duration-200">{t.experience.santifer.caseStudyLabel}</span>
+                  <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.caseStudyLabel}</span>
                 </Link>
               )}
             </div>
@@ -1657,7 +1657,7 @@ function App() {
                   </ul>
                   {t.experience.santifer.caseStudyUrl && (
                     <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-6 text-sm font-medium text-gold hover:text-gold/80 transition-colors duration-200 group/cta">
-                      <span className="px-4 py-2 rounded-lg bg-gold/10 border border-gold/30 group-hover/cta:bg-gold/20 group-hover/cta:border-gold/50 transition-all duration-200">{t.experience.santifer.businessOS.footer}</span>
+                      <span className="px-4 py-2 rounded-lg bg-gold/10 border border-gold/30 group-hover/cta:bg-gold/20 group-hover/cta:border-gold/50 transition-colors duration-200">{t.experience.santifer.businessOS.footer}</span>
                       <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                     </Link>
                   )}
@@ -1706,7 +1706,7 @@ function App() {
                 </ul>
                 {t.experience.santifer.jacobo.caseStudyUrl && t.experience.santifer.jacobo.soldWith && (
                   <Link to={t.experience.santifer.jacobo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-all duration-200">{t.experience.santifer.jacobo.soldWith}</span>
+                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.jacobo.soldWith}</span>
                     <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                   </Link>
                 )}
@@ -1742,7 +1742,7 @@ function App() {
                 </ul>
                 {t.experience.santifer.webSeo.caseStudyUrl && t.experience.santifer.webSeo.codeAvailable && (
                   <Link to={t.experience.santifer.webSeo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta">
-                    <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-all duration-200">{t.experience.santifer.webSeo.codeAvailable}</span>
+                    <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{t.experience.santifer.webSeo.codeAvailable}</span>
                     <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                   </Link>
                 )}
@@ -2021,10 +2021,11 @@ function App() {
                 <div className="hidden lg:flex flex-col items-center justify-center p-6 rounded-xl bg-gold/5 border border-gold/10 min-w-[180px]">
                   <div className="text-4xl mb-3 opacity-80">
                     <svg viewBox="0 0 24 24" className="w-16 h-16 text-gold" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                      <path d="M4 17l6-6-6-6M12 19h8" />
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
                     </svg>
                   </div>
-                  <span className="text-xs text-gold font-medium text-center">Systems Thinking<br/>for SAs</span>
+                  <span className="text-xs text-gold font-medium text-center">AI/ML Engineering<br/>in Production</span>
                 </div>
               </div>
             </div>
@@ -2224,7 +2225,7 @@ function App() {
                         to={project.caseStudyUrl}
                         className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta"
                       >
-                        <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-all duration-200">{project.caseStudyLabel}</span>
+                        <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{project.caseStudyLabel}</span>
                         <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                       </Link>
                     )}

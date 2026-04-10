@@ -25,6 +25,7 @@ const meta = {
   seoTitle: 'Activity Recognition: Case Study | Subash Pandey',
   seoDescription:
     'XGBoost-based human activity recognition from wearable sensor data. 19 activity classes, 85.6% accuracy, hyperparameter tuning via random search.',
+  seoKeywords: 'human activity recognition xgboost, wearable sensor classification python, accelerometer gyroscope machine learning, sklearn activity recognition tutorial, hyperparameter tuning random search xgboost, smartphone activity detection ml',
 }
 
 const phonePerClass = [

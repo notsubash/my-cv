@@ -11,6 +11,7 @@ const PrivacyPolicy = lazy(() => import('./PrivacyPolicy'))
 const AboutPage = lazy(() => import('./AboutPage'))
 const BlogPage = lazy(() => import('./BlogPage'))
 const BlogRagPipeline = lazy(() => import('./articles/blog-rag-pipeline'))
+const BlogAudioFeatures = lazy(() => import('./articles/blog-audio-features'))
 const ActivityRecognition = lazy(() => import('./articles/activity-recognition'))
 const SteamML = lazy(() => import('./articles/steam-ml'))
 const WikipediaVoting = lazy(() => import('./articles/wikipedia-voting'))
@@ -20,13 +21,35 @@ function PageTransition({ children }: { children: ReactNode }) {
   const { pathname } = location
   const initialPathname = useRef(pathname)
   const [hasNavigated, setHasNavigated] = useState(false)
+  const prevPathname = useRef(pathname)
+  const homeScrollY = useRef(0)
+  const isBackNav = useRef(false)
 
   useEffect(() => {
+    if (pathname !== '/') return
+    const onScroll = () => { homeScrollY.current = window.scrollY }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [pathname])
+
+  useEffect(() => {
+    const prev = prevPathname.current
+    const isReturningHome = pathname === '/' && prev !== '/'
+    const prevDepth = prev.split('/').filter(Boolean).length
+    const currDepth = pathname.split('/').filter(Boolean).length
+    isBackNav.current = isReturningHome || (currDepth < prevDepth)
+
+    if (prev === '/' && pathname !== '/') {
+      sessionStorage.setItem('home-scroll-y', String(homeScrollY.current))
+    }
+    prevPathname.current = pathname
+
     if (pathname !== initialPathname.current) {
       setHasNavigated(true)
     }
 
     if (location.hash) {
+      if (pathname === '/') sessionStorage.removeItem('home-scroll-y')
       const hash = location.hash
       const scroll = () => {
         const el = document.querySelector(hash)
@@ -43,13 +66,27 @@ function PageTransition({ children }: { children: ReactNode }) {
         }
       }, 800)
       return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
+    } else if (isReturningHome) {
+      const savedY = sessionStorage.getItem('home-scroll-y')
+      if (savedY) {
+        const y = parseInt(savedY, 10)
+        sessionStorage.removeItem('home-scroll-y')
+        const restore = () => window.scrollTo({ top: y, left: 0, behavior: 'instant' })
+        const t1 = setTimeout(restore, 50)
+        const t2 = setTimeout(restore, 300)
+        const t3 = setTimeout(restore, 800)
+        return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     } else {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     }
   }, [pathname, location.hash, location.key])
 
+  const showFade = hasNavigated && !isBackNav.current
+
   return (
-    <div key={pathname} style={hasNavigated ? { animation: 'page-fade-in 0.25s ease-out' } : undefined}>
+    <div key={pathname} style={showFade ? { animation: 'page-fade-in 0.25s ease-out' } : undefined}>
       {children}
     </div>
   )
@@ -95,6 +132,7 @@ const app = (
             <Route path="/about" element={<AboutPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/rag-pipeline" element={<BlogRagPipeline />} />
+            <Route path="/blog/audio-feature-extraction" element={<BlogAudioFeatures />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/projects/activity-recognition" element={<ActivityRecognition />} />
             <Route path="/projects/steam-ml" element={<SteamML />} />

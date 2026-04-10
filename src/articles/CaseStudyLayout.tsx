@@ -22,6 +22,7 @@ export interface CaseStudyMeta {
   metrics: MetricCard[]
   seoTitle: string
   seoDescription: string
+  seoKeywords?: string
 }
 
 function LinkIcon({ icon }: { icon: CaseStudyLink['icon'] }) {
@@ -117,10 +118,19 @@ export default function CaseStudyLayout({ meta, children }: { meta: CaseStudyMet
     if (ogTitle) ogTitle.setAttribute('content', meta.seoTitle)
     const ogDesc = document.querySelector('meta[property="og:description"]') as HTMLMetaElement | null
     if (ogDesc) ogDesc.setAttribute('content', meta.seoDescription)
+
+    let keywords: HTMLMetaElement | null = null
+    if (meta.seoKeywords) {
+      keywords = document.querySelector('meta[name="keywords"]') as HTMLMetaElement | null
+      if (!keywords) { keywords = document.createElement('meta'); keywords.name = 'keywords'; document.head.appendChild(keywords) }
+      keywords.content = meta.seoKeywords
+    }
+
     return () => {
       document.title = 'Subash Pandey | AI/ML Engineer · GenAI Developer · Data Scientist'
+      if (keywords) keywords.content = ''
     }
-  }, [meta.seoTitle, meta.seoDescription])
+  }, [meta.seoTitle, meta.seoDescription, meta.seoKeywords])
 
   return (
     <main className="min-h-screen bg-background">

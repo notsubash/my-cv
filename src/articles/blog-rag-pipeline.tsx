@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, Tag } from 'lucide-react'
+import BlogNav from './BlogNav'
+import { useBlogSeo, useReadingTime } from './useBlogSeo'
 
 function DiagramBox({ x, y, w, h, label, sublabel, accent }: { x: number; y: number; w: number; h: number; label: string; sublabel?: string; accent?: boolean }) {
   return (
@@ -109,15 +110,19 @@ function HybridRetrievalDiagram() {
 }
 
 export default function BlogRagPipeline() {
-  useEffect(() => {
-    document.title = 'Building a Production RAG Pipeline: Lessons from a Real Sales Chatbot | Subash Pandey'
-    const desc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null
-    if (desc) desc.content = 'Practical lessons from building a LangGraph + Qdrant RAG pipeline for a production sales chatbot. Covers chunking, hybrid retrieval, query rewriting, and hallucination prevention.'
-  }, [])
+  useBlogSeo({
+    title: 'Building a Production RAG Pipeline: Lessons from a Real Sales Chatbot',
+    description: 'Practical lessons from building a LangGraph + Qdrant RAG pipeline for a production sales chatbot. Covers chunking, hybrid retrieval, query rewriting, and hallucination prevention.',
+    keywords: 'rag pipeline tutorial, langgraph qdrant python, how to build rag chatbot, hybrid retrieval augmented generation, prevent llm hallucination production, sales chatbot ai, vector database chunking strategy, query rewriting llm, production rag architecture, langchain alternative langgraph',
+    ogImage: '/og-blog-rag-pipeline.webp',
+    datePublished: '2026-04-10',
+    slug: 'rag-pipeline',
+  })
+  const { articleRef, readingTimeRef } = useReadingTime()
 
   return (
     <main className="min-h-screen bg-background">
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <article ref={articleRef} className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
 
         <Link
           to="/blog"
@@ -132,13 +137,13 @@ export default function BlogRagPipeline() {
           <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
             <span className="inline-flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> April 2026</span>
             <span className="text-border">·</span>
-            <span>10 min read</span>
+            <span ref={readingTimeRef}>10 min read</span>
           </div>
           <h1 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
             Building a Production RAG Pipeline: What I Learned the Hard Way
           </h1>
           <p className="text-base text-muted-foreground leading-relaxed mb-5">
-            I spent months building a retrieval-augmented generation system for a real sales chatbot. Not a weekend prototype. A system handling actual users, real CMS content, and a business that cared about the quality of every response. Here's what I learned.
+            I spent a few months building a retrieval-augmented generation system for a real sales chatbot. Not a weekend prototype, but a system handling actual users, real CMS content, and a business that cared about the quality of every response. This post covers the technical decisions that mattered most.
           </p>
           <div className="flex flex-wrap gap-1.5">
             {['LangGraph', 'Qdrant', 'RAG', 'OpenAI', 'FastAPI', 'Python'].map(tag => (
@@ -156,7 +161,7 @@ export default function BlogRagPipeline() {
         <div className="prose-custom space-y-8 text-sm text-muted-foreground leading-relaxed">
 
           <section>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-3">The setup</h2>
+            <h2 id="setup" className="font-display text-lg font-semibold text-foreground mb-3">The setup</h2>
             <p>
               The project was a sales chatbot for a software company. The bot needed to answer questions about services, showcase portfolio projects, and qualify leads. All the source content lived in a WordPress CMS: blog posts, service pages, project case studies, testimonials, timelines.
             </p>
@@ -170,7 +175,7 @@ export default function BlogRagPipeline() {
           </section>
 
           <section>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-3">Ingestion: WordPress is messier than you think</h2>
+            <h2 id="ingestion" className="font-display text-lg font-semibold text-foreground mb-3">Ingestion: WordPress is messier than you think</h2>
             <p>
               The first thing I underestimated was how messy real CMS content is. WordPress stores posts as HTML with shortcodes, custom page-builder markup (Divi in this case), inline styles, and metadata scattered across multiple tables. Feeding that directly into a text splitter produces garbage chunks full of <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">[et_pb_section]</code> tags and broken HTML.
             </p>
@@ -180,7 +185,7 @@ export default function BlogRagPipeline() {
           </section>
 
           <section>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-3">Chunking: hierarchical splitting with metadata headers</h2>
+            <h2 id="chunking" className="font-display text-lg font-semibold text-foreground mb-3">Chunking: hierarchical splitting with metadata headers</h2>
             <p>
               I used a two-stage chunking approach. First, the cleaned content is split on <strong className="text-foreground">HTML or Markdown headers</strong> (h1 through h6) to preserve document structure. Then each header-level section goes through a <strong className="text-foreground">recursive character splitter</strong> with a priority order of separators: section breaks first, then paragraph breaks, then lines, then sentences, then words.
             </p>
@@ -193,12 +198,12 @@ export default function BlogRagPipeline() {
           </section>
 
           <section>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-3">Retrieval: the part that actually matters</h2>
+            <h2 id="retrieval" className="font-display text-lg font-semibold text-foreground mb-3">Retrieval: the part that actually matters</h2>
             <p>
               This is where most of the interesting engineering ended up. Simple top-k similarity search was the baseline, and it worked okay for generic questions. But the bot needed to handle queries like "do you have experience with React Native?" or "show me your healthcare projects." That requires metadata-aware retrieval, not just vector similarity.
             </p>
 
-            <h3 className="font-display text-base font-semibold text-foreground mt-6 mb-2">Query rewriting</h3>
+            <h3 id="query-rewriting" className="font-display text-base font-semibold text-foreground mt-6 mb-2">Query rewriting</h3>
             <p>
               Before retrieval, the user message gets rewritten by a small LLM call into a better search query. Conversational messages like "yeah what about that?" get expanded using chat history into something like "What services does the company offer for mobile app development?" This sounds obvious, but it's the single most impactful change I made to retrieval quality.
             </p>
@@ -206,7 +211,7 @@ export default function BlogRagPipeline() {
               One quirk I ran into: the company name kept appearing in rewritten queries, and since the entire corpus is about that company, it acted as noise in the embedding space. I added a post-processing step that strips the company name from search queries and replaces it with "you." Small change, measurable improvement in retrieval relevance.
             </p>
 
-            <h3 className="font-display text-base font-semibold text-foreground mt-6 mb-2">Technology-aware hybrid retrieval</h3>
+            <h3 id="hybrid-retrieval" className="font-display text-base font-semibold text-foreground mt-6 mb-2">Technology-aware hybrid retrieval</h3>
             <p>
               When a user asks about a specific technology, a parallel LLM call extracts the technology name. If it finds one (say, "React Native"), the retriever does <strong className="text-foreground">two searches</strong>:
             </p>
@@ -224,7 +229,7 @@ export default function BlogRagPipeline() {
           </section>
 
           <section>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-3">Parallel classification: trading money for latency</h2>
+            <h2 id="parallel-classification" className="font-display text-lg font-semibold text-foreground mb-3">Parallel classification: trading money for latency</h2>
             <p>
               Before RAG even fires, the system needs to figure out what the user wants. Is this a service inquiry? A portfolio question? Off-topic chat? Are they asking about pricing? Are they providing their contact info?
             </p>
@@ -247,7 +252,7 @@ export default function BlogRagPipeline() {
           </section>
 
           <section>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-3">Hallucination prevention: the empty results problem</h2>
+            <h2 id="hallucination-prevention" className="font-display text-lg font-semibold text-foreground mb-3">Hallucination prevention: the empty results problem</h2>
             <p>
               The most dangerous failure mode in a sales bot isn't a wrong answer. It's a confidently wrong answer about capabilities the company doesn't have. If someone asks "do you do blockchain development?" and the retriever returns nothing, the LLM will happily make something up if you let it.
             </p>
@@ -260,7 +265,7 @@ export default function BlogRagPipeline() {
           </section>
 
           <section>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-3">Graph-based conversation flow</h2>
+            <h2 id="conversation-flow" className="font-display text-lg font-semibold text-foreground mb-3">Graph-based conversation flow</h2>
             <p>
               The conversation isn't just question-answer-question-answer. After a RAG response, the system needs to decide: should it ask for contact info? Route to a pricing discussion? Hand off to lead qualification? Flag as off-topic?
             </p>
@@ -273,7 +278,7 @@ export default function BlogRagPipeline() {
           </section>
 
           <section>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-3">What I'd do differently</h2>
+            <h2 id="retrospective" className="font-display text-lg font-semibold text-foreground mb-3">What I'd do differently</h2>
             <div className="rounded-xl border border-accent/30 bg-accent/5 p-5 space-y-3">
               <p>
                 <strong className="text-foreground">Smaller, more focused chunks with a parent-child retrieval strategy.</strong> The 4000-character chunks work, but they're a compromise. I'd try storing 500-char child chunks for retrieval precision and fetching the parent 4000-char chunk for LLM context. Several frameworks support this now out of the box.
@@ -282,7 +287,7 @@ export default function BlogRagPipeline() {
                 <strong className="text-foreground">Evaluation from day one.</strong> I built an evaluation pipeline later in the project, and it was invaluable for catching regressions. But I wish I'd had it from the start. Every time you change a prompt, a chunk size, or a retrieval parameter, you need to know what broke. I ended up using a judge LLM (GPT-4.1) scoring multi-turn conversations against a rubric, exporting to Excel for review. It works, but I should have invested in it earlier.
               </p>
               <p>
-                <strong className="text-foreground">Use reranking.</strong> Top-k similarity search plus metadata filters got me 80% of the way there. A cross-encoder reranker on top of the retrieved docs would likely push relevance further, especially for longer queries where the best semantic match isn't always the most useful document for answering the question.
+                <strong className="text-foreground">Reranking helped more than I expected.</strong> I added a cross-encoder reranker on top of the retrieved docs after the initial top-k similarity search and metadata filters. It noticeably improved relevance, especially for longer queries where the best semantic match isn't always the most useful document for answering the question. If you're building a RAG system and haven't tried reranking yet, it's one of the highest-impact additions for relatively low effort.
               </p>
               <p>
                 <strong className="text-foreground">Cache the classification results.</strong> The parallel classification calls are the biggest cost driver. Many users ask similar categories of questions. A semantic cache (embedding similarity on the query, return cached classification if it's close enough) could cut costs without hurting quality much.
@@ -291,16 +296,18 @@ export default function BlogRagPipeline() {
           </section>
 
           <section>
-            <h2 className="font-display text-lg font-semibold text-foreground mb-3">Wrapping up</h2>
+            <h2 id="conclusion" className="font-display text-lg font-semibold text-foreground mb-3">Wrapping up</h2>
             <p>
-              Building RAG for production is mostly not about the retrieval or the generation. It's about everything around it: cleaning the source data, making metadata useful, handling edge cases when retrieval fails, and building an evaluation loop so you know when things get worse. The LLM call at the end is the easy part.
+              Most of the work in a production RAG system isn't the retrieval or the generation. It's cleaning the source data, making metadata useful, handling the cases when retrieval returns nothing, and having an evaluation loop so you notice when things get worse. The LLM call at the end is the easy part.
             </p>
             <p className="mt-3">
-              If you're building something similar and want to talk through architecture decisions, feel free to reach out. I'm always happy to compare notes.
+              If you're building something similar, I'm happy to compare notes on architecture decisions.
             </p>
           </section>
 
         </div>
+
+        <BlogNav />
 
       </article>
     </main>

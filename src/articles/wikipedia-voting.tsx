@@ -26,6 +26,7 @@ const meta = {
   seoTitle: 'Wikipedia Voting Network: Case Study | Subash Pandey',
   seoDescription:
     'Network science analysis of the Wikipedia Administrator voting network. Centrality measures, Louvain community detection, and clustering effects on 7,115 users and 100,762 votes.',
+  seoKeywords: 'wikipedia admin voting network analysis, social network community detection python, networkx centrality measures tutorial, louvain girvan newman clustering, graph analysis voting patterns, network science case study',
 }
 
 const topologyStats = [

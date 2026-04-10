@@ -561,6 +561,13 @@ export const translations = {
           summary: 'Practical lessons from building a LangGraph + Qdrant RAG pipeline for a real sales chatbot. Covers chunking strategy, hybrid retrieval, query rewriting, and hallucination prevention.',
           tags: ['LangGraph', 'Qdrant', 'RAG', 'OpenAI', 'Python'],
         },
+        {
+          slug: 'audio-feature-extraction',
+          title: 'Audio Feature Extraction for AI: From Parselmouth to Production',
+          date: 'April 2026',
+          summary: 'How I built a speech analysis API extracting 14 voice metrics from raw WAV files. Dual pitch tracking with librosa and Parselmouth, HPSS-based HNR, adaptive VLHR, and silence detection via pydub.',
+          tags: ['Parselmouth', 'librosa', 'FastAPI', 'Audio ML', 'Python'],
+        },
       ],
     },
     ui: {
