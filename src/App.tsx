@@ -5,6 +5,7 @@ import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe
 import { translations, seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
+import { BLOG_ENABLED } from './config'
 
 
 function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
@@ -1497,10 +1498,12 @@ function App() {
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   {t.cta.availability}
                 </span>
-                <Link to="/blog" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors">
-                  <PenLine className="w-3 h-3" />
-                  Blog
-                </Link>
+                {BLOG_ENABLED && (
+                  <Link to="/blog" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors">
+                    <PenLine className="w-3 h-3" />
+                    Blog
+                  </Link>
+                )}
               </motion.div>
             </motion.div>
           </div>
@@ -2603,62 +2606,66 @@ function App() {
             </AnimatedSection>
           )}
 
-          {/* Separator */}
-          <div className="my-10 border-t border-border/40" />
+          {BLOG_ENABLED && (
+            <>
+              {/* Separator */}
+              <div className="my-10 border-t border-border/40" />
 
-          {/* Blog */}
-          <AnimatedSection delay={0.3}>
-            <h3 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
-              <PenLine className="w-5 h-5 text-accent" />
-              {t.blog.title}
-            </h3>
-          </AnimatedSection>
-          {t.blog.items.length > 0 ? (
-            <div className="grid gap-4 mb-4">
-              {t.blog.items.map((post: { slug: string; title: string; date: string; summary: string; tags: readonly string[] }, i: number) => (
-                <AnimatedSection key={post.slug} delay={0.35 + i * 0.1}>
-                  <Link
-                    to={`/blog/${post.slug}`}
-                    className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 border-l-4 border-l-accent hover:border-border hover:shadow-md transition-all group"
-                  >
-                    <div className="flex items-start gap-3 flex-1 min-w-0">
-                      <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
-                        <PenLine className="w-5 h-5 text-accent" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-muted-foreground mb-1.5 font-medium">{post.date}</p>
-                        <p className="text-sm font-semibold text-foreground leading-relaxed group-hover:text-accent transition-colors">{post.title}</p>
-                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{post.summary}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center text-xs text-accent font-medium shrink-0 pl-13 sm:pl-0 group-hover:underline gap-1">
-                      {t.blog.readMore}
-                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                    </div>
-                  </Link>
+              {/* Blog */}
+              <AnimatedSection delay={0.3}>
+                <h3 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
+                  <PenLine className="w-5 h-5 text-accent" />
+                  {t.blog.title}
+                </h3>
+              </AnimatedSection>
+              {t.blog.items.length > 0 ? (
+                <div className="grid gap-4 mb-4">
+                  {t.blog.items.map((post: { slug: string; title: string; date: string; summary: string; tags: readonly string[] }, i: number) => (
+                    <AnimatedSection key={post.slug} delay={0.35 + i * 0.1}>
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 border-l-4 border-l-accent hover:border-border hover:shadow-md transition-all group"
+                      >
+                        <div className="flex items-start gap-3 flex-1 min-w-0">
+                          <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                            <PenLine className="w-5 h-5 text-accent" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs text-muted-foreground mb-1.5 font-medium">{post.date}</p>
+                            <p className="text-sm font-semibold text-foreground leading-relaxed group-hover:text-accent transition-colors">{post.title}</p>
+                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{post.summary}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center text-xs text-accent font-medium shrink-0 pl-13 sm:pl-0 group-hover:underline gap-1">
+                          {t.blog.readMore}
+                          <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                        </div>
+                      </Link>
+                    </AnimatedSection>
+                  ))}
+                </div>
+              ) : (
+                <AnimatedSection delay={0.35}>
+                  <div className="p-6 rounded-2xl bg-card border border-dashed border-border/60 text-center">
+                    <PenLine className="w-8 h-8 text-accent/30 mx-auto mb-3" />
+                    <p className="text-muted-foreground text-sm">{t.blog.noPosts}</p>
+                  </div>
                 </AnimatedSection>
-              ))}
-            </div>
-          ) : (
-            <AnimatedSection delay={0.35}>
-              <div className="p-6 rounded-2xl bg-card border border-dashed border-border/60 text-center">
-                <PenLine className="w-8 h-8 text-accent/30 mx-auto mb-3" />
-                <p className="text-muted-foreground text-sm">{t.blog.noPosts}</p>
-              </div>
-            </AnimatedSection>
+              )}
+              <AnimatedSection delay={0.4}>
+                <div className="text-center mt-4">
+                  <Link
+                    to="/blog"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent/10 text-accent font-medium text-sm hover:bg-accent/20 transition-colors"
+                  >
+                    <PenLine className="w-4 h-4" />
+                    All posts
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </AnimatedSection>
+            </>
           )}
-          <AnimatedSection delay={0.4}>
-            <div className="text-center mt-4">
-              <Link
-                to="/blog"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent/10 text-accent font-medium text-sm hover:bg-accent/20 transition-colors"
-              >
-                <PenLine className="w-4 h-4" />
-                All posts
-                <ChevronRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </AnimatedSection>
         </div>
       </section>
 
@@ -2872,23 +2879,29 @@ function App() {
                   GitHub
                   <ExternalLink className="w-3 h-3" aria-hidden="true" />
                 </a>
-                <Link
-                  to="/blog"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-accent/50 transition-colors duration-200 hover:bg-accent/5 text-sm"
-                >
-                  <PenLine className="w-4 h-4" />
-                  Blog
-                </Link>
+                {BLOG_ENABLED && (
+                  <Link
+                    to="/blog"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-accent/50 transition-colors duration-200 hover:bg-accent/5 text-sm"
+                  >
+                    <PenLine className="w-4 h-4" />
+                    Blog
+                  </Link>
+                )}
               </div>
           </AnimatedSection>
 
           <p className="mt-12 text-xs text-muted-foreground text-center">
             &copy; {new Date().getFullYear()} Subash Pandey
             <span className="mx-2 text-border">|</span>
-            <Link to="/blog" className="hover:text-primary transition-colors">
-              Blog
-            </Link>
-            <span className="mx-2 text-border">|</span>
+            {BLOG_ENABLED && (
+              <>
+                <Link to="/blog" className="hover:text-primary transition-colors">
+                  Blog
+                </Link>
+                <span className="mx-2 text-border">|</span>
+              </>
+            )}
             <Link to="/privacy" className="hover:text-primary transition-colors">
               Privacy
             </Link>

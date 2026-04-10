@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, Tag } from 'lucide-react'
 import BlogNav from './BlogNav'
+import BlogToc from './BlogToc'
 import { useBlogSeo, useReadingTime } from './useBlogSeo'
 
 function DiagramBox({ x, y, w, h, label, sublabel, accent }: { x: number; y: number; w: number; h: number; label: string; sublabel?: string; accent?: boolean }) {
@@ -122,6 +123,7 @@ export default function BlogRagPipeline() {
 
   return (
     <main className="min-h-screen bg-background">
+      <BlogToc articleRef={articleRef} />
       <article ref={articleRef} className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
 
         <Link
@@ -132,7 +134,6 @@ export default function BlogRagPipeline() {
           Back to blog
         </Link>
 
-        {/* Header */}
         <header className="mb-10">
           <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
             <span className="inline-flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> April 2026</span>

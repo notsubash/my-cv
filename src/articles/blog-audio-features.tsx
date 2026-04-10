@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, Tag } from 'lucide-react'
 import BlogNav from './BlogNav'
+import BlogToc from './BlogToc'
 import CodeBlock from './CodeBlock'
 import { useBlogSeo, useReadingTime } from './useBlogSeo'
 
@@ -255,6 +256,7 @@ export default function BlogAudioFeatures() {
 
   return (
     <main className="min-h-screen bg-background">
+      <BlogToc articleRef={articleRef} />
       <article ref={articleRef} className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
 
         <Link

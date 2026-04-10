@@ -7,6 +7,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react'
 import './index.css'
 import App from './App.tsx'
 import GlobalNav from './GlobalNav.tsx'
+import { BLOG_ENABLED } from './config'
 
 const PrivacyPolicy = lazy(() => import('./PrivacyPolicy'))
 const AboutPage = lazy(() => import('./AboutPage'))
@@ -130,9 +131,9 @@ const app = (
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/rag-pipeline" element={<BlogRagPipeline />} />
-            <Route path="/blog/audio-feature-extraction" element={<BlogAudioFeatures />} />
+            {BLOG_ENABLED && <Route path="/blog" element={<BlogPage />} />}
+            {BLOG_ENABLED && <Route path="/blog/rag-pipeline" element={<BlogRagPipeline />} />}
+            {BLOG_ENABLED && <Route path="/blog/audio-feature-extraction" element={<BlogAudioFeatures />} />}
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/projects/activity-recognition" element={<ActivityRecognition />} />
             <Route path="/projects/steam-ml" element={<SteamML />} />
