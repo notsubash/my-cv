@@ -359,36 +359,6 @@ function App() {
               className="relative mb-8"
             >
               <div className="relative w-32 h-32 md:w-36 md:h-36">
-                {/* Orbital ring — pushed out from the photo like a planetary orbit */}
-                <svg
-                  className="absolute inset-[-24px] w-[calc(100%+48px)] h-[calc(100%+48px)]"
-                  viewBox="0 0 200 200"
-                  style={{ animation: 'hero-ring-rotate 25s linear infinite' }}
-                >
-                  <defs>
-                    <linearGradient id="hero-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="hsl(var(--gradient-from))" />
-                      <stop offset="100%" stopColor="hsl(var(--accent))" />
-                    </linearGradient>
-                  </defs>
-                  <circle
-                    cx="100" cy="100" r="92"
-                    fill="none"
-                    stroke="url(#hero-ring-grad)"
-                    strokeWidth="1.5"
-                    strokeDasharray="578"
-                    strokeLinecap="round"
-                    style={{ animation: 'hero-ring-draw 2s ease-out forwards' }}
-                  />
-                  <circle
-                    cx="100" cy="100" r="92"
-                    fill="none"
-                    stroke="url(#hero-ring-grad)"
-                    strokeWidth="0.8"
-                    strokeDasharray="6 14"
-                    opacity="0.3"
-                  />
-                </svg>
                 {/* Orbiting globe — container rotates, globe counter-rotates to stay upright */}
                 <div
                   className="absolute inset-[-24px] w-[calc(100%+48px)] h-[calc(100%+48px)] pointer-events-none"
