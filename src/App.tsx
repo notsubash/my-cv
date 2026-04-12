@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useMemo, useReducer, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, BadgeCheck, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, Shield, FileText, GitBranch, GitFork, Star, Terminal, Lock, Network, Calendar, Percent, UserCheck, Image, TrendingUp, Timer, SkipForward, ThumbsUp, MessageCircle, Share2, ChevronRight, List, Bot, Video, BookOpen, MapPin, PenLine } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, BadgeCheck, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, FileText, GitBranch, GitFork, Star, Network, Calendar, Percent, UserCheck, Image, TrendingUp, Timer, ThumbsUp, MessageCircle, Share2, ChevronRight, List, Bot, Video, BookOpen, MapPin, PenLine } from 'lucide-react'
 import { translations, seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
@@ -44,180 +44,6 @@ function useInView(threshold = 0.1) {
   return { ref: setRef, isInView }
 }
 
-
-// Inject animation styles once (avoids hydration mismatch from inline <style> in h1)
-const HERO_STYLES_ID = 'hero-beam-styles'
-function useHeroStyles() {
-  useEffect(() => {
-    if (document.getElementById(HERO_STYLES_ID)) return
-    const style = document.createElement('style')
-    style.id = HERO_STYLES_ID
-    style.textContent = `
-      @keyframes blink { 0%, 100% { opacity: 1 } 50% { opacity: 0 } }
-      @keyframes heal-float {
-        0% { opacity: 0; transform: translateY(0) scale(0.6); }
-        12% { opacity: 0.25; }
-        40% { opacity: 0.15; }
-        100% { opacity: 0; transform: translateY(-65px) scale(0.2); }
-      }
-      @property --beam-angle {
-        syntax: '<angle>';
-        inherits: false;
-        initial-value: 0deg;
-      }
-      @keyframes beam-spin {
-        0% { --beam-angle: 0deg; }
-        100% { --beam-angle: 360deg; }
-      }
-      .beam-pill::before {
-        content: '';
-        position: absolute;
-        inset: 2px -7px -5px -7px;
-        border-radius: 9999px;
-        padding: 2px;
-        background: conic-gradient(
-          from var(--beam-angle),
-          transparent 0%,
-          transparent 82%,
-          rgba(74, 222, 128, 0.05) 86%,
-          rgba(74, 222, 128, 0.15) 89%,
-          rgba(74, 222, 128, 0.35) 92%,
-          rgba(74, 222, 128, 0.6) 95%,
-          rgba(74, 222, 128, 0.9) 98%,
-          #4ade80 100%,
-          transparent 100%
-        );
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        animation: beam-spin 2s linear infinite;
-      }
-    `
-    document.head.appendChild(style)
-  }, [])
-}
-
-// ---------------------------------------------------------------------------
-// GridSnakes — subtle animated trails on the dot grid (hero only)
-// ---------------------------------------------------------------------------
-const GRID = 24                // matches CSS dot grid size
-const SNAKE_COUNT = 3
-const SNAKE_LENGTH = 8         // dots per trail
-const TICK_MS = 180            // movement speed (lower = faster)
-const DIRS: [number, number][] = [[1,0],[-1,0],[0,1],[0,-1]]
-
-function GridSnakes() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const parent = canvas.parentElement
-    if (!parent) return
-
-    const resize = () => {
-      canvas.width = parent.clientWidth
-      canvas.height = parent.clientHeight
-    }
-    resize()
-    window.addEventListener('resize', resize)
-
-    // Initialize snakes at random grid positions
-    const cols = () => Math.floor(canvas.width / GRID)
-    const rows = () => Math.floor(canvas.height / GRID)
-
-    type Snake = { trail: [number, number][]; dir: [number, number] }
-    const snakes: Snake[] = Array.from({ length: SNAKE_COUNT }, () => {
-      const x = Math.floor(Math.random() * cols())
-      const y = Math.floor(Math.random() * rows())
-      return { trail: [[x, y]], dir: DIRS[Math.floor(Math.random() * 4)] }
-    })
-
-    const tick = () => {
-      const c = cols()
-      const r = rows()
-
-      for (const snake of snakes) {
-        // 30% chance to turn
-        if (Math.random() < 0.3) {
-          snake.dir = DIRS[Math.floor(Math.random() * 4)]
-        }
-        const [hx, hy] = snake.trail[snake.trail.length - 1]
-        let nx = hx + snake.dir[0]
-        let ny = hy + snake.dir[1]
-
-        // Wrap around edges
-        if (nx < 0) nx = c - 1
-        if (nx >= c) nx = 0
-        if (ny < 0) ny = r - 1
-        if (ny >= r) ny = 0
-
-        snake.trail.push([nx, ny])
-        if (snake.trail.length > SNAKE_LENGTH) snake.trail.shift()
-      }
-
-      // Draw
-      const ctx = canvas.getContext('2d')
-      if (!ctx) return
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      for (const snake of snakes) {
-        for (let i = 0; i < snake.trail.length; i++) {
-          const [gx, gy] = snake.trail[i]
-          const alpha = ((i + 1) / snake.trail.length) * 0.5
-          ctx.beginPath()
-          ctx.arc(gx * GRID + GRID / 2, gy * GRID + GRID / 2, 1.5, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(0, 217, 255, ${alpha})`
-          ctx.fill()
-        }
-      }
-    }
-
-    const interval = setInterval(tick, TICK_MS)
-    return () => { clearInterval(interval); window.removeEventListener('resize', resize) }
-  }, [])
-
-  return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-[1]" />
-}
-
-
-function useTypewriterRotation(roles: readonly string[], { typeSpeed = 80, deleteSpeed = 60, pauseAfterType = 2000, pauseAfterDelete = 300 } = {}) {
-  const [roleIndex, setRoleIndex] = useState(0)
-  const [displayText, setDisplayText] = useState(roles[0])
-  const [isDeleting, setIsDeleting] = useState(false)
-  const currentRole = roles[roleIndex]
-
-  useEffect(() => {
-    let timeout: ReturnType<typeof setTimeout>
-
-    if (!isDeleting && displayText === currentRole) {
-      // Finished typing — pause then start deleting
-      timeout = setTimeout(() => setIsDeleting(true), pauseAfterType)
-    } else if (isDeleting && displayText === '') {
-      // Finished deleting — move to next role and start typing
-      timeout = setTimeout(() => {
-        setRoleIndex(i => (i + 1) % roles.length)
-        setIsDeleting(false)
-      }, pauseAfterDelete)
-    } else if (isDeleting) {
-      // Deleting word by word (ctrl+backspace style)
-      timeout = setTimeout(() => {
-        const words = displayText.trimEnd().split(' ')
-        words.pop()
-        setDisplayText(words.length > 0 ? words.join(' ') + ' ' : '')
-      }, deleteSpeed)
-    } else {
-      // Typing character by character
-      timeout = setTimeout(() => {
-        setDisplayText(currentRole.slice(0, displayText.length + 1))
-      }, typeSpeed)
-    }
-
-    return () => clearTimeout(timeout)
-  }, [displayText, isDeleting, currentRole, roles, typeSpeed, deleteSpeed, pauseAfterType, pauseAfterDelete])
-
-  return { displayText, roleIndex, isDeleting }
-}
 
 const HOME_TOC_SECTIONS = [
   { id: 'experience', en: 'Experience' },
@@ -413,9 +239,9 @@ function AnimatedSection({ children, className = '', delay = 0 }: { children: Re
           ? false  // Pre-hydration / pre-detection: preserve SSR DOM state
           : isInView
             ? { opacity: 1, y: 0 }
-            : { opacity: 0, y: 40 }
+            : { opacity: 0, y: 24 }
       }
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -437,914 +263,7 @@ function SectionIcon({ children, accent = false }: { children: React.ReactNode, 
   )
 }
 
-// Parsea texto con marcadores de highlight:
-// *texto* = Tipo B: gradiente durante typewriter (frase activa), luego normal
-// +texto+ = Tipo C: normal durante typewriter, gradiente en encendido final
-// **texto** = gradiente siempre (permanent) + slow typing
-type ParsedHighlights = {
-  clean: string
-  ranges: [number, number][]          // backward compat
-  typewriterRanges: [number, number][] // *texto* - Tipo B: gradiente solo durante typewriter
-  finalRanges: [number, number][]      // +texto+ - Tipo C: gradiente solo en encendido final
-  permanentRanges: [number, number][]  // **texto** - siempre gradiente
-  slowRanges: [number, number][]       // para typing lento
-}
-
-function parseHighlights(text: string): ParsedHighlights {
-  const typewriterRanges: [number, number][] = []  // Tipo B: *texto*
-  const finalRanges: [number, number][] = []       // Tipo C: +texto+
-  const permanentRanges: [number, number][] = []   // **texto**
-  const slowRanges: [number, number][] = []
-  let clean = ''
-  let i = 0
-
-  while (i < text.length) {
-    // Check for ** (permanent highlight + slow)
-    if (text[i] === '*' && text[i + 1] === '*') {
-      const start = clean.length
-      i += 2
-      while (i < text.length && !(text[i] === '*' && text[i + 1] === '*')) {
-        clean += text[i]
-        i++
-      }
-      permanentRanges.push([start, clean.length])
-      slowRanges.push([start, clean.length])
-      i += 2
-    }
-    // Check for + (Tipo C: gradiente solo en encendido final)
-    // Si +digit (ej: +15), mostrar como "15+" (convención internacional)
-    else if (text[i] === '+') {
-      const nextIsDigit = /\d/.test(text[i + 1] || '')
-      const start = clean.length
-      i++ // skip opening +
-      if (nextIsDigit) {
-        // Leer dígitos primero, luego añadir + después (15+ en vez de +15)
-        while (i < text.length && /\d/.test(text[i])) {
-          clean += text[i]
-          i++
-        }
-        clean += '+'
-      }
-      while (i < text.length && text[i] !== '+') {
-        clean += text[i]
-        i++
-      }
-      finalRanges.push([start, clean.length])
-      i++ // skip closing +
-    }
-    // Check for single * (Tipo B: gradiente solo durante typewriter)
-    else if (text[i] === '*') {
-      const start = clean.length
-      i++
-      while (i < text.length && text[i] !== '*') {
-        clean += text[i]
-        i++
-      }
-      typewriterRanges.push([start, clean.length])
-      i++
-    } else {
-      clean += text[i]
-      i++
-    }
-  }
-
-  // For backward compatibility
-  const ranges: [number, number][] = [...permanentRanges]
-  return { clean, ranges, typewriterRanges, finalRanges, permanentRanges, slowRanges }
-}
-
-// Renderiza texto con rangos destacados y soporte para transición
-// Tipos de highlight:
-// - typewriter (Tipo B): gradiente durante typewriter, luego normal
-// - final (Tipo C): normal durante typewriter, gradiente en encendido final
-// - permanent: siempre gradiente
-function renderHighlightedText(
-  text: string,
-  _ranges: [number, number][],  // kept for API compatibility
-  options?: {
-    dimmed?: boolean           // texto atenuado (después del typewriter)
-    finalReveal?: boolean      // Tipo C se enciende con gradiente
-    revealed?: boolean         // resto del texto se enciende
-    typewriterRanges?: [number, number][]  // Tipo B
-    finalRanges?: [number, number][]       // Tipo C
-    permanentRanges?: [number, number][]
-    highlightsActive?: boolean // gradiente activo durante typewriter
-  }
-) {
-  const {
-    dimmed = false,
-    finalReveal = false,
-    revealed = false,
-    typewriterRanges = [],
-    finalRanges = [],
-    permanentRanges = [],
-    highlightsActive = false
-  } = options || {}
-
-  // Build a map of character positions to their highlight type
-  type HighlightType = 'typewriter' | 'final' | 'permanent' | null
-  const charTypes: HighlightType[] = new Array(text.length).fill(null)
-
-  typewriterRanges.forEach(([start, end]) => {
-    for (let i = start; i < end && i < text.length; i++) charTypes[i] = 'typewriter'
-  })
-  finalRanges.forEach(([start, end]) => {
-    for (let i = start; i < end && i < text.length; i++) charTypes[i] = 'final'
-  })
-  permanentRanges.forEach(([start, end]) => {
-    for (let i = start; i < end && i < text.length; i++) charTypes[i] = 'permanent'
-  })
-
-  // Opacity states - SEPARADOS para cada tipo
-  // Texto normal y Tipo B: atenuados, luego quedan en segundo plano (opacity-50)
-  const textOpacity = dimmed ? (revealed ? 'opacity-90' : 'opacity-15') : 'opacity-100'
-  // Tipo C: atenuados hasta que finalReveal=true (se encienden ANTES que el resto)
-  const isFinalLowOpacity = dimmed && !finalReveal
-
-  // UN SOLO TIMING para TODO - sincronización perfecta
-  const timing = 'duration-[2500ms] ease-in-out'
-
-  // If no special ranges, render as plain text
-  if (typewriterRanges.length === 0 && finalRanges.length === 0 && permanentRanges.length === 0) {
-    return (
-      <span className={`text-muted-foreground transition-opacity ${timing} ${textOpacity}`}>
-        {text}
-      </span>
-    )
-  }
-
-  // Group consecutive characters by type
-  const parts: React.ReactNode[] = []
-  let currentType: HighlightType = charTypes[0]
-  let currentStart = 0
-
-  // Per-word inline-grid so highlighted text can wrap naturally on narrow screens.
-  // Each word shows its slice of the full-phrase gradient via background-size/position.
-  const pushHighlightWords = (
-    seg: string, baseKey: number, showGradient: boolean, normalOpacity: string
-  ) => {
-    const gOp = showGradient ? 'opacity-100' : 'opacity-0'
-    const totalLen = seg.length
-    let charPos = 0
-    seg.split(/( +)/).forEach((word, wIdx) => {
-      if (!word) return
-      if (/^ +$/.test(word)) {
-        parts.push(<span key={`${baseKey}s${wIdx}`}>{word}</span>)
-        charPos += word.length
-      } else {
-        const wordFrac = word.length / totalLen
-        const startFrac = charPos / totalLen
-        // Continuous gradient: size spans full phrase, position shows this word's slice
-        const bgSize = wordFrac >= 1 ? 100 : 100 / wordFrac
-        const bgPos = wordFrac >= 1 ? 0 : startFrac * 100 / (1 - wordFrac)
-        parts.push(
-          <span key={`${baseKey}w${wIdx}`} className="inline-grid">
-            <span
-              className={`font-medium transition-opacity ${timing} ${gOp}`}
-              style={{
-                gridColumn: 1, gridRow: 1,
-                backgroundImage: 'linear-gradient(to right, hsl(var(--gradient-from)), hsl(var(--gradient-to)))',
-                backgroundSize: `${bgSize}% 100%`,
-                backgroundPosition: `${bgPos}% 0`,
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-              }}
-            >{word}</span>
-            <span
-              className={`text-muted-foreground transition-opacity ${timing} ${normalOpacity}`}
-              style={{ gridColumn: 1, gridRow: 1, userSelect: 'none' }}
-              aria-hidden="true"
-            >{word}</span>
-          </span>
-        )
-        charPos += word.length
-      }
-    })
-  }
-
-  for (let i = 1; i <= text.length; i++) {
-    const type = i < text.length ? charTypes[i] : null
-    if (type !== currentType || i === text.length) {
-      const segment = text.slice(currentStart, i)
-      if (segment) {
-        if (currentType === null) {
-          // Plain text - dims then stays as background context
-          parts.push(
-            <span
-              key={currentStart}
-              className={`text-muted-foreground transition-opacity ${timing} ${textOpacity}`}
-            >
-              {segment}
-            </span>
-          )
-        } else if (currentType === 'typewriter') {
-          // Tipo B: gradiente SOLO durante typewriter (highlightsActive), luego texto normal
-          const showGradient = highlightsActive
-          pushHighlightWords(segment, currentStart, showGradient,
-            showGradient ? 'opacity-0' : textOpacity)
-        } else if (currentType === 'final') {
-          // Tipo C: normal durante typewriter, gradiente en encendido final (finalReveal)
-          const showGradient = finalReveal
-          pushHighlightWords(segment, currentStart, showGradient,
-            showGradient ? 'opacity-0' : isFinalLowOpacity ? 'opacity-15' : 'opacity-100')
-        } else {
-          // permanent: siempre gradiente (mientras no esté revealed)
-          const showGradient = !revealed
-          pushHighlightWords(segment, currentStart, showGradient,
-            showGradient ? 'opacity-0' : 'opacity-100')
-        }
-      }
-      currentStart = i
-      currentType = type
-    }
-  }
-
-  return parts
-}
-
-// Typewriter reflexivo con fases: contexto → reflexiones (se borran) → hook final
-type Phase = 'idle' | 'context' | 'pause-after-context' | 'reflection' | 'pause-before-delete' | 'deleting' | 'hook' | 'complete'
-
-type TypewriterState = {
-  phase: Phase
-  displayText: string
-  contextComplete: boolean
-  currentReflection: number
-  completedHookLines: string[][]
-  currentHookParagraph: number
-  currentHookLine: number
-}
-
-type TypewriterAction =
-  | { type: 'START' }
-  | { type: 'TICK'; char: string }
-  | { type: 'PHASE_CHANGE'; phase: Phase }
-  | { type: 'CONTEXT_COMPLETE' }
-  | { type: 'CLEAR_TEXT' }
-  | { type: 'DELETE_WORD' }
-  | { type: 'NEXT_REFLECTION' }
-  | { type: 'COMPLETE_HOOK_LINE'; text: string }
-  | { type: 'NEXT_HOOK_LINE' }
-  | { type: 'NEXT_HOOK_PARAGRAPH' }
-  | { type: 'SKIP_TO_COMPLETE'; allHookLines: string[][] }
-  | { type: 'RESET' }
-
-const initialTypewriterState: TypewriterState = {
-  phase: 'idle',
-  displayText: '',
-  contextComplete: false,
-  currentReflection: 0,
-  completedHookLines: [],
-  currentHookParagraph: 0,
-  currentHookLine: 0,
-}
-
-function typewriterReducer(state: TypewriterState, action: TypewriterAction): TypewriterState {
-  switch (action.type) {
-    case 'START':
-      return { ...state, phase: 'context' }
-    case 'TICK':
-      return { ...state, displayText: state.displayText + action.char }
-    case 'PHASE_CHANGE':
-      return { ...state, phase: action.phase }
-    case 'CONTEXT_COMPLETE':
-      return { ...state, contextComplete: true }
-    case 'CLEAR_TEXT':
-      return { ...state, displayText: '' }
-    case 'DELETE_WORD': {
-      const trimmed = state.displayText.trimEnd()
-      const lastSpace = trimmed.lastIndexOf(' ')
-      return { ...state, displayText: lastSpace === -1 ? '' : state.displayText.slice(0, lastSpace + 1) }
-    }
-    case 'NEXT_REFLECTION':
-      return { ...state, currentReflection: state.currentReflection + 1, displayText: '', phase: 'reflection' }
-    case 'COMPLETE_HOOK_LINE': {
-      const newCompleted = [...state.completedHookLines]
-      if (!newCompleted[state.currentHookParagraph]) newCompleted[state.currentHookParagraph] = []
-      newCompleted[state.currentHookParagraph][state.currentHookLine] = action.text
-      return { ...state, completedHookLines: newCompleted }
-    }
-    case 'NEXT_HOOK_LINE':
-      return { ...state, currentHookLine: state.currentHookLine + 1, displayText: '' }
-    case 'NEXT_HOOK_PARAGRAPH':
-      return { ...state, currentHookParagraph: state.currentHookParagraph + 1, currentHookLine: 0, displayText: '' }
-    case 'SKIP_TO_COMPLETE':
-      return {
-        ...state,
-        phase: 'complete',
-        contextComplete: true,
-        completedHookLines: action.allHookLines,
-        displayText: '',
-      }
-    case 'RESET':
-      return initialTypewriterState
-    default:
-      return state
-  }
-}
-
-const STORY_SEEN_KEY = 'story-animation-seen-v1'
-
-function ReflectiveTypewriter({
-  context,
-  reflections,
-  hookParagraphs,
-  className = '',
-  dimmed = false,
-  finalReveal = false,
-  revealed = false,
-  onComplete,
-  skipRef,
-  onStart
-}: {
-  context: string
-  reflections: readonly string[]
-  hookParagraphs: readonly (readonly string[])[]
-  className?: string
-  dimmed?: boolean
-  finalReveal?: boolean
-  revealed?: boolean
-  onComplete?: () => void
-  skipRef?: React.MutableRefObject<(() => void) | null>
-  onStart?: () => void
-}) {
-  const [state, dispatch] = useReducer(typewriterReducer, initialTypewriterState)
-  const { phase, displayText, contextComplete, currentReflection, completedHookLines, currentHookParagraph, currentHookLine } = state
-
-  const { ref, isInView } = useInView(0.5)
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const abortRef = useRef<AbortController | null>(null)
-
-  // Parse context for highlights
-  const parsedContext = useMemo(() => parseHighlights(context), [context])
-
-  // Parse hook lines for highlights
-  const parsedHookLines = useMemo(() =>
-    hookParagraphs.flatMap(p => [...p]).map(parseHighlights),
-    [hookParagraphs]
-  )
-
-  // Build all hook lines for skip functionality
-  const allHookLinesComplete = useMemo(() => {
-    const result: string[][] = []
-    let flatIdx = 0
-    for (let p = 0; p < hookParagraphs.length; p++) {
-      result[p] = []
-      for (let l = 0; l < hookParagraphs[p].length; l++) {
-        result[p][l] = parsedHookLines[flatIdx]?.clean || ''
-        flatIdx++
-      }
-    }
-    return result
-  }, [hookParagraphs, parsedHookLines])
-
-  // Skip to complete function
-  const skipToComplete = useCallback(() => {
-    abortRef.current?.abort()
-    dispatch({ type: 'SKIP_TO_COMPLETE', allHookLines: allHookLinesComplete })
-    sessionStorage.setItem(STORY_SEEN_KEY, 'true')
-    onComplete?.()
-  }, [allHookLinesComplete, onComplete])
-
-  // Expose skipToComplete to parent via ref
-  useEffect(() => {
-    if (skipRef) skipRef.current = skipToComplete
-  }, [skipRef, skipToComplete])
-
-  // Check sessionStorage on mount - skip if already seen
-  useEffect(() => {
-    const seen = sessionStorage.getItem(STORY_SEEN_KEY)
-    if (seen && phase === 'idle') {
-      skipToComplete()
-    }
-  }, []) // Only on mount
-
-  // Reset and cancel on language change
-  useEffect(() => {
-    abortRef.current?.abort()
-    abortRef.current = new AbortController()
-    dispatch({ type: 'RESET' })
-
-    // Check if already seen after reset
-    const seen = sessionStorage.getItem(STORY_SEEN_KEY)
-    if (seen) {
-      dispatch({ type: 'SKIP_TO_COMPLETE', allHookLines: allHookLinesComplete })
-    }
-  }, [context, reflections, hookParagraphs, allHookLinesComplete])
-
-  // Start when in view
-  useEffect(() => {
-    if (isInView && phase === 'idle') {
-      dispatch({ type: 'START' })
-      onStart?.()
-    }
-  }, [isInView, phase, onStart])
-
-  // Click to skip handler
-  useEffect(() => {
-    if (phase === 'complete' || phase === 'idle') return
-
-    const handleClick = () => {
-      skipToComplete()
-    }
-
-    const container = containerRef.current
-    container?.addEventListener('click', handleClick)
-
-    return () => container?.removeEventListener('click', handleClick)
-  }, [phase, skipToComplete])
-
-  // Typing delay function
-  const getTypingDelay = useCallback((char: string, prevChar: string) => {
-    let delay = 40
-    if (/[.,!?;:—]/.test(char)) delay += 120 + Math.random() * 100
-    else if (char === ' ') delay += 20 + Math.random() * 30
-    else if (prevChar === ' ') delay += 25 + Math.random() * 20
-    else if (/[áéíóúñü¿¡]/i.test(char)) delay += 30 + Math.random() * 20
-    delay += (Math.random() - 0.5) * 20
-    return Math.max(25, delay)
-  }, [])
-
-  // Main animation effect
-  useEffect(() => {
-    if (phase === 'idle' || phase === 'complete') return
-
-    const signal = abortRef.current?.signal
-
-    // Phase: context (use clean text without markers)
-    if (phase === 'context') {
-      const cleanContext = parsedContext.clean
-      if (displayText === cleanContext) {
-        const timer = setTimeout(() => {
-          if (signal?.aborted) return
-          dispatch({ type: 'PHASE_CHANGE', phase: 'pause-after-context' })
-        }, 100)
-        return () => clearTimeout(timer)
-      } else {
-        const nextChar = cleanContext[displayText.length]
-        const prevChar = displayText.length > 0 ? cleanContext[displayText.length - 1] : ''
-        const delay = getTypingDelay(nextChar, prevChar)
-        const timer = setTimeout(() => {
-          if (signal?.aborted) return
-          dispatch({ type: 'TICK', char: nextChar })
-        }, delay)
-        return () => clearTimeout(timer)
-      }
-    }
-
-    // Phase: pause after context
-    if (phase === 'pause-after-context') {
-      dispatch({ type: 'CONTEXT_COMPLETE' })
-      const timer = setTimeout(() => {
-        if (signal?.aborted) return
-        dispatch({ type: 'CLEAR_TEXT' })
-        dispatch({ type: 'PHASE_CHANGE', phase: 'reflection' })
-      }, 800)
-      return () => clearTimeout(timer)
-    }
-
-    // Phase: reflection (typing)
-    if (phase === 'reflection') {
-      const currentText = reflections[currentReflection]
-      if (displayText === currentText) {
-        const timer = setTimeout(() => {
-          if (signal?.aborted) return
-          dispatch({ type: 'PHASE_CHANGE', phase: 'pause-before-delete' })
-        }, 600)
-        return () => clearTimeout(timer)
-      } else {
-        const nextChar = currentText[displayText.length]
-        const prevChar = displayText.length > 0 ? currentText[displayText.length - 1] : ''
-        const delay = getTypingDelay(nextChar, prevChar)
-        const timer = setTimeout(() => {
-          if (signal?.aborted) return
-          dispatch({ type: 'TICK', char: nextChar })
-        }, delay)
-        return () => clearTimeout(timer)
-      }
-    }
-
-    // Phase: pause before delete
-    if (phase === 'pause-before-delete') {
-      const timer = setTimeout(() => {
-        if (signal?.aborted) return
-        dispatch({ type: 'PHASE_CHANGE', phase: 'deleting' })
-      }, 400)
-      return () => clearTimeout(timer)
-    }
-
-    // Phase: deleting (word by word, like Alt+Backspace)
-    if (phase === 'deleting') {
-      if (displayText === '') {
-        if (currentReflection < reflections.length - 1) {
-          dispatch({ type: 'NEXT_REFLECTION' })
-        } else {
-          dispatch({ type: 'PHASE_CHANGE', phase: 'hook' })
-        }
-      } else {
-        const delay = 80 + Math.random() * 40
-        const timer = setTimeout(() => {
-          if (signal?.aborted) return
-          dispatch({ type: 'DELETE_WORD' })
-        }, delay)
-        return () => clearTimeout(timer)
-      }
-    }
-
-    // Phase: hook
-    if (phase === 'hook') {
-      const flatIndex = (() => {
-        let idx = 0
-        for (let p = 0; p < currentHookParagraph; p++) idx += hookParagraphs[p].length
-        return idx + currentHookLine
-      })()
-      const { clean: currentText } = parsedHookLines[flatIndex]
-
-      if (displayText === currentText) {
-        dispatch({ type: 'COMPLETE_HOOK_LINE', text: currentText })
-
-        const isLastLine = currentHookLine >= hookParagraphs[currentHookParagraph].length - 1
-        const isLastParagraph = currentHookParagraph >= hookParagraphs.length - 1
-
-        if (isLastLine && isLastParagraph) {
-          const timer = setTimeout(() => {
-            if (signal?.aborted) return
-            dispatch({ type: 'PHASE_CHANGE', phase: 'complete' })
-            sessionStorage.setItem(STORY_SEEN_KEY, 'true')
-            onComplete?.()
-          }, 600)
-          return () => clearTimeout(timer)
-        } else if (isLastLine) {
-          const timer = setTimeout(() => {
-            if (signal?.aborted) return
-            dispatch({ type: 'NEXT_HOOK_PARAGRAPH' })
-          }, 800)
-          return () => clearTimeout(timer)
-        } else {
-          const timer = setTimeout(() => {
-            if (signal?.aborted) return
-            dispatch({ type: 'NEXT_HOOK_LINE' })
-          }, 500)
-          return () => clearTimeout(timer)
-        }
-      } else {
-        const nextCharIndex = displayText.length
-        const nextChar = currentText[nextCharIndex]
-        const prevChar = nextCharIndex > 0 ? currentText[nextCharIndex - 1] : ''
-
-        const { slowRanges } = parsedHookLines[flatIndex]
-        const isInSlowRange = slowRanges.some(([start, end]) => nextCharIndex >= start && nextCharIndex < end)
-
-        const textSoFar = currentText.slice(0, nextCharIndex)
-        const isAfterSentenceEnd = prevChar === '.' && nextChar === ' ' && textSoFar.includes('negocio')
-
-        let delay = getTypingDelay(nextChar, prevChar)
-
-        if (isAfterSentenceEnd) {
-          delay = 800
-        } else if (isInSlowRange) {
-          delay = delay * 4 + 80
-        }
-
-        const timer = setTimeout(() => {
-          if (signal?.aborted) return
-          dispatch({ type: 'TICK', char: nextChar })
-        }, delay)
-        return () => clearTimeout(timer)
-      }
-    }
-  }, [phase, displayText, context, reflections, currentReflection, hookParagraphs, parsedHookLines, currentHookParagraph, currentHookLine, getTypingDelay, onComplete])
-
-  const showCursor = phase !== 'complete' && phase !== 'idle'
-
-  // Helper to get parsed highlights for hook line
-  const getHookParsed = (pIdx: number, lIdx: number): ParsedHighlights => {
-    let flatIdx = 0
-    for (let p = 0; p < pIdx; p++) flatIdx += hookParagraphs[p].length
-    return parsedHookLines[flatIdx + lIdx] || { clean: '', fadeOutRanges: [], permanentRanges: [], fadeInRanges: [], slowRanges: [] }
-  }
-
-  // Combine refs
-  const setRefs = useCallback((node: HTMLDivElement | null) => {
-    containerRef.current = node
-    ref(node)
-  }, [ref])
-
-  return (
-    <div
-      ref={setRefs}
-      className={`${className} min-h-[7rem] md:min-h-[8rem] ${phase !== 'complete' && phase !== 'idle' ? 'cursor-pointer' : ''}`}
-      title={phase !== 'complete' && phase !== 'idle' ? 'Click to skip' : undefined}
-    >
-      {/* Context line */}
-      <span className="md:block md:-mb-1">
-        {phase === 'context' ? (
-          <>
-            {renderHighlightedText(displayText, [], {
-              dimmed,
-              finalReveal,
-              revealed,
-              typewriterRanges: parsedContext.typewriterRanges,
-              finalRanges: parsedContext.finalRanges,
-              permanentRanges: parsedContext.permanentRanges,
-              highlightsActive: true, // gradiente activo durante typewriter del context
-            })}
-            {showCursor && <span className="ml-0.5 inline-block text-primary" style={{ animation: 'blink 0.6s step-end infinite' }}>|</span>}
-          </>
-        ) : contextComplete ? (
-          <>
-            {renderHighlightedText(parsedContext.clean, [], {
-              dimmed,
-              finalReveal,
-              revealed,
-              typewriterRanges: parsedContext.typewriterRanges,
-              finalRanges: parsedContext.finalRanges,
-              permanentRanges: parsedContext.permanentRanges,
-              highlightsActive: false, // ya no estamos en el context, gradiente apagado
-            })}
-            {phase === 'pause-after-context' && (
-              <span className="ml-0.5 inline-block text-primary" style={{ animation: 'blink 0.6s step-end infinite' }}>|</span>
-            )}
-          </>
-        ) : null}
-      </span>{' '}
-
-      {/* Reflection line (becomes the hook line) */}
-      {(phase === 'reflection' || phase === 'pause-before-delete' || phase === 'deleting') && (
-        <p className="mb-1">
-          <span className="text-gradient-theme">{displayText}</span>
-          {showCursor && <span className="ml-0.5 inline-block text-primary" style={{ animation: 'blink 0.6s step-end infinite' }}>|</span>}
-        </p>
-      )}
-
-      {/* Hook paragraphs */}
-      {/* Hook paragraphs: pIdx=0 inline on mobile (flows with context), block on desktop */}
-      {(phase === 'hook' || phase === 'complete') && hookParagraphs.map((paragraph, pIdx) => {
-        const Tag = pIdx === 0 ? 'span' : 'p'
-        const wrapperClass = pIdx === 0
-          ? "md:block md:mb-4"
-          : "mt-4 md:mt-0"
-        return (
-          <Tag key={pIdx} className={wrapperClass}>
-            {paragraph.map((_, lIdx) => {
-              const parsed = getHookParsed(pIdx, lIdx)
-              const isCurrentLine = pIdx === currentHookParagraph && lIdx === currentHookLine
-              const isCompleted = completedHookLines[pIdx]?.[lIdx] !== undefined
-
-              // Unificar renderizado para permitir transiciones CSS suaves
-              // El texto a mostrar: completado > actual (displayText) > vacío
-              const textToShow = isCompleted
-                ? completedHookLines[pIdx][lIdx]
-                : (isCurrentLine && phase === 'hook')
-                  ? displayText
-                  : ''
-
-              // Tipo B highlights activos SOLO mientras se escribe esta línea
-              const highlightsActive = isCurrentLine && phase === 'hook'
-
-              // Solo renderizar si hay texto o es la línea actual
-              if (!textToShow && !isCurrentLine) return null
-
-              return (
-                <span key={lIdx} className={lIdx > 0 ? "md:block md:-mt-1" : ""}>
-                  {lIdx > 0 && <span className="md:hidden"> </span>}
-                  {renderHighlightedText(textToShow, [], {
-                    dimmed,
-                    finalReveal,
-                    revealed,
-                    typewriterRanges: parsed.typewriterRanges,
-                    finalRanges: parsed.finalRanges,
-                    permanentRanges: parsed.permanentRanges,
-                    highlightsActive,
-                  })}
-                  {isCurrentLine && phase === 'hook' && showCursor && (
-                    <span className="ml-0.5 inline-block text-primary" style={{ animation: 'blink 0.6s step-end infinite' }}>|</span>
-                  )}
-                </span>
-              )
-            })}
-          </Tag>
-        )
-      })}
-    </div>
-  )
-}
-
-// Sección de historia con typewriter y animaciones
-function StorySection({ t }: { t: typeof translations['en'] }) {
-  const [typewriterComplete, setTypewriterComplete] = useState(false)
-  const [textDimmed, setTextDimmed] = useState(false)
-  const [finalReveal, setFinalReveal] = useState(false)  // Tipo C se enciende con gradiente
-  const [textRevealed, setTextRevealed] = useState(false) // Resto del texto se enciende
-  const [animationStarted, setAnimationStarted] = useState(false)
-  const [scrollSkipped, setScrollSkipped] = useState(false)
-  const skipRef = useRef<(() => void) | null>(null)
-  const sectionRef = useRef<HTMLElement>(null)
-
-  // Reset states when language changes
-  useEffect(() => {
-    // Check if animation was already seen (skip case)
-    const seen = sessionStorage.getItem(STORY_SEEN_KEY)
-    if (seen) {
-      setTypewriterComplete(true)
-      setTextDimmed(true)
-      setFinalReveal(true)
-      setTextRevealed(true)
-    } else {
-      setTypewriterComplete(false)
-      setTextDimmed(false)
-      setFinalReveal(false)
-      setTextRevealed(false)
-      setAnimationStarted(false)
-      setScrollSkipped(false)
-    }
-  }, [t])
-
-  // Transition sequence: dim → finalReveal (Tipo C gradient) → revealed (rest)
-  const sequenceStartedRef = useRef(false)
-
-  useEffect(() => {
-    // Reset ref when language changes
-    sequenceStartedRef.current = false
-  }, [t])
-
-  useEffect(() => {
-    if (!typewriterComplete || sequenceStartedRef.current) return
-    sequenceStartedRef.current = true
-
-    // Secuencia de animación post-typewriter:
-    // 1. Esperar a que Tipo B (Construir) termine de desvanecerse (~2.5s transición)
-    // 2. Dimmed: todo se atenúa
-    // 3. FinalReveal: Tipo C se enciende con gradiente (+15 años + sistemas)
-    // 4. Revealed: resto del texto se enciende, Tipo C MANTIENE gradiente
-
-    // Step 1: Dim everything (2500ms - espera a que Tipo B haya perdido gradiente)
-    const dimTimer = setTimeout(() => {
-      setTextDimmed(true)
-    }, 2500)
-
-    // Step 2: Tipo C se enciende con gradiente (4500ms - contenido adicional ya visible)
-    const finalRevealTimer = setTimeout(() => {
-      setFinalReveal(true)
-    }, 4500)
-
-    // Step 3: Resto del texto se enciende (8000ms - Tipo C tuvo tiempo de brillar)
-    const revealTimer = setTimeout(() => {
-      setTextRevealed(true)
-    }, 8000)
-
-    return () => {
-      clearTimeout(dimTimer)
-      clearTimeout(finalRevealTimer)
-      clearTimeout(revealTimer)
-    }
-  }, [typewriterComplete])
-
-  // Scroll-past-as-skip: si el usuario scrollea pasando la sección, auto-skip
-  useEffect(() => {
-    if (typewriterComplete) return
-    const section = sectionRef.current
-    if (!section) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
-          setScrollSkipped(true)
-          skipRef.current?.()
-        }
-      },
-      { threshold: 0 }
-    )
-    observer.observe(section)
-    return () => observer.disconnect()
-  }, [typewriterComplete])
-
-  return (
-    <section ref={sectionRef} id="about" className="relative py-10 md:py-24">
-      {/* Vignette horizontal: tapa puntos en el centro, se ven en los bordes */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        background: 'linear-gradient(90deg, transparent 0%, hsl(var(--background)) 15%, hsl(var(--background)) 85%, transparent 100%)',
-      }} />
-      {/* Fade vertical: transparente arriba → fondo sólido abajo */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background to-background pointer-events-none" />
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
-        {/* Hook emocional con typewriter reflexivo + botón skip */}
-        <div className="relative pb-12">
-          <ReflectiveTypewriter
-            context={t.story.context}
-            reflections={t.story.reflections}
-            hookParagraphs={t.story.hookParagraphs}
-            dimmed={textDimmed}
-            finalReveal={finalReveal}
-            revealed={textRevealed}
-            className="font-display text-lg md:text-2xl leading-relaxed text-center max-w-3xl mx-auto"
-            onComplete={() => setTypewriterComplete(true)}
-            skipRef={skipRef}
-            onStart={() => setAnimationStarted(true)}
-          />
-
-          {/* Botón skip — posición absoluta debajo del texto, en el padding reservado */}
-          <AnimatePresence>
-            {animationStarted && !typewriterComplete && (
-              <motion.button
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                onClick={() => skipRef.current?.()}
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm text-muted-foreground border border-border/50 bg-card backdrop-blur-sm cursor-pointer hover:bg-primary/10 hover:border-primary/30 hover:text-foreground transition-colors duration-200"
-              >
-                <SkipForward className="w-3.5 h-3.5" />
-                {t.story.skipButton}
-              </motion.button>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Contenido que aparece después del typewriter - expansión suave (instantánea si scroll-skip) */}
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={typewriterComplete
-            ? { height: 'auto', opacity: 1 }
-            : { height: 0, opacity: 0 }
-          }
-          transition={scrollSkipped
-            ? { duration: 0 }
-            : {
-                height: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-                opacity: { duration: 0.4, delay: 0.1 }
-              }
-          }
-          style={{ overflow: 'hidden' }}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={typewriterComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-            transition={{ duration: 0.6, delay: typewriterComplete ? 0.1 : 0, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            <p className={`text-base md:text-lg text-muted-foreground leading-relaxed text-center max-w-3xl mx-auto transition-opacity duration-[2500ms] ease-in-out ${textDimmed ? (textRevealed ? 'opacity-90' : 'opacity-15') : 'opacity-100'}`}>
-              {t.story.why}
-            </p>
-          </motion.div>
-
-          <div className="mt-6 text-center max-w-3xl mx-auto">
-            {t.story.seeking.map((line: string, i: number) => {
-              // Spotlight: lines 0 and 2 light up with finalReveal, line 1 stays as background
-              const isSpotlit = i === 0 || i === 2
-              const dimOpacity = textDimmed
-                ? (isSpotlit ? (finalReveal ? 'opacity-100' : 'opacity-15') : (textRevealed ? 'opacity-90' : 'opacity-15'))
-                : 'opacity-100'
-
-              return (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={typewriterComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-                  transition={{ duration: 0.6, delay: typewriterComplete ? 0.3 + i * 0.2 : 0, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className={`transition-opacity duration-[2500ms] ease-in-out ${dimOpacity} ${
-                    i === 2
-                      ? 'font-display text-lg md:text-2xl font-bold text-gradient-theme leading-snug'
-                      : i === 1
-                        ? 'font-display text-lg md:text-2xl text-muted-foreground leading-snug'
-                        : 'font-display text-lg md:text-2xl font-bold text-foreground leading-snug'
-                  }`}
-                >
-                  {line}
-                </motion.p>
-              )
-            })}
-          </div>
-
-          {/* Burbujas de navegación - delays sincronizados */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={typewriterComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-            transition={{ duration: 0.6, delay: typewriterComplete ? 0.9 : 0, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className={`flex flex-wrap justify-center gap-3 mt-10 mb-12 transition-opacity duration-[2500ms] ease-in-out ${textDimmed && !textRevealed ? 'opacity-15' : 'opacity-100'}`}
-          >
-          {t.story.nav.map((item: { icon: string; label: string; href: string }) => {
-            const icons: Record<string, React.ReactNode> = {
-              briefcase: <Briefcase className="w-4 h-4" />,
-              folder: <FolderGit2 className="w-4 h-4" />,
-              mail: <Mail className="w-4 h-4" />,
-            }
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 text-sm font-medium"
-              >
-                {icons[item.icon]}
-                {item.label}
-              </a>
-            )
-          })}
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
+/* Dead code removed — parseHighlights through StorySection */
 
 function CertLogo({ logo }: { logo: string }) {
   const logos: Record<string, React.ReactNode> = {
@@ -1401,8 +320,6 @@ function CertLogo({ logo }: { logo: string }) {
 function App() {
   const t = translations.en
   const hydrated = useHydrated()
-  useHeroStyles()
-  const { displayText: roleText, roleIndex } = useTypewriterRotation(t.greetingRoles)
 
   useHomeSeo({ title: seo.en.title, description: seo.en.description })
 
@@ -1420,102 +337,169 @@ function App() {
 
       {/* Hero Section */}
       <header id="main-content" className="relative overflow-hidden">
-        <GridSnakes />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-transparent" />
-        <div className="absolute top-0 right-[max(0px,calc(50%-40rem))] w-[600px] h-[600px] rounded-full blur-3xl -translate-y-1/3 translate-x-1/3 hidden sm:block animate-[hero-glow_8s_ease-in-out_infinite]" style={{ backgroundColor: 'hsl(var(--hero-orb-primary))' }} />
-        <div className="absolute bottom-0 left-[max(0px,calc(50%-40rem))] w-[550px] h-[550px] rounded-full blur-3xl translate-y-1/3 -translate-x-1/3 hidden sm:block animate-[hero-glow_11s_ease-in-out_infinite_reverse]" style={{ backgroundColor: 'hsl(var(--hero-orb-accent))' }} />
+        {/* Aurora background blobs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div
+            className="absolute top-[-20%] left-[10%] w-[500px] h-[400px] rounded-full blur-[100px] opacity-50"
+            style={{ background: 'linear-gradient(135deg, hsl(var(--gradient-from) / 0.3), hsl(var(--accent) / 0.15))', animation: 'hero-aurora 8s ease-in-out infinite' }}
+          />
+          <div
+            className="absolute bottom-[-10%] right-[5%] w-[450px] h-[350px] rounded-full blur-[100px] opacity-40"
+            style={{ background: 'linear-gradient(225deg, hsl(var(--accent) / 0.25), hsl(var(--gradient-from) / 0.1))', animation: 'hero-aurora 11s ease-in-out infinite reverse' }}
+          />
+        </div>
 
-        <div className="relative max-w-5xl mx-auto px-6 py-20 md:py-32">
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            {/* Photo */}
+        <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-14 md:pt-28 md:pb-20">
+          <div className="flex flex-col items-center text-center">
+            {/* Photo with animated SVG ring */}
             <motion.div
-              initial={hydrated ? { opacity: 0, scale: 0.8 } : false}
+              initial={hydrated ? { opacity: 0, scale: 0.85 } : false}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="relative"
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mb-8"
             >
-              <div className="relative w-40 h-40 md:w-48 md:h-48">
-                {/* Glow effect */}
-                <div className="absolute inset-0 rounded-full bg-gradient-theme-30 blur-xl" />
-                {/* Glassmorphism frame */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-white/5 md:backdrop-blur-sm border border-white/20 shadow-2xl" />
-                {/* Inner border */}
-                <div className="absolute inset-2 rounded-full bg-gradient-theme-50 p-[2px]">
-                  <div className="w-full h-full rounded-full overflow-hidden">
-                    <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="(max-width: 768px) 160px, 192px" alt="Subash Pandey" className="w-full h-full object-cover" width={192} height={192} fetchPriority="high" />
-                  </div>
+              <div className="relative w-32 h-32 md:w-36 md:h-36">
+                {/* Orbital ring — pushed out from the photo like a planetary orbit */}
+                <svg
+                  className="absolute inset-[-24px] w-[calc(100%+48px)] h-[calc(100%+48px)]"
+                  viewBox="0 0 200 200"
+                  style={{ animation: 'hero-ring-rotate 25s linear infinite' }}
+                >
+                  <defs>
+                    <linearGradient id="hero-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="hsl(var(--gradient-from))" />
+                      <stop offset="100%" stopColor="hsl(var(--accent))" />
+                    </linearGradient>
+                  </defs>
+                  <circle
+                    cx="100" cy="100" r="92"
+                    fill="none"
+                    stroke="url(#hero-ring-grad)"
+                    strokeWidth="1.5"
+                    strokeDasharray="578"
+                    strokeLinecap="round"
+                    style={{ animation: 'hero-ring-draw 2s ease-out forwards' }}
+                  />
+                  <circle
+                    cx="100" cy="100" r="92"
+                    fill="none"
+                    stroke="url(#hero-ring-grad)"
+                    strokeWidth="0.8"
+                    strokeDasharray="6 14"
+                    opacity="0.3"
+                  />
+                </svg>
+                {/* Orbiting globe — container rotates, globe counter-rotates to stay upright */}
+                <div
+                  className="absolute inset-[-24px] w-[calc(100%+48px)] h-[calc(100%+48px)] pointer-events-none"
+                  style={{ animation: 'hero-ring-rotate 15s linear infinite' }}
+                >
+                  <img
+                    src="/globe.svg"
+                    alt=""
+                    className="absolute top-[4%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 drop-shadow-[0_0_6px_hsl(var(--gradient-from)/0.5)]"
+                    width={24}
+                    height={24}
+                    style={{ animation: 'hero-ring-rotate 15s linear infinite reverse' }}
+                  />
+                </div>
+                {/* Photo */}
+                <div className="w-full h-full rounded-full overflow-hidden border-2 border-background shadow-xl">
+                  <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="144px" alt="Subash Pandey" className="w-full h-full object-cover" width={192} height={192} fetchPriority="high" />
                 </div>
               </div>
-              <motion.div
-                initial={hydrated ? { scale: 0 } : false}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
-                className="absolute -bottom-1 -right-1 w-10 h-10 rounded-full bg-gradient-theme flex items-center justify-center shadow-lg border-2 border-background"
-              >
-                <BadgeCheck className="w-6 h-6 text-white" />
-              </motion.div>
             </motion.div>
 
-            <motion.div
-              initial={hydrated ? { opacity: 0, x: -20 } : false}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-center md:text-left"
+            {/* Name line */}
+            <motion.p
+              initial={hydrated ? { opacity: 0, y: 16 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="text-muted-foreground mb-3"
             >
-              <p className="text-lg text-muted-foreground mb-2">
-                {t.greeting} <Link to="/about" className="text-gradient-theme font-semibold hover:opacity-80 transition-opacity">@subash</Link>
-              </p>
-              <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight">
-                <span className="text-gradient-theme">{hydrated ? roleText : t.greetingRoles[0]}</span>
-                {hydrated && <span className="inline-block w-[3px] h-[0.85em] bg-primary ml-1 rounded-sm translate-y-[2px]" style={{ animation: 'blink 1s step-end infinite' }} />}
-                <br />
-                {t.role}
-              </h1>
+              {t.greeting}{' '}
+              <Link to="/about" className="font-semibold bg-gradient-to-r from-[hsl(var(--gradient-from))] to-[hsl(var(--accent))] bg-clip-text text-transparent hover:opacity-80 transition-opacity">
+                @subash
+              </Link>
+            </motion.p>
 
-              <div className="flex flex-wrap justify-center md:justify-start gap-3">
+            {/* Headline with flowing gradient */}
+            <motion.h1
+              initial={hydrated ? { opacity: 0, y: 16 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, hsl(var(--foreground)) 0%, hsl(var(--gradient-from)) 30%, hsl(var(--accent)) 50%, hsl(var(--gradient-from)) 70%, hsl(var(--foreground)) 100%)',
+                backgroundSize: '200% auto',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+                animation: hydrated ? 'hero-text-shimmer 6s linear infinite' : 'none',
+              }}
+            >
+                {t.role}
+            </motion.h1>
+
+            {/* Brief summary */}
+            <motion.p
+              initial={hydrated ? { opacity: 0, y: 12 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+              className="text-sm md:text-base text-muted-foreground max-w-lg mt-4 leading-relaxed"
+            >
+              {t.summary.p1} <span className="text-foreground font-medium">{t.summary.p1Highlight}</span>.
+            </motion.p>
+
+            {/* Role tags - staggered */}
+            <div className="flex flex-wrap justify-center gap-2 mt-6">
                 {t.greetingRoles.map((role, i) => (
-                  <span
+                <motion.span
                     key={role}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 backdrop-blur-sm ${
-                      hydrated && i === roleIndex
-                        ? 'border border-[#20d6ee] bg-[#20d6ee]/15 text-foreground scale-105'
-                        : 'border border-[#20d6ee]/30 bg-background/80 text-muted-foreground'
-                    }`}
+                  initial={hydrated ? { opacity: 0, y: 10, scale: 0.9 } : false}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.4, delay: 0.45 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className="px-3 py-1.5 rounded-full text-sm font-medium border border-primary/20 bg-primary/5 text-foreground backdrop-blur-sm hover:border-primary/40 hover:bg-primary/10 transition-colors duration-200"
                   >
                     {role}
-                  </span>
+                </motion.span>
                 ))}
               </div>
 
-              {/* Availability Banner */}
+            {/* CTA row */}
               <motion.div
-                initial={hydrated ? { opacity: 0, y: 10 } : false}
+              initial={hydrated ? { opacity: 0, y: 12 } : false}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="mt-4 flex flex-wrap justify-center md:justify-start gap-2"
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="mt-8 flex flex-wrap justify-center gap-3"
               >
-                <span className="relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 beam-pill">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   {t.cta.availability}
                 </span>
+              <a
+                href={`mailto:${t.email}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors"
+              >
+                <Mail className="w-3 h-3" />
+                {t.email}
+              </a>
                 {BLOG_ENABLED && (
-                  <Link to="/blog" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors">
+                <Link to="/blog" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors">
                     <PenLine className="w-3 h-3" />
                     Blog
                   </Link>
                 )}
-              </motion.div>
             </motion.div>
           </div>
-
         </div>
+
+        {/* Gradient fade to content */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none" />
       </header>
 
-      {/* Summary - Con storytelling integrado */}
-      <StorySection t={t} />
-
-      {/* Experience - Con preámbulo de competencias */}
-      <section id="experience" className="py-10 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
+      {/* Experience */}
+      <section id="experience" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
@@ -1677,10 +661,9 @@ function App() {
             </div>
           </AnimatedSection>
 
-          {/* Bento Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            {/* Large card - AI Agent */}
-            <AnimatedSection delay={0.15} className="col-span-2 row-span-2">
+          {/* Key Projects */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <AnimatedSection delay={0.15}>
               <div className="h-full p-6 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 hover:border-primary/40 transition-colors duration-200 group flex flex-col">
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
@@ -1716,8 +699,7 @@ function App() {
               </div>
             </AnimatedSection>
 
-            {/* Large card - Web Programática + SEO */}
-            <AnimatedSection delay={0.2} className="col-span-2 row-span-2">
+            <AnimatedSection delay={0.2}>
               <div className="h-full p-6 rounded-2xl bg-gradient-to-br from-accent/10 to-primary/10 border border-accent/20 hover:border-accent/40 transition-colors duration-200 group flex flex-col">
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
@@ -1751,9 +733,10 @@ function App() {
                 )}
               </div>
             </AnimatedSection>
+          </div>
 
             {t.experience.santifer.exit && (
-              <AnimatedSection delay={0.25} className="col-span-2">
+            <AnimatedSection delay={0.25} className="mb-8">
                 <div className="h-full p-5 rounded-2xl bg-gradient-to-r from-success/10 to-success/5 border border-success/30 hover:border-success/50 transition-colors duration-200">
                   <div className="flex items-center gap-3 mb-2">
                     <Zap className="w-5 h-5 text-success" />
@@ -1764,69 +747,61 @@ function App() {
               </AnimatedSection>
             )}
 
-            {/* ERP card */}
-            <AnimatedSection delay={0.3}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
-                <Database className="w-5 h-5 text-primary mb-3" />
-                <p className="font-medium text-sm mb-1">{t.experience.santifer.erp.title}</p>
-                <p className="text-sm text-muted-foreground">{t.experience.santifer.erp.desc}</p>
-                <div className="flex items-center mt-auto pt-3">
-                  <span className="text-xs font-medium text-primary">{t.experience.santifer.erp.metric}</span>
+          {/* Other highlights - compact strip */}
+          <AnimatedSection delay={0.25} className="mb-12">
+            {(() => {
+              const highlights = [
+                { icon: <Database className="w-4 h-4 text-primary" />, title: t.experience.santifer.erp.title, desc: t.experience.santifer.erp.desc, metric: t.experience.santifer.erp.metric },
+                { icon: <Bot className="w-4 h-4 text-accent" />, title: t.experience.santifer.gpts.title, desc: t.experience.santifer.gpts.desc, metric: t.experience.santifer.gpts.metric },
+                { icon: <Timer className="w-4 h-4 text-primary" />, title: t.experience.santifer.reservas.title, desc: t.experience.santifer.reservas.desc, metric: t.experience.santifer.reservas.metric },
+                { icon: <Users className="w-4 h-4 text-accent" />, title: t.experience.santifer.crm.title, desc: t.experience.santifer.crm.desc, metric: t.experience.santifer.crm.metric },
+                { icon: <Sparkles className="w-4 h-4 text-primary" />, title: t.experience.santifer.genAI.title, desc: t.experience.santifer.genAI.desc, metric: t.experience.santifer.genAI.metric },
+              ]
+              const [expanded, setExpanded] = useState(false)
+              return (
+                <div className="rounded-2xl border border-border bg-card/50 overflow-hidden">
+                  <button
+                    onClick={() => setExpanded(e => !e)}
+                    className="w-full flex items-center justify-between px-6 py-4 hover:bg-muted/30 transition-colors"
+                  >
+                    <span className="text-sm font-medium text-muted-foreground">Other contributions at {t.experience.santifer.company}</span>
+                    <motion.span
+                      animate={{ rotate: expanded ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronRight className="w-4 h-4 text-muted-foreground rotate-90" />
+                    </motion.span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {expanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div className="px-6 pb-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                          {highlights.map((h, i) => (
+                            <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-background/50 border border-border/50">
+                              <span className="mt-0.5 shrink-0">{h.icon}</span>
+                              <div className="min-w-0">
+                                <p className="text-sm font-medium leading-tight">{h.title}</p>
+                                <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{h.desc}</p>
                 </div>
               </div>
-            </AnimatedSection>
-
-            {/* GPTs card */}
-            <AnimatedSection delay={0.35}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
-                <Bot className="w-5 h-5 text-accent mb-3" />
-                <p className="font-medium text-sm mb-1">{t.experience.santifer.gpts.title}</p>
-                <p className="text-sm text-muted-foreground">{t.experience.santifer.gpts.desc}</p>
-                <div className="flex items-center mt-auto pt-3">
-                  <span className="text-xs font-medium text-primary">{t.experience.santifer.gpts.metric}</span>
+                          ))}
                 </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
               </div>
+              )
+            })()}
             </AnimatedSection>
-
-            {/* Reservas card */}
-            <AnimatedSection delay={0.4}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
-                <Timer className="w-5 h-5 text-primary mb-3" />
-                <p className="font-medium text-sm mb-1">{t.experience.santifer.reservas.title}</p>
-                <p className="text-sm text-muted-foreground">{t.experience.santifer.reservas.desc}</p>
-                <div className="flex items-center mt-auto pt-3">
-                  <span className="text-xs font-medium text-accent">{t.experience.santifer.reservas.metric}</span>
-                </div>
-              </div>
-            </AnimatedSection>
-
-            {/* CRM card */}
-            <AnimatedSection delay={0.45}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
-                <Users className="w-5 h-5 text-accent mb-3" />
-                <p className="font-medium text-sm mb-1">{t.experience.santifer.crm.title}</p>
-                <p className="text-sm text-muted-foreground">{t.experience.santifer.crm.desc}</p>
-                <div className="flex items-center mt-auto pt-3">
-                  <span className="text-xs font-medium text-primary">{t.experience.santifer.crm.metric}</span>
-                </div>
-              </div>
-            </AnimatedSection>
-
-            {/* GenAI Marketing card */}
-            <AnimatedSection delay={0.5}>
-              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors duration-200 flex flex-col card-hover">
-                <Sparkles className="w-5 h-5 text-primary mb-3" />
-                <p className="font-medium text-sm mb-1">{t.experience.santifer.genAI.title}</p>
-                <p className="text-sm text-muted-foreground">{t.experience.santifer.genAI.desc}</p>
-                <div className="flex items-center mt-auto pt-3">
-                  <span className="text-xs font-medium text-accent">{t.experience.santifer.genAI.metric}</span>
-                </div>
-              </div>
-            </AnimatedSection>
-          </div>
 
           {/* Previous Experience divider */}
-          <AnimatedSection delay={0.45} className="mt-16 mb-10">
+          <AnimatedSection delay={0.1} className="mt-16 mb-10">
             <div className="flex items-center gap-4">
               <div className="h-px flex-1 bg-border divider-flow" />
               <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground shrink-0">{t.experience.previousLabel}</span>
@@ -1835,7 +810,7 @@ function App() {
           </AnimatedSection>
 
           {/* Peace Nepal Dot Com */}
-          <AnimatedSection delay={0.5}>
+          <AnimatedSection delay={0.1}>
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
@@ -1863,7 +838,7 @@ function App() {
           </AnimatedSection>
 
           {/* Icebrkr AI Solutions */}
-          <AnimatedSection delay={0.6} className="mt-16">
+          <AnimatedSection delay={0.1} className="mt-16">
             <div className="mb-6">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
                 <div className="flex items-center gap-3">
@@ -1886,7 +861,7 @@ function App() {
           </AnimatedSection>
 
           {/* Contentio Lab */}
-          <AnimatedSection delay={0.7} className="mt-16">
+          <AnimatedSection delay={0.1} className="mt-16">
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl overflow-hidden bg-accent/10 flex items-center justify-center shrink-0">
@@ -1904,7 +879,7 @@ function App() {
           </AnimatedSection>
 
           {/* iMark Private Limited */}
-          <AnimatedSection delay={0.8} className="mt-16">
+          <AnimatedSection delay={0.1} className="mt-16">
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
@@ -1926,7 +901,7 @@ function App() {
           </AnimatedSection>
 
           {/* Budhanilkantha Education Services */}
-          <AnimatedSection delay={0.9} className="mt-16">
+          <AnimatedSection delay={0.1} className="mt-16">
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
@@ -1946,7 +921,7 @@ function App() {
       </section>
 
       {/* Projects & Claude Code */}
-      <section id="projects" className="py-10 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
+      <section id="projects" className="py-12 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <div className="flex items-center justify-between mb-12">
@@ -1967,70 +942,6 @@ function App() {
                 </svg>
                 {t.projects.githubLink.split('/').pop()}
               </a>
-            </div>
-          </AnimatedSection>
-
-          {/* SA Playbook - Premium Card */}
-          <AnimatedSection delay={0.05} className="mb-8">
-            <div className="p-8 rounded-2xl bg-gradient-to-br from-gold/15 via-gold/5 to-transparent border border-gold/30 hover:border-gold/50 transition-colors duration-200 group relative overflow-hidden">
-              {/* Subtle glow effect */}
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-gold/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 relative">
-                <div className="flex-1 flex flex-col">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center shrink-0">
-                      <Terminal className="w-6 h-6 text-gold" />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Lock className="w-3 h-3 text-gold" />
-                      <span className="badge px-3 py-1 bg-gold/20 text-gold">{t.projects.saPlaybook.badge}</span>
-                    </div>
-                  </div>
-                  <h3 className="font-display text-2xl font-bold mb-1">{t.projects.saPlaybook.title}</h3>
-                  <p className="text-sm text-gold font-medium mb-4">{t.projects.saPlaybook.tagline}</p>
-                  <p className="text-muted-foreground mb-6">{t.projects.saPlaybook.desc}</p>
-
-                  {/* Tech badges */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {['LangGraph', 'RAG', 'Qdrant', 'FastAPI', 'Docker', 'AWS'].map((tech) => (
-                      <span key={tech} className="px-2 py-1 rounded-md text-xs bg-gold/10 text-gold border border-gold/20">{tech}</span>
-                    ))}
-                  </div>
-
-                  <ul className="text-sm text-muted-foreground space-y-2">
-                    {t.projects.saPlaybook.features.map((item, i) => {
-                      const icons: Record<string, React.ReactNode> = {
-                        zap: <Zap className="w-4 h-4" />,
-                        shield: <Shield className="w-4 h-4" />,
-                        fileText: <FileText className="w-4 h-4" />,
-                        git: <GitBranch className="w-4 h-4" />
-                      }
-                      return (
-                        <li key={i} className="flex items-start gap-3">
-                          <span className="text-gold mt-0.5">{icons[item.icon]}</span>
-                          <span>{item.text}</span>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                  <a href="#contact" className="inline-flex items-center gap-2 text-xs font-medium italic mt-auto pt-6 text-gold hover:underline transition-colors duration-200">
-                    <Lock className="w-3 h-3" />
-                    {t.projects.saPlaybook.footer}
-                  </a>
-                </div>
-
-                {/* Right side - visual element */}
-                <div className="hidden lg:flex flex-col items-center justify-center p-6 rounded-xl bg-gold/5 border border-gold/10 min-w-[180px]">
-                  <div className="text-4xl mb-3 opacity-80">
-                    <svg viewBox="0 0 24 24" className="w-16 h-16 text-gold" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                      <circle cx="12" cy="12" r="3" />
-                      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-                    </svg>
-                  </div>
-                  <span className="text-xs text-gold font-medium text-center">AI/ML Engineering<br/>in Production</span>
-                </div>
-              </div>
             </div>
           </AnimatedSection>
 
@@ -2401,7 +1312,7 @@ function App() {
       </section>
 
       {/* Sharing — Publications + LinkedIn */}
-      <section id="speaking" className="py-10 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
+      <section id="speaking" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
@@ -2670,7 +1581,7 @@ function App() {
       </section>
 
       {/* Technical Notes */}
-      <section id="notes" className="py-10 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
+      <section id="notes" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-2 flex items-center gap-3">
@@ -2682,9 +1593,17 @@ function App() {
             <p className="text-muted-foreground text-sm mb-8">{t.technicalNotes.subtitle}</p>
           </AnimatedSection>
 
+          {(() => {
+            const INITIAL_NOTES = 3
+            const [showAllNotes, setShowAllNotes] = useState(false)
+            const visibleNotes = showAllNotes ? t.technicalNotes.items : t.technicalNotes.items.slice(0, INITIAL_NOTES)
+            const hasMore = t.technicalNotes.items.length > INITIAL_NOTES
+
+            return (
+              <>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {t.technicalNotes.items.map((note: { title: string; body: string; tags: readonly string[] }, i: number) => (
-              <AnimatedSection key={i} delay={0.1 + i * 0.08}>
+                  {visibleNotes.map((note: { title: string; body: string; tags: readonly string[] }, i: number) => (
+                    <AnimatedSection key={i} delay={0.1 + i * 0.06}>
                 <div className="h-full p-5 rounded-2xl bg-card border border-border/50 hover:border-border hover:shadow-md transition-all flex flex-col">
                   <div className="flex items-start gap-3 mb-3">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
@@ -2702,11 +1621,30 @@ function App() {
               </AnimatedSection>
             ))}
           </div>
+                {hasMore && (
+                  <div className="text-center mt-6">
+                    <button
+                      onClick={() => setShowAllNotes(s => !s)}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-muted-foreground border border-border hover:border-primary/40 hover:text-primary bg-card transition-colors duration-200"
+                    >
+                      {showAllNotes ? 'Show less' : `Show ${t.technicalNotes.items.length - INITIAL_NOTES} more`}
+                      <motion.span
+                        animate={{ rotate: showAllNotes ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ChevronRight className="w-3.5 h-3.5 rotate-90" />
+                      </motion.span>
+                    </button>
+                  </div>
+                )}
+              </>
+            )
+          })()}
         </div>
       </section>
 
       {/* Education & Certifications */}
-      <section id="education" className="py-10 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}>
+      <section id="education" className="py-12 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Education */}
@@ -2783,7 +1721,7 @@ function App() {
       </section>
 
       {/* Skills */}
-      <section id="tech" className="py-10 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
+      <section id="tech" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-12 flex items-center gap-3">
@@ -2866,7 +1804,7 @@ function App() {
       </section>
 
       {/* Footer CTA + Contact Form */}
-      <footer id="contact" className="relative py-10 md:py-24">
+      <footer id="contact" className="relative py-12 md:py-20">
         <div className="absolute inset-0 pointer-events-none" style={{
           background: 'linear-gradient(90deg, transparent 0%, hsl(var(--background)) 25%, hsl(var(--background)) 75%, transparent 100%)',
         }} />

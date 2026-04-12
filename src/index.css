@@ -15,6 +15,35 @@ button, a, [role="button"], summary { cursor: pointer; }
   to   { opacity: 1; }
 }
 
+/* Hero: self-drawing ring around avatar */
+@keyframes hero-ring-draw {
+  0%   { stroke-dashoffset: 565; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes hero-ring-rotate {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Hero: flowing gradient on heading text */
+@keyframes hero-text-shimmer {
+  0%   { background-position: -100% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Hero: aurora gradient background shift */
+@keyframes hero-aurora {
+  0%, 100% { opacity: 0.5; transform: translateY(0) scale(1); }
+  33%      { opacity: 0.7; transform: translateY(-8px) scale(1.02); }
+  66%      { opacity: 0.4; transform: translateY(4px) scale(0.98); }
+}
+
+/* Hero: dot pulse orbit (uses --hero-orbit-r set on the element) */
+@keyframes hero-orbit {
+  0%   { transform: rotate(0deg) translateX(var(--hero-orbit-r, 72px)) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(var(--hero-orbit-r, 72px)) rotate(-360deg); }
+}
+
 /* Hash target highlight flash */
 @keyframes hash-highlight {
   0%   { box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
