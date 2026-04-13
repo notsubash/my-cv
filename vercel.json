@@ -24,12 +24,6 @@
     }
   ],
   "redirects": [
-    {
-      "source": "/:path(.*)",
-      "has": [{ "type": "host", "value": "www.subash-pandey.com" }],
-      "destination": "https://subash-pandey.com/:path",
-      "permanent": true
-    },
     { "source": "/:path+/", "destination": "/:path+", "permanent": true }
   ]
 }
