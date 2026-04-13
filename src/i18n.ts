@@ -1,8 +1,8 @@
 export const seo = {
   en: {
-    title: 'Subash Pandey | AI/ML Engineer · GenAI Developer · Data Scientist',
+    title: 'Subash Pandey | AI/ML Engineer & GenAI Developer',
     description:
-      "AI/ML Engineer from Nepal with a strong interest in Generative AI and applied machine learning. Building meaningful, responsible AI solutions that create real impact.",
+      'AI/ML Engineer from Nepal specializing in Generative AI and applied machine learning. Building meaningful AI solutions with RAG, LangGraph, and Python.',
   },
 };
 

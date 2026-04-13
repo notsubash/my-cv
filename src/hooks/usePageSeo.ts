@@ -3,13 +3,13 @@ import { useEffect, useCallback } from 'react'
 const BASE_URL = 'https://subash-pandey.com'
 
 const DEFAULTS = {
-  title: 'Subash Pandey | AI/ML Engineer',
+  title: 'Subash Pandey | AI/ML Engineer & GenAI Developer',
   description:
-    'AI/ML Engineer from Nepal with a strong interest in Generative AI and applied machine learning. Building meaningful, responsible AI solutions that create real impact.',
+    'AI/ML Engineer from Nepal specializing in Generative AI and applied machine learning. Building meaningful AI solutions with RAG, LangGraph, and Python.',
   ogDescription:
     'AI/ML Engineer from Nepal building meaningful AI solutions with GenAI, RAG pipelines, and applied machine learning. Open to remote roles (APAC timezone).',
   twitterDescription:
-    'AI/ML Engineer from Nepal building meaningful AI solutions with GenAI, RAG, and applied ML. Open to remote roles.',
+    'AI/ML Engineer from Nepal specializing in Generative AI and applied machine learning. Building meaningful AI solutions with RAG, LangGraph, and Python.',
   ogImage: '/og-image.webp',
   ogType: 'website',
   robots: 'index, follow',
@@ -73,6 +73,8 @@ export function usePageSeo(config: PageSeoConfig) {
 
     if (config.noindex) {
       setMetaTag('name', 'robots', 'noindex, nofollow')
+    } else {
+      setMetaTag('name', 'robots', 'index, follow')
     }
 
     let jsonLdNode: HTMLScriptElement | null = null

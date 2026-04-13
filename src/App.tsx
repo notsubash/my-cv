@@ -1265,7 +1265,7 @@ function App() {
                           key={i}
                           href={cert.url}
                           target="_blank"
-                          rel="noopener noreferrer nofollow"
+                          rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent/10 text-xs text-muted-foreground hover:text-accent hover:bg-accent/20 transition-colors"
                         >
                           <BadgeCheck className="w-3.5 h-3.5" />
@@ -1664,7 +1664,7 @@ function App() {
                   const isAlt = i % 2 === 1
                   const Wrapper = cert.url ? 'a' : 'div'
                   const wrapperProps = cert.url
-                    ? { href: cert.url, target: '_blank', rel: 'noopener noreferrer nofollow' }
+                    ? { href: cert.url, target: '_blank', rel: 'noopener noreferrer' }
                     : {}
                   return (
                   <AnimatedSection key={i} delay={0.1 + i * 0.05}>
