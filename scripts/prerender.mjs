@@ -1,7 +1,27 @@
 import { createServer } from 'http'
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs'
 import { join, extname, dirname } from 'path'
-import puppeteer from 'puppeteer'
+
+async function launchBrowser() {
+  if (process.env.CI || process.env.VERCEL) {
+    const chromium = (await import('@sparticuz/chromium')).default
+    const puppeteer = (await import('puppeteer-core')).default
+    console.log('  Using @sparticuz/chromium (CI)')
+    return puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: { width: 1280, height: 800 },
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
+    })
+  }
+
+  const puppeteer = (await import('puppeteer')).default
+  console.log('  Using Puppeteer bundled Chrome (local)')
+  return puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
+}
 
 const DIST = join(process.cwd(), 'dist')
 const PORT = 4173
@@ -118,10 +138,7 @@ async function main() {
   console.log('\n🔨 Pre-rendering pages...\n')
 
   const server = await startServer()
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  })
+  const browser = await launchBrowser()
 
   try {
     const page = await browser.newPage()
