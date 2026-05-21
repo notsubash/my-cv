@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react'
 
-const BASE_URL = 'https://subash-pandey.com'
+const BASE_URL = 'https://www.subash-pandey.com'
 
 const DEFAULTS = {
   title: 'Subash Pandey | AI/ML Engineer & GenAI Developer',

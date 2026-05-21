@@ -1,17 +1,17 @@
 export const seo = {
   en: {
-    title: 'Subash Pandey | AI/ML Engineer & GenAI Developer',
+    title: 'Subash Pandey | Remote AI/ML Engineer (GenAI, RAG, LLMOps)',
     description:
-      'AI/ML Engineer from Nepal specializing in Generative AI and applied machine learning. Building meaningful AI solutions with RAG, LangGraph, and Python.',
+      'Remote AI/ML Engineer building production GenAI systems with LangGraph, RAG, LLM evaluation, and Python. Open to remote AI roles across global teams.',
   },
 };
 
 export const translations = {
   en: {
     greeting: "Hi, I'm",
-    greetingRoles: ['AI/ML Engineer', 'GenAI Developer', 'Data Scientist'],
+    greetingRoles: ['Remote AI/ML Engineer', 'GenAI / LLM Engineer', 'Applied ML Engineer'],
     email: 'axlesubash111@gmail.com',
-    role: 'Building meaningful AI solutions.',
+    role: 'Building production-ready AI systems for real business outcomes.',
     story: {
       context: "Driven by curiosity, clarity, and +continuous learning+.",
       reflections: ['Clean code. Deep thinking.', 'Real impact.'],
@@ -52,8 +52,8 @@ export const translations = {
     ],
     summary: {
       title: 'Professional Summary',
-      p1: 'AI/ML Engineer focused on',
-      p1Highlight: 'Generative AI and applied machine learning',
+      p1: 'Remote AI/ML engineer focused on',
+      p1Highlight: 'GenAI products, RAG systems, and LLM reliability',
       p1End:
         '. I take pride in writing clean code, thinking deeply about problems, and building meaningful, responsible AI solutions that create real impact.',
       p2: 'End-to-end ownership across',
@@ -72,6 +72,12 @@ export const translations = {
           title: 'Technical Depth',
           desc: 'Python, LangGraph, FastAPI, TypeScript, AWS, Docker, vector databases',
         },
+      ],
+      impactSnapshots: [
+        'Shipped production conversational AI features across multiple products',
+        'Built RAG pipelines with LangGraph + vector databases for grounded responses',
+        'Owned LLM evaluation covering hallucination, latency, and cost and custom evaluation frameworks',
+        'Collaborate effectively in fully remote teams (APAC timezone)',
       ],
     },
     coreCompetencies: {
@@ -541,7 +547,8 @@ export const translations = {
     },
     cta: {
       title: "Let's talk",
-      desc: "I'm an AI/ML engineer looking to contribute to a team-oriented environment where I can build meaningful AI solutions. Currently seeking remote roles in the APAC timezone.",
+      desc: 'I am actively interviewing for remote AI roles. If your team needs someone who can ship reliable GenAI features end to end, I would love to connect.',
+      primaryHeroCta: 'Discuss a remote AI role',
       contact: 'Contact',
       linkedin: 'LinkedIn',
       formSuccess: "Thanks, I'll get back to you!",

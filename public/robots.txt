@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://subash-pandey.com/sitemap.xml
+Sitemap: https://www.subash-pandey.com/sitemap.xml

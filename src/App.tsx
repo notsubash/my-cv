@@ -421,6 +421,22 @@ function App() {
               {t.summary.p1} <span className="text-foreground font-medium">{t.summary.p1Highlight}</span>.
             </motion.p>
 
+            <motion.div
+              initial={hydrated ? { opacity: 0, y: 12 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.45 }}
+              className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl w-full"
+            >
+              {t.summary.impactSnapshots.map((item, i) => (
+                <span
+                  key={`${item}-${i}`}
+                  className="inline-flex items-center px-3 py-2 rounded-xl text-xs md:text-sm bg-card/70 border border-border text-foreground/90 text-left"
+                >
+                  {item}
+                </span>
+              ))}
+            </motion.div>
+
             {/* Role tags - staggered */}
             <div className="flex flex-wrap justify-center gap-2 mt-6">
                 {t.greetingRoles.map((role, i) => (
@@ -443,6 +459,13 @@ function App() {
               transition={{ duration: 0.5, delay: 0.7 }}
               className="mt-8 flex flex-wrap justify-center gap-3"
               >
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-primary text-primary-foreground border border-primary hover:bg-primary/90 transition-colors"
+              >
+                <MessageSquare className="w-3.5 h-3.5" />
+                {t.cta.primaryHeroCta}
+              </a>
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   {t.cta.availability}
