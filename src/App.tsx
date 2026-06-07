@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, FileText, GitFork, Star, Network, Calendar, Percent, UserCheck, TrendingUp, Timer, ThumbsUp, MessageCircle, Share2, ChevronRight, List, Bot, Video, BookOpen, MapPin, PenLine } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, FileText, GitFork, Star, Network, Calendar, Percent, UserCheck, TrendingUp, Timer, ThumbsUp, MessageCircle, Share2, ChevronRight, ChevronDown, List, Bot, Video, BookOpen, MapPin, PenLine } from 'lucide-react'
 import { translations, seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
@@ -336,7 +336,7 @@ function App() {
       <HomeToc />
 
       {/* Hero Section */}
-      <header id="main-content" className="relative overflow-hidden">
+      <header id="main-content" className="relative overflow-clip min-h-screen flex flex-col">
         {/* Aurora background blobs */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div
@@ -349,7 +349,7 @@ function App() {
           />
         </div>
 
-        <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-14 md:pt-28 md:pb-20">
+        <div className="relative max-w-5xl mx-auto px-6 flex-1 flex items-center py-16">
           <div className="flex flex-col items-center text-center">
             {/* Photo with animated SVG ring */}
             <motion.div
@@ -460,6 +460,29 @@ function App() {
             </motion.div>
           </div>
         </div>
+
+        {/* Scroll indicator — sticky to viewport bottom while hero is visible */}
+        <motion.div
+          initial={hydrated ? { opacity: 0 } : false}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="sticky bottom-0 z-10 flex justify-center pb-8 pt-4"
+        >
+          <a
+            href="#experience"
+            className="flex flex-col items-center gap-1 text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault()
+              document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+          >
+            <span className="text-[10px] uppercase tracking-[0.2em] font-medium">{t.scrollHint ?? 'Scroll'}</span>
+            <div className="flex flex-col items-center" style={{ animation: 'hero-scroll-bounce 2s ease-in-out infinite' }}>
+              <ChevronDown className="w-4 h-4 -mb-1.5 opacity-60" />
+              <ChevronDown className="w-4 h-4 opacity-30" />
+            </div>
+          </a>
+        </motion.div>
 
         {/* Gradient fade to content */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none" />

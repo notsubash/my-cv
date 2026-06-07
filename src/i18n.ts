@@ -9,6 +9,7 @@ export const seo = {
 export const translations = {
   en: {
     greeting: "Hi, I'm",
+    scrollHint: 'Scroll',
     greetingRoles: ['Remote AI/ML Engineer', 'GenAI / LLM Engineer', 'Applied ML Engineer'],
     email: 'axlesubash111@gmail.com',
     role: 'Building production-ready AI systems for real business outcomes.',

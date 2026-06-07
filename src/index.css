@@ -38,6 +38,12 @@ button, a, [role="button"], summary { cursor: pointer; }
   66%      { opacity: 0.4; transform: translateY(4px) scale(0.98); }
 }
 
+/* Hero: scroll indicator bounce */
+@keyframes hero-scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(6px); }
+}
+
 /* Hero: dot pulse orbit (uses --hero-orbit-r set on the element) */
 @keyframes hero-orbit {
   0%   { transform: rotate(0deg) translateX(var(--hero-orbit-r, 72px)) rotate(0deg); }
