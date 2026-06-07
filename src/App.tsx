@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, BadgeCheck, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, FileText, GitBranch, GitFork, Star, Network, Calendar, Percent, UserCheck, Image, TrendingUp, Timer, ThumbsUp, MessageCircle, Share2, ChevronRight, List, Bot, Video, BookOpen, MapPin, PenLine } from 'lucide-react'
+import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, FileText, GitFork, Star, Network, Calendar, Percent, UserCheck, TrendingUp, Timer, ThumbsUp, MessageCircle, Share2, ChevronRight, List, Bot, Video, BookOpen, MapPin, PenLine } from 'lucide-react'
 import { translations, seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
@@ -427,7 +427,7 @@ function App() {
               transition={{ duration: 0.5, delay: 0.45 }}
               className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl w-full"
             >
-              {t.summary.impactSnapshots.map((item, i) => (
+              {t.summary.impactSnapshots.slice(0, 2).map((item, i) => (
                 <span
                   key={`${item}-${i}`}
                   className="inline-flex items-center px-3 py-2 rounded-xl text-xs md:text-sm bg-card/70 border border-border text-foreground/90 text-left"
@@ -436,21 +436,6 @@ function App() {
                 </span>
               ))}
             </motion.div>
-
-            {/* Role tags - staggered */}
-            <div className="flex flex-wrap justify-center gap-2 mt-6">
-                {t.greetingRoles.map((role, i) => (
-                <motion.span
-                    key={role}
-                  initial={hydrated ? { opacity: 0, y: 10, scale: 0.9 } : false}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.45 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  className="px-3 py-1.5 rounded-full text-sm font-medium border border-primary/20 bg-primary/5 text-foreground backdrop-blur-sm hover:border-primary/40 hover:bg-primary/10 transition-colors duration-200"
-                  >
-                    {role}
-                </motion.span>
-                ))}
-              </div>
 
             {/* CTA row */}
               <motion.div
@@ -465,17 +450,6 @@ function App() {
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 {t.cta.primaryHeroCta}
-              </a>
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  {t.cta.availability}
-                </span>
-              <a
-                href={`mailto:${t.email}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors"
-              >
-                <Mail className="w-3 h-3" />
-                {t.email}
               </a>
                 {BLOG_ENABLED && (
                 <Link to="/blog" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors">
@@ -492,10 +466,10 @@ function App() {
       </header>
 
       {/* Experience */}
-      <section id="experience" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
+      <section id="experience" className="py-10 md:py-16 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
-            <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
+            <h2 className="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
               <SectionIcon>
                 <Briefcase className="w-5 h-5 text-primary" />
               </SectionIcon>
@@ -505,21 +479,21 @@ function App() {
 
           {/* Preámbulo: Cómo trabajo + Competencias */}
           <AnimatedSection delay={0.1}>
-            <div className="mb-12 p-6 rounded-2xl bg-card/50">
-              <p className="text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-6">
+            <div className="mb-10 p-5 rounded-2xl bg-card/50 border border-border/40">
+              <p className="text-base text-muted-foreground text-center max-w-3xl mx-auto mb-5 leading-relaxed">
                 {t.summary.p2} <span className="text-foreground font-medium">{t.summary.p2Highlight}</span>{t.summary.p2End}
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-w-3xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 max-w-3xl mx-auto">
                 {t.coreCompetencies.items.map((item, i) => (
                   <div
                     key={i}
-                    className="p-3 sm:p-4 rounded-xl bg-background/50 border border-border hover:border-accent/30 transition-colors group"
+                    className="p-3 rounded-xl bg-background/50 border border-border/60 hover:border-accent/30 transition-colors group"
                   >
-                    <div className="flex items-center sm:items-start gap-2 sm:mb-1 sm:min-h-[2.5rem]">
+                    <div className="flex items-center sm:items-start gap-2 sm:mb-1 sm:min-h-[2.2rem]">
                       <Zap className="w-4 h-4 text-accent shrink-0" />
-                      <span className="text-sm font-semibold group-hover:text-accent transition-colors leading-tight">{item.title}</span>
+                      <span className="text-sm font-medium group-hover:text-accent transition-colors leading-tight">{item.title}</span>
                     </div>
-                    <p className="text-sm text-muted-foreground pl-6 hidden sm:block">{item.desc}</p>
+                    <p className="text-xs text-muted-foreground pl-6 hidden md:block leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -527,7 +501,7 @@ function App() {
           </AnimatedSection>
 
           {/* Current divider */}
-          <AnimatedSection delay={0.1} className="mb-8">
+          <AnimatedSection delay={0.1} className="mb-6">
             <div className="flex items-center gap-4">
               <div className="h-px flex-1 bg-border divider-flow" />
               <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-emerald-400 shrink-0">
@@ -543,13 +517,13 @@ function App() {
 
           {/* Scopic Software LLC */}
           <AnimatedSection delay={0.1}>
-            <div className="mb-12">
+            <div className="mb-10">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
                   <img src="/scopic_software_logo.webp" alt="Scopic Software" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.santifer.company}</h3>
+                  <h3 className="font-display text-xl font-bold">{t.experience.santifer.company}</h3>
                   <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
                     <a href="https://scopicsoftware.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">scopicsoftware.com</a>
                     <span className="text-border">·</span>
@@ -559,7 +533,7 @@ function App() {
               </div>
               <p className="text-primary font-medium mb-1">{t.experience.santifer.role}</p>
               <p className="text-sm text-muted-foreground mb-4">{t.experience.santifer.period}</p>
-              <ul className="text-sm text-muted-foreground space-y-1 mb-6">
+              <ul className="text-[13px] leading-relaxed text-muted-foreground space-y-0.5 mb-5">
                 {t.experience.santifer.highlights.map((h, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <span className="text-primary mt-1">•</span>
@@ -569,13 +543,13 @@ function App() {
               </ul>
 
               {/* Trusted By - Tech Stack Logos */}
-              <div className="pt-4 border-t border-border/50">
-                <p className="text-xs text-muted-foreground/60 uppercase tracking-wider mb-4">{t.experience.santifer.trustedBy.label}</p>
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-3 md:gap-x-8">
+              <div className="pt-3 border-t border-border/40">
+                <p className="text-[11px] text-muted-foreground/60 uppercase tracking-wider mb-3">{t.experience.santifer.trustedBy.label}</p>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5 md:gap-x-6">
                   {t.experience.santifer.trustedBy.logos.map((logo, i) => {
                     const techIcon = getTechIcon(logo.name)
                     return (
-                      <div key={i} className="flex items-center gap-2 hover:opacity-90 transition-opacity duration-200">
+                      <div key={i} className="flex items-center gap-1.5 hover:opacity-90 transition-opacity duration-200">
                         {'src' in logo && logo.src ? (
                           <img src={logo.src} alt={logo.name} className="h-5 w-auto shrink-0 invert opacity-60 hover:opacity-80 dark:invert-0 dark:opacity-70 dark:hover:opacity-90" loading="lazy" width={20} height={20} />
                         ) : techIcon ? (
@@ -587,7 +561,7 @@ function App() {
                             </svg>
                           ) : null
                         ) : null}
-                        <span className="text-sm font-medium opacity-60 dark:opacity-70">{logo.name}</span>
+                        <span className="text-xs font-medium opacity-60 dark:opacity-70">{logo.name}</span>
                       </div>
                     )
                   })}
@@ -604,20 +578,20 @@ function App() {
           </AnimatedSection>
 
           {/* Business OS - Full Width Hero Card */}
-          <AnimatedSection delay={0.1} className="mb-8">
-            <div className="p-8 rounded-2xl bg-gradient-to-br from-gold/15 via-gold/5 to-transparent border border-gold/30 hover:border-gold/50 transition-colors duration-200 group">
+          <AnimatedSection delay={0.1} className="mb-6">
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-gold/15 via-gold/5 to-transparent border border-gold/25 hover:border-gold/45 transition-colors duration-200 group">
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                 <div className="flex-1 flex flex-col">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center shrink-0">
-                      <Bot className="w-6 h-6 text-gold" />
+                    <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center shrink-0">
+                      <Bot className="w-5 h-5 text-gold" />
                     </div>
-                    <span className="badge px-3 py-1 bg-gold/20 text-gold">GenAI · LangGraph</span>
+                    <span className="badge px-2.5 py-0.5 bg-gold/20 text-gold text-[11px]">{t.experience.santifer.businessOS.badge}</span>
                   </div>
-                  <h4 className="font-display text-2xl font-bold mb-4">{t.experience.santifer.businessOS.title}</h4>
-                  <p className="text-muted-foreground mb-6">{t.experience.santifer.businessOS.desc}</p>
-                  <ul className="text-sm text-muted-foreground space-y-2">
-                    {t.experience.santifer.businessOS.modules.map((item, i) => {
+                  <h4 className="font-display text-xl font-bold mb-3">{t.experience.santifer.businessOS.title}</h4>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{t.experience.santifer.businessOS.desc}</p>
+                  <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
+                    {t.experience.santifer.businessOS.modules.slice(0, 4).map((item, i) => {
                       const icons: Record<string, React.ReactNode> = {
                         database: <Database className="w-4 h-4" />,
                         users: <Users className="w-4 h-4" />,
@@ -628,7 +602,7 @@ function App() {
                         calendarCheck: <CalendarCheck className="w-4 h-4" />
                       }
                       return (
-                        <li key={i} className="flex items-start gap-3">
+                        <li key={i} className="flex items-start gap-2.5">
                           <span className="text-gold mt-0.5">{icons[item.icon]}</span>
                           <span>{item.text}</span>
                         </li>
@@ -642,10 +616,10 @@ function App() {
                     </Link>
                   )}
                 </div>
-                <div className="grid grid-cols-3 lg:flex lg:flex-col gap-2 lg:gap-3 mt-4 lg:mt-0">
-                  {t.experience.santifer.businessOS.metrics.map((metric, i) => (
-                    <div key={i} className="text-center p-2 lg:p-4 rounded-xl bg-background/50 border border-gold/20">
-                      <div className="font-display text-lg lg:text-2xl font-bold text-gold">{metric.value}</div>
+                <div className="grid grid-cols-2 lg:flex lg:flex-col gap-2 lg:gap-2.5 mt-3 lg:mt-0">
+                  {t.experience.santifer.businessOS.metrics.slice(0, 2).map((metric, i) => (
+                    <div key={i} className="text-center p-2 lg:p-3 rounded-xl bg-background/50 border border-gold/20">
+                      <div className="font-display text-base lg:text-xl font-bold text-gold">{metric.value}</div>
                       <div className="text-[10px] lg:text-xs text-muted-foreground leading-tight">{metric.label}</div>
                     </div>
                   ))}
@@ -655,19 +629,19 @@ function App() {
           </AnimatedSection>
 
           {/* Key Projects */}
-          <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="grid md:grid-cols-2 gap-4 mb-7">
             <AnimatedSection delay={0.15}>
-              <div className="h-full p-6 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 hover:border-primary/40 transition-colors duration-200 group flex flex-col">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                    <Bot className="w-6 h-6 text-primary" />
+              <div className="h-full p-5 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 hover:border-primary/35 transition-colors duration-200 group flex flex-col">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <Bot className="w-5 h-5 text-primary" />
                   </div>
-                  <span className="badge px-3 py-1 bg-primary/10 text-primary">{t.experience.santifer.jacobo.badge}</span>
+                  <span className="badge px-2.5 py-0.5 bg-primary/10 text-primary text-[11px]">{t.experience.santifer.jacobo.badge}</span>
                 </div>
-                <h4 className="font-display text-xl font-bold mb-2 group-hover:text-primary transition-colors">{t.experience.santifer.jacobo.title}</h4>
-                <p className="text-muted-foreground text-sm mb-4">{t.experience.santifer.jacobo.desc}</p>
-                <ul className="text-sm text-muted-foreground space-y-2">
-                  {t.experience.santifer.jacobo.items.map((item, i) => {
+                <h4 className="font-display text-lg font-bold mb-2 group-hover:text-primary transition-colors">{t.experience.santifer.jacobo.title}</h4>
+                <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t.experience.santifer.jacobo.desc}</p>
+                <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
+                  {t.experience.santifer.jacobo.items.slice(0, 4).map((item, i) => {
                     const icons: Record<string, React.ReactNode> = {
                       network: <Network className="w-4 h-4" />,
                       calendar: <Calendar className="w-4 h-4" />,
@@ -691,24 +665,23 @@ function App() {
                 )}
               </div>
             </AnimatedSection>
-
             <AnimatedSection delay={0.2}>
-              <div className="h-full p-6 rounded-2xl bg-gradient-to-br from-accent/10 to-primary/10 border border-accent/20 hover:border-accent/40 transition-colors duration-200 group flex flex-col">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
-                    <Layout className="w-6 h-6 text-accent" />
+              <div className="h-full p-5 rounded-2xl bg-card border border-border/80 hover:border-accent/30 transition-colors duration-200 group flex flex-col">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-accent" />
                   </div>
-                  <span className="badge px-3 py-1 bg-accent/10 text-accent">{t.experience.santifer.webSeo.badge}</span>
+                  <span className="badge px-2.5 py-0.5 bg-accent/10 text-accent text-[11px]">{t.experience.santifer.webSeo.badge}</span>
                 </div>
-                <h4 className="font-display text-xl font-bold mb-2 group-hover:text-accent transition-colors">{t.experience.santifer.webSeo.title}</h4>
-                <p className="text-muted-foreground text-sm mb-4">{t.experience.santifer.webSeo.desc}</p>
-                <ul className="text-sm text-muted-foreground space-y-2">
-                  {t.experience.santifer.webSeo.items.map((item, i) => {
+                <h4 className="font-display text-lg font-bold mb-2 group-hover:text-accent transition-colors">{t.experience.santifer.webSeo.title}</h4>
+                <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t.experience.santifer.webSeo.desc}</p>
+                <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
+                  {t.experience.santifer.webSeo.items.slice(0, 3).map((item, i) => {
                     const icons: Record<string, React.ReactNode> = {
                       fileText: <FileText className="w-4 h-4" />,
-                      image: <Image className="w-4 h-4" />,
+                      image: <Layout className="w-4 h-4" />,
                       trendingUp: <TrendingUp className="w-4 h-4" />,
-                      gitBranch: <GitBranch className="w-4 h-4" />,
+                      gitBranch: <Network className="w-4 h-4" />,
                     }
                     return (
                       <li key={i} className="flex items-start gap-2">
@@ -718,12 +691,6 @@ function App() {
                     )
                   })}
                 </ul>
-                {t.experience.santifer.webSeo.caseStudyUrl && t.experience.santifer.webSeo.codeAvailable && (
-                  <Link to={t.experience.santifer.webSeo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta">
-                    <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{t.experience.santifer.webSeo.codeAvailable}</span>
-                    <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                  </Link>
-                )}
               </div>
             </AnimatedSection>
           </div>
@@ -741,7 +708,7 @@ function App() {
             )}
 
           {/* Other highlights - compact strip */}
-          <AnimatedSection delay={0.25} className="mb-12">
+          <AnimatedSection delay={0.25} className="mb-10">
             {(() => {
               const highlights = [
                 { icon: <Database className="w-4 h-4 text-primary" />, title: t.experience.santifer.erp.title, desc: t.experience.santifer.erp.desc, metric: t.experience.santifer.erp.metric },
@@ -752,10 +719,10 @@ function App() {
               ]
               const [expanded, setExpanded] = useState(false)
               return (
-                <div className="rounded-2xl border border-border bg-card/50 overflow-hidden">
+                <div className="rounded-2xl border border-border/70 bg-card/50 overflow-hidden">
                   <button
                     onClick={() => setExpanded(e => !e)}
-                    className="w-full flex items-center justify-between px-6 py-4 hover:bg-muted/30 transition-colors"
+                    className="w-full flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors"
                   >
                     <span className="text-sm font-medium text-muted-foreground">Other contributions at {t.experience.santifer.company}</span>
                     <motion.span
@@ -774,9 +741,9 @@ function App() {
                         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                         style={{ overflow: 'hidden' }}
                       >
-                        <div className="px-6 pb-5 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <div className="px-5 pb-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                           {highlights.map((h, i) => (
-                            <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-background/50 border border-border/50">
+                            <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-xl bg-background/50 border border-border/50">
                               <span className="mt-0.5 shrink-0">{h.icon}</span>
                               <div className="min-w-0">
                                 <p className="text-sm font-medium leading-tight">{h.title}</p>
@@ -794,7 +761,7 @@ function App() {
             </AnimatedSection>
 
           {/* Previous Experience divider */}
-          <AnimatedSection delay={0.1} className="mt-16 mb-10">
+          <AnimatedSection delay={0.1} className="mt-12 mb-8">
             <div className="flex items-center gap-4">
               <div className="h-px flex-1 bg-border divider-flow" />
               <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground shrink-0">{t.experience.previousLabel}</span>
@@ -831,7 +798,7 @@ function App() {
           </AnimatedSection>
 
           {/* Icebrkr AI Solutions */}
-          <AnimatedSection delay={0.1} className="mt-16">
+          <AnimatedSection delay={0.1} className="mt-12">
             <div className="mb-6">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
                 <div className="flex items-center gap-3">
@@ -854,7 +821,7 @@ function App() {
           </AnimatedSection>
 
           {/* Contentio Lab */}
-          <AnimatedSection delay={0.1} className="mt-16">
+          <AnimatedSection delay={0.1} className="mt-12">
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl overflow-hidden bg-accent/10 flex items-center justify-center shrink-0">
@@ -872,7 +839,7 @@ function App() {
           </AnimatedSection>
 
           {/* iMark Private Limited */}
-          <AnimatedSection delay={0.1} className="mt-16">
+          <AnimatedSection delay={0.1} className="mt-12">
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
@@ -894,7 +861,7 @@ function App() {
           </AnimatedSection>
 
           {/* Budhanilkantha Education Services */}
-          <AnimatedSection delay={0.1} className="mt-16">
+          <AnimatedSection delay={0.1} className="mt-12">
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
@@ -1106,19 +1073,13 @@ function App() {
                           ? 'bg-accent/10 text-accent'
                           : 'bg-primary/10 text-primary'
                       }`}>{project.badge}</span>
-                      {project.badgeBuilding && (
-                        <span className="badge px-2 py-0.5 bg-success/5 text-success flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse-dot"></span>
-                          {project.badgeBuilding}
-                        </span>
-                      )}
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">
                     {parseBold(project.desc)}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech) => (
+                    {project.tech.slice(0, 3).map((tech) => (
                       <span key={tech} className={`px-2 py-1 rounded-md text-xs ${
                         isTool
                           ? 'bg-tool/10 text-tool'
@@ -1258,49 +1219,6 @@ function App() {
             )
           })()}
 
-          {/* Claude Code Power User */}
-          <AnimatedSection delay={0.3}>
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-accent/10 to-primary/10 border border-accent/20">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center shrink-0">
-                  <Sparkles className="w-6 h-6 text-accent" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="font-display font-bold">{t.claudeCode.title}</h3>
-                    <span className="badge px-2 py-0.5 bg-accent/10 text-accent">{t.claudeCode.badge}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">{t.claudeCode.desc}</p>
-                  {t.claudeCode.highlights && (
-                    <ul className="mt-3 space-y-1.5">
-                      {(t.claudeCode.highlights as readonly string[]).map((h: string, i: number) => (
-                        <li key={i} className="text-xs text-muted-foreground flex gap-2">
-                          <span className="text-accent mt-0.5 shrink-0">›</span>
-                          <span>{h}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {t.claudeCode.certs && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {t.claudeCode.certs.map((cert: { title: string; url: string }, i: number) => (
-                        <a
-                          key={i}
-                          href={cert.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent/10 text-xs text-muted-foreground hover:text-accent hover:bg-accent/20 transition-colors"
-                        >
-                          <BadgeCheck className="w-3.5 h-3.5" />
-                          {cert.title}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
         </div>
       </section>
 

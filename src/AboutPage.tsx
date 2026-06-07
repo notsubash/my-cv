@@ -22,7 +22,7 @@ function GitHubLogo({ className = "w-4 h-4" }: { className?: string }) {
 
 const SOCIAL_LINKS = [
   { name: 'GitHub', url: 'https://github.com/notsubash', icon: 'github' },
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/notsubash/', icon: 'linkedin' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/subash-pandey-ai', icon: 'linkedin' },
 ]
 
 function TechBadge({ name }: { name: string }) {
