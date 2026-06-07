@@ -562,6 +562,13 @@ export const translations = {
       noPosts: 'First posts coming soon. Stay tuned.',
       items: [
         {
+          slug: 'activity-recognition-pipeline',
+          title: 'From Raw Sensor Logs to an Activity Classifier',
+          date: 'June 2026',
+          summary: 'A build-journey walkthrough of my Activity Recognition project using WISDM sensor data. Covers ingestion, phone accel/gyro fusion, sliding-window framing, XGBoost training, and what confusion matrix errors taught me.',
+          tags: ['Python', 'WISDM', 'XGBoost', 'Time Series', 'Sensor Fusion'],
+        },
+        {
           slug: 'rag-pipeline',
           title: 'Building a RAG Pipeline: Patterns That Worked',
           date: 'October 2025',

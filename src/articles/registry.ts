@@ -73,6 +73,7 @@ export function getAltPaths(): Record<string, string> {
     '/blog/audio-feature-extraction': '/blog/audio-feature-extraction',
     '/blog/steam-genre-networks': '/blog/steam-genre-networks',
     '/blog/ml-from-scratch': '/blog/ml-from-scratch',
+    '/blog/activity-recognition-pipeline': '/blog/activity-recognition-pipeline',
     '/privacy': '/privacy',
   }
   for (const article of articleRegistry) {
@@ -91,6 +92,7 @@ export function getPageTitles(): Record<string, string> {
     '/blog/audio-feature-extraction': 'Audio Feature Extraction for AI',
     '/blog/steam-genre-networks': 'What 27,000 Steam Games Reveal About Genre Evolution',
     '/blog/ml-from-scratch': 'Learning ML and Deep Learning by Building Everything Twice',
+    '/blog/activity-recognition-pipeline': 'From Raw Sensor Logs to an Activity Classifier',
   }
   for (const article of articleRegistry) {
     titles[`/${article.slugs.en}`] = article.titles.en

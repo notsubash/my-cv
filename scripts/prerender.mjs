@@ -35,6 +35,7 @@ const ROUTES = [
   '/blog/audio-feature-extraction',
   '/blog/steam-genre-networks',
   '/blog/ml-from-scratch',
+  '/blog/activity-recognition-pipeline',
   '/projects/activity-recognition',
   '/projects/steam-ml',
   '/projects/wikipedia-voting',
