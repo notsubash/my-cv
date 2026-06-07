@@ -315,6 +315,49 @@ for epoch in range(20):
     dw = gradient(X, Y, y_pred)
     w -= 0.01 * dw`} />
 
+            <h3 id="step2-autograd" className="font-display text-base font-semibold text-foreground mt-6 mb-2">Step 2: Tensors + autograd</h3>
+            <p>
+              Keep the same regression and manual update rule, but move to tensors and let autograd compute the gradient.
+            </p>
+            <CodeBlock lang="python" code={`import torch
+
+X = torch.tensor([1, 2, 3, 4], dtype=torch.float32)
+Y = torch.tensor([2, 4, 6, 8], dtype=torch.float32)
+w = torch.tensor(0.0, dtype=torch.float32, requires_grad=True)
+
+def forward(x): return w * x
+def loss(y, y_pred): return ((y_pred - y) ** 2).mean()
+
+for epoch in range(20):
+    y_pred = forward(X)
+    l = loss(Y, y_pred)
+    l.backward()
+
+    with torch.no_grad():
+        w -= 0.01 * w.grad
+        w.grad.zero_()`} />
+
+            <h3 id="step3-loss-optim" className="font-display text-base font-semibold text-foreground mt-6 mb-2">Step 3: Built-in loss + optimizer</h3>
+            <p>
+              Next, replace hand-written loss and update logic with <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">nn.MSELoss</code> and <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">optim.SGD</code>. The model is still just one scalar weight.
+            </p>
+            <CodeBlock lang="python" code={`import torch
+import torch.nn as nn
+
+X = torch.tensor([1, 2, 3, 4], dtype=torch.float32)
+Y = torch.tensor([2, 4, 6, 8], dtype=torch.float32)
+w = torch.tensor(0.0, dtype=torch.float32, requires_grad=True)
+
+criterion = nn.MSELoss()
+optimizer = torch.optim.SGD([w], lr=0.01)
+
+for epoch in range(20):
+    y_pred = w * X
+    l = criterion(y_pred, Y)
+    l.backward()
+    optimizer.step()
+    optimizer.zero_grad()`} />
+
             <h3 id="step4-module" className="font-display text-base font-semibold text-foreground mt-6 mb-2">Step 4: Full nn.Module</h3>
             <p>
               Same regression, same data. PyTorch handles gradients, loss, optimization, and the model. Half the code, same math, and it handles edge cases you'd miss writing it by hand.
