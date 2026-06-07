@@ -30,6 +30,7 @@ const BASE = `http://localhost:${PORT}`
 const ROUTES = [
   '/',
   '/about',
+  '/notes',
   '/blog',
   '/blog/rag-pipeline',
   '/blog/audio-feature-extraction',
@@ -67,8 +68,13 @@ function startServer() {
     const server = createServer((req, res) => {
       let filePath = join(DIST, req.url === '/' ? 'index.html' : req.url)
 
-      if (!existsSync(filePath) && !extname(filePath)) {
-        filePath = join(DIST, 'index.html')
+      if (!extname(filePath)) {
+        const routeIndexPath = join(filePath, 'index.html')
+        if (existsSync(routeIndexPath)) {
+          filePath = routeIndexPath
+        } else {
+          filePath = join(DIST, 'index.html')
+        }
       }
 
       if (!existsSync(filePath)) {

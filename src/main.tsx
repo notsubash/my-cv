@@ -12,6 +12,7 @@ import { BLOG_ENABLED } from './config'
 const PrivacyPolicy = lazy(() => import('./PrivacyPolicy'))
 const AboutPage = lazy(() => import('./AboutPage'))
 const BlogPage = lazy(() => import('./BlogPage'))
+const TechnicalNotesPage = lazy(() => import('./TechnicalNotesPage'))
 const BlogRagPipeline = lazy(() => import('./articles/blog-rag-pipeline'))
 const BlogAudioFeatures = lazy(() => import('./articles/blog-audio-features'))
 const BlogSteamGenreNetworks = lazy(() => import('./articles/blog-steam-genre-networks'))
@@ -135,6 +136,7 @@ const app = (
             <Route path="/" element={<App />} />
             <Route path="/about" element={<AboutPage />} />
             {BLOG_ENABLED && <Route path="/blog" element={<BlogPage />} />}
+            <Route path="/notes" element={<TechnicalNotesPage />} />
             {BLOG_ENABLED && <Route path="/blog/rag-pipeline" element={<BlogRagPipeline />} />}
             {BLOG_ENABLED && <Route path="/blog/audio-feature-extraction" element={<BlogAudioFeatures />} />}
             {BLOG_ENABLED && <Route path="/blog/steam-genre-networks" element={<BlogSteamGenreNetworks />} />}

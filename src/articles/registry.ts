@@ -68,6 +68,7 @@ export function getAltPaths(): Record<string, string> {
   const paths: Record<string, string> = {
     '/': '/',
     '/about': '/about',
+    '/notes': '/notes',
     '/blog': '/blog',
     '/blog/rag-pipeline': '/blog/rag-pipeline',
     '/blog/audio-feature-extraction': '/blog/audio-feature-extraction',
@@ -87,6 +88,7 @@ export function getPageTitles(): Record<string, string> {
   const titles: Record<string, string> = {
     '/': "Subash Pandey's Portfolio",
     '/about': 'About',
+    '/notes': 'Technical Notes',
     '/blog': 'Blog',
     '/blog/rag-pipeline': 'Building a Production RAG Pipeline',
     '/blog/audio-feature-extraction': 'Audio Feature Extraction for AI',

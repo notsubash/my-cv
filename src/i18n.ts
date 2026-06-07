@@ -606,31 +606,73 @@ export const translations = {
           title: 'Hybrid Retrieval in RAG',
           body: 'Run a metadata-filtered search (e.g. content_type + technology) and an unfiltered similarity search in parallel. Merge filtered-first, dedup by chunk ID. Filtered results give precision; unfiltered results fill context gaps the filters miss.',
           tags: ['RAG', 'Qdrant'],
+          relatedBlog: {
+            slug: 'rag-pipeline',
+            title: 'Building a RAG Pipeline: Patterns That Worked',
+          },
         },
         {
           title: 'Query Rewriting Before Vector Search',
           body: 'Rewrite conversational messages into standalone search queries using an LLM + chat history before hitting the vector store. "Yeah what about that?" becomes "What mobile development services are available?" Single biggest retrieval quality improvement I\'ve made.',
           tags: ['RAG', 'LLM'],
+          relatedBlog: {
+            slug: 'rag-pipeline',
+            title: 'Building a RAG Pipeline: Patterns That Worked',
+          },
         },
         {
           title: 'HPSS for Harmonic-to-Noise Ratio',
           body: 'Instead of autocorrelation-based HNR, split the STFT into harmonic and percussive components via librosa\'s HPSS (median filtering on the spectrogram), then compute 10·log₁₀(E_harmonic / E_percussive). Different from Praat\'s HNR but captures voice quality well.',
           tags: ['Audio', 'librosa'],
+          relatedBlog: {
+            slug: 'audio-feature-extraction',
+            title: 'Audio Feature Extraction: Designing an Audio Metrics Pipeline',
+          },
         },
         {
           title: 'Dual Pitch Tracking',
           body: 'librosa pyin (probabilistic YIN) and Parselmouth (Praat autocorrelation) give noticeably different F0 contours on the same audio. pyin catches quiet voiced segments; Praat handles octave jumps better. Return both and let the consumer decide.',
           tags: ['Audio', 'Parselmouth'],
+          relatedBlog: {
+            slug: 'audio-feature-extraction',
+            title: 'Audio Feature Extraction: Designing an Audio Metrics Pipeline',
+          },
         },
         {
           title: 'Parallel LLM Calls for Latency',
           body: 'When you need multiple independent LLM classifications (intent, entity extraction, query rewriting, ambiguity check), run them concurrently with a ThreadPoolExecutor. Total latency = slowest call, not the sum. deepcopy the state first; mutable dicts + threads = subtle bugs.',
           tags: ['LangGraph', 'Python'],
+          relatedBlog: {
+            slug: 'rag-pipeline',
+            title: 'Building a RAG Pipeline: Patterns That Worked',
+          },
         },
         {
           title: 'When Retrieval Returns Nothing',
           body: 'If the vector store returns zero relevant documents, skip the LLM entirely and return a templated honest response. The retriever is your ground truth. Letting the LLM fill the gap is how hallucinations happen in production.',
           tags: ['RAG', 'LLM'],
+          relatedBlog: {
+            slug: 'rag-pipeline',
+            title: 'Building a RAG Pipeline: Patterns That Worked',
+          },
+        },
+        {
+          title: 'Window Labels Need a Clear Rule',
+          body: 'For sliding-window activity recognition, assign each frame the majority class inside the window before training. This avoids label drift at transition boundaries and gave me a cleaner XGBoost baseline than row-level labels.',
+          tags: ['Time Series', 'XGBoost'],
+          relatedBlog: {
+            slug: 'activity-recognition-pipeline',
+            title: 'From Raw Sensor Logs to an Activity Classifier',
+          },
+        },
+        {
+          title: 'Confusion Matrix Beats Headline Accuracy',
+          body: 'An 85%+ score looked good until class-level diagnostics showed repeated overlap in similar motion classes (like jogging vs stairs). Confusion patterns gave a better roadmap for iteration than aggregate accuracy alone.',
+          tags: ['Evaluation', 'ML'],
+          relatedBlog: {
+            slug: 'activity-recognition-pipeline',
+            title: 'From Raw Sensor Logs to an Activity Classifier',
+          },
         },
       ],
     },

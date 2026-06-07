@@ -1573,69 +1573,6 @@ function App() {
         </div>
       </section>
 
-      {/* Technical Notes */}
-      <section id="notes" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <AnimatedSection>
-            <h2 className="font-display text-2xl font-semibold mb-2 flex items-center gap-3">
-              <SectionIcon>
-                <Zap className="w-5 h-5 text-primary" />
-              </SectionIcon>
-              {t.technicalNotes.title}
-            </h2>
-            <p className="text-muted-foreground text-sm mb-8">{t.technicalNotes.subtitle}</p>
-          </AnimatedSection>
-
-          {(() => {
-            const INITIAL_NOTES = 3
-            const [showAllNotes, setShowAllNotes] = useState(false)
-            const visibleNotes = showAllNotes ? t.technicalNotes.items : t.technicalNotes.items.slice(0, INITIAL_NOTES)
-            const hasMore = t.technicalNotes.items.length > INITIAL_NOTES
-
-            return (
-              <>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {visibleNotes.map((note: { title: string; body: string; tags: readonly string[] }, i: number) => (
-                    <AnimatedSection key={i} delay={0.1 + i * 0.06}>
-                <div className="h-full p-5 rounded-2xl bg-card border border-border/50 hover:border-border hover:shadow-md transition-all flex flex-col">
-                  <div className="flex items-start gap-3 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                      <Code className="w-4 h-4 text-primary" />
-                    </div>
-                    <h3 className="text-sm font-semibold text-foreground leading-snug">{note.title}</h3>
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed flex-1">{note.body}</p>
-                  <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border/30">
-                    {note.tags.map((tag: string) => (
-                      <span key={tag} className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-primary/8 text-primary/80">{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-                {hasMore && (
-                  <div className="text-center mt-6">
-                    <button
-                      onClick={() => setShowAllNotes(s => !s)}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-muted-foreground border border-border hover:border-primary/40 hover:text-primary bg-card transition-colors duration-200"
-                    >
-                      {showAllNotes ? 'Show less' : `Show ${t.technicalNotes.items.length - INITIAL_NOTES} more`}
-                      <motion.span
-                        animate={{ rotate: showAllNotes ? 180 : 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ChevronRight className="w-3.5 h-3.5 rotate-90" />
-                      </motion.span>
-                    </button>
-                  </div>
-                )}
-              </>
-            )
-          })()}
-        </div>
-      </section>
-
       {/* Education & Certifications */}
       <section id="education" className="py-12 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}>
         <div className="max-w-5xl mx-auto px-6">
@@ -1855,6 +1792,13 @@ function App() {
                     Blog
                   </Link>
                 )}
+                <Link
+                  to="/notes"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+                >
+                  <Zap className="w-4 h-4" />
+                  Technical Notes
+                </Link>
               </div>
           </AnimatedSection>
 
