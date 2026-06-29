@@ -155,6 +155,19 @@ export const translations = {
       viewPrototype: 'View prototype',
       items: [
         {
+          title: 'Roast My Startup',
+          badge: 'GenAI / Multi-Agent',
+          badgeBuilding: '',
+          desc: 'Multi-agent startup idea critique with five parallel judges (VC, Engineer, PM, Customer, Competitor), a LangGraph debate, moderator synthesis, and founder appeals. Next.js frontend with a FastAPI SSE run engine, durable SQLite event log, and optional semantic memory.',
+          tech: ['LangGraph', 'Python', 'FastAPI', 'Next.js', 'SQLite'],
+          link: 'github.com/notsubash/roast-my-startup-idea',
+          caseStudyUrl: '',
+          caseStudyLabel: '',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/notsubash/roast-my-startup-idea', icon: 'github' },
+          ],
+        },
+        {
           title: 'Activity Recognition',
           badge: 'ML / Sensors',
           badgeBuilding: '',
@@ -194,17 +207,6 @@ export const translations = {
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/WikiVoteNetworkAnalysis', icon: 'github' },
             { label: 'Video', url: 'https://www.youtube.com/watch?v=DywRZz8iRAo', icon: 'video' },
-          ],
-        },
-        {
-          title: 'Stock Variables Analysis',
-          badge: 'Data Science',
-          badgeBuilding: '',
-          desc: 'Exploratory data analysis of stock prices across exchanges. Identified significant variables affecting closing prices through correlation analysis, regression, feature selection, and data clustering.',
-          tech: ['Python', 'Pandas', 'Matplotlib', 'Regression'],
-          link: 'github.com/notsubash/stock-variables',
-          links: [
-            { label: 'GitHub', url: 'https://github.com/notsubash/stock-variables', icon: 'github' },
           ],
         },
         {
