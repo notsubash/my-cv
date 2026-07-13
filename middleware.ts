@@ -1,11 +1,10 @@
 import { next } from '@vercel/functions/middleware'
 
-const FINGERPRINT_HEADERS = ['server', 'x-vercel-id', 'x-vercel-cache'] as const
-
+/** Obscure platform fingerprint headers where the edge allows overrides. */
 export default function middleware() {
-  const response = next()
-  for (const header of FINGERPRINT_HEADERS) {
-    response.headers.delete(header)
-  }
-  return response
+  return next({
+    headers: {
+      Server: 'webserver',
+    },
+  })
 }
