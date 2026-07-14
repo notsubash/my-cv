@@ -18,6 +18,21 @@ export interface ArticleConfig {
 
 export const articleRegistry: ArticleConfig[] = [
   {
+    id: 'gavel',
+    slugs: { en: 'projects/gavel' },
+    titles: { en: 'Gavel: Durable Multi-Agent Pipeline Engineering' },
+    seo: {
+      en: {
+        title: 'Gavel Multi-Agent Pipeline — Case Study | Subash Pandey',
+        description:
+          'Technical case study of Gavel: FastAPI RunManager with SQLite event log, LangGraph debate and re-vote, panel quality gates for local LLMs, and a three-tier eval pyramid.',
+      },
+    },
+    sectionLabels: { en: {} },
+    type: 'case-study',
+    component: () => import('./gavel'),
+  },
+  {
     id: 'activity-recognition',
     slugs: { en: 'projects/activity-recognition' },
     titles: { en: 'Activity Recognition with XGBoost' },
