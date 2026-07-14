@@ -155,16 +155,16 @@ export const translations = {
       viewPrototype: 'View prototype',
       items: [
         {
-          title: 'Roast My Startup',
+          title: 'Gavel',
           badge: 'GenAI / Multi-Agent',
           badgeBuilding: '',
-          desc: 'Multi-agent startup idea critique with five parallel judges (VC, Engineer, PM, Customer, Competitor), a LangGraph debate, moderator synthesis, and founder appeals. Next.js frontend with a FastAPI SSE run engine, durable SQLite event log, and optional semantic memory.',
+          desc: 'Workspace for shaping startup ideas, collecting evidence, and running structured multi-agent judgment. Five parallel judges, LangGraph debate, readiness gates, versioned worksheets, post-run handoffs, and a FastAPI SSE run engine with a durable SQLite event log.',
           tech: ['LangGraph', 'Python', 'FastAPI', 'Next.js', 'SQLite'],
-          link: 'github.com/notsubash/roast-my-startup-idea',
-          caseStudyUrl: '',
-          caseStudyLabel: '',
+          link: 'github.com/notsubash/gavel',
+          caseStudyUrl: '/blog/building-an-idea-workbench',
+          caseStudyLabel: 'Read blog post',
           links: [
-            { label: 'GitHub', url: 'https://github.com/notsubash/roast-my-startup-idea', icon: 'github' },
+            { label: 'GitHub', url: 'https://github.com/notsubash/gavel', icon: 'github' },
           ],
         },
         {
@@ -559,6 +559,13 @@ export const translations = {
       readMore: 'Read post',
       noPosts: 'First posts coming soon. Stay tuned.',
       items: [
+        {
+          slug: 'building-an-idea-workbench',
+          title: 'Building Gavel: Turning AI Opinions Into Experiments',
+          date: 'July 2026',
+          summary: 'How I built Gavel, a workspace for shaping ideas, collecting evidence, running structured multi-agent judgment, and turning model feedback into the next validation cycle.',
+          tags: ['Python', 'FastAPI', 'LangGraph', 'Next.js', 'SQLite'],
+        },
         {
           slug: 'activity-recognition-pipeline',
           title: 'From Raw Sensor Logs to an Activity Classifier',

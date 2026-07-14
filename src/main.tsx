@@ -18,6 +18,7 @@ const BlogAudioFeatures = lazy(() => import('./articles/blog-audio-features'))
 const BlogSteamGenreNetworks = lazy(() => import('./articles/blog-steam-genre-networks'))
 const BlogMLFromScratch = lazy(() => import('./articles/blog-ml-from-scratch'))
 const BlogActivityRecognitionPipeline = lazy(() => import('./articles/blog-activity-recognition-pipeline'))
+const BlogIdeaWorkbench = lazy(() => import('./articles/blog-idea-workbench'))
 const ActivityRecognition = lazy(() => import('./articles/activity-recognition'))
 const SteamML = lazy(() => import('./articles/steam-ml'))
 const WikipediaVoting = lazy(() => import('./articles/wikipedia-voting'))
@@ -142,6 +143,7 @@ const app = (
             {BLOG_ENABLED && <Route path="/blog/steam-genre-networks" element={<BlogSteamGenreNetworks />} />}
             {BLOG_ENABLED && <Route path="/blog/ml-from-scratch" element={<BlogMLFromScratch />} />}
             {BLOG_ENABLED && <Route path="/blog/activity-recognition-pipeline" element={<BlogActivityRecognitionPipeline />} />}
+            {BLOG_ENABLED && <Route path="/blog/building-an-idea-workbench" element={<BlogIdeaWorkbench />} />}
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/projects/activity-recognition" element={<ActivityRecognition />} />
             <Route path="/projects/steam-ml" element={<SteamML />} />
