@@ -954,6 +954,7 @@ function App() {
             const proj2 = allProjects[2]!
             const proj3 = allProjects[3]!
             const proj4 = allProjects[4]!
+            const proj5 = allProjects[5]!
 
             // Helper para parsear **bold** a elementos con estilo
             const parseBold = (text: string): React.ReactNode[] => {
@@ -969,6 +970,7 @@ function App() {
               p2: useRef<HTMLDivElement>(null),
               p3: useRef<HTMLDivElement>(null),
               p4: useRef<HTMLDivElement>(null),
+              p5: useRef<HTMLDivElement>(null),
             }
 
             // Hook para calcular líneas de conexión SVG
@@ -1011,13 +1013,15 @@ function App() {
                   { from: cardRefs.p1, fromEdge: 'bottom', to: cardRefs.p2, toEdge: 'top' },
                   { from: cardRefs.p2, fromEdge: 'bottom', to: cardRefs.p3, toEdge: 'top' },
                   { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top' },
+                  { from: cardRefs.p4, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
                 ] : [
                   { from: cardRefs.p0, fromEdge: 'right', to: cardRefs.p1, toEdge: 'left' },
                   { from: cardRefs.p0, fromEdge: 'bottom', to: cardRefs.p2, toEdge: 'top' },
                   { from: cardRefs.p1, fromEdge: 'bottom', to: cardRefs.p3, toEdge: 'top' },
                   { from: cardRefs.p2, fromEdge: 'right', to: cardRefs.p3, toEdge: 'left' },
-                  { from: cardRefs.p2, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top', toRatio: 0.25 },
-                  { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top', toRatio: 0.75 },
+                  { from: cardRefs.p2, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top' },
+                  { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
+                  { from: cardRefs.p4, fromEdge: 'right', to: cardRefs.p5, toEdge: 'left' },
                 ]
 
                 const paths = connections.map(conn => {
@@ -1233,9 +1237,12 @@ function App() {
                 </div>
 
                 {/* Row 3 */}
-                <div className="relative z-10">
+                <div className="grid md:grid-cols-2 gap-6 relative z-10">
                   <AnimatedSection delay={0.3}>
                     <ProjectCard project={proj4} cardRef={cardRefs.p4} />
+                  </AnimatedSection>
+                  <AnimatedSection delay={0.35}>
+                    <ProjectCard project={proj5} cardRef={cardRefs.p5} />
                   </AnimatedSection>
                 </div>
               </div>

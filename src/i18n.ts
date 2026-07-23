@@ -168,6 +168,17 @@ export const translations = {
           ],
         },
         {
+          title: 'Cloud Native AI Platform',
+          badge: 'MLOps / Platform',
+          badgeBuilding: '',
+          desc: 'Cost-bounded cloud-native AI summarization platform — FastAPI + Kubernetes/Helm, Terraform on Hetzner, GitOps via Argo CD, full observability stack. Next up: autoscaling, canary deploys, DR. Runs under $15/month.',
+          tech: ['Kubernetes', 'Helm', 'Terraform', 'FastAPI', 'Argo CD','Prometheus','Grafana','Loki','Gitops','Hetzner'],
+          link: 'github.com/notsubash/cloud-native-AI-platform',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/notsubash/cloud-native-AI-platform', icon: 'github' },
+          ],
+        },
+        {
           title: 'Activity Recognition',
           badge: 'ML / Sensors',
           badgeBuilding: '',
