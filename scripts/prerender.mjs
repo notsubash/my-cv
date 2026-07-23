@@ -38,6 +38,7 @@ const ROUTES = [
   '/blog/ml-from-scratch',
   '/blog/activity-recognition-pipeline',
   '/blog/building-an-idea-workbench',
+  '/projects/gavel',
   '/projects/activity-recognition',
   '/projects/steam-ml',
   '/projects/wikipedia-voting',

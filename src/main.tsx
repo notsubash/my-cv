@@ -19,6 +19,7 @@ const BlogSteamGenreNetworks = lazy(() => import('./articles/blog-steam-genre-ne
 const BlogMLFromScratch = lazy(() => import('./articles/blog-ml-from-scratch'))
 const BlogActivityRecognitionPipeline = lazy(() => import('./articles/blog-activity-recognition-pipeline'))
 const BlogIdeaWorkbench = lazy(() => import('./articles/blog-idea-workbench'))
+const Gavel = lazy(() => import('./articles/gavel'))
 const ActivityRecognition = lazy(() => import('./articles/activity-recognition'))
 const SteamML = lazy(() => import('./articles/steam-ml'))
 const WikipediaVoting = lazy(() => import('./articles/wikipedia-voting'))
@@ -145,6 +146,7 @@ const app = (
             {BLOG_ENABLED && <Route path="/blog/activity-recognition-pipeline" element={<BlogActivityRecognitionPipeline />} />}
             {BLOG_ENABLED && <Route path="/blog/building-an-idea-workbench" element={<BlogIdeaWorkbench />} />}
             <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/projects/gavel" element={<Gavel />} />
             <Route path="/projects/activity-recognition" element={<ActivityRecognition />} />
             <Route path="/projects/steam-ml" element={<SteamML />} />
             <Route path="/projects/wikipedia-voting" element={<WikipediaVoting />} />

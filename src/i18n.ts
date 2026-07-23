@@ -161,8 +161,8 @@ export const translations = {
           desc: 'Workspace for shaping startup ideas, collecting evidence, and running structured multi-agent judgment. Five parallel judges, LangGraph debate, readiness gates, versioned worksheets, post-run handoffs, and a FastAPI SSE run engine with a durable SQLite event log.',
           tech: ['LangGraph', 'Python', 'FastAPI', 'Next.js', 'SQLite'],
           link: 'github.com/notsubash/gavel',
-          caseStudyUrl: '/blog/building-an-idea-workbench',
-          caseStudyLabel: 'Read blog post',
+          caseStudyUrl: '/projects/gavel',
+          caseStudyLabel: 'Read case study',
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/gavel', icon: 'github' },
           ],

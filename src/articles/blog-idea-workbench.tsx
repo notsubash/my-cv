@@ -652,7 +652,12 @@ export default function BlogIdeaWorkbench() {
           <a href="https://github.com/notsubash/gavel" className="text-primary hover:underline">
             github.com/notsubash/gavel
           </a>
-          . Local or self-hosted today: no accounts, single API worker.
+          . Local or self-hosted today: no accounts, single API worker. For metrics, event types,
+          and the eval pyramid, see the{' '}
+          <Link to="/projects/gavel" className="text-primary hover:underline">
+            technical case study
+          </Link>
+          .
         </div>
 
         <hr className="border-border mb-10" />
