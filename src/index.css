@@ -730,3 +730,15 @@ section[id], footer[id] {
   font-family: "SF Mono", "Fira Code", "JetBrains Mono", monospace;
   letter-spacing: 0.03em;
 }
+
+/* Cal.com modal: keep shell transparent; match site theme */
+cal-modal-box iframe.cal-embed {
+  background: transparent !important;
+}
+.dark cal-modal-box iframe.cal-embed {
+  color-scheme: dark;
+}
+.light cal-modal-box iframe.cal-embed,
+:root:not(.dark) cal-modal-box iframe.cal-embed {
+  color-scheme: light;
+}
