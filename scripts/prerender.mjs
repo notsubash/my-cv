@@ -122,6 +122,12 @@ async function prerenderRoute(page, route) {
 
   await new Promise((r) => setTimeout(r, 500))
 
+  await page.evaluate(() => {
+    document
+      .querySelectorAll('script[src="https://app.cal.com/embed/embed.js"]')
+      .forEach((script) => script.remove())
+  })
+
   const html = await page.content()
   return html
 }
