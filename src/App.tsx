@@ -6,6 +6,7 @@ import { translations, seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
 import { BLOG_ENABLED } from './config'
+import { CalBookButton } from './CalBookButton'
 
 
 function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
@@ -444,13 +445,12 @@ function App() {
               transition={{ duration: 0.5, delay: 0.7 }}
               className="mt-8 flex flex-wrap justify-center gap-3"
               >
-              <a
-                href="#contact"
+              <CalBookButton
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-primary text-primary-foreground border border-primary hover:bg-primary/90 transition-colors"
               >
-                <MessageSquare className="w-3.5 h-3.5" />
+                <Calendar className="w-3.5 h-3.5" />
                 {t.cta.primaryHeroCta}
-              </a>
+              </CalBookButton>
                 {BLOG_ENABLED && (
                 <Link to="/blog" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors">
                     <PenLine className="w-3 h-3" />
@@ -1704,11 +1704,17 @@ function App() {
 
           <AnimatedSection delay={0.1}>
             <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href={`mailto:${t.email}`}
+              <CalBookButton
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200 text-sm font-medium shadow-lg hover:shadow-xl"
               >
-                <Mail className="w-5 h-5" />
+                <Calendar className="w-5 h-5" />
+                {t.cta.bookCall}
+              </CalBookButton>
+              <a
+                href={`mailto:${t.email}`}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+              >
+                <Mail className="w-4 h-4" />
                 {t.email}
               </a>
                 <a

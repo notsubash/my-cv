@@ -32,7 +32,7 @@ export const translations = {
       nav: [
         { icon: 'briefcase', label: 'My path', href: '#experience' },
         { icon: 'folder', label: 'What I build', href: '#projects' },
-        { icon: 'mail', label: "Let's talk", href: '#contact' },
+        { icon: 'mail', label: "Let's talk", href: 'https://cal.com/subash-pandey/intro' },
       ],
       skills: [
         'Generative AI',
@@ -557,7 +557,8 @@ export const translations = {
     cta: {
       title: "Let's talk",
       desc: 'I am actively interviewing for remote AI roles. If your team needs someone who can ship reliable GenAI features end to end, I would love to connect.',
-      primaryHeroCta: 'Discuss a remote AI role',
+      primaryHeroCta: 'Book a 30 min intro',
+      bookCall: 'Book a 30 min intro',
       contact: 'Contact',
       linkedin: 'LinkedIn',
       formSuccess: "Thanks, I'll get back to you!",

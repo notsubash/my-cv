@@ -3,6 +3,7 @@ import { MapPin, Mail, ExternalLink, ArrowLeft, Calendar, Briefcase, GraduationC
 import { translations } from './i18n'
 import { getTechIcon } from './tech-icons'
 import { usePageSeo } from './hooks/usePageSeo'
+import { CalBookButton } from './CalBookButton'
 
 function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -418,6 +419,12 @@ export default function AboutPage() {
           Connect
         </h2>
         <div className="flex flex-wrap gap-3">
+          <CalBookButton
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm transition-colors"
+          >
+            <Calendar className="w-4 h-4" />
+            {t.cta.bookCall}
+          </CalBookButton>
           <a
             href={`mailto:${t.email}`}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
