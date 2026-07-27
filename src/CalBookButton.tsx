@@ -17,7 +17,6 @@ async function applyCalTheme(theme: CalTheme) {
     colorScheme: theme,
     hideEventTypeDetails: false,
     layout: 'month_view',
-    styles: { body: { background: 'transparent' } },
   })
 }
 

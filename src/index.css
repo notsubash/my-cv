@@ -731,9 +731,12 @@ section[id], footer[id] {
   letter-spacing: 0.03em;
 }
 
-/* Cal.com modal: keep shell transparent; match site theme */
+/* Cal.com modal: opaque shell so page content does not bleed through */
+cal-modal-box {
+  --cal-bg: hsl(var(--background));
+}
 cal-modal-box iframe.cal-embed {
-  background: transparent !important;
+  background: hsl(var(--background)) !important;
 }
 .dark cal-modal-box iframe.cal-embed {
   color-scheme: dark;
