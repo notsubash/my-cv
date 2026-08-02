@@ -7,6 +7,7 @@ import { useHomeSeo } from './articles/use-article-seo'
 import { getTechIcon } from './tech-icons'
 import { BLOG_ENABLED } from './config'
 import { CalBookButton } from './CalBookButton'
+import posthog from './posthog'
 
 
 function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
@@ -1118,6 +1119,7 @@ function App() {
                     {project.caseStudyUrl && (
                       <Link
                         to={project.caseStudyUrl}
+                        onClick={() => posthog.capture('project_link_clicked', { link_type: 'case_study', project_title: project.title })}
                         className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta"
                       >
                         <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{project.caseStudyLabel}</span>
@@ -1138,6 +1140,7 @@ function App() {
                               href={pl.url}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={() => posthog.capture('project_link_clicked', { link_type: pl.icon, project_title: project.title })}
                               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
                                 isTool
                                   ? 'bg-tool/10 text-tool hover:bg-tool/20'
@@ -1168,6 +1171,7 @@ function App() {
                           href={`https://${project.link}`}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => posthog.capture('project_link_clicked', { link_type: project.link.includes('github.com') ? 'repository' : 'prototype', project_title: project.title })}
                           className={`inline-flex items-center gap-2 text-xs ${
                             isTool ? 'text-tool hover:text-tool' : 'text-primary'
                           } hover:underline`}
@@ -1712,6 +1716,7 @@ function App() {
               </CalBookButton>
               <a
                 href={`mailto:${t.email}`}
+                onClick={() => posthog.capture('contact_email_clicked', { placement: 'footer' })}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
               >
                 <Mail className="w-4 h-4" />

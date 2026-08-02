@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { Check, Copy } from 'lucide-react'
+import posthog from '../posthog'
 
 export default function CodeBlock({ code, lang = 'python' }: { code: string; lang?: string }) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code).then(() => {
+      posthog.capture('code_block_copied', { language: lang })
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     })
