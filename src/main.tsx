@@ -8,6 +8,7 @@ import './index.css'
 import App from './App.tsx'
 import GlobalNav from './GlobalNav.tsx'
 import { BLOG_ENABLED } from './config'
+import './posthog'
 
 const PrivacyPolicy = lazy(() => import('./PrivacyPolicy'))
 const AboutPage = lazy(() => import('./AboutPage'))

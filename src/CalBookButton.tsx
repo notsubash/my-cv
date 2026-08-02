@@ -1,5 +1,6 @@
 import { useEffect, useState, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { getCalApi } from '@calcom/embed-react'
+import posthog from './posthog'
 
 const CAL_NAMESPACE = 'intro'
 const CAL_LINK = 'subash-pandey/intro'
@@ -25,7 +26,7 @@ type CalBookButtonProps = {
   className?: string
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'type'>
 
-export function CalBookButton({ children, className, ...props }: CalBookButtonProps) {
+export function CalBookButton({ children, className, onClick, ...props }: CalBookButtonProps) {
   const [theme, setTheme] = useState<CalTheme>(() =>
     typeof document !== 'undefined' ? getSiteTheme() : 'dark',
   )
@@ -60,6 +61,10 @@ export function CalBookButton({ children, className, ...props }: CalBookButtonPr
       data-cal-link={CAL_LINK}
       data-cal-config={calConfig}
       className={className}
+      onClick={(event) => {
+        posthog.capture('consultation_booking_opened')
+        onClick?.(event)
+      }}
       {...props}
     >
       {children}
