@@ -14,6 +14,7 @@ if (!projectToken) {
 } else {
   posthog.init(projectToken, {
     api_host: host,
+    capture_pageview: 'history_change',
   })
   posthog.startExceptionAutocapture({
     capture_unhandled_errors: true,

@@ -21,6 +21,19 @@ async function applyCalTheme(theme: CalTheme) {
   })
 }
 
+let bookingSuccessBound = false
+
+function bindBookingSuccessOnce() {
+  if (bookingSuccessBound) return
+  bookingSuccessBound = true
+  void getCalApi({ namespace: CAL_NAMESPACE }).then((cal) => {
+    cal('on', {
+      action: 'bookingSuccessfulV2',
+      callback: () => posthog.capture('consultation_booking_completed'),
+    })
+  })
+}
+
 type CalBookButtonProps = {
   children: ReactNode
   className?: string
@@ -32,6 +45,8 @@ export function CalBookButton({ children, className, onClick, ...props }: CalBoo
   )
 
   useEffect(() => {
+    bindBookingSuccessOnce()
+
     const sync = () => {
       const next = getSiteTheme()
       setTheme(next)

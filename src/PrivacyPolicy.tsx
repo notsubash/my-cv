@@ -17,8 +17,8 @@ export default function PrivacyPolicy() {
         <section>
           <h2 className="font-display text-xl font-semibold text-foreground mb-3">What data is collected</h2>
           <ul className="list-disc pl-5 space-y-1">
-            <li>Anonymous analytics data (pages visited, duration, device) via Vercel Analytics to improve the site.</li>
-            <li>No personal information is collected or stored.</li>
+            <li>Anonymous analytics data (pages visited, duration, device) via Vercel Analytics and PostHog to improve the site.</li>
+            <li>No personal information is collected or stored beyond what is needed for anonymous product analytics.</li>
           </ul>
         </section>
 
@@ -26,6 +26,7 @@ export default function PrivacyPolicy() {
           <h2 className="font-display text-xl font-semibold text-foreground mb-3">Third parties</h2>
           <ul className="list-disc pl-5 space-y-1">
             <li>Vercel Analytics: anonymous, privacy-friendly web analytics.</li>
+            <li>PostHog: product analytics for page views, interactions, and error reporting. See <a href="https://posthog.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">PostHog's privacy policy</a>.</li>
           </ul>
         </section>
 

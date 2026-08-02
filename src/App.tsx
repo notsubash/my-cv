@@ -1295,6 +1295,7 @@ function App() {
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => posthog.capture('publication_link_clicked', { link_type: link.icon, label: link.label })}
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent/10 text-xs text-muted-foreground hover:text-accent hover:bg-accent/20 transition-colors"
                         >
                           {linkIcons[link.icon] || <ExternalLink className="w-3.5 h-3.5" />}
@@ -1324,6 +1325,7 @@ function App() {
                       href={rec.url || 'https://www.linkedin.com/in/notsubash/details/recommendations/'}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'recommendation' })}
                       className="block group h-full"
                     >
                       <blockquote className="p-4 rounded-xl bg-primary/5 border border-primary/10 group-hover:border-[hsl(var(--linkedin)/0.3)] transition-colors h-full flex flex-col">
@@ -1414,6 +1416,7 @@ function App() {
                     href={post.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'linkedin_post' })}
                     className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 border-l-4 border-l-[hsl(var(--linkedin))] hover:border-border hover:shadow-md transition-all group"
                   >
                     <div className="flex items-start gap-3 flex-1 min-w-0">
@@ -1480,6 +1483,7 @@ function App() {
                     <AnimatedSection key={post.slug} delay={0.35 + i * 0.1}>
                       <Link
                         to={`/blog/${post.slug}`}
+                        onClick={() => posthog.capture('blog_post_clicked', { slug: post.slug, placement: 'home' })}
                         className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 border-l-4 border-l-accent hover:border-border hover:shadow-md transition-all group"
                       >
                         <div className="flex items-start gap-3 flex-1 min-w-0">
@@ -1726,6 +1730,7 @@ function App() {
                   href={t.linkedinPosts.profileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'footer' })}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-[hsl(var(--linkedin))]/50 transition-colors duration-200 hover:bg-[hsl(var(--linkedin))]/5 text-sm"
                 >
                   <LinkedInLogo className="w-4 h-4" />
@@ -1736,6 +1741,7 @@ function App() {
                   href="https://github.com/notsubash"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => posthog.capture('outbound_link_clicked', { destination: 'github', placement: 'footer' })}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
                 >
                   <Github className="w-4 h-4" />

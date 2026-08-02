@@ -4,6 +4,7 @@ import { translations } from './i18n'
 import { getTechIcon } from './tech-icons'
 import { usePageSeo } from './hooks/usePageSeo'
 import { CalBookButton } from './CalBookButton'
+import posthog from './posthog'
 
 function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -427,6 +428,7 @@ export default function AboutPage() {
           </CalBookButton>
           <a
             href={`mailto:${t.email}`}
+            onClick={() => posthog.capture('contact_email_clicked', { placement: 'about' })}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
           >
             <Mail className="w-4 h-4" />
@@ -438,6 +440,7 @@ export default function AboutPage() {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => posthog.capture('outbound_link_clicked', { destination: link.icon, placement: 'about' })}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
             >
               {link.icon === 'linkedin' && <LinkedInLogo className="w-4 h-4" />}
