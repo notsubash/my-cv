@@ -1107,7 +1107,7 @@ function App() {
                     {parseBold(project.desc)}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.slice(0, 3).map((tech) => (
+                    {project.tech.map((tech) => (
                       <span key={tech} className={`px-2 py-1 rounded-md text-xs ${
                         isTool
                           ? 'bg-tool/10 text-tool'
