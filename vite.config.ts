@@ -4,25 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  server: {
-    proxy: {
-      '/relay/static': {
-        target: 'https://us-assets.i.posthog.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/relay/, ''),
-      },
-      '/relay/array': {
-        target: 'https://us-assets.i.posthog.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/relay/, ''),
-      },
-      '/relay': {
-        target: 'https://us.i.posthog.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/relay/, ''),
-      },
-    },
-  },
   build: {
     target: 'es2022',
     cssCodeSplit: true,
