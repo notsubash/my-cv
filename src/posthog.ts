@@ -14,6 +14,7 @@ if (!projectToken) {
 } else {
   posthog.init(projectToken, {
     api_host: host,
+    ui_host: 'https://us.posthog.com',
     capture_pageview: 'history_change',
   })
   posthog.startExceptionAutocapture({
