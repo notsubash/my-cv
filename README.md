@@ -11,6 +11,7 @@ Personal CV / portfolio site built with React, Vite, Tailwind CSS v4, and Motion
 - **Tailwind CSS v4** (utility-first styling)
 - **Motion** (animations)
 - **Vercel Analytics** (privacy-friendly)
+- **Posthog Web and Product Analytics**
 
 ## Local Development
 
