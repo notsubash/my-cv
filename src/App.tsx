@@ -407,7 +407,7 @@ function App() {
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
                 color: 'transparent',
-                animation: hydrated ? 'hero-text-shimmer 6s linear infinite' : 'none',
+                animation: 'hero-text-shimmer 6s linear infinite',
               }}
             >
                 {t.role}

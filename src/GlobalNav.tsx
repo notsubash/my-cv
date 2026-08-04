@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Sun, Moon, House, ChevronRight } from 'lucide-react'
 import { getPageTitles } from './articles/registry'
@@ -67,33 +67,15 @@ export default function GlobalNav() {
   const { isDark, toggleTheme } = useTheme()
   const pageTitle = PAGE_TITLE[pathname] ?? null
 
-  const [hydrated, setHydrated] = useState(false)
-  useEffect(() => setHydrated(true), [])
-
-  const barShown = useRef(false)
-  const hasBar = !isHome
-  const animateBar = hasBar && !barShown.current
-  if (hasBar) barShown.current = true
-
-  const backLinkShown = useRef(false)
-  const animateBackLink = !isHome && !backLinkShown.current
-  if (!isHome) backLinkShown.current = true
-
-  const fade = (duration: string) => ({ animation: `nav-fade-in ${duration} ease-out` })
-
-  if (hasBar) {
+  if (!isHome) {
     return (
       <nav className="sticky top-0 z-50 relative">
-        <div
-          className="absolute inset-0 bg-background/80 backdrop-blur-md border-b border-border"
-          style={animateBar ? fade('0.35s') : undefined}
-        />
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-md border-b border-border" />
         <div className="relative pt-4 pb-3 px-6 pl-14 xl:pl-6 flex items-center justify-between">
           <div className="min-w-0 flex items-center">
             <nav
               aria-label="Breadcrumb"
               className="inline-flex items-center gap-1.5 text-sm"
-              style={animateBackLink ? fade('0.4s') : undefined}
             >
               <Link
                 to="/"
@@ -123,8 +105,8 @@ export default function GlobalNav() {
     )
   }
 
-  if (!hydrated) return null
-
+  // Must match prerendered HTML (effects already ran during prerender).
+  // Returning null until useEffect caused React #418 on every home load.
   return (
     <div className="fixed top-4 right-6 z-50 flex items-center gap-3">
       <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />

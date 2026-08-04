@@ -40,9 +40,8 @@ type CalBookButtonProps = {
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'type'>
 
 export function CalBookButton({ children, className, onClick, ...props }: CalBookButtonProps) {
-  const [theme, setTheme] = useState<CalTheme>(() =>
-    typeof document !== 'undefined' ? getSiteTheme() : 'dark',
-  )
+  // Always start as dark to match prerendered HTML; sync real theme after mount.
+  const [theme, setTheme] = useState<CalTheme>('dark')
 
   useEffect(() => {
     bindBookingSuccessOnce()
