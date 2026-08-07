@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Mail, ExternalLink, ArrowLeft, Calendar, Briefcase, GraduationCap, Award, FolderGit2, Globe, Quote, MessageCircle, ThumbsUp } from 'lucide-react'
+import { MapPin, Mail, ExternalLink, Calendar, Briefcase, GraduationCap, Award, FolderGit2, Globe, Quote, MessageCircle, ThumbsUp } from 'lucide-react'
 import { translations } from './i18n'
 import { getTechIcon } from './tech-icons'
 import { usePageSeo } from './hooks/usePageSeo'
@@ -121,13 +121,7 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16 md:py-24">
-      {/* Back link */}
-      <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-12">
-        <ArrowLeft className="w-4 h-4" />
-        Back to home
-      </Link>
-
+    <main id="main-content" className="max-w-3xl mx-auto px-6 py-16 md:py-24">
       {/* Hero with avatar */}
       <header className="mb-12">
         <div className="flex items-start gap-5 mb-4">
@@ -146,10 +140,6 @@ export default function AboutPage() {
             <MapPin className="w-4 h-4 text-primary" />
             Kathmandu, Nepal
           </span>
-          <span className="flex items-center gap-1.5">
-            <Calendar className="w-4 h-4 text-primary" />
-            April 2026
-          </span>
         </div>
       </header>
 
@@ -167,21 +157,20 @@ export default function AboutPage() {
         </p>
       </div>
 
-      {/* Availability + Role Tags inside */}
-      <div className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 mb-16">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-sm font-medium text-emerald-400">
-            Seeking remote roles · APAC timezone
+      {/* Availability */}
+      <div className="p-5 rounded-2xl bg-success/10 border border-success/30 mb-16">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="relative flex h-2 w-2">
+            <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--success))] opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[hsl(var(--success))]" />
+          </span>
+          <span className="text-sm font-medium text-success">
+            Open to remote roles · APAC timezone
           </span>
         </div>
-        <div className="flex flex-wrap gap-2">
-          {t.roles.map(role => (
-            <span key={role} className="px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 text-sm font-medium text-emerald-300">
-              {role}
-            </span>
-          ))}
-        </div>
+        <p className="text-sm text-muted-foreground">
+          Looking for remote AI/ML, GenAI, or applied ML roles where I can ship reliable production systems end to end.
+        </p>
       </div>
 
       {/* Experience */}
@@ -371,7 +360,7 @@ export default function AboutPage() {
                 href={post.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col p-5 rounded-2xl bg-card border border-border/50 border-t-2 border-t-[hsl(var(--linkedin))] hover:border-border transition-colors group h-full"
+                className="flex flex-col p-5 rounded-2xl bg-card border border-border/50 hover:border-[hsl(var(--linkedin))]/40 transition-colors group h-full"
               >
                 <div className="flex gap-3 flex-1">
                   <img alt="" role="presentation" width={384} height={384} className="w-10 h-10 rounded-full shrink-0 mt-0.5" src="/foto-avatar.webp" />
@@ -419,36 +408,40 @@ export default function AboutPage() {
           <Globe className="w-5 h-5 text-primary" />
           Connect
         </h2>
-        <div className="flex flex-wrap gap-3">
-          <CalBookButton
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm transition-colors"
-          >
-            <Calendar className="w-4 h-4" />
-            {t.cta.bookCall}
-          </CalBookButton>
-          <a
-            href={`mailto:${t.email}`}
-            onClick={() => posthog.capture('contact_email_clicked', { placement: 'about' })}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
-          >
-            <Mail className="w-4 h-4" />
-            {t.email}
-          </a>
-          {SOCIAL_LINKS.map(link => (
-            <a
-              key={link.name}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => posthog.capture('outbound_link_clicked', { destination: link.icon, placement: 'about' })}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap gap-3">
+            <CalBookButton
+              className="inline-flex items-center justify-center gap-2 min-h-11 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm transition-colors"
             >
-              {link.icon === 'linkedin' && <LinkedInLogo className="w-4 h-4" />}
-              {link.icon === 'github' && <GitHubLogo className="w-4 h-4" />}
-              {link.name}
-              <ExternalLink className="w-3 h-3" aria-hidden="true" />
+              <Calendar className="w-4 h-4" />
+              {t.cta.bookCall}
+            </CalBookButton>
+            <a
+              href={`mailto:${t.email}`}
+              onClick={() => posthog.capture('contact_email_clicked', { placement: 'about' })}
+              className="inline-flex items-center justify-center gap-2 min-h-11 px-5 py-2.5 rounded-xl border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
+            >
+              <Mail className="w-4 h-4" />
+              {t.email}
             </a>
-          ))}
+          </div>
+          <nav aria-label="Social profiles" className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            {SOCIAL_LINKS.map(link => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => posthog.capture('outbound_link_clicked', { destination: link.icon, placement: 'about' })}
+                className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
+              >
+                {link.icon === 'linkedin' && <LinkedInLogo className="w-4 h-4" />}
+                {link.icon === 'github' && <GitHubLogo className="w-4 h-4" />}
+                {link.name}
+                <ExternalLink className="w-3 h-3" aria-hidden="true" />
+              </a>
+            ))}
+          </nav>
         </div>
       </section>
 
@@ -460,6 +453,6 @@ export default function AboutPage() {
           <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
         </p>
       </footer>
-    </div>
+    </main>
   )
 }

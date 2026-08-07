@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence, MotionConfig, useReducedMotion } from 'motion/react'
 import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, FileText, GitFork, Star, Network, Calendar, Percent, UserCheck, TrendingUp, Timer, ThumbsUp, MessageCircle, Share2, ChevronRight, ChevronDown, List, Bot, Video, BookOpen, MapPin, PenLine } from 'lucide-react'
 import { translations, seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
@@ -48,8 +48,8 @@ function useInView(threshold = 0.1) {
 
 
 const HOME_TOC_SECTIONS = [
-  { id: 'experience', en: 'Experience' },
   { id: 'projects', en: 'Projects' },
+  { id: 'experience', en: 'Experience' },
   { id: 'speaking', en: 'Sharing' },
   { id: 'education', en: 'Education' },
   { id: 'tech', en: 'Skills & Stack' },
@@ -62,10 +62,10 @@ function HomeToc() {
   const [activeId, setActiveId] = useState('')
   const [tocOpen, setTocOpen] = useState(false)
 
-  // Show when #experience top reaches viewport, hide when user scrolls above it
+  // Show when first content section (#projects) reaches the viewport
   useEffect(() => {
     const check = () => {
-      const trigger = document.getElementById('experience')
+      const trigger = document.getElementById('projects')
       if (!trigger) return
       const show = trigger.getBoundingClientRect().top <= 100
       setVisible(show)
@@ -182,15 +182,17 @@ function HomeToc() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3 }}
             onClick={() => setTocOpen(o => !o)}
-            className="2xl:hidden fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
-            aria-label="Toggle table of contents"
+            className="2xl:hidden fixed bottom-6 right-6 z-40 min-h-11 min-w-11 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
+            aria-label={tocOpen ? 'Close table of contents' : 'Open table of contents'}
+            aria-expanded={tocOpen}
+            aria-controls="home-toc-drawer"
           >
             <List className="w-5 h-5" />
           </motion.button>
           {tocOpen && (
             <>
               <div className="2xl:hidden fixed inset-0 bg-background/60 backdrop-blur-sm z-40" onClick={() => setTocOpen(false)} />
-              <div className="2xl:hidden fixed bottom-20 right-6 z-50 w-64 max-h-[70vh] overflow-y-auto bg-card border border-border rounded-xl shadow-xl p-4">
+              <div id="home-toc-drawer" className="2xl:hidden fixed bottom-20 right-6 z-50 w-64 max-h-[70vh] overflow-y-auto bg-card border border-border rounded-xl shadow-xl p-4">
                 {tocNav}
               </div>
             </>
@@ -322,172 +324,511 @@ function CertLogo({ logo }: { logo: string }) {
 function App() {
   const t = translations.en
   const hydrated = useHydrated()
+  const reduceMotion = useReducedMotion()
 
   useHomeSeo({ title: seo.en.title, description: seo.en.description })
 
   return (
+    <MotionConfig reducedMotion="user">
     <main className="min-h-screen bg-background bg-[length:24px_24px] [background-image:radial-gradient(circle,hsl(var(--dot-grid))_1px,transparent_1px)]">
-      {/* Skip navigation — accessible keyboard shortcut */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-primary-foreground focus:font-medium focus:shadow-lg"
-      >
-        Skip to content
-      </a>
-
       <HomeToc />
 
-      {/* Hero Section */}
-      <header id="main-content" className="relative overflow-clip min-h-screen flex flex-col">
-        {/* Aurora background blobs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Hero Section — full viewport, no next-section leak */}
+      <header id="main-content" className="relative isolate flex h-dvh min-h-[36rem] flex-col overflow-hidden">
+        {/* Aurora — inset + masked so glow dissolves instead of clipping */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{
+            maskImage: 'linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%)',
+          }}
+        >
           <div
-            className="absolute top-[-20%] left-[10%] w-[500px] h-[400px] rounded-full blur-[100px] opacity-50"
-            style={{ background: 'linear-gradient(135deg, hsl(var(--gradient-from) / 0.3), hsl(var(--accent) / 0.15))', animation: 'hero-aurora 8s ease-in-out infinite' }}
+            className={`absolute top-[8%] left-[8%] w-[min(36rem,70vw)] h-[min(28rem,42vh)] rounded-full blur-[80px] md:blur-[100px] opacity-60 hero-aurora-blob${reduceMotion ? '' : ' hero-aurora-blob--animate'}`}
+            style={{ background: 'linear-gradient(135deg, hsl(var(--gradient-from) / 0.4), hsl(var(--accent) / 0.2))' }}
           />
           <div
-            className="absolute bottom-[-10%] right-[5%] w-[450px] h-[350px] rounded-full blur-[100px] opacity-40"
-            style={{ background: 'linear-gradient(225deg, hsl(var(--accent) / 0.25), hsl(var(--gradient-from) / 0.1))', animation: 'hero-aurora 11s ease-in-out infinite reverse' }}
+            className={`absolute top-[22%] right-[6%] w-[min(34rem,65vw)] h-[min(26rem,40vh)] rounded-full blur-[80px] md:blur-[100px] opacity-50 hero-aurora-blob${reduceMotion ? '' : ' hero-aurora-blob--animate-alt'}`}
+            style={{ background: 'linear-gradient(225deg, hsl(var(--accent) / 0.32), hsl(var(--gradient-from) / 0.14))' }}
           />
         </div>
 
-        <div className="relative max-w-5xl mx-auto px-6 flex-1 flex items-center py-16">
-          <div className="flex flex-col items-center text-center">
-            {/* Photo with animated SVG ring */}
+        <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-6 py-16">
+          <div className="flex w-full flex-col items-center text-center">
             <motion.div
               initial={hydrated ? { opacity: 0, scale: 0.85 } : false}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mb-8"
+              className="relative mb-6 md:mb-7"
             >
-              <div className="relative w-32 h-32 md:w-36 md:h-36">
-                {/* Orbiting globe — container rotates, globe counter-rotates to stay upright */}
+              <Link
+                to="/about"
+                className="relative block h-36 w-36 rounded-full outline-offset-4 transition-opacity hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary md:h-44 md:w-44"
+                aria-label="About Subash Pandey"
+              >
                 <div
-                  className="absolute inset-[-24px] w-[calc(100%+48px)] h-[calc(100%+48px)] pointer-events-none"
-                  style={{ animation: 'hero-ring-rotate 15s linear infinite' }}
+                  className={`pointer-events-none absolute inset-[-28px] h-[calc(100%+56px)] w-[calc(100%+56px)]${reduceMotion ? '' : ' hero-ring-spin'}`}
+                  aria-hidden="true"
                 >
                   <img
                     src="/globe.svg"
                     alt=""
-                    className="absolute top-[4%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 drop-shadow-[0_0_6px_hsl(var(--gradient-from)/0.5)]"
-                    width={24}
-                    height={24}
-                    style={{ animation: 'hero-ring-rotate 15s linear infinite reverse' }}
+                    className={`absolute top-[3%] left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_8px_hsl(var(--gradient-from)/0.55)] md:h-7 md:w-7${reduceMotion ? '' : ' hero-ring-spin-reverse'}`}
+                    width={28}
+                    height={28}
                   />
                 </div>
-                {/* Photo */}
-                <div className="w-full h-full rounded-full overflow-hidden border-2 border-background shadow-xl">
-                  <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="144px" alt="Subash Pandey" className="w-full h-full object-cover" width={192} height={192} fetchPriority="high" />
+                <div className="h-full w-full overflow-hidden rounded-full shadow-[0_16px_40px_hsl(0_0%_0%/0.35)]">
+                  <img
+                    src="/foto-avatar-sm.webp"
+                    srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w"
+                    sizes="176px"
+                    alt=""
+                    className="h-full w-full object-cover"
+                    width={192}
+                    height={192}
+                    fetchPriority="high"
+                  />
                 </div>
-              </div>
+              </Link>
             </motion.div>
 
-            {/* Name line */}
-            <motion.p
-              initial={hydrated ? { opacity: 0, y: 16 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="text-muted-foreground mb-3"
-            >
-              {t.greeting}{' '}
-              <Link to="/about" className="font-semibold bg-gradient-to-r from-[hsl(var(--gradient-from))] to-[hsl(var(--accent))] bg-clip-text text-transparent hover:opacity-80 transition-opacity">
-                @subash
-              </Link>
-            </motion.p>
-
-            {/* Headline with flowing gradient */}
             <motion.h1
               initial={hydrated ? { opacity: 0, y: 16 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
-              className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight"
-              style={{
-                backgroundImage: 'linear-gradient(90deg, hsl(var(--foreground)) 0%, hsl(var(--gradient-from)) 30%, hsl(var(--accent)) 50%, hsl(var(--gradient-from)) 70%, hsl(var(--foreground)) 100%)',
-                backgroundSize: '200% auto',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-                animation: 'hero-text-shimmer 6s linear infinite',
-              }}
+              transition={{ duration: 0.5, delay: 0.12 }}
+              className="font-display text-5xl font-bold tracking-tight text-foreground sm:text-6xl md:text-[4rem] md:leading-[1.05]"
             >
-                {t.role}
+              Subash Pandey
             </motion.h1>
 
-            {/* Brief summary */}
             <motion.p
               initial={hydrated ? { opacity: 0, y: 12 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              className="text-sm md:text-base text-muted-foreground max-w-lg mt-4 leading-relaxed"
+              transition={{ duration: 0.5, delay: 0.22 }}
+              className="mt-4 max-w-2xl text-lg font-medium leading-snug text-foreground/85 md:mt-5 md:text-xl md:leading-snug"
             >
-              {t.summary.p1} <span className="text-foreground font-medium">{t.summary.p1Highlight}</span>.
+              {t.role}
+            </motion.p>
+
+            <motion.p
+              initial={hydrated ? { opacity: 0, y: 10 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.3 }}
+              className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base"
+            >
+              {t.summary.p1}{' '}
+              <span className="font-medium text-foreground">{t.summary.p1Highlight}</span>.
             </motion.p>
 
             <motion.div
               initial={hydrated ? { opacity: 0, y: 12 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.45 }}
-              className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl w-full"
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4"
             >
-              {t.summary.impactSnapshots.slice(0, 2).map((item, i) => (
-                <span
-                  key={`${item}-${i}`}
-                  className="inline-flex items-center px-3 py-2 rounded-xl text-xs md:text-sm bg-card/70 border border-border text-foreground/90 text-left"
-                >
-                  {item}
-                </span>
-              ))}
-            </motion.div>
-
-            {/* CTA row */}
-              <motion.div
-              initial={hydrated ? { opacity: 0, y: 12 } : false}
-                animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="mt-8 flex flex-wrap justify-center gap-3"
-              >
               <CalBookButton
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-primary text-primary-foreground border border-primary hover:bg-primary/90 transition-colors"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.28)] transition-colors hover:bg-primary/90"
               >
-                <Calendar className="w-3.5 h-3.5" />
+                <Calendar className="h-4 w-4" />
                 {t.cta.primaryHeroCta}
               </CalBookButton>
-                {BLOG_ENABLED && (
-                <Link to="/blog" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors">
-                    <PenLine className="w-3 h-3" />
-                    Blog
-                  </Link>
-                )}
+              <Link
+                to="/about"
+                className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
+              >
+                About
+                <ChevronRight className="h-4 w-4 opacity-70" />
+              </Link>
+              {BLOG_ENABLED && (
+                <Link
+                  to="/blog"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
+                >
+                  <PenLine className="h-4 w-4" />
+                  Blog
+                </Link>
+              )}
             </motion.div>
+
+            <motion.a
+              href="#projects"
+              initial={hydrated ? { opacity: 0 } : false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.65 }}
+              className="mt-10 flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 text-muted-foreground/75 transition-colors hover:text-muted-foreground md:mt-12"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('projects')?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth' })
+              }}
+            >
+              <span className="text-[10px] font-medium uppercase tracking-[0.22em]">{t.scrollHint ?? 'Scroll'}</span>
+              <div className={`flex flex-col items-center${reduceMotion ? '' : ' hero-scroll-hint'}`}>
+                <ChevronDown className="mb-[-6px] h-4 w-4 opacity-60" />
+                <ChevronDown className="h-4 w-4 opacity-30" />
+              </div>
+            </motion.a>
           </div>
         </div>
 
-        {/* Scroll indicator — sticky to viewport bottom while hero is visible */}
-        <motion.div
-          initial={hydrated ? { opacity: 0 } : false}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="sticky bottom-0 z-10 flex justify-center pb-8 pt-4"
-        >
-          <a
-            href="#experience"
-            className="flex flex-col items-center gap-1 text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors cursor-pointer"
-            onClick={(e) => {
-              e.preventDefault()
-              document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })
-            }}
-          >
-            <span className="text-[10px] uppercase tracking-[0.2em] font-medium">{t.scrollHint ?? 'Scroll'}</span>
-            <div className="flex flex-col items-center" style={{ animation: 'hero-scroll-bounce 2s ease-in-out infinite' }}>
-              <ChevronDown className="w-4 h-4 -mb-1.5 opacity-60" />
-              <ChevronDown className="w-4 h-4 opacity-30" />
-            </div>
-          </a>
-        </motion.div>
-
-        {/* Gradient fade to content */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-24 bg-gradient-to-t from-background via-background/70 to-transparent"
+          aria-hidden="true"
+        />
       </header>
+
+      {/* Projects & Claude Code */}
+      <section id="projects" className="scroll-mt-4 py-14 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <AnimatedSection>
+            <div className="flex items-center justify-between mb-12">
+              <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
+                <SectionIcon>
+                  <FolderGit2 className="w-5 h-5 text-primary" />
+                </SectionIcon>
+                {t.projects.title}
+              </h2>
+              <a
+                href={`https://${t.projects.githubLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                {t.projects.githubLink.split('/').pop()}
+              </a>
+            </div>
+          </AnimatedSection>
+
+          {/* Projects Grid with Dependency Lines */}
+          {(() => {
+            // Tipo para proyecto
+            type ProjectLink = { label: string; url: string; icon: string }
+            type Project = {
+              title: string
+              badge: string
+              badgeBuilding: string
+              desc: string
+              tech: readonly string[]
+              link: string
+              links?: readonly ProjectLink[]
+              isDependency?: boolean
+              dependencyRole?: string
+              caseStudyUrl?: string
+              caseStudyLabel?: string
+              stars?: string
+              forks?: string
+            }
+
+            const allProjects = t.projects.items as readonly Project[]
+            const proj0 = allProjects[0]!
+            const proj1 = allProjects[1]!
+            const proj2 = allProjects[2]!
+            const proj3 = allProjects[3]!
+            const proj4 = allProjects[4]!
+            const proj5 = allProjects[5]!
+
+            // Helper para parsear **bold** a elementos con estilo
+            const parseBold = (text: string): React.ReactNode[] => {
+              return text.split(/\*\*(.*?)\*\*/g).map((part, i) =>
+                i % 2 === 1 ? <strong key={i} className="text-tool font-semibold">{part}</strong> : part
+              )
+            }
+
+            const containerRef = useRef<HTMLDivElement>(null)
+            const cardRefs = {
+              p0: useRef<HTMLDivElement>(null),
+              p1: useRef<HTMLDivElement>(null),
+              p2: useRef<HTMLDivElement>(null),
+              p3: useRef<HTMLDivElement>(null),
+              p4: useRef<HTMLDivElement>(null),
+              p5: useRef<HTMLDivElement>(null),
+            }
+
+            // Hook para calcular líneas de conexión SVG
+            const [lines, setLines] = useState<string[]>([])
+            const { ref: visibilityRef, isInView: isVisible } = useInView(0.1)
+
+            useEffect(() => {
+              if (!isVisible || !containerRef.current) return
+
+              const calculate = () => {
+                const container = containerRef.current!.getBoundingClientRect()
+                const isMobile = window.innerWidth < 768 // Tailwind md breakpoint
+
+                type Edge = 'top' | 'bottom' | 'left' | 'right'
+                const getPoint = (ref: React.RefObject<HTMLDivElement | null>, edge: Edge, ratio = 0.5) => {
+                  const rect = ref.current?.getBoundingClientRect()
+                  if (!rect) return null
+                  const x = rect.left - container.left
+                  const y = rect.top - container.top
+                  switch (edge) {
+                    case 'top': return { x: x + rect.width * ratio, y }
+                    case 'bottom': return { x: x + rect.width * ratio, y: y + rect.height }
+                    case 'left': return { x, y: y + rect.height * ratio }
+                    case 'right': return { x: x + rect.width, y: y + rect.height * ratio }
+                  }
+                }
+
+                // Definir conexiones según el grafo
+                type Connection = {
+                  from: React.RefObject<HTMLDivElement | null>
+                  fromEdge: Edge
+                  fromRatio?: number
+                  to: React.RefObject<HTMLDivElement | null>
+                  toEdge: Edge
+                  toRatio?: number
+                }
+
+                const connections: Connection[] = isMobile ? [
+                  { from: cardRefs.p0, fromEdge: 'bottom', to: cardRefs.p1, toEdge: 'top' },
+                  { from: cardRefs.p1, fromEdge: 'bottom', to: cardRefs.p2, toEdge: 'top' },
+                  { from: cardRefs.p2, fromEdge: 'bottom', to: cardRefs.p3, toEdge: 'top' },
+                  { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top' },
+                  { from: cardRefs.p4, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
+                ] : [
+                  { from: cardRefs.p0, fromEdge: 'right', to: cardRefs.p1, toEdge: 'left' },
+                  { from: cardRefs.p0, fromEdge: 'bottom', to: cardRefs.p2, toEdge: 'top' },
+                  { from: cardRefs.p1, fromEdge: 'bottom', to: cardRefs.p3, toEdge: 'top' },
+                  { from: cardRefs.p2, fromEdge: 'right', to: cardRefs.p3, toEdge: 'left' },
+                  { from: cardRefs.p2, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top' },
+                  { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
+                  { from: cardRefs.p4, fromEdge: 'right', to: cardRefs.p5, toEdge: 'left' },
+                ]
+
+                const paths = connections.map(conn => {
+                  const start = getPoint(conn.from, conn.fromEdge, conn.fromRatio ?? 0.5)
+                  const end = getPoint(conn.to, conn.toEdge, conn.toRatio ?? 0.5)
+                  if (!start || !end) return ''
+
+                  // Móvil: líneas rectas simples | Desktop: curvas Bézier
+                  if (isMobile) {
+                    return `M ${start.x} ${start.y} L ${end.x} ${end.y}`
+                  }
+
+                  // Determinar si es conexión horizontal o vertical
+                  const isHorizontal = conn.fromEdge === 'left' || conn.fromEdge === 'right'
+                  if (isHorizontal) {
+                    // Curva Bézier horizontal
+                    const midX = (start.x + end.x) / 2
+                    return `M ${start.x} ${start.y} C ${midX} ${start.y}, ${midX} ${end.y}, ${end.x} ${end.y}`
+                  } else {
+                    // Curva Bézier vertical
+                    const midY = (start.y + end.y) / 2
+                    return `M ${start.x} ${start.y} C ${start.x} ${midY}, ${end.x} ${midY}, ${end.x} ${end.y}`
+                  }
+                }).filter(Boolean)
+
+                setLines(paths)
+              }
+
+              // Delay para dar tiempo a las animaciones de entrada (AnimatedSection ~0.6s)
+              const initialTimeout = setTimeout(calculate, 700)
+
+              // Debounce para resize
+              let resizeTimeout: ReturnType<typeof setTimeout>
+              const debouncedCalc = () => {
+                clearTimeout(resizeTimeout)
+                resizeTimeout = setTimeout(calculate, 100)
+              }
+              window.addEventListener('resize', debouncedCalc)
+              return () => {
+                window.removeEventListener('resize', debouncedCalc)
+                clearTimeout(initialTimeout)
+                clearTimeout(resizeTimeout)
+              }
+            }, [isVisible])
+
+            // Componente de tarjeta de proyecto
+            const ProjectCard = ({ project, variant = 'default', cardRef }: {
+              project: Project,
+              variant?: 'default' | 'highlight' | 'tool' | 'tool-static',
+              cardRef?: React.RefObject<HTMLDivElement | null> | ((el: HTMLDivElement | null) => void)
+            }) => {
+              const isHighlight = variant === 'highlight'
+              const isTool = variant === 'tool' || variant === 'tool-static'
+              const hasHover = variant !== 'tool-static'
+
+              return (
+                <div
+                  ref={cardRef}
+                  className={`h-full p-6 rounded-2xl transition-colors duration-200 flex flex-col ${hasHover ? 'group' : ''} ${
+                    isHighlight
+                      ? 'bg-gradient-to-br from-accent/5 to-transparent border-2 border-accent/50 hover:border-accent/70'
+                      : isTool
+                      ? `bg-card border border-tool/30 ${hasHover ? 'hover:border-tool/50' : ''}`
+                      : 'bg-card border border-border hover:border-primary/30'
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className={`font-display text-xl font-bold transition-colors ${
+                      isTool ? 'group-hover:text-tool' : 'group-hover:text-primary'
+                    }`}>{project.title}</h3>
+                    <div className="flex items-center gap-2">
+                      <span className={`badge px-2 py-0.5 ${
+                        isTool
+                          ? 'bg-tool/10 text-tool'
+                          : isHighlight
+                          ? 'bg-accent/10 text-accent'
+                          : 'bg-primary/10 text-primary'
+                      }`}>{project.badge}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {parseBold(project.desc)}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tech) => (
+                      <span key={tech} className={`px-2 py-1 rounded-md text-xs ${
+                        isTool
+                          ? 'bg-tool/10 text-tool'
+                          : 'bg-muted text-muted-foreground'
+                      }`}>{tech}</span>
+                    ))}
+                  </div>
+                  <div className="flex flex-col gap-3 mt-auto">
+                    {project.caseStudyUrl && (
+                      <Link
+                        to={project.caseStudyUrl}
+                        onClick={() => posthog.capture('project_link_clicked', { link_type: 'case_study', project_title: project.title })}
+                        className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta"
+                      >
+                        <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{project.caseStudyLabel}</span>
+                        <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
+                      </Link>
+                    )}
+                    {project.links && project.links.length > 0 ? (
+                      <div className="flex flex-wrap items-center gap-2">
+                        {project.links.map((pl, li) => {
+                          const plIcons: Record<string, React.ReactNode> = {
+                            github: <Github className="w-3.5 h-3.5" />,
+                            fileText: <FileText className="w-3.5 h-3.5" />,
+                            video: <Video className="w-3.5 h-3.5" />,
+                          }
+                          return (
+                            <a
+                              key={li}
+                              href={pl.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={() => posthog.capture('project_link_clicked', { link_type: pl.icon, project_title: project.title })}
+                              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                                isTool
+                                  ? 'bg-tool/10 text-tool hover:bg-tool/20'
+                                  : 'bg-primary/10 text-primary hover:bg-primary/20'
+                              }`}
+                            >
+                              {plIcons[pl.icon] || <ExternalLink className="w-3.5 h-3.5" />}
+                              {pl.label}
+                            </a>
+                          )
+                        })}
+                        {project.stars && (
+                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Star className="w-3.5 h-3.5 text-yellow-500" />
+                            {project.stars}
+                          </span>
+                        )}
+                        {project.forks && (
+                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <GitFork className="w-3.5 h-3.5" />
+                            {project.forks}
+                          </span>
+                        )}
+                      </div>
+                    ) : project.link ? (
+                      <div className="flex items-center gap-3">
+                        <a
+                          href={`https://${project.link}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => posthog.capture('project_link_clicked', { link_type: project.link.includes('github.com') ? 'repository' : 'prototype', project_title: project.title })}
+                          className={`inline-flex items-center gap-2 text-xs ${
+                            isTool ? 'text-tool hover:text-tool' : 'text-primary'
+                          } hover:underline`}
+                        >
+                          {project.link.includes('github.com') ? (
+                            <>
+                              <Github className="w-4 h-4" />
+                              {t.projects.viewCode}
+                            </>
+                          ) : (
+                            <>
+                              <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                              {t.projects.viewPrototype}
+                            </>
+                          )}
+                        </a>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              )
+            }
+
+
+            return (
+              <div ref={(el) => { containerRef.current = el; visibilityRef(el) }} className="mb-12 relative">
+                {/* SVG de conexiones - absoluto, z-0 para quedar detrás */}
+                <svg
+                  className="absolute inset-0 pointer-events-none"
+                  style={{ zIndex: 0, overflow: 'visible' }}
+                >
+                  {lines.map((d, i) => (
+                    <path
+                      key={i}
+                      d={d}
+                      className="dependency-line"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth="1.5"
+                      fill="none"
+                      strokeDasharray="4 4"
+                      style={{
+                        opacity: isVisible ? 0.6 : 0,
+                        transition: `opacity 0.6s ease-out ${i * 0.1}s`
+                      }}
+                    />
+                  ))}
+                </svg>
+
+                {/* Row 1 */}
+                <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
+                  <AnimatedSection delay={0.1}>
+                    <ProjectCard project={proj0} variant="highlight" cardRef={cardRefs.p0} />
+                  </AnimatedSection>
+                  <AnimatedSection delay={0.15}>
+                    <ProjectCard project={proj1} variant="highlight" cardRef={cardRefs.p1} />
+                  </AnimatedSection>
+                </div>
+
+                {/* Row 2 */}
+                <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
+                  <AnimatedSection delay={0.2}>
+                    <ProjectCard project={proj2} cardRef={cardRefs.p2} />
+                  </AnimatedSection>
+                  <AnimatedSection delay={0.25}>
+                    <ProjectCard project={proj3} cardRef={cardRefs.p3} />
+                  </AnimatedSection>
+                </div>
+
+                {/* Row 3 */}
+                <div className="grid md:grid-cols-2 gap-6 relative z-10">
+                  <AnimatedSection delay={0.3}>
+                    <ProjectCard project={proj4} cardRef={cardRefs.p4} />
+                  </AnimatedSection>
+                  <AnimatedSection delay={0.35}>
+                    <ProjectCard project={proj5} cardRef={cardRefs.p5} />
+                  </AnimatedSection>
+                </div>
+              </div>
+            )
+          })()}
+
+        </div>
+      </section>
 
       {/* Experience */}
       <section id="experience" className="py-10 md:py-16 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
@@ -517,7 +858,7 @@ function App() {
                       <Zap className="w-4 h-4 text-accent shrink-0" />
                       <span className="text-sm font-medium group-hover:text-accent transition-colors leading-tight">{item.title}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground pl-6 hidden md:block leading-relaxed">{item.desc}</p>
+                    <p className="text-xs text-muted-foreground pl-6 mt-1 leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -528,10 +869,10 @@ function App() {
           <AnimatedSection delay={0.1} className="mb-6">
             <div className="flex items-center gap-4">
               <div className="h-px flex-1 bg-border divider-flow" />
-              <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-emerald-400 shrink-0">
+              <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-success shrink-0">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                  <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--success))] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[hsl(var(--success))]" />
                 </span>
                 {t.experience.currentLabel}
               </span>
@@ -904,358 +1245,6 @@ function App() {
         </div>
       </section>
 
-      {/* Projects & Claude Code */}
-      <section id="projects" className="py-12 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <AnimatedSection>
-            <div className="flex items-center justify-between mb-12">
-              <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
-                <SectionIcon>
-                  <FolderGit2 className="w-5 h-5 text-primary" />
-                </SectionIcon>
-                {t.projects.title}
-              </h2>
-              <a
-                href={`https://${t.projects.githubLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                {t.projects.githubLink.split('/').pop()}
-              </a>
-            </div>
-          </AnimatedSection>
-
-          {/* Projects Grid with Dependency Lines */}
-          {(() => {
-            // Tipo para proyecto
-            type ProjectLink = { label: string; url: string; icon: string }
-            type Project = {
-              title: string
-              badge: string
-              badgeBuilding: string
-              desc: string
-              tech: readonly string[]
-              link: string
-              links?: readonly ProjectLink[]
-              isDependency?: boolean
-              dependencyRole?: string
-              caseStudyUrl?: string
-              caseStudyLabel?: string
-              stars?: string
-              forks?: string
-            }
-
-            const allProjects = t.projects.items as readonly Project[]
-            const proj0 = allProjects[0]!
-            const proj1 = allProjects[1]!
-            const proj2 = allProjects[2]!
-            const proj3 = allProjects[3]!
-            const proj4 = allProjects[4]!
-            const proj5 = allProjects[5]!
-
-            // Helper para parsear **bold** a elementos con estilo
-            const parseBold = (text: string): React.ReactNode[] => {
-              return text.split(/\*\*(.*?)\*\*/g).map((part, i) =>
-                i % 2 === 1 ? <strong key={i} className="text-tool font-semibold">{part}</strong> : part
-              )
-            }
-
-            const containerRef = useRef<HTMLDivElement>(null)
-            const cardRefs = {
-              p0: useRef<HTMLDivElement>(null),
-              p1: useRef<HTMLDivElement>(null),
-              p2: useRef<HTMLDivElement>(null),
-              p3: useRef<HTMLDivElement>(null),
-              p4: useRef<HTMLDivElement>(null),
-              p5: useRef<HTMLDivElement>(null),
-            }
-
-            // Hook para calcular líneas de conexión SVG
-            const [lines, setLines] = useState<string[]>([])
-            const { ref: visibilityRef, isInView: isVisible } = useInView(0.1)
-
-            useEffect(() => {
-              if (!isVisible || !containerRef.current) return
-
-              const calculate = () => {
-                const container = containerRef.current!.getBoundingClientRect()
-                const isMobile = window.innerWidth < 768 // Tailwind md breakpoint
-
-                type Edge = 'top' | 'bottom' | 'left' | 'right'
-                const getPoint = (ref: React.RefObject<HTMLDivElement | null>, edge: Edge, ratio = 0.5) => {
-                  const rect = ref.current?.getBoundingClientRect()
-                  if (!rect) return null
-                  const x = rect.left - container.left
-                  const y = rect.top - container.top
-                  switch (edge) {
-                    case 'top': return { x: x + rect.width * ratio, y }
-                    case 'bottom': return { x: x + rect.width * ratio, y: y + rect.height }
-                    case 'left': return { x, y: y + rect.height * ratio }
-                    case 'right': return { x: x + rect.width, y: y + rect.height * ratio }
-                  }
-                }
-
-                // Definir conexiones según el grafo
-                type Connection = {
-                  from: React.RefObject<HTMLDivElement | null>
-                  fromEdge: Edge
-                  fromRatio?: number
-                  to: React.RefObject<HTMLDivElement | null>
-                  toEdge: Edge
-                  toRatio?: number
-                }
-
-                const connections: Connection[] = isMobile ? [
-                  { from: cardRefs.p0, fromEdge: 'bottom', to: cardRefs.p1, toEdge: 'top' },
-                  { from: cardRefs.p1, fromEdge: 'bottom', to: cardRefs.p2, toEdge: 'top' },
-                  { from: cardRefs.p2, fromEdge: 'bottom', to: cardRefs.p3, toEdge: 'top' },
-                  { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top' },
-                  { from: cardRefs.p4, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
-                ] : [
-                  { from: cardRefs.p0, fromEdge: 'right', to: cardRefs.p1, toEdge: 'left' },
-                  { from: cardRefs.p0, fromEdge: 'bottom', to: cardRefs.p2, toEdge: 'top' },
-                  { from: cardRefs.p1, fromEdge: 'bottom', to: cardRefs.p3, toEdge: 'top' },
-                  { from: cardRefs.p2, fromEdge: 'right', to: cardRefs.p3, toEdge: 'left' },
-                  { from: cardRefs.p2, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top' },
-                  { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
-                  { from: cardRefs.p4, fromEdge: 'right', to: cardRefs.p5, toEdge: 'left' },
-                ]
-
-                const paths = connections.map(conn => {
-                  const start = getPoint(conn.from, conn.fromEdge, conn.fromRatio ?? 0.5)
-                  const end = getPoint(conn.to, conn.toEdge, conn.toRatio ?? 0.5)
-                  if (!start || !end) return ''
-
-                  // Móvil: líneas rectas simples | Desktop: curvas Bézier
-                  if (isMobile) {
-                    return `M ${start.x} ${start.y} L ${end.x} ${end.y}`
-                  }
-
-                  // Determinar si es conexión horizontal o vertical
-                  const isHorizontal = conn.fromEdge === 'left' || conn.fromEdge === 'right'
-                  if (isHorizontal) {
-                    // Curva Bézier horizontal
-                    const midX = (start.x + end.x) / 2
-                    return `M ${start.x} ${start.y} C ${midX} ${start.y}, ${midX} ${end.y}, ${end.x} ${end.y}`
-                  } else {
-                    // Curva Bézier vertical
-                    const midY = (start.y + end.y) / 2
-                    return `M ${start.x} ${start.y} C ${start.x} ${midY}, ${end.x} ${midY}, ${end.x} ${end.y}`
-                  }
-                }).filter(Boolean)
-
-                setLines(paths)
-              }
-
-              // Delay para dar tiempo a las animaciones de entrada (AnimatedSection ~0.6s)
-              const initialTimeout = setTimeout(calculate, 700)
-
-              // Debounce para resize
-              let resizeTimeout: ReturnType<typeof setTimeout>
-              const debouncedCalc = () => {
-                clearTimeout(resizeTimeout)
-                resizeTimeout = setTimeout(calculate, 100)
-              }
-              window.addEventListener('resize', debouncedCalc)
-              return () => {
-                window.removeEventListener('resize', debouncedCalc)
-                clearTimeout(initialTimeout)
-                clearTimeout(resizeTimeout)
-              }
-            }, [isVisible])
-
-            // Componente de tarjeta de proyecto
-            const ProjectCard = ({ project, variant = 'default', cardRef }: {
-              project: Project,
-              variant?: 'default' | 'highlight' | 'tool' | 'tool-static',
-              cardRef?: React.RefObject<HTMLDivElement | null> | ((el: HTMLDivElement | null) => void)
-            }) => {
-              const isHighlight = variant === 'highlight'
-              const isTool = variant === 'tool' || variant === 'tool-static'
-              const hasHover = variant !== 'tool-static'
-
-              return (
-                <div
-                  ref={cardRef}
-                  className={`h-full p-6 rounded-2xl transition-colors duration-200 flex flex-col ${hasHover ? 'group' : ''} ${
-                    isHighlight
-                      ? 'bg-gradient-to-br from-accent/5 to-transparent border-2 border-accent/50 hover:border-accent/70'
-                      : isTool
-                      ? `bg-card border border-tool/30 ${hasHover ? 'hover:border-tool/50' : ''}`
-                      : 'bg-card border border-border hover:border-primary/30'
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className={`font-display text-xl font-bold transition-colors ${
-                      isTool ? 'group-hover:text-tool' : 'group-hover:text-primary'
-                    }`}>{project.title}</h3>
-                    <div className="flex items-center gap-2">
-                      <span className={`badge px-2 py-0.5 ${
-                        isTool
-                          ? 'bg-tool/10 text-tool'
-                          : isHighlight
-                          ? 'bg-accent/10 text-accent'
-                          : 'bg-primary/10 text-primary'
-                      }`}>{project.badge}</span>
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {parseBold(project.desc)}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech) => (
-                      <span key={tech} className={`px-2 py-1 rounded-md text-xs ${
-                        isTool
-                          ? 'bg-tool/10 text-tool'
-                          : 'bg-muted text-muted-foreground'
-                      }`}>{tech}</span>
-                    ))}
-                  </div>
-                  <div className="flex flex-col gap-3 mt-auto">
-                    {project.caseStudyUrl && (
-                      <Link
-                        to={project.caseStudyUrl}
-                        onClick={() => posthog.capture('project_link_clicked', { link_type: 'case_study', project_title: project.title })}
-                        className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta"
-                      >
-                        <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{project.caseStudyLabel}</span>
-                        <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                      </Link>
-                    )}
-                    {project.links && project.links.length > 0 ? (
-                      <div className="flex flex-wrap items-center gap-2">
-                        {project.links.map((pl, li) => {
-                          const plIcons: Record<string, React.ReactNode> = {
-                            github: <Github className="w-3.5 h-3.5" />,
-                            fileText: <FileText className="w-3.5 h-3.5" />,
-                            video: <Video className="w-3.5 h-3.5" />,
-                          }
-                          return (
-                            <a
-                              key={li}
-                              href={pl.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={() => posthog.capture('project_link_clicked', { link_type: pl.icon, project_title: project.title })}
-                              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
-                                isTool
-                                  ? 'bg-tool/10 text-tool hover:bg-tool/20'
-                                  : 'bg-primary/10 text-primary hover:bg-primary/20'
-                              }`}
-                            >
-                              {plIcons[pl.icon] || <ExternalLink className="w-3.5 h-3.5" />}
-                              {pl.label}
-                            </a>
-                          )
-                        })}
-                        {project.stars && (
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Star className="w-3.5 h-3.5 text-yellow-500" />
-                            {project.stars}
-                          </span>
-                        )}
-                        {project.forks && (
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <GitFork className="w-3.5 h-3.5" />
-                            {project.forks}
-                          </span>
-                        )}
-                      </div>
-                    ) : project.link ? (
-                      <div className="flex items-center gap-3">
-                        <a
-                          href={`https://${project.link}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => posthog.capture('project_link_clicked', { link_type: project.link.includes('github.com') ? 'repository' : 'prototype', project_title: project.title })}
-                          className={`inline-flex items-center gap-2 text-xs ${
-                            isTool ? 'text-tool hover:text-tool' : 'text-primary'
-                          } hover:underline`}
-                        >
-                          {project.link.includes('github.com') ? (
-                            <>
-                              <Github className="w-4 h-4" />
-                              {t.projects.viewCode}
-                            </>
-                          ) : (
-                            <>
-                              <ExternalLink className="w-4 h-4" aria-hidden="true" />
-                              {t.projects.viewPrototype}
-                            </>
-                          )}
-                        </a>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-              )
-            }
-
-
-            return (
-              <div ref={(el) => { containerRef.current = el; visibilityRef(el) }} className="mb-12 relative">
-                {/* SVG de conexiones - absoluto, z-0 para quedar detrás */}
-                <svg
-                  className="absolute inset-0 pointer-events-none"
-                  style={{ zIndex: 0, overflow: 'visible' }}
-                >
-                  {lines.map((d, i) => (
-                    <path
-                      key={i}
-                      d={d}
-                      className="dependency-line"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth="1.5"
-                      fill="none"
-                      strokeDasharray="4 4"
-                      style={{
-                        opacity: isVisible ? 0.6 : 0,
-                        transition: `opacity 0.6s ease-out ${i * 0.1}s`
-                      }}
-                    />
-                  ))}
-                </svg>
-
-                {/* Row 1 */}
-                <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
-                  <AnimatedSection delay={0.1}>
-                    <ProjectCard project={proj0} variant="highlight" cardRef={cardRefs.p0} />
-                  </AnimatedSection>
-                  <AnimatedSection delay={0.15}>
-                    <ProjectCard project={proj1} variant="highlight" cardRef={cardRefs.p1} />
-                  </AnimatedSection>
-                </div>
-
-                {/* Row 2 */}
-                <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
-                  <AnimatedSection delay={0.2}>
-                    <ProjectCard project={proj2} cardRef={cardRefs.p2} />
-                  </AnimatedSection>
-                  <AnimatedSection delay={0.25}>
-                    <ProjectCard project={proj3} cardRef={cardRefs.p3} />
-                  </AnimatedSection>
-                </div>
-
-                {/* Row 3 */}
-                <div className="grid md:grid-cols-2 gap-6 relative z-10">
-                  <AnimatedSection delay={0.3}>
-                    <ProjectCard project={proj4} cardRef={cardRefs.p4} />
-                  </AnimatedSection>
-                  <AnimatedSection delay={0.35}>
-                    <ProjectCard project={proj5} cardRef={cardRefs.p5} />
-                  </AnimatedSection>
-                </div>
-              </div>
-            )
-          })()}
-
-        </div>
-      </section>
-
       {/* Sharing — Publications + LinkedIn */}
       <section id="speaking" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
         <div className="max-w-5xl mx-auto px-6">
@@ -1417,7 +1406,7 @@ function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'linkedin_post' })}
-                    className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 border-l-4 border-l-[hsl(var(--linkedin))] hover:border-border hover:shadow-md transition-all group"
+                    className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 hover:border-[hsl(var(--linkedin))]/40 hover:shadow-md transition-all group"
                   >
                     <div className="flex items-start gap-3 flex-1 min-w-0">
                       <div className="w-10 h-10 rounded-full bg-[hsl(var(--linkedin))]/10 flex items-center justify-center shrink-0">
@@ -1484,7 +1473,7 @@ function App() {
                       <Link
                         to={`/blog/${post.slug}`}
                         onClick={() => posthog.capture('blog_post_clicked', { slug: post.slug, placement: 'home' })}
-                        className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 border-l-4 border-l-accent hover:border-border hover:shadow-md transition-all group"
+                        className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 hover:border-accent/40 hover:shadow-md transition-all group"
                       >
                         <div className="flex items-start gap-3 flex-1 min-w-0">
                           <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
@@ -1703,7 +1692,7 @@ function App() {
               <p className="text-muted-foreground max-w-xl mx-auto">
                 {t.cta.desc}
               </p>
-              <span className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full text-xs font-medium bg-success/10 text-success border border-success/30">
                 <MapPin className="w-3 h-3" />
                 {t.cta.availability}
               </span>
@@ -1711,27 +1700,30 @@ function App() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.1}>
-            <div className="flex flex-wrap justify-center gap-4">
-              <CalBookButton
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200 text-sm font-medium shadow-lg hover:shadow-xl"
-              >
-                <Calendar className="w-5 h-5" />
-                {t.cta.bookCall}
-              </CalBookButton>
-              <a
-                href={`mailto:${t.email}`}
-                onClick={() => posthog.capture('contact_email_clicked', { placement: 'footer' })}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
-              >
-                <Mail className="w-4 h-4" />
-                {t.email}
-              </a>
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-wrap justify-center gap-3">
+                <CalBookButton
+                  className="inline-flex items-center justify-center gap-2 min-h-11 px-8 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200 text-sm font-medium shadow-lg hover:shadow-xl"
+                >
+                  <Calendar className="w-5 h-5" />
+                  {t.cta.bookCall}
+                </CalBookButton>
+                <a
+                  href={`mailto:${t.email}`}
+                  onClick={() => posthog.capture('contact_email_clicked', { placement: 'footer' })}
+                  className="inline-flex items-center justify-center gap-2 min-h-11 px-6 py-3 rounded-xl border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+                >
+                  <Mail className="w-4 h-4" />
+                  {t.email}
+                </a>
+              </div>
+              <nav aria-label="More ways to connect" className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
                 <a
                   href={t.linkedinPosts.profileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'footer' })}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-[hsl(var(--linkedin))]/50 transition-colors duration-200 hover:bg-[hsl(var(--linkedin))]/5 text-sm"
+                  className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
                 >
                   <LinkedInLogo className="w-4 h-4" />
                   {t.cta.linkedin}
@@ -1742,7 +1734,7 @@ function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => posthog.capture('outbound_link_clicked', { destination: 'github', placement: 'footer' })}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+                  className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
                 >
                   <Github className="w-4 h-4" />
                   GitHub
@@ -1751,7 +1743,7 @@ function App() {
                 {BLOG_ENABLED && (
                   <Link
                     to="/blog"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-accent/50 transition-colors duration-200 hover:bg-accent/5 text-sm"
+                    className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
                   >
                     <PenLine className="w-4 h-4" />
                     Blog
@@ -1759,12 +1751,13 @@ function App() {
                 )}
                 <Link
                   to="/notes"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+                  className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
                 >
                   <Zap className="w-4 h-4" />
                   Technical Notes
                 </Link>
-              </div>
+              </nav>
+            </div>
           </AnimatedSection>
 
           <p className="mt-12 text-xs text-muted-foreground text-center">
@@ -1786,6 +1779,7 @@ function App() {
       </footer>
 
     </main>
+    </MotionConfig>
   )
 }
 
