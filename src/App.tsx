@@ -842,29 +842,6 @@ function App() {
             </h2>
           </AnimatedSection>
 
-          {/* Preámbulo: Cómo trabajo + Competencias */}
-          <AnimatedSection delay={0.1}>
-            <div className="mb-10 p-5 rounded-2xl bg-card/50 border border-border/40">
-              <p className="text-base text-muted-foreground text-center max-w-3xl mx-auto mb-5 leading-relaxed">
-                {t.summary.p2} <span className="text-foreground font-medium">{t.summary.p2Highlight}</span>{t.summary.p2End}
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 max-w-3xl mx-auto">
-                {t.coreCompetencies.items.map((item, i) => (
-                  <div
-                    key={i}
-                    className="p-3 rounded-xl bg-background/50 border border-border/60 hover:border-accent/30 transition-colors group"
-                  >
-                    <div className="flex items-center sm:items-start gap-2 sm:mb-1 sm:min-h-[2.2rem]">
-                      <Zap className="w-4 h-4 text-accent shrink-0" />
-                      <span className="text-sm font-medium group-hover:text-accent transition-colors leading-tight">{item.title}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground pl-6 mt-1 leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </AnimatedSection>
-
           {/* Current divider */}
           <AnimatedSection delay={0.1} className="mb-6">
             <div className="flex items-center gap-4">
@@ -942,61 +919,47 @@ function App() {
             </div>
           </AnimatedSection>
 
-          {/* Business OS - Full Width Hero Card */}
-          <AnimatedSection delay={0.1} className="mb-6">
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-gold/15 via-gold/5 to-transparent border border-gold/25 hover:border-gold/45 transition-colors duration-200 group">
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                <div className="flex-1 flex flex-col">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center shrink-0">
-                      <Bot className="w-5 h-5 text-gold" />
-                    </div>
-                    <span className="badge px-2.5 py-0.5 bg-gold/20 text-gold text-[11px]">{t.experience.santifer.businessOS.badge}</span>
+          {/* Scopic key projects — equal peer cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-7">
+            <AnimatedSection delay={0.1}>
+              <div className="h-full p-5 rounded-2xl bg-card border border-primary/20 hover:border-primary/35 transition-colors duration-200 group flex flex-col">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
+                    <Bot className="w-5 h-5 text-primary" />
                   </div>
-                  <h4 className="font-display text-xl font-bold mb-3">{t.experience.santifer.businessOS.title}</h4>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{t.experience.santifer.businessOS.desc}</p>
-                  <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
-                    {t.experience.santifer.businessOS.modules.slice(0, 4).map((item, i) => {
-                      const icons: Record<string, React.ReactNode> = {
-                        database: <Database className="w-4 h-4" />,
-                        users: <Users className="w-4 h-4" />,
-                        layout: <Layout className="w-4 h-4" />,
-                        package: <Package className="w-4 h-4" />,
-                        messageSquare: <MessageSquare className="w-4 h-4" />,
-                        receipt: <Receipt className="w-4 h-4" />,
-                        calendarCheck: <CalendarCheck className="w-4 h-4" />
-                      }
-                      return (
-                        <li key={i} className="flex items-start gap-2.5">
-                          <span className="text-gold mt-0.5">{icons[item.icon]}</span>
-                          <span>{item.text}</span>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                  {t.experience.santifer.caseStudyUrl && (
-                    <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-6 text-sm font-medium text-gold hover:text-gold/80 transition-colors duration-200 group/cta">
-                      <span className="px-4 py-2 rounded-lg bg-gold/10 border border-gold/30 group-hover/cta:bg-gold/20 group-hover/cta:border-gold/50 transition-colors duration-200">{t.experience.santifer.businessOS.footer}</span>
-                      <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                    </Link>
-                  )}
+                  <span className="badge px-2.5 py-0.5 bg-primary/10 text-primary text-[11px]">{t.experience.santifer.businessOS.badge}</span>
                 </div>
-                <div className="grid grid-cols-2 lg:flex lg:flex-col gap-2 lg:gap-2.5 mt-3 lg:mt-0">
-                  {t.experience.santifer.businessOS.metrics.slice(0, 2).map((metric, i) => (
-                    <div key={i} className="text-center p-2 lg:p-3 rounded-xl bg-background/50 border border-gold/20">
-                      <div className="font-display text-base lg:text-xl font-bold text-gold">{metric.value}</div>
-                      <div className="text-[10px] lg:text-xs text-muted-foreground leading-tight">{metric.label}</div>
-                    </div>
-                  ))}
-                </div>
+                <h4 className="font-display text-lg font-bold mb-2 group-hover:text-primary transition-colors">{t.experience.santifer.businessOS.title}</h4>
+                <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t.experience.santifer.businessOS.desc}</p>
+                <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
+                  {t.experience.santifer.businessOS.modules.slice(0, 4).map((item, i) => {
+                    const icons: Record<string, React.ReactNode> = {
+                      database: <Database className="w-4 h-4" />,
+                      users: <Users className="w-4 h-4" />,
+                      layout: <Layout className="w-4 h-4" />,
+                      package: <Package className="w-4 h-4" />,
+                      messageSquare: <MessageSquare className="w-4 h-4" />,
+                      receipt: <Receipt className="w-4 h-4" />,
+                      calendarCheck: <CalendarCheck className="w-4 h-4" />
+                    }
+                    return (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5 shrink-0">{icons[item.icon]}</span>
+                        <span>{item.text}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
+                {t.experience.santifer.caseStudyUrl && (
+                  <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
+                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.businessOS.footer}</span>
+                    <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
+                  </Link>
+                )}
               </div>
-            </div>
-          </AnimatedSection>
-
-          {/* Key Projects */}
-          <div className="grid md:grid-cols-2 gap-4 mb-7">
+            </AnimatedSection>
             <AnimatedSection delay={0.15}>
-              <div className="h-full p-5 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 hover:border-primary/35 transition-colors duration-200 group flex flex-col">
+              <div className="h-full p-5 rounded-2xl bg-card border border-primary/20 hover:border-primary/35 transition-colors duration-200 group flex flex-col">
                 <div className="flex items-start justify-between mb-3">
                   <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
                     <Bot className="w-5 h-5 text-primary" />
@@ -1031,7 +994,7 @@ function App() {
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
-              <div className="h-full p-5 rounded-2xl bg-card border border-border/80 hover:border-accent/30 transition-colors duration-200 group flex flex-col">
+              <div className="h-full p-5 rounded-2xl bg-card border border-accent/30 hover:border-accent/45 transition-colors duration-200 group flex flex-col">
                 <div className="flex items-start justify-between mb-3">
                   <div className="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center">
                     <FileText className="w-5 h-5 text-accent" />
@@ -1749,13 +1712,6 @@ function App() {
                     Blog
                   </Link>
                 )}
-                <Link
-                  to="/notes"
-                  className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
-                >
-                  <Zap className="w-4 h-4" />
-                  Technical Notes
-                </Link>
               </nav>
             </div>
           </AnimatedSection>
@@ -1771,6 +1727,10 @@ function App() {
                 <span className="mx-2 text-border">|</span>
               </>
             )}
+            <Link to="/notes" className="hover:text-primary transition-colors">
+              Technical Notes
+            </Link>
+            <span className="mx-2 text-border">|</span>
             <Link to="/privacy" className="hover:text-primary transition-colors">
               Privacy
             </Link>
