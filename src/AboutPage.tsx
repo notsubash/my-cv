@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Mail, ExternalLink, ArrowLeft, Calendar, Briefcase, GraduationCap, Award, FolderGit2, Globe, Quote, MessageCircle, ThumbsUp } from 'lucide-react'
+import { MapPin, Mail, ExternalLink, Calendar, GraduationCap, Globe, Quote, Zap } from 'lucide-react'
 import { translations } from './i18n'
-import { getTechIcon } from './tech-icons'
 import { usePageSeo } from './hooks/usePageSeo'
 import { CalBookButton } from './CalBookButton'
 import posthog from './posthog'
@@ -27,109 +26,54 @@ const SOCIAL_LINKS = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/subash-pandey-ai', icon: 'linkedin' },
 ]
 
-function TechBadge({ name }: { name: string }) {
-  const icon = getTechIcon(name)
+function StoryPhoto({
+  src,
+  alt,
+  caption,
+  width,
+  height,
+  portrait = false,
+}: {
+  src: string
+  alt: string
+  caption?: string
+  width: number
+  height: number
+  portrait?: boolean
+}) {
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs bg-muted text-foreground">
-      {icon && (
-        icon.src ? (
-          <img src={icon.src} alt="" className="w-3.5 h-3.5 shrink-0 object-contain" width={14} height={14} loading="lazy" />
-        ) : icon.path ? (
-          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
-            <path d={icon.path} />
-          </svg>
-        ) : null
-      )}
-      {name}
-    </span>
+    <figure className={`my-6 ${portrait ? 'mx-auto max-w-sm' : ''}`}>
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        className="w-full h-auto rounded-xl border border-border/50"
+      />
+      {caption ? (
+        <figcaption className={`mt-2 text-xs text-muted-foreground ${portrait ? 'text-center' : ''}`}>
+          {caption}
+        </figcaption>
+      ) : null}
+    </figure>
   )
-}
-
-interface ExperienceEntry {
-  period: string
-  role: string
-  company: string
-  location?: string
-  website?: string
-  logo?: string
-  desc: string
-  tags?: string
 }
 
 export default function AboutPage() {
   const t = translations.en
-  const exp = t.experience
+  const recommendation = t.recommendations.items[0]
 
   usePageSeo({
     title: 'About | Subash Pandey',
-    description: 'About Subash Pandey — AI/ML Engineer from Nepal, MSc Data Science (Exeter), passionate about GenAI, applied ML, and responsible AI.',
+    description: 'About Subash Pandey — AI/ML engineer from Kathmandu. Exeter MSc, GenAI in production, open to remote roles.',
     path: '/about',
   })
 
-  const experiences: ExperienceEntry[] = [
-    {
-      period: 'Oct 2024 – Present',
-      role: exp.santifer.role,
-      company: exp.santifer.company,
-      location: 'Kathmandu, Nepal (Remote)',
-      website: 'https://scopicsoftware.com/',
-      logo: '/scopic_software_logo.webp',
-      desc: 'Conversational AI platform, GenAI chatbot with LangGraph + RAG + Qdrant, LLM evaluation pipelines, audio feature extraction R&D, SEO SaaS platform as full-stack developer.',
-      tags: 'Python · LangGraph · FastAPI · AWS · Docker',
-    },
-    {
-      period: exp.lico.period,
-      role: exp.lico.role,
-      company: exp.lico.company,
-      location: exp.lico.location,
-      website: 'https://peacenepal.com/',
-      logo: '/peace_nepal_dot_com_logo.webp',
-      desc: 'Chatbots for Banking, Travel & Customer Support with RAG and multi-agent frameworks. Deployed interactive web chat applications.',
-      tags: 'RAG · Multi-agent · LLM Fine-tuning',
-    },
-    {
-      period: exp.everis.period,
-      role: exp.everis.role,
-      company: exp.everis.company,
-      desc: 'Scalable ML models for data analysis and automation. Deployed models for production in cloud environments.',
-      tags: 'HuggingFace · PyTorch · AWS',
-    },
-    {
-      period: exp.contentio.period,
-      role: exp.contentio.role,
-      company: exp.contentio.company,
-      location: exp.contentio.location,
-      desc: 'Data pipelines, visualisation with Matplotlib/Seaborn, customer segmentation — 20% reduction in processing time.',
-      tags: 'Python · Pandas · SQL',
-    },
-    {
-      period: exp.imark.period,
-      role: exp.imark.role,
-      company: exp.imark.company,
-      location: exp.imark.location,
-      logo: '/imark-logo.webp',
-      desc: 'React.js to-do application with CRUD backend and user authentication.',
-      tags: 'React · Node.js · REST API',
-    },
-    {
-      period: exp.tutor.period,
-      role: exp.tutor.role,
-      company: exp.tutor.company,
-      location: exp.tutor.location,
-      desc: 'A-Level Computer Science tutoring and personalised lesson plans.',
-    },
-  ]
-
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16 md:py-24">
-      {/* Back link */}
-      <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-12">
-        <ArrowLeft className="w-4 h-4" />
-        Back to home
-      </Link>
-
-      {/* Hero with avatar */}
-      <header className="mb-12">
+    <main id="main-content" className="max-w-3xl mx-auto px-6 py-16 md:py-24">
+      <header className="mb-14">
         <div className="flex items-start gap-5 mb-4">
           <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shrink-0 border-2 border-border">
             <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="96px" alt="Subash Pandey" className="w-full h-full object-cover" width={96} height={96} />
@@ -146,148 +90,123 @@ export default function AboutPage() {
             <MapPin className="w-4 h-4 text-primary" />
             Kathmandu, Nepal
           </span>
-          <span className="flex items-center gap-1.5">
-            <Calendar className="w-4 h-4 text-primary" />
-            April 2026
-          </span>
         </div>
       </header>
 
-      {/* Bio */}
-      <div className="space-y-4 text-muted-foreground mb-8">
-        <p className="text-lg">
-          AI/ML engineer from Nepal with a strong interest in <strong className="text-foreground">Generative AI</strong> and <strong className="text-foreground">applied machine learning</strong>.
-          I hold an MSc in Data Science from the <strong className="text-foreground">University of Exeter</strong> (Merit) and a BSc (Hons) in Computing from <strong className="text-foreground">London Metropolitan University</strong> (2:1).
-        </p>
-        <p>
-          I build and maintain AI-driven features — from conversational AI to GenAI chatbots with RAG pipelines, LLM evaluation frameworks, and audio feature extraction. I led the development of a GenAI chatbot integrated with CRM using LangGraph, RAG pipelines, and Qdrant for intent detection, contextual retrieval, and analytics tracking.
-        </p>
-        <p>
-          I take pride in writing clean code, thinking deeply about problems, and building meaningful, responsible AI solutions that create real impact.
-        </p>
-      </div>
-
-      {/* Availability + Role Tags inside */}
-      <div className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 mb-16">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-sm font-medium text-emerald-400">
-            Seeking remote roles · APAC timezone
-          </span>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {t.roles.map(role => (
-            <span key={role} className="px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 text-sm font-medium text-emerald-300">
-              {role}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Experience */}
       <section className="mb-16">
-        <h2 className="font-display text-xl font-semibold mb-8 flex items-center gap-2">
-          <Briefcase className="w-5 h-5 text-primary" />
-          Experience
-        </h2>
-        <div className="space-y-8">
-          {experiences.map((job, i) => (
-            <div key={i} className="flex gap-4">
-              {/* Logo */}
-              <div className="w-12 h-12 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
-                {job.logo ? (
-                  <img src={job.logo} alt={job.company} className="w-full h-full object-cover" width={48} height={48} loading="lazy" />
-                ) : (
-                  <Briefcase className="w-5 h-5 text-muted-foreground/50" />
-                )}
-              </div>
-              {/* Content */}
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                  <p className="font-semibold">{job.company}</p>
-                  {job.website && (
-                    <a href={job.website} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline inline-flex items-center gap-0.5 shrink-0">
-                      {job.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                    </a>
-                  )}
-                </div>
-                {job.location && <p className="text-xs text-muted-foreground/60">{job.location}</p>}
-                <p className="text-primary font-medium text-sm mt-0.5">{job.role}</p>
-                <p className="text-xs text-muted-foreground/60 mt-0.5">{job.period}{job.tags ? ` · ${job.tags}` : ''}</p>
-                <p className="text-sm text-muted-foreground mt-2">{job.desc}</p>
-              </div>
-            </div>
-          ))}
+        <h2 className="font-display text-xl font-semibold mb-4">Where I started</h2>
+        <div className="space-y-4 text-muted-foreground leading-relaxed">
+          <p>
+            I'm from Kathmandu. Midway through my bachelor's in computing, I was doing data analysis and started messing around with tools like Weka. That was the spark. Watching a model learn from a dataset felt weirdly fun, so I kept going deeper into ML and GenAI.
+          </p>
+          <p>
+            I finished a BSc (Hons) in Computing with <strong className="text-foreground">London Metropolitan University</strong> (2:1), then did an MSc in Data Science at the <strong className="text-foreground">University of Exeter</strong> (Merit). Somewhere in there, this stopped being a side hobby and became the thing I actually wanted to build for a living.
+          </p>
         </div>
       </section>
 
-      {/* Projects */}
       <section className="mb-16">
-        <h2 className="font-display text-xl font-semibold mb-6 flex items-center gap-2">
-          <FolderGit2 className="w-5 h-5 text-primary" />
-          Projects
-        </h2>
-        <div className="space-y-5">
-          {t.projects.items.map((project, i) => (
-            <div key={i} className="group">
+        <h2 className="font-display text-xl font-semibold mb-4">Exeter days</h2>
+        <div className="space-y-4 text-muted-foreground leading-relaxed">
+          <p>
+            Studying in the UK was a lot. One month I had five exams, a thesis to submit, and a part-time job so I could cover living costs. It was chaotic, but I look back on it fondly. I learned I can handle a packed calendar and still enjoy the ride.
+          </p>
+          <p>
+            Graduation day felt great. Worth every late night.
+          </p>
+        </div>
+        <StoryPhoto
+          src="/graduation.webp"
+          alt="Subash in graduation gown beside the University of Exeter plaque"
+          caption="Graduation day at Exeter"
+          width={1200}
+          height={911}
+        />
+      </section>
+
+      <section className="mb-16">
+        <h2 className="font-display text-xl font-semibold mb-4">UK years, then home</h2>
+        <div className="space-y-4 text-muted-foreground leading-relaxed">
+          <p>
+            Living abroad wasn't only lectures. I got to wander, meet people, and take photos like this one in London when the sky was doing its usual grey thing.
+          </p>
+          <StoryPhoto
+            src="/UK_stay.webp"
+            alt="Subash with Tower Bridge and the Thames behind him in London"
+            caption="A grey day in London"
+            width={1200}
+            height={900}
+          />
+          <p>
+            Now I'm back in Kathmandu, working remotely. I like problems where automation makes someone's day easier: chat systems, voice features, evaluation, assessment tools, and the product pieces around them. Different projects, same curiosity.
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-16">
+        <h2 className="font-display text-xl font-semibold mb-4">How I work</h2>
+        <p className="text-muted-foreground mb-6 leading-relaxed">
+          I enjoy taking an idea past the demo and into something people can actually use. {t.summary.p2}{' '}
+          <span className="text-foreground font-medium">{t.summary.p2Highlight}</span>
+          {t.summary.p2End}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {t.coreCompetencies.items.map((item, i) => (
+            <div key={i} className="p-3 rounded-xl border border-border/60">
               <div className="flex items-center gap-2 mb-1">
-                <p className="font-semibold group-hover:text-primary transition-colors">{project.title}</p>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-primary/10 text-primary font-medium">{project.badge}</span>
+                <Zap className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
+                <span className="text-sm font-medium leading-tight">{item.title}</span>
               </div>
-              <p className="text-sm text-muted-foreground">{project.desc}</p>
-              <div className="flex flex-wrap gap-1.5 mt-2">
-                {project.tech.map(tech => (
-                  <TechBadge key={tech} name={tech} />
-                ))}
-              </div>
-              {project.links && project.links.length > 0 && (
-                <div className="flex gap-3 mt-2">
-                  {project.links.map((link, j) => (
-                    <a key={j} href={link.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline inline-flex items-center gap-1">
-                      {link.label} <ExternalLink className="w-3 h-3" />
-                    </a>
-                  ))}
-                </div>
-              )}
+              <p className="text-xs text-muted-foreground pl-6 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Certifications */}
       <section className="mb-16">
-        <h2 className="font-display text-xl font-semibold mb-6 flex items-center gap-2">
-          <Award className="w-5 h-5 text-primary" />
-          Certifications
-        </h2>
-        <div className="space-y-6">
-          {(['Udemy', 'Great Learning'] as const).map(org => {
-            const certs = t.certifications.items.filter(c => c.org === org)
-            if (certs.length === 0) return null
-            return (
-              <div key={org}>
-                <p className="text-sm font-semibold text-primary mb-2">{org}</p>
-                <ul className="space-y-1.5 pl-1">
-                  {certs.map((cert, i) => (
-                    <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                      <span className="text-primary mt-0.5">›</span>
-                      {(cert.url as string) ? (
-                        <a href={cert.url} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors inline-flex items-center gap-1">
-                          {cert.title} <ExternalLink className="w-3 h-3 shrink-0" />
-                        </a>
-                      ) : (
-                        <span>{cert.title}</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
-          })}
+        <h2 className="font-display text-xl font-semibold mb-4">Outside the laptop</h2>
+        <div className="space-y-4 text-muted-foreground leading-relaxed">
+          <p>
+            What I treasure most from all of this is the friends and people I met. Shared laughs, shared stress, shared nights out. That stuff stays with you.
+          </p>
+          <p>
+            Away from work I play football and watch a lot of it. Real Madrid is my club. I like travelling whenever I get the chance, and I happily lose an afternoon in a gallery.
+          </p>
+          <p>
+            This one is after getting soaked in heavy rain. We finally sat down for food and I was just glad to be dry, warm, and about to eat.
+          </p>
+        </div>
+        <StoryPhoto
+          src="/personal-pic.webp"
+          alt="Subash smiling with arms up at a cafe, ready for a meal after the rain"
+          caption="Post-rain meal energy"
+          width={900}
+          height={1200}
+          portrait
+        />
+      </section>
+
+      <section className="mb-16">
+        <h2 className="font-display text-xl font-semibold mb-4">What I'm looking for</h2>
+        <p className="text-muted-foreground mb-5 leading-relaxed">
+          I'm open to remote AI/ML or GenAI roles where I can help build things end to end. Based in Kathmandu (APAC), happy to keep overlap with US and EU teams.
+        </p>
+        <div className="p-5 rounded-2xl bg-success/10 border border-success/30">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="relative flex h-2 w-2">
+              <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--success))] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[hsl(var(--success))]" />
+            </span>
+            <span className="text-sm font-medium text-success">
+              Open to remote roles · APAC timezone
+            </span>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            If that sounds useful for your team, I'd love to chat.
+          </p>
         </div>
       </section>
 
-      {/* Education */}
       <section className="mb-16">
         <h2 className="font-display text-xl font-semibold mb-6 flex items-center gap-2">
           <GraduationCap className="w-5 h-5 text-primary" />
@@ -304,155 +223,68 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      {/* Publications */}
-      {t.publications.items.length > 0 && (
-        <section className="mb-16">
-          <h2 className="font-display text-xl font-semibold mb-6 flex items-center gap-2">
-            <FolderGit2 className="w-5 h-5 text-primary" />
-            Publications
-          </h2>
-          <div className="space-y-4">
-            {t.publications.items.map((pub, i) => (
-              <div key={i}>
-                <p className="font-semibold">{pub.title}</p>
-                <p className="text-sm text-muted-foreground">{pub.org} · {pub.year}</p>
-                <p className="text-sm text-muted-foreground mt-1">{pub.desc}</p>
-                {pub.links && pub.links.length > 0 && (
-                  <div className="flex gap-3 mt-1.5">
-                    {pub.links.map((link, j) => (
-                      <a key={j} href={link.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline inline-flex items-center gap-1">
-                        {link.label} <ExternalLink className="w-3 h-3" />
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Recommendations */}
-      {t.recommendations.items.length > 0 && (
+      {recommendation && (
         <section className="mb-16">
           <h2 className="font-display text-xl font-semibold mb-6 flex items-center gap-2">
             <Quote className="w-5 h-5 text-primary" />
             {t.recommendations.title}
           </h2>
-          <div className="space-y-6">
-            {t.recommendations.items.map((rec, i) => (
-              <blockquote key={i} className="p-6 rounded-2xl bg-card border border-border">
-                <p className="text-sm text-muted-foreground italic leading-relaxed mb-4">"{rec.quote}"</p>
-                <footer className="flex items-start gap-3">
-                  <img src="/akash.webp" alt={rec.author} className="w-10 h-10 rounded-full shrink-0 object-cover" width={40} height={40} loading="lazy" />
-                  <div>
-                    <p className="text-sm font-semibold">{rec.author}</p>
-                    <p className="text-xs text-muted-foreground">{rec.role}</p>
-                    <p className="text-xs text-muted-foreground/60 mt-0.5">{rec.date} · {rec.source}</p>
-                  </div>
-                </footer>
-              </blockquote>
-            ))}
-          </div>
+          <blockquote className="p-6 rounded-2xl bg-card border border-border">
+            <p className="text-sm text-muted-foreground italic leading-relaxed mb-4">"{recommendation.quote}"</p>
+            <footer className="flex items-start gap-3">
+              <img src="/akash.webp" alt={recommendation.author} className="w-10 h-10 rounded-full shrink-0 object-cover" width={40} height={40} loading="lazy" />
+              <div>
+                <p className="text-sm font-semibold">{recommendation.author}</p>
+                <p className="text-xs text-muted-foreground">{recommendation.role}</p>
+                <p className="text-xs text-muted-foreground/60 mt-0.5">{recommendation.date} · {recommendation.source}</p>
+              </div>
+            </footer>
+          </blockquote>
         </section>
       )}
 
-      {/* LinkedIn Posts — Card style */}
-      {t.linkedinPosts.embeds && t.linkedinPosts.embeds.length > 0 && (
-        <section className="mb-16">
-          <h2 className="font-display text-xl font-semibold mb-6 flex items-center gap-2">
-            <MessageCircle className="w-5 h-5 text-primary" />
-            {t.linkedinPosts.title}
-          </h2>
-          <div className="grid gap-4">
-            {t.linkedinPosts.embeds.map((post, i) => (
-              <a
-                key={i}
-                href={post.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col p-5 rounded-2xl bg-card border border-border/50 border-t-2 border-t-[hsl(var(--linkedin))] hover:border-border transition-colors group h-full"
-              >
-                <div className="flex gap-3 flex-1">
-                  <img alt="" role="presentation" width={384} height={384} className="w-10 h-10 rounded-full shrink-0 mt-0.5" src="/foto-avatar.webp" />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start gap-2">
-                      <p className="text-sm text-foreground leading-relaxed">
-                        {post.hook}<span className="text-muted-foreground">...</span>{' '}
-                        <span className="text-[hsl(var(--linkedin))] group-hover:text-[hsl(var(--linkedin))] transition-colors">see more</span>
-                      </p>
-                      <LinkedInLogo className="w-4 h-4 text-[hsl(var(--linkedin))] shrink-0 mt-0.5" />
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4 pt-3 border-t border-border/50 flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1.5">
-                    <ThumbsUp className="w-3.5 h-3.5" aria-hidden="true" />
-                    {post.reactions}
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />
-                    {post.comments}
-                  </span>
-                  <span className="ml-auto text-[hsl(var(--linkedin))] group-hover:text-[hsl(var(--linkedin))] group-hover:underline flex items-center gap-1.5 transition-colors">
-                    Read on LinkedIn
-                    <ExternalLink className="w-3 h-3" aria-hidden="true" />
-                  </span>
-                </div>
-              </a>
-            ))}
-            <a
-              href={t.linkedinPosts.profileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-            >
-              {t.linkedinPosts.cta} <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-        </section>
-      )}
-
-      {/* Connect */}
       <section className="mb-16">
         <h2 className="font-display text-xl font-semibold mb-6 flex items-center gap-2">
           <Globe className="w-5 h-5 text-primary" />
           Connect
         </h2>
-        <div className="flex flex-wrap gap-3">
-          <CalBookButton
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm transition-colors"
-          >
-            <Calendar className="w-4 h-4" />
-            {t.cta.bookCall}
-          </CalBookButton>
-          <a
-            href={`mailto:${t.email}`}
-            onClick={() => posthog.capture('contact_email_clicked', { placement: 'about' })}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
-          >
-            <Mail className="w-4 h-4" />
-            {t.email}
-          </a>
-          {SOCIAL_LINKS.map(link => (
-            <a
-              key={link.name}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => posthog.capture('outbound_link_clicked', { destination: link.icon, placement: 'about' })}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap gap-3">
+            <CalBookButton
+              className="inline-flex items-center justify-center gap-2 min-h-11 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm transition-colors"
             >
-              {link.icon === 'linkedin' && <LinkedInLogo className="w-4 h-4" />}
-              {link.icon === 'github' && <GitHubLogo className="w-4 h-4" />}
-              {link.name}
-              <ExternalLink className="w-3 h-3" aria-hidden="true" />
+              <Calendar className="w-4 h-4" />
+              {t.cta.bookCall}
+            </CalBookButton>
+            <a
+              href={`mailto:${t.email}`}
+              onClick={() => posthog.capture('contact_email_clicked', { placement: 'about' })}
+              className="inline-flex items-center justify-center gap-2 min-h-11 px-5 py-2.5 rounded-xl border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
+            >
+              <Mail className="w-4 h-4" />
+              {t.email}
             </a>
-          ))}
+          </div>
+          <nav aria-label="Social profiles" className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            {SOCIAL_LINKS.map(link => (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => posthog.capture('outbound_link_clicked', { destination: link.icon, placement: 'about' })}
+                className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
+              >
+                {link.icon === 'linkedin' && <LinkedInLogo className="w-4 h-4" />}
+                {link.icon === 'github' && <GitHubLogo className="w-4 h-4" />}
+                {link.name}
+                <ExternalLink className="w-3 h-3" aria-hidden="true" />
+              </a>
+            ))}
+          </nav>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="pt-8 border-t border-border text-center">
         <p className="text-xs text-muted-foreground">
           &copy; {new Date().getFullYear()} Subash Pandey
@@ -460,6 +292,6 @@ export default function AboutPage() {
           <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
         </p>
       </footer>
-    </div>
+    </main>
   )
 }

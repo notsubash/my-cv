@@ -25,23 +25,18 @@ function useTheme() {
   }, [])
 
   const toggleTheme = useCallback(() => {
-    document.documentElement.style.setProperty('--theme-transition', 'none')
-    document.querySelectorAll('*').forEach(el => {
-      (el as HTMLElement).style.transition = 'none'
-    })
+    const root = document.documentElement
+    root.classList.add('theme-switching')
 
     const next = !isDark
     setIsDark(next)
-    document.documentElement.classList.toggle('dark', next)
-    document.documentElement.classList.toggle('light', !next)
+    root.classList.toggle('dark', next)
+    root.classList.toggle('light', !next)
     localStorage.setItem('theme', next ? 'dark' : 'light')
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        document.documentElement.style.removeProperty('--theme-transition')
-        document.querySelectorAll('*').forEach(el => {
-          (el as HTMLElement).style.transition = ''
-        })
+        root.classList.remove('theme-switching')
       })
     })
   }, [isDark])
@@ -52,9 +47,11 @@ function useTheme() {
 function ThemeToggle({ isDark, toggleTheme }: { isDark: boolean; toggleTheme: () => void }) {
   return (
     <button
+      type="button"
       onClick={toggleTheme}
-      className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center shadow-lg hover:border-primary/50 hover:shadow-primary/20 hover:shadow-xl transition-colors"
-      aria-label="Toggle theme"
+      className="min-h-11 min-w-11 w-11 h-11 rounded-full bg-card border border-border flex items-center justify-center shadow-lg hover:border-primary/50 hover:shadow-primary/20 hover:shadow-xl transition-colors"
+      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+      aria-pressed={isDark}
     >
       {isDark ? <Sun className="w-5 h-5 text-primary" /> : <Moon className="w-5 h-5 text-primary" />}
     </button>
@@ -69,7 +66,7 @@ export default function GlobalNav() {
 
   if (!isHome) {
     return (
-      <nav className="sticky top-0 z-50 relative">
+      <div className="sticky top-0 z-50 relative">
         <div className="absolute inset-0 bg-background/80 backdrop-blur-md border-b border-border" />
         <div className="relative pt-4 pb-3 px-6 pl-14 xl:pl-6 flex items-center justify-between">
           <div className="min-w-0 flex items-center">
@@ -79,7 +76,7 @@ export default function GlobalNav() {
             >
               <Link
                 to="/"
-                className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors shrink-0"
+                className="inline-flex items-center gap-1.5 min-h-11 text-muted-foreground hover:text-foreground transition-colors shrink-0"
               >
                 <House className="w-4 h-4" />
                 <span className="hidden sm:inline">Home</span>
@@ -88,8 +85,9 @@ export default function GlobalNav() {
                 <>
                   <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
                   <button
+                    type="button"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="text-foreground font-medium hover:text-foreground transition-colors cursor-pointer truncate"
+                    className="text-foreground font-medium hover:text-foreground transition-colors cursor-pointer truncate min-h-11"
                   >
                     {pageTitle}
                   </button>
@@ -101,7 +99,7 @@ export default function GlobalNav() {
             <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
           </div>
         </div>
-      </nav>
+      </div>
     )
   }
 

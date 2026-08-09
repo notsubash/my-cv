@@ -30,8 +30,8 @@ export const translations = {
         "Ready for the next challenge.",
       ],
       nav: [
-        { icon: 'briefcase', label: 'My path', href: '#experience' },
         { icon: 'folder', label: 'What I build', href: '#projects' },
+        { icon: 'briefcase', label: 'My path', href: '#experience' },
         { icon: 'mail', label: "Let's talk", href: 'https://cal.com/subash-pandey/intro' },
       ],
       skills: [
@@ -563,7 +563,7 @@ export const translations = {
       linkedin: 'LinkedIn',
       formSuccess: "Thanks, I'll get back to you!",
       formError: 'Something went wrong. Please try emailing me directly.',
-      availability: 'Open to remote opportunities · APAC timezone',
+      availability: 'Open to remote roles · APAC timezone',
     },
     blog: {
       title: 'Blog',

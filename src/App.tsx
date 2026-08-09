@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'motion/react'
+import { motion, AnimatePresence, MotionConfig, useReducedMotion } from 'motion/react'
 import { Mail, ExternalLink, Briefcase, GraduationCap, Award, Code, Users, Globe, Zap, Database, Layout, FolderGit2, Sparkles, Download, Github, Package, MessageSquare, Receipt, CalendarCheck, FileText, GitFork, Star, Network, Calendar, Percent, UserCheck, TrendingUp, Timer, ThumbsUp, MessageCircle, Share2, ChevronRight, ChevronDown, List, Bot, Video, BookOpen, MapPin, PenLine } from 'lucide-react'
 import { translations, seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
@@ -48,8 +48,8 @@ function useInView(threshold = 0.1) {
 
 
 const HOME_TOC_SECTIONS = [
-  { id: 'experience', en: 'Experience' },
   { id: 'projects', en: 'Projects' },
+  { id: 'experience', en: 'Experience' },
   { id: 'speaking', en: 'Sharing' },
   { id: 'education', en: 'Education' },
   { id: 'tech', en: 'Skills & Stack' },
@@ -62,10 +62,10 @@ function HomeToc() {
   const [activeId, setActiveId] = useState('')
   const [tocOpen, setTocOpen] = useState(false)
 
-  // Show when #experience top reaches viewport, hide when user scrolls above it
+  // Show when first content section (#projects) reaches the viewport
   useEffect(() => {
     const check = () => {
-      const trigger = document.getElementById('experience')
+      const trigger = document.getElementById('projects')
       if (!trigger) return
       const show = trigger.getBoundingClientRect().top <= 100
       setVisible(show)
@@ -182,15 +182,17 @@ function HomeToc() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3 }}
             onClick={() => setTocOpen(o => !o)}
-            className="2xl:hidden fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
-            aria-label="Toggle table of contents"
+            className="2xl:hidden fixed bottom-6 right-6 z-40 min-h-11 min-w-11 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
+            aria-label={tocOpen ? 'Close table of contents' : 'Open table of contents'}
+            aria-expanded={tocOpen}
+            aria-controls="home-toc-drawer"
           >
             <List className="w-5 h-5" />
           </motion.button>
           {tocOpen && (
             <>
               <div className="2xl:hidden fixed inset-0 bg-background/60 backdrop-blur-sm z-40" onClick={() => setTocOpen(false)} />
-              <div className="2xl:hidden fixed bottom-20 right-6 z-50 w-64 max-h-[70vh] overflow-y-auto bg-card border border-border rounded-xl shadow-xl p-4">
+              <div id="home-toc-drawer" className="2xl:hidden fixed bottom-20 right-6 z-50 w-64 max-h-[70vh] overflow-y-auto bg-card border border-border rounded-xl shadow-xl p-4">
                 {tocNav}
               </div>
             </>
@@ -322,590 +324,162 @@ function CertLogo({ logo }: { logo: string }) {
 function App() {
   const t = translations.en
   const hydrated = useHydrated()
+  const reduceMotion = useReducedMotion()
 
   useHomeSeo({ title: seo.en.title, description: seo.en.description })
 
   return (
+    <MotionConfig reducedMotion="user">
     <main className="min-h-screen bg-background bg-[length:24px_24px] [background-image:radial-gradient(circle,hsl(var(--dot-grid))_1px,transparent_1px)]">
-      {/* Skip navigation — accessible keyboard shortcut */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-primary focus:text-primary-foreground focus:font-medium focus:shadow-lg"
-      >
-        Skip to content
-      </a>
-
       <HomeToc />
 
-      {/* Hero Section */}
-      <header id="main-content" className="relative overflow-clip min-h-screen flex flex-col">
-        {/* Aurora background blobs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Hero Section — full viewport, no next-section leak */}
+      <header id="main-content" className="relative isolate flex h-dvh min-h-[36rem] flex-col overflow-hidden">
+        {/* Aurora — inset + masked so glow dissolves instead of clipping */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{
+            maskImage: 'linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%)',
+          }}
+        >
           <div
-            className="absolute top-[-20%] left-[10%] w-[500px] h-[400px] rounded-full blur-[100px] opacity-50"
-            style={{ background: 'linear-gradient(135deg, hsl(var(--gradient-from) / 0.3), hsl(var(--accent) / 0.15))', animation: 'hero-aurora 8s ease-in-out infinite' }}
+            className={`absolute top-[8%] left-[8%] w-[min(36rem,70vw)] h-[min(28rem,42vh)] rounded-full blur-[80px] md:blur-[100px] opacity-60 hero-aurora-blob${reduceMotion ? '' : ' hero-aurora-blob--animate'}`}
+            style={{ background: 'linear-gradient(135deg, hsl(var(--gradient-from) / 0.4), hsl(var(--accent) / 0.2))' }}
           />
           <div
-            className="absolute bottom-[-10%] right-[5%] w-[450px] h-[350px] rounded-full blur-[100px] opacity-40"
-            style={{ background: 'linear-gradient(225deg, hsl(var(--accent) / 0.25), hsl(var(--gradient-from) / 0.1))', animation: 'hero-aurora 11s ease-in-out infinite reverse' }}
+            className={`absolute top-[22%] right-[6%] w-[min(34rem,65vw)] h-[min(26rem,40vh)] rounded-full blur-[80px] md:blur-[100px] opacity-50 hero-aurora-blob${reduceMotion ? '' : ' hero-aurora-blob--animate-alt'}`}
+            style={{ background: 'linear-gradient(225deg, hsl(var(--accent) / 0.32), hsl(var(--gradient-from) / 0.14))' }}
           />
         </div>
 
-        <div className="relative max-w-5xl mx-auto px-6 flex-1 flex items-center py-16">
-          <div className="flex flex-col items-center text-center">
-            {/* Photo with animated SVG ring */}
+        <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-6 py-16">
+          <div className="flex w-full flex-col items-center text-center">
             <motion.div
               initial={hydrated ? { opacity: 0, scale: 0.85 } : false}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mb-8"
+              className="relative mb-6 md:mb-7"
             >
-              <div className="relative w-32 h-32 md:w-36 md:h-36">
-                {/* Orbiting globe — container rotates, globe counter-rotates to stay upright */}
+              <Link
+                to="/about"
+                className="relative block h-36 w-36 rounded-full outline-offset-4 transition-opacity hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary md:h-44 md:w-44"
+                aria-label="About Subash Pandey"
+              >
                 <div
-                  className="absolute inset-[-24px] w-[calc(100%+48px)] h-[calc(100%+48px)] pointer-events-none"
-                  style={{ animation: 'hero-ring-rotate 15s linear infinite' }}
+                  className={`pointer-events-none absolute inset-[-28px] h-[calc(100%+56px)] w-[calc(100%+56px)]${reduceMotion ? '' : ' hero-ring-spin'}`}
+                  aria-hidden="true"
                 >
                   <img
                     src="/globe.svg"
                     alt=""
-                    className="absolute top-[4%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 md:w-6 md:h-6 drop-shadow-[0_0_6px_hsl(var(--gradient-from)/0.5)]"
-                    width={24}
-                    height={24}
-                    style={{ animation: 'hero-ring-rotate 15s linear infinite reverse' }}
+                    className={`absolute top-[3%] left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_8px_hsl(var(--gradient-from)/0.55)] md:h-7 md:w-7${reduceMotion ? '' : ' hero-ring-spin-reverse'}`}
+                    width={28}
+                    height={28}
                   />
                 </div>
-                {/* Photo */}
-                <div className="w-full h-full rounded-full overflow-hidden border-2 border-background shadow-xl">
-                  <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="144px" alt="Subash Pandey" className="w-full h-full object-cover" width={192} height={192} fetchPriority="high" />
+                <div className="h-full w-full overflow-hidden rounded-full shadow-[0_16px_40px_hsl(0_0%_0%/0.35)]">
+                  <img
+                    src="/foto-avatar-sm.webp"
+                    srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w"
+                    sizes="176px"
+                    alt=""
+                    className="h-full w-full object-cover"
+                    width={192}
+                    height={192}
+                    fetchPriority="high"
+                  />
                 </div>
-              </div>
+              </Link>
             </motion.div>
 
-            {/* Name line */}
-            <motion.p
-              initial={hydrated ? { opacity: 0, y: 16 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="text-muted-foreground mb-3"
-            >
-              {t.greeting}{' '}
-              <Link to="/about" className="font-semibold bg-gradient-to-r from-[hsl(var(--gradient-from))] to-[hsl(var(--accent))] bg-clip-text text-transparent hover:opacity-80 transition-opacity">
-                @subash
-              </Link>
-            </motion.p>
-
-            {/* Headline with flowing gradient */}
             <motion.h1
               initial={hydrated ? { opacity: 0, y: 16 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
-              className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight"
-              style={{
-                backgroundImage: 'linear-gradient(90deg, hsl(var(--foreground)) 0%, hsl(var(--gradient-from)) 30%, hsl(var(--accent)) 50%, hsl(var(--gradient-from)) 70%, hsl(var(--foreground)) 100%)',
-                backgroundSize: '200% auto',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-                animation: 'hero-text-shimmer 6s linear infinite',
-              }}
+              transition={{ duration: 0.5, delay: 0.12 }}
+              className="font-display text-5xl font-bold tracking-tight text-foreground sm:text-6xl md:text-[4rem] md:leading-[1.05]"
             >
-                {t.role}
+              Subash Pandey
             </motion.h1>
 
-            {/* Brief summary */}
             <motion.p
               initial={hydrated ? { opacity: 0, y: 12 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              className="text-sm md:text-base text-muted-foreground max-w-lg mt-4 leading-relaxed"
+              transition={{ duration: 0.5, delay: 0.22 }}
+              className="mt-4 max-w-2xl text-lg font-medium leading-snug text-foreground/85 md:mt-5 md:text-xl md:leading-snug"
             >
-              {t.summary.p1} <span className="text-foreground font-medium">{t.summary.p1Highlight}</span>.
+              {t.role}
+            </motion.p>
+
+            <motion.p
+              initial={hydrated ? { opacity: 0, y: 10 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.3 }}
+              className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base"
+            >
+              {t.summary.p1}{' '}
+              <span className="font-medium text-foreground">{t.summary.p1Highlight}</span>.
             </motion.p>
 
             <motion.div
               initial={hydrated ? { opacity: 0, y: 12 } : false}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.45 }}
-              className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-3xl w-full"
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4"
             >
-              {t.summary.impactSnapshots.slice(0, 2).map((item, i) => (
-                <span
-                  key={`${item}-${i}`}
-                  className="inline-flex items-center px-3 py-2 rounded-xl text-xs md:text-sm bg-card/70 border border-border text-foreground/90 text-left"
-                >
-                  {item}
-                </span>
-              ))}
-            </motion.div>
-
-            {/* CTA row */}
-              <motion.div
-              initial={hydrated ? { opacity: 0, y: 12 } : false}
-                animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="mt-8 flex flex-wrap justify-center gap-3"
-              >
               <CalBookButton
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold bg-primary text-primary-foreground border border-primary hover:bg-primary/90 transition-colors"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.28)] transition-colors hover:bg-primary/90"
               >
-                <Calendar className="w-3.5 h-3.5" />
+                <Calendar className="h-4 w-4" />
                 {t.cta.primaryHeroCta}
               </CalBookButton>
-                {BLOG_ENABLED && (
-                <Link to="/blog" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors">
-                    <PenLine className="w-3 h-3" />
-                    Blog
-                  </Link>
-                )}
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Scroll indicator — sticky to viewport bottom while hero is visible */}
-        <motion.div
-          initial={hydrated ? { opacity: 0 } : false}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          className="sticky bottom-0 z-10 flex justify-center pb-8 pt-4"
-        >
-          <a
-            href="#experience"
-            className="flex flex-col items-center gap-1 text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors cursor-pointer"
-            onClick={(e) => {
-              e.preventDefault()
-              document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })
-            }}
-          >
-            <span className="text-[10px] uppercase tracking-[0.2em] font-medium">{t.scrollHint ?? 'Scroll'}</span>
-            <div className="flex flex-col items-center" style={{ animation: 'hero-scroll-bounce 2s ease-in-out infinite' }}>
-              <ChevronDown className="w-4 h-4 -mb-1.5 opacity-60" />
-              <ChevronDown className="w-4 h-4 opacity-30" />
-            </div>
-          </a>
-        </motion.div>
-
-        {/* Gradient fade to content */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none" />
-      </header>
-
-      {/* Experience */}
-      <section id="experience" className="py-10 md:py-16 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <AnimatedSection>
-            <h2 className="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
-              <SectionIcon>
-                <Briefcase className="w-5 h-5 text-primary" />
-              </SectionIcon>
-              {t.experience.title}
-            </h2>
-          </AnimatedSection>
-
-          {/* Preámbulo: Cómo trabajo + Competencias */}
-          <AnimatedSection delay={0.1}>
-            <div className="mb-10 p-5 rounded-2xl bg-card/50 border border-border/40">
-              <p className="text-base text-muted-foreground text-center max-w-3xl mx-auto mb-5 leading-relaxed">
-                {t.summary.p2} <span className="text-foreground font-medium">{t.summary.p2Highlight}</span>{t.summary.p2End}
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 max-w-3xl mx-auto">
-                {t.coreCompetencies.items.map((item, i) => (
-                  <div
-                    key={i}
-                    className="p-3 rounded-xl bg-background/50 border border-border/60 hover:border-accent/30 transition-colors group"
-                  >
-                    <div className="flex items-center sm:items-start gap-2 sm:mb-1 sm:min-h-[2.2rem]">
-                      <Zap className="w-4 h-4 text-accent shrink-0" />
-                      <span className="text-sm font-medium group-hover:text-accent transition-colors leading-tight">{item.title}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground pl-6 hidden md:block leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </AnimatedSection>
-
-          {/* Current divider */}
-          <AnimatedSection delay={0.1} className="mb-6">
-            <div className="flex items-center gap-4">
-              <div className="h-px flex-1 bg-border divider-flow" />
-              <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-emerald-400 shrink-0">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-                </span>
-                {t.experience.currentLabel}
-              </span>
-              <div className="h-px flex-1 bg-border divider-flow" />
-            </div>
-          </AnimatedSection>
-
-          {/* Scopic Software LLC */}
-          <AnimatedSection delay={0.1}>
-            <div className="mb-10">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
-                  <img src="/scopic_software_logo.webp" alt="Scopic Software" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
-                </div>
-                <div>
-                  <h3 className="font-display text-xl font-bold">{t.experience.santifer.company}</h3>
-                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
-                    <a href="https://scopicsoftware.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">scopicsoftware.com</a>
-                    <span className="text-border">·</span>
-                    <span>{t.experience.santifer.location}</span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-primary font-medium mb-1">{t.experience.santifer.role}</p>
-              <p className="text-sm text-muted-foreground mb-4">{t.experience.santifer.period}</p>
-              <ul className="text-[13px] leading-relaxed text-muted-foreground space-y-0.5 mb-5">
-                {t.experience.santifer.highlights.map((h, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
-                    <span>{h}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Trusted By - Tech Stack Logos */}
-              <div className="pt-3 border-t border-border/40">
-                <p className="text-[11px] text-muted-foreground/60 uppercase tracking-wider mb-3">{t.experience.santifer.trustedBy.label}</p>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5 md:gap-x-6">
-                  {t.experience.santifer.trustedBy.logos.map((logo, i) => {
-                    const techIcon = getTechIcon(logo.name)
-                    return (
-                      <div key={i} className="flex items-center gap-1.5 hover:opacity-90 transition-opacity duration-200">
-                        {'src' in logo && logo.src ? (
-                          <img src={logo.src} alt={logo.name} className="h-5 w-auto shrink-0 invert opacity-60 hover:opacity-80 dark:invert-0 dark:opacity-70 dark:hover:opacity-90" loading="lazy" width={20} height={20} />
-                        ) : techIcon ? (
-                          techIcon.src ? (
-                            <img src={techIcon.src} alt="" className="w-5 h-5 shrink-0 object-contain opacity-70" width={20} height={20} loading="lazy" />
-                          ) : techIcon.path ? (
-                            <svg viewBox="0 0 24 24" fill={techIcon.color} className="w-5 h-5 shrink-0 opacity-70" aria-hidden="true">
-                              <path d={techIcon.path} />
-                            </svg>
-                          ) : null
-                        ) : null}
-                        <span className="text-xs font-medium opacity-60 dark:opacity-70">{logo.name}</span>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-
-              {/* Deep dive CTA */}
-              {t.experience.santifer.caseStudyUrl && (
-                <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                  <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.caseStudyLabel}</span>
+              <Link
+                to="/about"
+                className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
+              >
+                About
+                <ChevronRight className="h-4 w-4 opacity-70" />
+              </Link>
+              {BLOG_ENABLED && (
+                <Link
+                  to="/blog"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
+                >
+                  <PenLine className="h-4 w-4" />
+                  Blog
                 </Link>
               )}
-            </div>
-          </AnimatedSection>
+            </motion.div>
 
-          {/* Business OS - Full Width Hero Card */}
-          <AnimatedSection delay={0.1} className="mb-6">
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-gold/15 via-gold/5 to-transparent border border-gold/25 hover:border-gold/45 transition-colors duration-200 group">
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                <div className="flex-1 flex flex-col">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-gold/20 flex items-center justify-center shrink-0">
-                      <Bot className="w-5 h-5 text-gold" />
-                    </div>
-                    <span className="badge px-2.5 py-0.5 bg-gold/20 text-gold text-[11px]">{t.experience.santifer.businessOS.badge}</span>
-                  </div>
-                  <h4 className="font-display text-xl font-bold mb-3">{t.experience.santifer.businessOS.title}</h4>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{t.experience.santifer.businessOS.desc}</p>
-                  <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
-                    {t.experience.santifer.businessOS.modules.slice(0, 4).map((item, i) => {
-                      const icons: Record<string, React.ReactNode> = {
-                        database: <Database className="w-4 h-4" />,
-                        users: <Users className="w-4 h-4" />,
-                        layout: <Layout className="w-4 h-4" />,
-                        package: <Package className="w-4 h-4" />,
-                        messageSquare: <MessageSquare className="w-4 h-4" />,
-                        receipt: <Receipt className="w-4 h-4" />,
-                        calendarCheck: <CalendarCheck className="w-4 h-4" />
-                      }
-                      return (
-                        <li key={i} className="flex items-start gap-2.5">
-                          <span className="text-gold mt-0.5">{icons[item.icon]}</span>
-                          <span>{item.text}</span>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                  {t.experience.santifer.caseStudyUrl && (
-                    <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-6 text-sm font-medium text-gold hover:text-gold/80 transition-colors duration-200 group/cta">
-                      <span className="px-4 py-2 rounded-lg bg-gold/10 border border-gold/30 group-hover/cta:bg-gold/20 group-hover/cta:border-gold/50 transition-colors duration-200">{t.experience.santifer.businessOS.footer}</span>
-                      <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                    </Link>
-                  )}
-                </div>
-                <div className="grid grid-cols-2 lg:flex lg:flex-col gap-2 lg:gap-2.5 mt-3 lg:mt-0">
-                  {t.experience.santifer.businessOS.metrics.slice(0, 2).map((metric, i) => (
-                    <div key={i} className="text-center p-2 lg:p-3 rounded-xl bg-background/50 border border-gold/20">
-                      <div className="font-display text-base lg:text-xl font-bold text-gold">{metric.value}</div>
-                      <div className="text-[10px] lg:text-xs text-muted-foreground leading-tight">{metric.label}</div>
-                    </div>
-                  ))}
-                </div>
+            <motion.a
+              href="#projects"
+              initial={hydrated ? { opacity: 0 } : false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.65 }}
+              className="mt-10 flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 text-muted-foreground/75 transition-colors hover:text-muted-foreground md:mt-12"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('projects')?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth' })
+              }}
+            >
+              <span className="text-[10px] font-medium uppercase tracking-[0.22em]">{t.scrollHint ?? 'Scroll'}</span>
+              <div className={`flex flex-col items-center${reduceMotion ? '' : ' hero-scroll-hint'}`}>
+                <ChevronDown className="mb-[-6px] h-4 w-4 opacity-60" />
+                <ChevronDown className="h-4 w-4 opacity-30" />
               </div>
-            </div>
-          </AnimatedSection>
-
-          {/* Key Projects */}
-          <div className="grid md:grid-cols-2 gap-4 mb-7">
-            <AnimatedSection delay={0.15}>
-              <div className="h-full p-5 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 hover:border-primary/35 transition-colors duration-200 group flex flex-col">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
-                    <Bot className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="badge px-2.5 py-0.5 bg-primary/10 text-primary text-[11px]">{t.experience.santifer.jacobo.badge}</span>
-                </div>
-                <h4 className="font-display text-lg font-bold mb-2 group-hover:text-primary transition-colors">{t.experience.santifer.jacobo.title}</h4>
-                <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t.experience.santifer.jacobo.desc}</p>
-                <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
-                  {t.experience.santifer.jacobo.items.slice(0, 4).map((item, i) => {
-                    const icons: Record<string, React.ReactNode> = {
-                      network: <Network className="w-4 h-4" />,
-                      calendar: <Calendar className="w-4 h-4" />,
-                      percent: <Percent className="w-4 h-4" />,
-                      package: <Package className="w-4 h-4" />,
-                      userCheck: <UserCheck className="w-4 h-4" />
-                    }
-                    return (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-primary mt-0.5 shrink-0">{icons[item.icon]}</span>
-                        <span>{item.text}</span>
-                      </li>
-                    )
-                  })}
-                </ul>
-                {t.experience.santifer.jacobo.caseStudyUrl && t.experience.santifer.jacobo.soldWith && (
-                  <Link to={t.experience.santifer.jacobo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.jacobo.soldWith}</span>
-                    <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                  </Link>
-                )}
-              </div>
-            </AnimatedSection>
-            <AnimatedSection delay={0.2}>
-              <div className="h-full p-5 rounded-2xl bg-card border border-border/80 hover:border-accent/30 transition-colors duration-200 group flex flex-col">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center">
-                    <FileText className="w-5 h-5 text-accent" />
-                  </div>
-                  <span className="badge px-2.5 py-0.5 bg-accent/10 text-accent text-[11px]">{t.experience.santifer.webSeo.badge}</span>
-                </div>
-                <h4 className="font-display text-lg font-bold mb-2 group-hover:text-accent transition-colors">{t.experience.santifer.webSeo.title}</h4>
-                <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t.experience.santifer.webSeo.desc}</p>
-                <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
-                  {t.experience.santifer.webSeo.items.slice(0, 3).map((item, i) => {
-                    const icons: Record<string, React.ReactNode> = {
-                      fileText: <FileText className="w-4 h-4" />,
-                      image: <Layout className="w-4 h-4" />,
-                      trendingUp: <TrendingUp className="w-4 h-4" />,
-                      gitBranch: <Network className="w-4 h-4" />,
-                    }
-                    return (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-accent mt-0.5 shrink-0">{icons[item.icon]}</span>
-                        <span>{item.text}</span>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            </AnimatedSection>
+            </motion.a>
           </div>
-
-            {t.experience.santifer.exit && (
-            <AnimatedSection delay={0.25} className="mb-8">
-                <div className="h-full p-5 rounded-2xl bg-gradient-to-r from-success/10 to-success/5 border border-success/30 hover:border-success/50 transition-colors duration-200">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Zap className="w-5 h-5 text-success" />
-                    <span className="font-display font-bold text-success">{t.experience.santifer.exit}</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">{t.experience.santifer.exitDesc}</p>
-                </div>
-              </AnimatedSection>
-            )}
-
-          {/* Other highlights - compact strip */}
-          <AnimatedSection delay={0.25} className="mb-10">
-            {(() => {
-              const highlights = [
-                { icon: <Database className="w-4 h-4 text-primary" />, title: t.experience.santifer.erp.title, desc: t.experience.santifer.erp.desc, metric: t.experience.santifer.erp.metric },
-                { icon: <Bot className="w-4 h-4 text-accent" />, title: t.experience.santifer.gpts.title, desc: t.experience.santifer.gpts.desc, metric: t.experience.santifer.gpts.metric },
-                { icon: <Timer className="w-4 h-4 text-primary" />, title: t.experience.santifer.reservas.title, desc: t.experience.santifer.reservas.desc, metric: t.experience.santifer.reservas.metric },
-                { icon: <Users className="w-4 h-4 text-accent" />, title: t.experience.santifer.crm.title, desc: t.experience.santifer.crm.desc, metric: t.experience.santifer.crm.metric },
-                { icon: <Sparkles className="w-4 h-4 text-primary" />, title: t.experience.santifer.genAI.title, desc: t.experience.santifer.genAI.desc, metric: t.experience.santifer.genAI.metric },
-              ]
-              const [expanded, setExpanded] = useState(false)
-              return (
-                <div className="rounded-2xl border border-border/70 bg-card/50 overflow-hidden">
-                  <button
-                    onClick={() => setExpanded(e => !e)}
-                    className="w-full flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors"
-                  >
-                    <span className="text-sm font-medium text-muted-foreground">Other contributions at {t.experience.santifer.company}</span>
-                    <motion.span
-                      animate={{ rotate: expanded ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ChevronRight className="w-4 h-4 text-muted-foreground rotate-90" />
-                    </motion.span>
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {expanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ overflow: 'hidden' }}
-                      >
-                        <div className="px-5 pb-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-                          {highlights.map((h, i) => (
-                            <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-xl bg-background/50 border border-border/50">
-                              <span className="mt-0.5 shrink-0">{h.icon}</span>
-                              <div className="min-w-0">
-                                <p className="text-sm font-medium leading-tight">{h.title}</p>
-                                <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{h.desc}</p>
-                </div>
-              </div>
-                          ))}
-                </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-              </div>
-              )
-            })()}
-            </AnimatedSection>
-
-          {/* Previous Experience divider */}
-          <AnimatedSection delay={0.1} className="mt-12 mb-8">
-            <div className="flex items-center gap-4">
-              <div className="h-px flex-1 bg-border divider-flow" />
-              <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground shrink-0">{t.experience.previousLabel}</span>
-              <div className="h-px flex-1 bg-border divider-flow" />
-            </div>
-          </AnimatedSection>
-
-          {/* Peace Nepal Dot Com */}
-          <AnimatedSection delay={0.1}>
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
-                  <img src="/peace_nepal_dot_com_logo.webp" alt="Peace Nepal Dot Com" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
-                </div>
-                <div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.lico.company}</h3>
-                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
-                    <a href="https://peacenepal.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">peacenepal.com</a>
-                    <span className="text-border">·</span>
-                    <span>{t.experience.lico.location}</span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-accent font-medium mb-1">{t.experience.lico.role}</p>
-              <p className="text-sm text-muted-foreground mb-4">{t.experience.lico.period}</p>
-              <p className="text-muted-foreground">{t.experience.lico.desc}</p>
-              {t.experience.lico.testimonial.quote && (
-                <blockquote className="mt-4 pl-4 border-l-2 border-accent/50 italic text-sm text-muted-foreground">
-                  <p>"{t.experience.lico.testimonial.quote}"</p>
-                  <footer className="mt-1 text-xs not-italic">— {t.experience.lico.testimonial.author}, {t.experience.lico.testimonial.role}</footer>
-                </blockquote>
-              )}
-            </div>
-          </AnimatedSection>
-
-          {/* Icebrkr AI Solutions */}
-          <AnimatedSection delay={0.1} className="mt-12">
-            <div className="mb-6">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-primary/10 flex items-center justify-center shrink-0">
-                    <Bot className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.everis.company}</h3>
-                </div>
-              </div>
-              <p className="text-primary font-medium mb-1">{t.experience.everis.role}</p>
-              <p className="text-sm text-muted-foreground mb-2">{t.experience.everis.period}</p>
-              <p className="text-muted-foreground">{t.experience.everis.desc}</p>
-              {t.experience.everis.testimonial.quote && (
-                <blockquote className="mt-4 pl-4 border-l-2 border-primary/50 italic text-sm text-muted-foreground">
-                  <p>"{t.experience.everis.testimonial.quote}"</p>
-                  <footer className="mt-1 text-xs not-italic">— {t.experience.everis.testimonial.author}, {t.experience.everis.testimonial.role}</footer>
-                </blockquote>
-              )}
-            </div>
-          </AnimatedSection>
-
-          {/* Contentio Lab */}
-          <AnimatedSection delay={0.1} className="mt-12">
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl overflow-hidden bg-accent/10 flex items-center justify-center shrink-0">
-                  <TrendingUp className="w-5 h-5 text-accent" />
-                </div>
-                <div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.contentio.company}</h3>
-                  <span className="text-xs text-muted-foreground">{t.experience.contentio.location}</span>
-                </div>
-              </div>
-              <p className="text-accent font-medium mb-1">{t.experience.contentio.role}</p>
-              <p className="text-sm text-muted-foreground mb-4">{t.experience.contentio.period}</p>
-              <p className="text-muted-foreground">{t.experience.contentio.desc}</p>
-            </div>
-          </AnimatedSection>
-
-          {/* iMark Private Limited */}
-          <AnimatedSection delay={0.1} className="mt-12">
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
-                  <img src="/imark-logo.webp" alt="iMark Private Limited" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
-                </div>
-                <div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.imark.company}</h3>
-                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
-                    <a href="https://www.imarkdigital.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">imarkdigital.com</a>
-                    <span className="text-border">·</span>
-                    <span>{t.experience.imark.location}</span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-primary font-medium mb-1">{t.experience.imark.role}</p>
-              <p className="text-sm text-muted-foreground mb-4">{t.experience.imark.period}</p>
-              <p className="text-muted-foreground">{t.experience.imark.desc}</p>
-            </div>
-          </AnimatedSection>
-
-          {/* Budhanilkantha Education Services */}
-          <AnimatedSection delay={0.1} className="mt-12">
-            <div className="mb-6">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
-                  <img src="/budhanilkantha_education_services_logo.webp" alt="Budhanilkantha Education Services" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
-                </div>
-                <div>
-                  <h3 className="font-display text-2xl font-bold">{t.experience.tutor.company}</h3>
-                  <span className="text-xs text-muted-foreground">{t.experience.tutor.location}</span>
-                </div>
-              </div>
-              <p className="text-accent font-medium mb-1">{t.experience.tutor.role}</p>
-              <p className="text-sm text-muted-foreground mb-4">{t.experience.tutor.period}</p>
-              <p className="text-muted-foreground">{t.experience.tutor.desc}</p>
-            </div>
-          </AnimatedSection>
         </div>
-      </section>
+
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-24 bg-gradient-to-t from-background via-background/70 to-transparent"
+          aria-hidden="true"
+        />
+      </header>
 
       {/* Projects & Claude Code */}
-      <section id="projects" className="py-12 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
+      <section id="projects" className="scroll-mt-4 py-14 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
             <div className="flex items-center justify-between mb-12">
@@ -1256,6 +830,384 @@ function App() {
         </div>
       </section>
 
+      {/* Experience */}
+      <section id="experience" className="py-10 md:py-16 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <AnimatedSection>
+            <h2 className="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+              <SectionIcon>
+                <Briefcase className="w-5 h-5 text-primary" />
+              </SectionIcon>
+              {t.experience.title}
+            </h2>
+          </AnimatedSection>
+
+          {/* Current divider */}
+          <AnimatedSection delay={0.1} className="mb-6">
+            <div className="flex items-center gap-4">
+              <div className="h-px flex-1 bg-border divider-flow" />
+              <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-success shrink-0">
+                <span className="relative flex h-2 w-2">
+                  <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--success))] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[hsl(var(--success))]" />
+                </span>
+                {t.experience.currentLabel}
+              </span>
+              <div className="h-px flex-1 bg-border divider-flow" />
+            </div>
+          </AnimatedSection>
+
+          {/* Scopic Software LLC */}
+          <AnimatedSection delay={0.1}>
+            <div className="mb-10">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                  <img src="/scopic_software_logo.webp" alt="Scopic Software" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
+                </div>
+                <div>
+                  <h3 className="font-display text-xl font-bold">{t.experience.santifer.company}</h3>
+                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
+                    <a href="https://scopicsoftware.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">scopicsoftware.com</a>
+                    <span className="text-border">·</span>
+                    <span>{t.experience.santifer.location}</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-primary font-medium mb-1">{t.experience.santifer.role}</p>
+              <p className="text-sm text-muted-foreground mb-4">{t.experience.santifer.period}</p>
+              <ul className="text-[13px] leading-relaxed text-muted-foreground space-y-0.5 mb-5">
+                {t.experience.santifer.highlights.map((h, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Trusted By - Tech Stack Logos */}
+              <div className="pt-3 border-t border-border/40">
+                <p className="text-[11px] text-muted-foreground/60 uppercase tracking-wider mb-3">{t.experience.santifer.trustedBy.label}</p>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5 md:gap-x-6">
+                  {t.experience.santifer.trustedBy.logos.map((logo, i) => {
+                    const techIcon = getTechIcon(logo.name)
+                    return (
+                      <div key={i} className="flex items-center gap-1.5 hover:opacity-90 transition-opacity duration-200">
+                        {'src' in logo && logo.src ? (
+                          <img src={logo.src} alt={logo.name} className="h-5 w-auto shrink-0 invert opacity-60 hover:opacity-80 dark:invert-0 dark:opacity-70 dark:hover:opacity-90" loading="lazy" width={20} height={20} />
+                        ) : techIcon ? (
+                          techIcon.src ? (
+                            <img src={techIcon.src} alt="" className="w-5 h-5 shrink-0 object-contain opacity-70" width={20} height={20} loading="lazy" />
+                          ) : techIcon.path ? (
+                            <svg viewBox="0 0 24 24" fill={techIcon.color} className="w-5 h-5 shrink-0 opacity-70" aria-hidden="true">
+                              <path d={techIcon.path} />
+                            </svg>
+                          ) : null
+                        ) : null}
+                        <span className="text-xs font-medium opacity-60 dark:opacity-70">{logo.name}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Deep dive CTA */}
+              {t.experience.santifer.caseStudyUrl && (
+                <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
+                  <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.caseStudyLabel}</span>
+                </Link>
+              )}
+            </div>
+          </AnimatedSection>
+
+          {/* Scopic key projects — equal peer cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-7">
+            <AnimatedSection delay={0.1}>
+              <div className="h-full p-5 rounded-2xl bg-card border border-primary/20 hover:border-primary/35 transition-colors duration-200 group flex flex-col">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
+                    <Bot className="w-5 h-5 text-primary" />
+                  </div>
+                  <span className="badge px-2.5 py-0.5 bg-primary/10 text-primary text-[11px]">{t.experience.santifer.businessOS.badge}</span>
+                </div>
+                <h4 className="font-display text-lg font-bold mb-2 group-hover:text-primary transition-colors">{t.experience.santifer.businessOS.title}</h4>
+                <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t.experience.santifer.businessOS.desc}</p>
+                <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
+                  {t.experience.santifer.businessOS.modules.slice(0, 4).map((item, i) => {
+                    const icons: Record<string, React.ReactNode> = {
+                      database: <Database className="w-4 h-4" />,
+                      users: <Users className="w-4 h-4" />,
+                      layout: <Layout className="w-4 h-4" />,
+                      package: <Package className="w-4 h-4" />,
+                      messageSquare: <MessageSquare className="w-4 h-4" />,
+                      receipt: <Receipt className="w-4 h-4" />,
+                      calendarCheck: <CalendarCheck className="w-4 h-4" />
+                    }
+                    return (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5 shrink-0">{icons[item.icon]}</span>
+                        <span>{item.text}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
+                {t.experience.santifer.caseStudyUrl && (
+                  <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
+                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.businessOS.footer}</span>
+                    <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
+                  </Link>
+                )}
+              </div>
+            </AnimatedSection>
+            <AnimatedSection delay={0.15}>
+              <div className="h-full p-5 rounded-2xl bg-card border border-primary/20 hover:border-primary/35 transition-colors duration-200 group flex flex-col">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <Bot className="w-5 h-5 text-primary" />
+                  </div>
+                  <span className="badge px-2.5 py-0.5 bg-primary/10 text-primary text-[11px]">{t.experience.santifer.jacobo.badge}</span>
+                </div>
+                <h4 className="font-display text-lg font-bold mb-2 group-hover:text-primary transition-colors">{t.experience.santifer.jacobo.title}</h4>
+                <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t.experience.santifer.jacobo.desc}</p>
+                <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
+                  {t.experience.santifer.jacobo.items.slice(0, 4).map((item, i) => {
+                    const icons: Record<string, React.ReactNode> = {
+                      network: <Network className="w-4 h-4" />,
+                      calendar: <Calendar className="w-4 h-4" />,
+                      percent: <Percent className="w-4 h-4" />,
+                      package: <Package className="w-4 h-4" />,
+                      userCheck: <UserCheck className="w-4 h-4" />
+                    }
+                    return (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-primary mt-0.5 shrink-0">{icons[item.icon]}</span>
+                        <span>{item.text}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
+                {t.experience.santifer.jacobo.caseStudyUrl && t.experience.santifer.jacobo.soldWith && (
+                  <Link to={t.experience.santifer.jacobo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
+                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.jacobo.soldWith}</span>
+                    <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
+                  </Link>
+                )}
+              </div>
+            </AnimatedSection>
+            <AnimatedSection delay={0.2}>
+              <div className="h-full p-5 rounded-2xl bg-card border border-accent/30 hover:border-accent/45 transition-colors duration-200 group flex flex-col">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-accent/15 flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-accent" />
+                  </div>
+                  <span className="badge px-2.5 py-0.5 bg-accent/10 text-accent text-[11px]">{t.experience.santifer.webSeo.badge}</span>
+                </div>
+                <h4 className="font-display text-lg font-bold mb-2 group-hover:text-accent transition-colors">{t.experience.santifer.webSeo.title}</h4>
+                <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t.experience.santifer.webSeo.desc}</p>
+                <ul className="text-[13px] text-muted-foreground space-y-1.5 leading-relaxed">
+                  {t.experience.santifer.webSeo.items.slice(0, 3).map((item, i) => {
+                    const icons: Record<string, React.ReactNode> = {
+                      fileText: <FileText className="w-4 h-4" />,
+                      image: <Layout className="w-4 h-4" />,
+                      trendingUp: <TrendingUp className="w-4 h-4" />,
+                      gitBranch: <Network className="w-4 h-4" />,
+                    }
+                    return (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-accent mt-0.5 shrink-0">{icons[item.icon]}</span>
+                        <span>{item.text}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            </AnimatedSection>
+          </div>
+
+            {t.experience.santifer.exit && (
+            <AnimatedSection delay={0.25} className="mb-8">
+                <div className="h-full p-5 rounded-2xl bg-gradient-to-r from-success/10 to-success/5 border border-success/30 hover:border-success/50 transition-colors duration-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Zap className="w-5 h-5 text-success" />
+                    <span className="font-display font-bold text-success">{t.experience.santifer.exit}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{t.experience.santifer.exitDesc}</p>
+                </div>
+              </AnimatedSection>
+            )}
+
+          {/* Other highlights - compact strip */}
+          <AnimatedSection delay={0.25} className="mb-10">
+            {(() => {
+              const highlights = [
+                { icon: <Database className="w-4 h-4 text-primary" />, title: t.experience.santifer.erp.title, desc: t.experience.santifer.erp.desc, metric: t.experience.santifer.erp.metric },
+                { icon: <Bot className="w-4 h-4 text-accent" />, title: t.experience.santifer.gpts.title, desc: t.experience.santifer.gpts.desc, metric: t.experience.santifer.gpts.metric },
+                { icon: <Timer className="w-4 h-4 text-primary" />, title: t.experience.santifer.reservas.title, desc: t.experience.santifer.reservas.desc, metric: t.experience.santifer.reservas.metric },
+                { icon: <Users className="w-4 h-4 text-accent" />, title: t.experience.santifer.crm.title, desc: t.experience.santifer.crm.desc, metric: t.experience.santifer.crm.metric },
+                { icon: <Sparkles className="w-4 h-4 text-primary" />, title: t.experience.santifer.genAI.title, desc: t.experience.santifer.genAI.desc, metric: t.experience.santifer.genAI.metric },
+              ]
+              const [expanded, setExpanded] = useState(false)
+              return (
+                <div className="rounded-2xl border border-border/70 bg-card/50 overflow-hidden">
+                  <button
+                    onClick={() => setExpanded(e => !e)}
+                    className="w-full flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors"
+                  >
+                    <span className="text-sm font-medium text-muted-foreground">Other contributions at {t.experience.santifer.company}</span>
+                    <motion.span
+                      animate={{ rotate: expanded ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronRight className="w-4 h-4 text-muted-foreground rotate-90" />
+                    </motion.span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {expanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div className="px-5 pb-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                          {highlights.map((h, i) => (
+                            <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-xl bg-background/50 border border-border/50">
+                              <span className="mt-0.5 shrink-0">{h.icon}</span>
+                              <div className="min-w-0">
+                                <p className="text-sm font-medium leading-tight">{h.title}</p>
+                                <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{h.desc}</p>
+                </div>
+              </div>
+                          ))}
+                </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+              </div>
+              )
+            })()}
+            </AnimatedSection>
+
+          {/* Previous Experience divider */}
+          <AnimatedSection delay={0.1} className="mt-12 mb-8">
+            <div className="flex items-center gap-4">
+              <div className="h-px flex-1 bg-border divider-flow" />
+              <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground shrink-0">{t.experience.previousLabel}</span>
+              <div className="h-px flex-1 bg-border divider-flow" />
+            </div>
+          </AnimatedSection>
+
+          {/* Peace Nepal Dot Com */}
+          <AnimatedSection delay={0.1}>
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                  <img src="/peace_nepal_dot_com_logo.webp" alt="Peace Nepal Dot Com" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.lico.company}</h3>
+                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
+                    <a href="https://peacenepal.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">peacenepal.com</a>
+                    <span className="text-border">·</span>
+                    <span>{t.experience.lico.location}</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-accent font-medium mb-1">{t.experience.lico.role}</p>
+              <p className="text-sm text-muted-foreground mb-4">{t.experience.lico.period}</p>
+              <p className="text-muted-foreground">{t.experience.lico.desc}</p>
+              {t.experience.lico.testimonial.quote && (
+                <blockquote className="mt-4 pl-4 border-l-2 border-accent/50 italic text-sm text-muted-foreground">
+                  <p>"{t.experience.lico.testimonial.quote}"</p>
+                  <footer className="mt-1 text-xs not-italic">— {t.experience.lico.testimonial.author}, {t.experience.lico.testimonial.role}</footer>
+                </blockquote>
+              )}
+            </div>
+          </AnimatedSection>
+
+          {/* Icebrkr AI Solutions */}
+          <AnimatedSection delay={0.1} className="mt-12">
+            <div className="mb-6">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-primary/10 flex items-center justify-center shrink-0">
+                    <Bot className="w-5 h-5 text-primary" />
+                  </div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.everis.company}</h3>
+                </div>
+              </div>
+              <p className="text-primary font-medium mb-1">{t.experience.everis.role}</p>
+              <p className="text-sm text-muted-foreground mb-2">{t.experience.everis.period}</p>
+              <p className="text-muted-foreground">{t.experience.everis.desc}</p>
+              {t.experience.everis.testimonial.quote && (
+                <blockquote className="mt-4 pl-4 border-l-2 border-primary/50 italic text-sm text-muted-foreground">
+                  <p>"{t.experience.everis.testimonial.quote}"</p>
+                  <footer className="mt-1 text-xs not-italic">— {t.experience.everis.testimonial.author}, {t.experience.everis.testimonial.role}</footer>
+                </blockquote>
+              )}
+            </div>
+          </AnimatedSection>
+
+          {/* Contentio Lab */}
+          <AnimatedSection delay={0.1} className="mt-12">
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-accent/10 flex items-center justify-center shrink-0">
+                  <TrendingUp className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.contentio.company}</h3>
+                  <span className="text-xs text-muted-foreground">{t.experience.contentio.location}</span>
+                </div>
+              </div>
+              <p className="text-accent font-medium mb-1">{t.experience.contentio.role}</p>
+              <p className="text-sm text-muted-foreground mb-4">{t.experience.contentio.period}</p>
+              <p className="text-muted-foreground">{t.experience.contentio.desc}</p>
+            </div>
+          </AnimatedSection>
+
+          {/* iMark Private Limited */}
+          <AnimatedSection delay={0.1} className="mt-12">
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                  <img src="/imark-logo.webp" alt="iMark Private Limited" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.imark.company}</h3>
+                  <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
+                    <a href="https://www.imarkdigital.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">imarkdigital.com</a>
+                    <span className="text-border">·</span>
+                    <span>{t.experience.imark.location}</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-primary font-medium mb-1">{t.experience.imark.role}</p>
+              <p className="text-sm text-muted-foreground mb-4">{t.experience.imark.period}</p>
+              <p className="text-muted-foreground">{t.experience.imark.desc}</p>
+            </div>
+          </AnimatedSection>
+
+          {/* Budhanilkantha Education Services */}
+          <AnimatedSection delay={0.1} className="mt-12">
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-muted flex items-center justify-center shrink-0 border border-border/50">
+                  <img src="/budhanilkantha_education_services_logo.webp" alt="Budhanilkantha Education Services" className="w-full h-full object-cover" width={40} height={40} loading="lazy" />
+                </div>
+                <div>
+                  <h3 className="font-display text-2xl font-bold">{t.experience.tutor.company}</h3>
+                  <span className="text-xs text-muted-foreground">{t.experience.tutor.location}</span>
+                </div>
+              </div>
+              <p className="text-accent font-medium mb-1">{t.experience.tutor.role}</p>
+              <p className="text-sm text-muted-foreground mb-4">{t.experience.tutor.period}</p>
+              <p className="text-muted-foreground">{t.experience.tutor.desc}</p>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
       {/* Sharing — Publications + LinkedIn */}
       <section id="speaking" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
         <div className="max-w-5xl mx-auto px-6">
@@ -1417,7 +1369,7 @@ function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'linkedin_post' })}
-                    className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 border-l-4 border-l-[hsl(var(--linkedin))] hover:border-border hover:shadow-md transition-all group"
+                    className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 hover:border-[hsl(var(--linkedin))]/40 hover:shadow-md transition-all group"
                   >
                     <div className="flex items-start gap-3 flex-1 min-w-0">
                       <div className="w-10 h-10 rounded-full bg-[hsl(var(--linkedin))]/10 flex items-center justify-center shrink-0">
@@ -1484,7 +1436,7 @@ function App() {
                       <Link
                         to={`/blog/${post.slug}`}
                         onClick={() => posthog.capture('blog_post_clicked', { slug: post.slug, placement: 'home' })}
-                        className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 border-l-4 border-l-accent hover:border-border hover:shadow-md transition-all group"
+                        className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 hover:border-accent/40 hover:shadow-md transition-all group"
                       >
                         <div className="flex items-start gap-3 flex-1 min-w-0">
                           <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
@@ -1703,7 +1655,7 @@ function App() {
               <p className="text-muted-foreground max-w-xl mx-auto">
                 {t.cta.desc}
               </p>
-              <span className="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span className="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full text-xs font-medium bg-success/10 text-success border border-success/30">
                 <MapPin className="w-3 h-3" />
                 {t.cta.availability}
               </span>
@@ -1711,27 +1663,30 @@ function App() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.1}>
-            <div className="flex flex-wrap justify-center gap-4">
-              <CalBookButton
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200 text-sm font-medium shadow-lg hover:shadow-xl"
-              >
-                <Calendar className="w-5 h-5" />
-                {t.cta.bookCall}
-              </CalBookButton>
-              <a
-                href={`mailto:${t.email}`}
-                onClick={() => posthog.capture('contact_email_clicked', { placement: 'footer' })}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
-              >
-                <Mail className="w-4 h-4" />
-                {t.email}
-              </a>
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-wrap justify-center gap-3">
+                <CalBookButton
+                  className="inline-flex items-center justify-center gap-2 min-h-11 px-8 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200 text-sm font-medium shadow-lg hover:shadow-xl"
+                >
+                  <Calendar className="w-5 h-5" />
+                  {t.cta.bookCall}
+                </CalBookButton>
+                <a
+                  href={`mailto:${t.email}`}
+                  onClick={() => posthog.capture('contact_email_clicked', { placement: 'footer' })}
+                  className="inline-flex items-center justify-center gap-2 min-h-11 px-6 py-3 rounded-xl border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+                >
+                  <Mail className="w-4 h-4" />
+                  {t.email}
+                </a>
+              </div>
+              <nav aria-label="More ways to connect" className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
                 <a
                   href={t.linkedinPosts.profileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'footer' })}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-[hsl(var(--linkedin))]/50 transition-colors duration-200 hover:bg-[hsl(var(--linkedin))]/5 text-sm"
+                  className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
                 >
                   <LinkedInLogo className="w-4 h-4" />
                   {t.cta.linkedin}
@@ -1742,7 +1697,7 @@ function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => posthog.capture('outbound_link_clicked', { destination: 'github', placement: 'footer' })}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+                  className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
                 >
                   <Github className="w-4 h-4" />
                   GitHub
@@ -1751,20 +1706,14 @@ function App() {
                 {BLOG_ENABLED && (
                   <Link
                     to="/blog"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-accent/50 transition-colors duration-200 hover:bg-accent/5 text-sm"
+                    className="inline-flex items-center gap-1.5 min-h-11 hover:text-foreground transition-colors"
                   >
                     <PenLine className="w-4 h-4" />
                     Blog
                   </Link>
                 )}
-                <Link
-                  to="/notes"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
-                >
-                  <Zap className="w-4 h-4" />
-                  Technical Notes
-                </Link>
-              </div>
+              </nav>
+            </div>
           </AnimatedSection>
 
           <p className="mt-12 text-xs text-muted-foreground text-center">
@@ -1778,6 +1727,10 @@ function App() {
                 <span className="mx-2 text-border">|</span>
               </>
             )}
+            <Link to="/notes" className="hover:text-primary transition-colors">
+              Technical Notes
+            </Link>
+            <span className="mx-2 text-border">|</span>
             <Link to="/privacy" className="hover:text-primary transition-colors">
               Privacy
             </Link>
@@ -1786,6 +1739,7 @@ function App() {
       </footer>
 
     </main>
+    </MotionConfig>
   )
 }
 
