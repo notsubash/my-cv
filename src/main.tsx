@@ -10,20 +10,58 @@ import GlobalNav from './GlobalNav.tsx'
 import { BLOG_ENABLED } from './config'
 import './posthog'
 
-const PrivacyPolicy = lazy(() => import('./PrivacyPolicy'))
-const AboutPage = lazy(() => import('./AboutPage'))
-const BlogPage = lazy(() => import('./BlogPage'))
-const TechnicalNotesPage = lazy(() => import('./TechnicalNotesPage'))
-const BlogRagPipeline = lazy(() => import('./articles/blog-rag-pipeline'))
-const BlogAudioFeatures = lazy(() => import('./articles/blog-audio-features'))
-const BlogSteamGenreNetworks = lazy(() => import('./articles/blog-steam-genre-networks'))
-const BlogMLFromScratch = lazy(() => import('./articles/blog-ml-from-scratch'))
-const BlogActivityRecognitionPipeline = lazy(() => import('./articles/blog-activity-recognition-pipeline'))
-const BlogIdeaWorkbench = lazy(() => import('./articles/blog-idea-workbench'))
-const Gavel = lazy(() => import('./articles/gavel'))
-const ActivityRecognition = lazy(() => import('./articles/activity-recognition'))
-const SteamML = lazy(() => import('./articles/steam-ml'))
-const WikipediaVoting = lazy(() => import('./articles/wikipedia-voting'))
+const loadPrivacyPolicy = () => import('./PrivacyPolicy')
+const loadAboutPage = () => import('./AboutPage')
+const loadBlogPage = () => import('./BlogPage')
+const loadTechnicalNotesPage = () => import('./TechnicalNotesPage')
+const loadBlogRagPipeline = () => import('./articles/blog-rag-pipeline')
+const loadBlogAudioFeatures = () => import('./articles/blog-audio-features')
+const loadBlogSteamGenreNetworks = () => import('./articles/blog-steam-genre-networks')
+const loadBlogMLFromScratch = () => import('./articles/blog-ml-from-scratch')
+const loadBlogActivityRecognitionPipeline = () => import('./articles/blog-activity-recognition-pipeline')
+const loadBlogIdeaWorkbench = () => import('./articles/blog-idea-workbench')
+const loadGavel = () => import('./articles/gavel')
+const loadActivityRecognition = () => import('./articles/activity-recognition')
+const loadSteamML = () => import('./articles/steam-ml')
+const loadWikipediaVoting = () => import('./articles/wikipedia-voting')
+
+const PrivacyPolicy = lazy(loadPrivacyPolicy)
+const AboutPage = lazy(loadAboutPage)
+const BlogPage = lazy(loadBlogPage)
+const TechnicalNotesPage = lazy(loadTechnicalNotesPage)
+const BlogRagPipeline = lazy(loadBlogRagPipeline)
+const BlogAudioFeatures = lazy(loadBlogAudioFeatures)
+const BlogSteamGenreNetworks = lazy(loadBlogSteamGenreNetworks)
+const BlogMLFromScratch = lazy(loadBlogMLFromScratch)
+const BlogActivityRecognitionPipeline = lazy(loadBlogActivityRecognitionPipeline)
+const BlogIdeaWorkbench = lazy(loadBlogIdeaWorkbench)
+const Gavel = lazy(loadGavel)
+const ActivityRecognition = lazy(loadActivityRecognition)
+const SteamML = lazy(loadSteamML)
+const WikipediaVoting = lazy(loadWikipediaVoting)
+
+/** Preload the active route chunk before hydrateRoot so Suspense does not flash null over prerendered HTML (React #418). */
+const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
+  '/about': loadAboutPage,
+  '/notes': loadTechnicalNotesPage,
+  '/privacy': loadPrivacyPolicy,
+  '/blog': loadBlogPage,
+  '/blog/rag-pipeline': loadBlogRagPipeline,
+  '/blog/audio-feature-extraction': loadBlogAudioFeatures,
+  '/blog/steam-genre-networks': loadBlogSteamGenreNetworks,
+  '/blog/ml-from-scratch': loadBlogMLFromScratch,
+  '/blog/activity-recognition-pipeline': loadBlogActivityRecognitionPipeline,
+  '/blog/building-an-idea-workbench': loadBlogIdeaWorkbench,
+  '/projects/gavel': loadGavel,
+  '/projects/activity-recognition': loadActivityRecognition,
+  '/projects/steam-ml': loadSteamML,
+  '/projects/wikipedia-voting': loadWikipediaVoting,
+}
+
+function normalizePath(pathname: string) {
+  if (pathname.length > 1 && pathname.endsWith('/')) return pathname.slice(0, -1)
+  return pathname
+}
 
 function PageTransition({ children }: { children: ReactNode }) {
   const location = useLocation()
@@ -167,8 +205,25 @@ const app = (
   </StrictMode>
 )
 
-if (root.hasChildNodes()) {
-  hydrateRoot(root, app)
-} else {
+async function mount() {
+  const shouldHydrate = root.hasChildNodes()
+  if (shouldHydrate) {
+    const preload = ROUTE_PRELOADERS[normalizePath(window.location.pathname)]
+    if (preload) {
+      try {
+        await preload()
+      } catch {
+        // Chunk failed: clear prerendered DOM, then client-render (avoids hydrate mismatch).
+        root.replaceChildren()
+        createRoot(root).render(app)
+        return
+      }
+    }
+    hydrateRoot(root, app)
+    return
+  }
+
   createRoot(root).render(app)
 }
+
+void mount()

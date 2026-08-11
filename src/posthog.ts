@@ -17,11 +17,14 @@ if (!projectToken) {
     ui_host: 'https://us.posthog.com',
     capture_pageview: 'history_change',
   })
-  posthog.startExceptionAutocapture({
-    capture_unhandled_errors: true,
-    capture_unhandled_rejections: true,
-    capture_console_errors: false,
-  })
+  // Skip exception autocapture in local/dev: Vite HMR chunk misses are not production bugs (#6).
+  if (!import.meta.env.DEV) {
+    posthog.startExceptionAutocapture({
+      capture_unhandled_errors: true,
+      capture_unhandled_rejections: true,
+      capture_console_errors: false,
+    })
+  }
 }
 
 export default posthog

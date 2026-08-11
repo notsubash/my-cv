@@ -321,190 +321,9 @@ function CertLogo({ logo }: { logo: string }) {
   return logos[logo] || null
 }
 
-function App() {
+function ProjectsGrid() {
   const t = translations.en
-  const hydrated = useHydrated()
-  const reduceMotion = useReducedMotion()
 
-  useHomeSeo({ title: seo.en.title, description: seo.en.description })
-
-  return (
-    <MotionConfig reducedMotion="user">
-    <main className="min-h-screen bg-background bg-[length:24px_24px] [background-image:radial-gradient(circle,hsl(var(--dot-grid))_1px,transparent_1px)]">
-      <HomeToc />
-
-      {/* Hero Section — full viewport, no next-section leak */}
-      <header id="main-content" className="relative isolate flex h-dvh min-h-[36rem] flex-col overflow-hidden">
-        {/* Aurora — inset + masked so glow dissolves instead of clipping */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          aria-hidden="true"
-          style={{
-            maskImage: 'linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%)',
-          }}
-        >
-          <div
-            className={`absolute top-[8%] left-[8%] w-[min(36rem,70vw)] h-[min(28rem,42vh)] rounded-full blur-[80px] md:blur-[100px] opacity-60 hero-aurora-blob${reduceMotion ? '' : ' hero-aurora-blob--animate'}`}
-            style={{ background: 'linear-gradient(135deg, hsl(var(--gradient-from) / 0.4), hsl(var(--accent) / 0.2))' }}
-          />
-          <div
-            className={`absolute top-[22%] right-[6%] w-[min(34rem,65vw)] h-[min(26rem,40vh)] rounded-full blur-[80px] md:blur-[100px] opacity-50 hero-aurora-blob${reduceMotion ? '' : ' hero-aurora-blob--animate-alt'}`}
-            style={{ background: 'linear-gradient(225deg, hsl(var(--accent) / 0.32), hsl(var(--gradient-from) / 0.14))' }}
-          />
-        </div>
-
-        <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-6 py-16">
-          <div className="flex w-full flex-col items-center text-center">
-            <motion.div
-              initial={hydrated ? { opacity: 0, scale: 0.85 } : false}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mb-6 md:mb-7"
-            >
-              <Link
-                to="/about"
-                className="relative block h-36 w-36 rounded-full outline-offset-4 transition-opacity hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary md:h-44 md:w-44"
-                aria-label="About Subash Pandey"
-              >
-                <div
-                  className={`pointer-events-none absolute inset-[-28px] h-[calc(100%+56px)] w-[calc(100%+56px)]${reduceMotion ? '' : ' hero-ring-spin'}`}
-                  aria-hidden="true"
-                >
-                  <img
-                    src="/globe.svg"
-                    alt=""
-                    className={`absolute top-[3%] left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_8px_hsl(var(--gradient-from)/0.55)] md:h-7 md:w-7${reduceMotion ? '' : ' hero-ring-spin-reverse'}`}
-                    width={28}
-                    height={28}
-                  />
-                </div>
-                <div className="h-full w-full overflow-hidden rounded-full shadow-[0_16px_40px_hsl(0_0%_0%/0.35)]">
-                  <img
-                    src="/foto-avatar-sm.webp"
-                    srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w"
-                    sizes="176px"
-                    alt=""
-                    className="h-full w-full object-cover"
-                    width={192}
-                    height={192}
-                    fetchPriority="high"
-                  />
-                </div>
-              </Link>
-            </motion.div>
-
-            <motion.h1
-              initial={hydrated ? { opacity: 0, y: 16 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.12 }}
-              className="font-display text-5xl font-bold tracking-tight text-foreground sm:text-6xl md:text-[4rem] md:leading-[1.05]"
-            >
-              Subash Pandey
-            </motion.h1>
-
-            <motion.p
-              initial={hydrated ? { opacity: 0, y: 12 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.22 }}
-              className="mt-4 max-w-2xl text-lg font-medium leading-snug text-foreground/85 md:mt-5 md:text-xl md:leading-snug"
-            >
-              {t.role}
-            </motion.p>
-
-            <motion.p
-              initial={hydrated ? { opacity: 0, y: 10 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.3 }}
-              className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base"
-            >
-              {t.summary.p1}{' '}
-              <span className="font-medium text-foreground">{t.summary.p1Highlight}</span>.
-            </motion.p>
-
-            <motion.div
-              initial={hydrated ? { opacity: 0, y: 12 } : false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4"
-            >
-              <CalBookButton
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.28)] transition-colors hover:bg-primary/90"
-              >
-                <Calendar className="h-4 w-4" />
-                {t.cta.primaryHeroCta}
-              </CalBookButton>
-              <Link
-                to="/about"
-                className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
-              >
-                About
-                <ChevronRight className="h-4 w-4 opacity-70" />
-              </Link>
-              {BLOG_ENABLED && (
-                <Link
-                  to="/blog"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
-                >
-                  <PenLine className="h-4 w-4" />
-                  Blog
-                </Link>
-              )}
-            </motion.div>
-
-            <motion.a
-              href="#projects"
-              initial={hydrated ? { opacity: 0 } : false}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.65 }}
-              className="mt-10 flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 text-muted-foreground/75 transition-colors hover:text-muted-foreground md:mt-12"
-              onClick={(e) => {
-                e.preventDefault()
-                document.getElementById('projects')?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth' })
-              }}
-            >
-              <span className="text-[10px] font-medium uppercase tracking-[0.22em]">{t.scrollHint ?? 'Scroll'}</span>
-              <div className={`flex flex-col items-center${reduceMotion ? '' : ' hero-scroll-hint'}`}>
-                <ChevronDown className="mb-[-6px] h-4 w-4 opacity-60" />
-                <ChevronDown className="h-4 w-4 opacity-30" />
-              </div>
-            </motion.a>
-          </div>
-        </div>
-
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-24 bg-gradient-to-t from-background via-background/70 to-transparent"
-          aria-hidden="true"
-        />
-      </header>
-
-      {/* Projects & Claude Code */}
-      <section id="projects" className="scroll-mt-4 py-14 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
-        <div className="max-w-5xl mx-auto px-6">
-          <AnimatedSection>
-            <div className="flex items-center justify-between mb-12">
-              <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
-                <SectionIcon>
-                  <FolderGit2 className="w-5 h-5 text-primary" />
-                </SectionIcon>
-                {t.projects.title}
-              </h2>
-              <a
-                href={`https://${t.projects.githubLink}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                {t.projects.githubLink.split('/').pop()}
-              </a>
-            </div>
-          </AnimatedSection>
-
-          {/* Projects Grid with Dependency Lines */}
-          {(() => {
             // Tipo para proyecto
             type ProjectLink = { label: string; url: string; icon: string }
             type Project = {
@@ -825,7 +644,246 @@ function App() {
                 </div>
               </div>
             )
-          })()}
+          
+}
+
+function OtherContributions() {
+  const t = translations.en
+
+              const highlights = [
+                { icon: <Database className="w-4 h-4 text-primary" />, title: t.experience.santifer.erp.title, desc: t.experience.santifer.erp.desc, metric: t.experience.santifer.erp.metric },
+                { icon: <Bot className="w-4 h-4 text-accent" />, title: t.experience.santifer.gpts.title, desc: t.experience.santifer.gpts.desc, metric: t.experience.santifer.gpts.metric },
+                { icon: <Timer className="w-4 h-4 text-primary" />, title: t.experience.santifer.reservas.title, desc: t.experience.santifer.reservas.desc, metric: t.experience.santifer.reservas.metric },
+                { icon: <Users className="w-4 h-4 text-accent" />, title: t.experience.santifer.crm.title, desc: t.experience.santifer.crm.desc, metric: t.experience.santifer.crm.metric },
+                { icon: <Sparkles className="w-4 h-4 text-primary" />, title: t.experience.santifer.genAI.title, desc: t.experience.santifer.genAI.desc, metric: t.experience.santifer.genAI.metric },
+              ]
+              const [expanded, setExpanded] = useState(false)
+              return (
+                <div className="rounded-2xl border border-border/70 bg-card/50 overflow-hidden">
+                  <button
+                    onClick={() => setExpanded(e => !e)}
+                    className="w-full flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors"
+                  >
+                    <span className="text-sm font-medium text-muted-foreground">Other contributions at {t.experience.santifer.company}</span>
+                    <motion.span
+                      animate={{ rotate: expanded ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronRight className="w-4 h-4 text-muted-foreground rotate-90" />
+                    </motion.span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {expanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div className="px-5 pb-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                          {highlights.map((h, i) => (
+                            <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-xl bg-background/50 border border-border/50">
+                              <span className="mt-0.5 shrink-0">{h.icon}</span>
+                              <div className="min-w-0">
+                                <p className="text-sm font-medium leading-tight">{h.title}</p>
+                                <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{h.desc}</p>
+                </div>
+              </div>
+                          ))}
+                </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+              </div>
+              )
+            
+}
+
+function App() {
+  const t = translations.en
+  const hydrated = useHydrated()
+  const reduceMotion = useReducedMotion()
+
+  useHomeSeo({ title: seo.en.title, description: seo.en.description })
+
+  return (
+    <MotionConfig reducedMotion="user">
+    <main className="min-h-screen bg-background bg-[length:24px_24px] [background-image:radial-gradient(circle,hsl(var(--dot-grid))_1px,transparent_1px)]">
+      <HomeToc />
+
+      {/* Hero Section — full viewport, no next-section leak */}
+      <header id="main-content" className="relative isolate flex h-dvh min-h-[36rem] flex-col overflow-hidden">
+        {/* Aurora — inset + masked so glow dissolves instead of clipping */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+          style={{
+            maskImage: 'linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%)',
+          }}
+        >
+          <div
+            className="absolute top-[8%] left-[8%] w-[min(36rem,70vw)] h-[min(28rem,42vh)] rounded-full blur-[80px] md:blur-[100px] opacity-60 hero-aurora-blob hero-aurora-blob--animate"
+            style={{ background: 'linear-gradient(135deg, hsl(var(--gradient-from) / 0.4), hsl(var(--accent) / 0.2))' }}
+          />
+          <div
+            className="absolute top-[22%] right-[6%] w-[min(34rem,65vw)] h-[min(26rem,40vh)] rounded-full blur-[80px] md:blur-[100px] opacity-50 hero-aurora-blob hero-aurora-blob--animate-alt"
+            style={{ background: 'linear-gradient(225deg, hsl(var(--accent) / 0.32), hsl(var(--gradient-from) / 0.14))' }}
+          />
+        </div>
+
+        <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-6 py-16">
+          <div className="flex w-full flex-col items-center text-center">
+            <motion.div
+              initial={hydrated ? { opacity: 0, scale: 0.85 } : false}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mb-6 md:mb-7"
+            >
+              <Link
+                to="/about"
+                className="relative block h-36 w-36 rounded-full outline-offset-4 transition-opacity hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary md:h-44 md:w-44"
+                aria-label="About Subash Pandey"
+              >
+                <div
+                  className="pointer-events-none absolute inset-[-28px] h-[calc(100%+56px)] w-[calc(100%+56px)] hero-ring-spin"
+                  aria-hidden="true"
+                >
+                  <img
+                    src="/globe.svg"
+                    alt=""
+                    className="absolute top-[3%] left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_8px_hsl(var(--gradient-from)/0.55)] md:h-7 md:w-7 hero-ring-spin-reverse"
+                    width={28}
+                    height={28}
+                  />
+                </div>
+                <div className="h-full w-full overflow-hidden rounded-full shadow-[0_16px_40px_hsl(0_0%_0%/0.35)]">
+                  <img
+                    src="/foto-avatar-sm.webp"
+                    srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w"
+                    sizes="176px"
+                    alt=""
+                    className="h-full w-full object-cover"
+                    width={192}
+                    height={192}
+                    fetchPriority="high"
+                  />
+                </div>
+              </Link>
+            </motion.div>
+
+            <motion.h1
+              initial={hydrated ? { opacity: 0, y: 16 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.12 }}
+              className="font-display text-5xl font-bold tracking-tight text-foreground sm:text-6xl md:text-[4rem] md:leading-[1.05]"
+            >
+              Subash Pandey
+            </motion.h1>
+
+            <motion.p
+              initial={hydrated ? { opacity: 0, y: 12 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.22 }}
+              className="mt-4 max-w-2xl text-lg font-medium leading-snug text-foreground/85 md:mt-5 md:text-xl md:leading-snug"
+            >
+              {t.role}
+            </motion.p>
+
+            <motion.p
+              initial={hydrated ? { opacity: 0, y: 10 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.3 }}
+              className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base"
+            >
+              {t.summary.p1}{' '}
+              <span className="font-medium text-foreground">{t.summary.p1Highlight}</span>.
+            </motion.p>
+
+            <motion.div
+              initial={hydrated ? { opacity: 0, y: 12 } : false}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4"
+            >
+              <CalBookButton
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.28)] transition-colors hover:bg-primary/90"
+              >
+                <Calendar className="h-4 w-4" />
+                {t.cta.primaryHeroCta}
+              </CalBookButton>
+              <Link
+                to="/about"
+                className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
+              >
+                About
+                <ChevronRight className="h-4 w-4 opacity-70" />
+              </Link>
+              {BLOG_ENABLED && (
+                <Link
+                  to="/blog"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
+                >
+                  <PenLine className="h-4 w-4" />
+                  Blog
+                </Link>
+              )}
+            </motion.div>
+
+            <motion.a
+              href="#projects"
+              initial={hydrated ? { opacity: 0 } : false}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.65 }}
+              className="mt-10 flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 text-muted-foreground/75 transition-colors hover:text-muted-foreground md:mt-12"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById('projects')?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth' })
+              }}
+            >
+              <span className="text-[10px] font-medium uppercase tracking-[0.22em]">{t.scrollHint ?? 'Scroll'}</span>
+              <div className="flex flex-col items-center hero-scroll-hint">
+                <ChevronDown className="mb-[-6px] h-4 w-4 opacity-60" />
+                <ChevronDown className="h-4 w-4 opacity-30" />
+              </div>
+            </motion.a>
+          </div>
+        </div>
+
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-24 bg-gradient-to-t from-background via-background/70 to-transparent"
+          aria-hidden="true"
+        />
+      </header>
+
+      {/* Projects & Claude Code */}
+      <section id="projects" className="scroll-mt-4 py-14 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <AnimatedSection>
+            <div className="flex items-center justify-between mb-12">
+              <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
+                <SectionIcon>
+                  <FolderGit2 className="w-5 h-5 text-primary" />
+                </SectionIcon>
+                {t.projects.title}
+              </h2>
+              <a
+                href={`https://${t.projects.githubLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                {t.projects.githubLink.split('/').pop()}
+              </a>
+            </div>
+          </AnimatedSection>
+
+          {/* Projects Grid with Dependency Lines */}
+          <ProjectsGrid />
 
         </div>
       </section>
@@ -1037,55 +1095,7 @@ function App() {
 
           {/* Other highlights - compact strip */}
           <AnimatedSection delay={0.25} className="mb-10">
-            {(() => {
-              const highlights = [
-                { icon: <Database className="w-4 h-4 text-primary" />, title: t.experience.santifer.erp.title, desc: t.experience.santifer.erp.desc, metric: t.experience.santifer.erp.metric },
-                { icon: <Bot className="w-4 h-4 text-accent" />, title: t.experience.santifer.gpts.title, desc: t.experience.santifer.gpts.desc, metric: t.experience.santifer.gpts.metric },
-                { icon: <Timer className="w-4 h-4 text-primary" />, title: t.experience.santifer.reservas.title, desc: t.experience.santifer.reservas.desc, metric: t.experience.santifer.reservas.metric },
-                { icon: <Users className="w-4 h-4 text-accent" />, title: t.experience.santifer.crm.title, desc: t.experience.santifer.crm.desc, metric: t.experience.santifer.crm.metric },
-                { icon: <Sparkles className="w-4 h-4 text-primary" />, title: t.experience.santifer.genAI.title, desc: t.experience.santifer.genAI.desc, metric: t.experience.santifer.genAI.metric },
-              ]
-              const [expanded, setExpanded] = useState(false)
-              return (
-                <div className="rounded-2xl border border-border/70 bg-card/50 overflow-hidden">
-                  <button
-                    onClick={() => setExpanded(e => !e)}
-                    className="w-full flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors"
-                  >
-                    <span className="text-sm font-medium text-muted-foreground">Other contributions at {t.experience.santifer.company}</span>
-                    <motion.span
-                      animate={{ rotate: expanded ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <ChevronRight className="w-4 h-4 text-muted-foreground rotate-90" />
-                    </motion.span>
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {expanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ overflow: 'hidden' }}
-                      >
-                        <div className="px-5 pb-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-                          {highlights.map((h, i) => (
-                            <div key={i} className="flex items-start gap-2.5 p-2.5 rounded-xl bg-background/50 border border-border/50">
-                              <span className="mt-0.5 shrink-0">{h.icon}</span>
-                              <div className="min-w-0">
-                                <p className="text-sm font-medium leading-tight">{h.title}</p>
-                                <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{h.desc}</p>
-                </div>
-              </div>
-                          ))}
-                </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-              </div>
-              )
-            })()}
+            <OtherContributions />
             </AnimatedSection>
 
           {/* Previous Experience divider */}
