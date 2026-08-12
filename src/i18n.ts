@@ -612,13 +612,6 @@ export const translations = {
           summary: 'Implementing every ML algorithm twice: first from scratch in NumPy, then in PyTorch. From linear regression through CNNs, RNNs, and transformers, with miniprojects on MNIST, CIFAR-10, CelebA, and IMDB.',
           tags: ['Python', 'NumPy', 'PyTorch', 'Deep Learning', 'From Scratch'],
         },
-        {
-          slug: 'audio-feature-extraction',
-          title: 'Audio Feature Extraction: Designing an Audio Metrics Pipeline',
-          date: 'April 2026',
-          summary: 'Techniques for extracting quantitative voice metrics from raw WAV files. Covers pitch tracking, loudness measurement, spectral analysis, and silence detection using Python libraries.',
-          tags: ['Parselmouth', 'librosa', 'FastAPI', 'Audio ML', 'Python'],
-        },
       ],
     },
     technicalNotes: {
@@ -647,19 +640,11 @@ export const translations = {
           title: 'HPSS for Harmonic-to-Noise Ratio',
           body: 'Instead of autocorrelation-based HNR, split the STFT into harmonic and percussive components via librosa\'s HPSS (median filtering on the spectrogram), then compute 10·log₁₀(E_harmonic / E_percussive). Different from Praat\'s HNR but captures voice quality well.',
           tags: ['Audio', 'librosa'],
-          relatedBlog: {
-            slug: 'audio-feature-extraction',
-            title: 'Audio Feature Extraction: Designing an Audio Metrics Pipeline',
-          },
         },
         {
           title: 'Dual Pitch Tracking',
           body: 'librosa pyin (probabilistic YIN) and Parselmouth (Praat autocorrelation) give noticeably different F0 contours on the same audio. pyin catches quiet voiced segments; Praat handles octave jumps better. Return both and let the consumer decide.',
           tags: ['Audio', 'Parselmouth'],
-          relatedBlog: {
-            slug: 'audio-feature-extraction',
-            title: 'Audio Feature Extraction: Designing an Audio Metrics Pipeline',
-          },
         },
         {
           title: 'Parallel LLM Calls for Latency',

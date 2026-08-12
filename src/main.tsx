@@ -15,7 +15,6 @@ const loadAboutPage = () => import('./AboutPage')
 const loadBlogPage = () => import('./BlogPage')
 const loadTechnicalNotesPage = () => import('./TechnicalNotesPage')
 const loadBlogRagPipeline = () => import('./articles/blog-rag-pipeline')
-const loadBlogAudioFeatures = () => import('./articles/blog-audio-features')
 const loadBlogSteamGenreNetworks = () => import('./articles/blog-steam-genre-networks')
 const loadBlogMLFromScratch = () => import('./articles/blog-ml-from-scratch')
 const loadBlogActivityRecognitionPipeline = () => import('./articles/blog-activity-recognition-pipeline')
@@ -30,7 +29,6 @@ const AboutPage = lazy(loadAboutPage)
 const BlogPage = lazy(loadBlogPage)
 const TechnicalNotesPage = lazy(loadTechnicalNotesPage)
 const BlogRagPipeline = lazy(loadBlogRagPipeline)
-const BlogAudioFeatures = lazy(loadBlogAudioFeatures)
 const BlogSteamGenreNetworks = lazy(loadBlogSteamGenreNetworks)
 const BlogMLFromScratch = lazy(loadBlogMLFromScratch)
 const BlogActivityRecognitionPipeline = lazy(loadBlogActivityRecognitionPipeline)
@@ -47,7 +45,6 @@ const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
   '/privacy': loadPrivacyPolicy,
   '/blog': loadBlogPage,
   '/blog/rag-pipeline': loadBlogRagPipeline,
-  '/blog/audio-feature-extraction': loadBlogAudioFeatures,
   '/blog/steam-genre-networks': loadBlogSteamGenreNetworks,
   '/blog/ml-from-scratch': loadBlogMLFromScratch,
   '/blog/activity-recognition-pipeline': loadBlogActivityRecognitionPipeline,
@@ -185,7 +182,6 @@ const app = (
             {BLOG_ENABLED && <Route path="/blog" element={<BlogPage />} />}
             <Route path="/notes" element={<TechnicalNotesPage />} />
             {BLOG_ENABLED && <Route path="/blog/rag-pipeline" element={<BlogRagPipeline />} />}
-            {BLOG_ENABLED && <Route path="/blog/audio-feature-extraction" element={<BlogAudioFeatures />} />}
             {BLOG_ENABLED && <Route path="/blog/steam-genre-networks" element={<BlogSteamGenreNetworks />} />}
             {BLOG_ENABLED && <Route path="/blog/ml-from-scratch" element={<BlogMLFromScratch />} />}
             {BLOG_ENABLED && <Route path="/blog/activity-recognition-pipeline" element={<BlogActivityRecognitionPipeline />} />}

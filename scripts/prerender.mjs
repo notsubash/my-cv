@@ -33,7 +33,6 @@ const ROUTES = [
   '/notes',
   '/blog',
   '/blog/rag-pipeline',
-  '/blog/audio-feature-extraction',
   '/blog/steam-genre-networks',
   '/blog/ml-from-scratch',
   '/blog/activity-recognition-pipeline',
