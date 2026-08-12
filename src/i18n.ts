@@ -161,6 +161,7 @@ export const translations = {
           desc: 'Workspace for shaping startup ideas, collecting evidence, and running structured multi-agent judgment. Five parallel judges, LangGraph debate, readiness gates, versioned worksheets, post-run handoffs, and a FastAPI SSE run engine with a durable SQLite event log.',
           tech: ['LangGraph', 'Python', 'FastAPI', 'Next.js', 'SQLite'],
           link: 'github.com/notsubash/gavel',
+          image: '/projects/gavel.webp',
           caseStudyUrl: '/projects/gavel',
           caseStudyLabel: 'Read case study',
           links: [
@@ -174,6 +175,7 @@ export const translations = {
           desc: 'Cost-bounded cloud-native AI summarization platform: FastAPI + Kubernetes/Helm, Terraform on Hetzner, GitOps via Argo CD, full observability stack. Next up: autoscaling, canary deploys, DR. Runs under $15/month.',
           tech: ['Kubernetes', 'Helm', 'Terraform', 'FastAPI', 'Argo CD','Prometheus','Grafana','Loki','Gitops','Hetzner'],
           link: 'github.com/notsubash/cloud-native-AI-platform',
+          image: '/projects/cloud-native-ai-platform.webp',
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/cloud-native-AI-platform', icon: 'github' },
           ],
@@ -185,6 +187,7 @@ export const translations = {
           desc: 'Classified human physical activities (walking, jogging, sitting, typing, etc.) using XGBoost on accelerometer and gyroscope data from smartphones and watches. Hyperparameter tuning via random search achieved >85% accuracy.',
           tech: ['XGBoost', 'Python', 'scikit-learn', 'Feature Engineering'],
           link: 'github.com/notsubash/Activity-Recognition',
+          image: '/projects/activity-recognition.webp',
           caseStudyUrl: '/projects/activity-recognition',
           caseStudyLabel: 'Read case study',
           links: [
@@ -198,6 +201,7 @@ export const translations = {
           desc: 'Explored the evolution of game genres on Steam using network analysis. Identified emergent sub-genres, influential genre nodes, and key drivers of player engagement including ratings, achievements, and pricing models.',
           tech: ['NetworkX', 'Python', 'Gephi', 'Data Analysis'],
           link: 'github.com/notsubash/Game-Genre-Network-Analysis',
+          image: '/projects/steam-ml.webp',
           caseStudyUrl: '/projects/steam-ml',
           caseStudyLabel: 'Read case study',
           links: [
@@ -213,6 +217,7 @@ export const translations = {
           desc: "Investigated social network dynamics within Wikipedia's administrator election process. Calculated centrality measures, performed community detection via hierarchical clustering, and analyzed voting blocs.",
           tech: ['NetworkX', 'Python', 'Community Detection', 'Clustering'],
           link: 'github.com/notsubash/WikiVoteNetworkAnalysis',
+          image: '/projects/wikipedia-voting.webp',
           caseStudyUrl: '/projects/wikipedia-voting',
           caseStudyLabel: 'Read case study',
           links: [
@@ -227,6 +232,7 @@ export const translations = {
           desc: 'Full-stack e-commerce application built with the MERN stack. Features include product browsing, searching, filtering, cart management, user authentication, order processing, and payment integration with Redux state management.',
           tech: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Redux'],
           link: 'github.com/notsubash/Floki-eCommerce',
+          image: '/projects/floki-ecommerce.webp',
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/Floki-eCommerce', icon: 'github' },
           ],

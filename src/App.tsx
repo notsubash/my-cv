@@ -333,6 +333,8 @@ function ProjectsGrid() {
               desc: string
               tech: readonly string[]
               link: string
+              /** Cover under public/projects/ — swap the file to replace */
+              image?: string
               links?: readonly ProjectLink[]
               isDependency?: boolean
               dependencyRole?: string
@@ -474,7 +476,7 @@ function ProjectsGrid() {
               return (
                 <div
                   ref={cardRef}
-                  className={`h-full p-6 rounded-2xl transition-colors duration-200 flex flex-col ${hasHover ? 'group' : ''} ${
+                  className={`h-full rounded-2xl transition-colors duration-200 flex flex-col overflow-hidden ${hasHover ? 'group' : ''} ${
                     isHighlight
                       ? 'bg-gradient-to-br from-accent/5 to-transparent border-2 border-accent/50 hover:border-accent/70'
                       : isTool
@@ -482,107 +484,124 @@ function ProjectsGrid() {
                       : 'bg-card border border-border hover:border-primary/30'
                   }`}
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className={`font-display text-xl font-bold transition-colors ${
-                      isTool ? 'group-hover:text-tool' : 'group-hover:text-primary'
-                    }`}>{project.title}</h3>
-                    <div className="flex items-center gap-2">
-                      <span className={`badge px-2 py-0.5 ${
-                        isTool
-                          ? 'bg-tool/10 text-tool'
-                          : isHighlight
-                          ? 'bg-accent/10 text-accent'
-                          : 'bg-primary/10 text-primary'
-                      }`}>{project.badge}</span>
+                  {project.image && (
+                    <div className="aspect-video w-full overflow-hidden bg-muted shrink-0">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover object-top transform-gpu backface-hidden will-change-transform transition-transform duration-[1200ms] ease-out group-hover:scale-[1.02]"
+                        onError={(e) => {
+                          const wrap = e.currentTarget.parentElement
+                          if (wrap) wrap.style.display = 'none'
+                        }}
+                      />
                     </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {parseBold(project.desc)}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech) => (
-                      <span key={tech} className={`px-2 py-1 rounded-md text-xs ${
-                        isTool
-                          ? 'bg-tool/10 text-tool'
-                          : 'bg-muted text-muted-foreground'
-                      }`}>{tech}</span>
-                    ))}
-                  </div>
-                  <div className="flex flex-col gap-3 mt-auto">
-                    {project.caseStudyUrl && (
-                      <Link
-                        to={project.caseStudyUrl}
-                        onClick={() => posthog.capture('project_link_clicked', { link_type: 'case_study', project_title: project.title })}
-                        className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta"
-                      >
-                        <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{project.caseStudyLabel}</span>
-                        <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                      </Link>
-                    )}
-                    {project.links && project.links.length > 0 ? (
-                      <div className="flex flex-wrap items-center gap-2">
-                        {project.links.map((pl, li) => {
-                          const plIcons: Record<string, React.ReactNode> = {
-                            github: <Github className="w-3.5 h-3.5" />,
-                            fileText: <FileText className="w-3.5 h-3.5" />,
-                            video: <Video className="w-3.5 h-3.5" />,
-                          }
-                          return (
-                            <a
-                              key={li}
-                              href={pl.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={() => posthog.capture('project_link_clicked', { link_type: pl.icon, project_title: project.title })}
-                              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
-                                isTool
-                                  ? 'bg-tool/10 text-tool hover:bg-tool/20'
-                                  : 'bg-primary/10 text-primary hover:bg-primary/20'
-                              }`}
-                            >
-                              {plIcons[pl.icon] || <ExternalLink className="w-3.5 h-3.5" />}
-                              {pl.label}
-                            </a>
-                          )
-                        })}
-                        {project.stars && (
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Star className="w-3.5 h-3.5 text-yellow-500" />
-                            {project.stars}
-                          </span>
-                        )}
-                        {project.forks && (
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <GitFork className="w-3.5 h-3.5" />
-                            {project.forks}
-                          </span>
-                        )}
+                  )}
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className={`font-display text-xl font-bold transition-colors ${
+                        isTool ? 'group-hover:text-tool' : 'group-hover:text-primary'
+                      }`}>{project.title}</h3>
+                      <div className="flex items-center gap-2">
+                        <span className={`badge px-2 py-0.5 ${
+                          isTool
+                            ? 'bg-tool/10 text-tool'
+                            : isHighlight
+                            ? 'bg-accent/10 text-accent'
+                            : 'bg-primary/10 text-primary'
+                        }`}>{project.badge}</span>
                       </div>
-                    ) : project.link ? (
-                      <div className="flex items-center gap-3">
-                        <a
-                          href={`https://${project.link}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => posthog.capture('project_link_clicked', { link_type: project.link.includes('github.com') ? 'repository' : 'prototype', project_title: project.title })}
-                          className={`inline-flex items-center gap-2 text-xs ${
-                            isTool ? 'text-tool hover:text-tool' : 'text-primary'
-                          } hover:underline`}
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {parseBold(project.desc)}
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.tech.map((tech) => (
+                        <span key={tech} className={`px-2 py-1 rounded-md text-xs ${
+                          isTool
+                            ? 'bg-tool/10 text-tool'
+                            : 'bg-muted text-muted-foreground'
+                        }`}>{tech}</span>
+                      ))}
+                    </div>
+                    <div className="flex flex-col gap-3 mt-auto">
+                      {project.caseStudyUrl && (
+                        <Link
+                          to={project.caseStudyUrl}
+                          onClick={() => posthog.capture('project_link_clicked', { link_type: 'case_study', project_title: project.title })}
+                          className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta"
                         >
-                          {project.link.includes('github.com') ? (
-                            <>
-                              <Github className="w-4 h-4" />
-                              {t.projects.viewCode}
-                            </>
-                          ) : (
-                            <>
-                              <ExternalLink className="w-4 h-4" aria-hidden="true" />
-                              {t.projects.viewPrototype}
-                            </>
+                          <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{project.caseStudyLabel}</span>
+                          <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
+                        </Link>
+                      )}
+                      {project.links && project.links.length > 0 ? (
+                        <div className="flex flex-wrap items-center gap-2">
+                          {project.links.map((pl, li) => {
+                            const plIcons: Record<string, React.ReactNode> = {
+                              github: <Github className="w-3.5 h-3.5" />,
+                              fileText: <FileText className="w-3.5 h-3.5" />,
+                              video: <Video className="w-3.5 h-3.5" />,
+                            }
+                            return (
+                              <a
+                                key={li}
+                                href={pl.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => posthog.capture('project_link_clicked', { link_type: pl.icon, project_title: project.title })}
+                                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                                  isTool
+                                    ? 'bg-tool/10 text-tool hover:bg-tool/20'
+                                    : 'bg-primary/10 text-primary hover:bg-primary/20'
+                                }`}
+                              >
+                                {plIcons[pl.icon] || <ExternalLink className="w-3.5 h-3.5" />}
+                                {pl.label}
+                              </a>
+                            )
+                          })}
+                          {project.stars && (
+                            <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                              <Star className="w-3.5 h-3.5 text-yellow-500" />
+                              {project.stars}
+                            </span>
                           )}
-                        </a>
-                      </div>
-                    ) : null}
+                          {project.forks && (
+                            <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                              <GitFork className="w-3.5 h-3.5" />
+                              {project.forks}
+                            </span>
+                          )}
+                        </div>
+                      ) : project.link ? (
+                        <div className="flex items-center gap-3">
+                          <a
+                            href={`https://${project.link}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => posthog.capture('project_link_clicked', { link_type: project.link.includes('github.com') ? 'repository' : 'prototype', project_title: project.title })}
+                            className={`inline-flex items-center gap-2 text-xs ${
+                              isTool ? 'text-tool hover:text-tool' : 'text-primary'
+                            } hover:underline`}
+                          >
+                            {project.link.includes('github.com') ? (
+                              <>
+                                <Github className="w-4 h-4" />
+                                {t.projects.viewCode}
+                              </>
+                            ) : (
+                              <>
+                                <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                                {t.projects.viewPrototype}
+                              </>
+                            )}
+                          </a>
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               )

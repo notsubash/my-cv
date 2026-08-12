@@ -50,3 +50,4 @@ chatbot/.playwright-mcp/
 # RAG
 .rag-hashes.json
 scripts/chunks/
+.superpowers/
