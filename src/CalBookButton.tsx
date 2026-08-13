@@ -1,4 +1,4 @@
-import { useEffect, useState, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { useEffect, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { getCalApi } from '@calcom/embed-react'
 import posthog from './posthog'
 
@@ -40,16 +40,11 @@ type CalBookButtonProps = {
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'type'>
 
 export function CalBookButton({ children, className, onClick, ...props }: CalBookButtonProps) {
-  // Always start as dark to match prerendered HTML; sync real theme after mount.
-  const [theme, setTheme] = useState<CalTheme>('dark')
-
   useEffect(() => {
     bindBookingSuccessOnce()
 
     const sync = () => {
-      const next = getSiteTheme()
-      setTheme(next)
-      void applyCalTheme(next)
+      void applyCalTheme(getSiteTheme())
     }
 
     sync()
@@ -64,7 +59,6 @@ export function CalBookButton({ children, className, onClick, ...props }: CalBoo
 
   const calConfig = JSON.stringify({
     layout: 'month_view',
-    theme,
     useSlotsViewOnSmallScreen: true,
   })
 

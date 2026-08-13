@@ -125,10 +125,26 @@ async function prerenderRoute(page, route) {
     document
       .querySelectorAll('script[src="https://app.cal.com/embed/embed.js"]')
       .forEach((script) => script.remove())
+    document
+      .querySelectorAll('script[src*="relay.subash-pandey.com"]')
+      .forEach((script) => script.remove())
   })
 
   const html = await page.content()
   return html
+}
+
+function assertHydrationSafe(route, html) {
+  const sun = html.includes('lucide-sun')
+  const moon = html.includes('lucide-moon')
+  if (!sun || !moon) {
+    throw new Error(
+      `${route}: theme toggle must snapshot both sun and moon icons (sun=${sun} moon=${moon})`,
+    )
+  }
+  if (/data-cal-config="[^"]*theme/.test(html)) {
+    throw new Error(`${route}: data-cal-config still includes theme (React #418 trap)`)
+  }
 }
 
 function writeRoute(route, html) {
@@ -157,14 +173,22 @@ async function main() {
   try {
     const page = await browser.newPage()
     await page.setViewport({ width: 1280, height: 800 })
+    await page.emulateMediaFeatures([
+      { name: 'prefers-color-scheme', value: 'dark' },
+    ])
+    await page.evaluateOnNewDocument(() => {
+      window.__PRERENDER__ = true
+    })
 
     for (const route of ROUTES) {
       const html = await prerenderRoute(page, route)
+      assertHydrationSafe(route, html)
       writeRoute(route, html)
     }
 
     console.log('\n  Pre-rendering 404 page...')
     const html404 = await prerenderRoute(page, NOT_FOUND_ROUTE)
+    assertHydrationSafe(NOT_FOUND_ROUTE, html404)
     writeFileSync(join(DIST, '404.html'), html404, 'utf-8')
     console.log('  ✓ 404 → dist/404.html')
 

@@ -1,16 +1,14 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Sun, Moon, House, ChevronRight } from 'lucide-react'
+import { Sun, Moon, House, ChevronRight, ChevronUp } from 'lucide-react'
 import { getPageTitles } from './articles/registry'
 
 const PAGE_TITLE = getPageTitles()
 
 function useTheme() {
-  const [isDark, setIsDark] = useState(true)
-
-  useEffect(() => {
-    setIsDark(document.documentElement.classList.contains('dark'))
-  }, [])
+  const [isDark, setIsDark] = useState(() =>
+    document.documentElement.classList.contains('dark')
+  )
 
   useEffect(() => {
     if (localStorage.getItem('theme')) return
@@ -44,16 +42,44 @@ function useTheme() {
   return { isDark, toggleTheme }
 }
 
+const navIconBtn =
+  'min-h-11 min-w-11 w-11 h-11 rounded-full bg-card border border-border flex items-center justify-center shadow-lg hover:border-primary/50 hover:shadow-primary/20 hover:shadow-xl transition-colors'
+
 function ThemeToggle({ isDark, toggleTheme }: { isDark: boolean; toggleTheme: () => void }) {
   return (
     <button
       type="button"
       onClick={toggleTheme}
-      className="min-h-11 min-w-11 w-11 h-11 rounded-full bg-card border border-border flex items-center justify-center shadow-lg hover:border-primary/50 hover:shadow-primary/20 hover:shadow-xl transition-colors"
+      className={navIconBtn}
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
       aria-pressed={isDark}
     >
-      {isDark ? <Sun className="w-5 h-5 text-primary" /> : <Moon className="w-5 h-5 text-primary" />}
+      <Sun className="w-5 h-5 text-primary hidden [.dark_&]:block" aria-hidden="true" />
+      <Moon className="w-5 h-5 text-primary [.dark_&]:hidden" aria-hidden="true" />
+    </button>
+  )
+}
+
+function BackToTop() {
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    const check = () => setShow(window.scrollY > 240)
+    check()
+    window.addEventListener('scroll', check, { passive: true })
+    return () => window.removeEventListener('scroll', check)
+  }, [])
+
+  if (!show) return null
+
+  return (
+    <button
+      type="button"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className={navIconBtn}
+      aria-label="Back to top"
+    >
+      <ChevronUp className="w-5 h-5 text-primary" aria-hidden="true" />
     </button>
   )
 }
@@ -103,10 +129,11 @@ export default function GlobalNav() {
     )
   }
 
-  // Must match prerendered HTML (effects already ran during prerender).
-  // Returning null until useEffect caused React #418 on every home load.
+  // Both icons stay in the tree; CSS follows html.dark so the first paint
+  // matches the blocking theme script (no wrong-icon flash on takeover).
   return (
     <div className="fixed top-4 right-6 z-50 flex items-center gap-3">
+      <BackToTop />
       <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
     </div>
   )

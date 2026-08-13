@@ -1,6 +1,6 @@
 import { StrictMode, lazy, Suspense, useState, useEffect, useRef, type ReactNode } from 'react'
 import { usePageSeo } from './hooks/usePageSeo'
-import { hydrateRoot, createRoot } from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
@@ -38,7 +38,7 @@ const ActivityRecognition = lazy(loadActivityRecognition)
 const SteamML = lazy(loadSteamML)
 const WikipediaVoting = lazy(loadWikipediaVoting)
 
-/** Preload the active route chunk before hydrateRoot so Suspense does not flash null over prerendered HTML (React #418). */
+/** Preload the active route chunk before createRoot so Suspense does not flash null over prerendered HTML. */
 const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
   '/about': loadAboutPage,
   '/notes': loadTechnicalNotesPage,
@@ -202,23 +202,17 @@ const app = (
 )
 
 async function mount() {
-  const shouldHydrate = root.hasChildNodes()
-  if (shouldHydrate) {
-    const preload = ROUTE_PRELOADERS[normalizePath(window.location.pathname)]
-    if (preload) {
-      try {
-        await preload()
-      } catch {
-        // Chunk failed: clear prerendered DOM, then client-render (avoids hydrate mismatch).
-        root.replaceChildren()
-        createRoot(root).render(app)
-        return
-      }
+  const preload = ROUTE_PRELOADERS[normalizePath(window.location.pathname)]
+  if (preload) {
+    try {
+      await preload()
+    } catch {
+      // Render the shell anyway; Suspense will show the fallback.
     }
-    hydrateRoot(root, app)
-    return
   }
-
+  // Puppeteer's page.content() serializes a live DOM (adjacent React text
+  // nodes merged, computed styles). hydrateRoot cannot match that tree and
+  // throws React #418 on every load. createRoot replaces the snapshot.
   createRoot(root).render(app)
 }
 

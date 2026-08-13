@@ -20,7 +20,12 @@ function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
 
 function useHydrated() {
   const [hydrated, setHydrated] = useState(false)
-  useEffect(() => setHydrated(true), [])
+  useEffect(() => {
+    // Keep Motion on initial={false} during prerender so the snapshot stays
+    // fully visible and matches the first createRoot commit (no takeover flash).
+    if (Reflect.get(window, '__PRERENDER__')) return
+    setHydrated(true)
+  }, [])
   return hydrated
 }
 
@@ -48,6 +53,7 @@ function useInView(threshold = 0.1) {
 
 
 const HOME_TOC_SECTIONS = [
+  { id: 'main-content', en: 'Top' },
   { id: 'projects', en: 'Projects' },
   { id: 'experience', en: 'Experience' },
   { id: 'speaking', en: 'Sharing' },
@@ -100,9 +106,13 @@ function HomeToc() {
   }, [hasRevealed])
 
   const scrollTo = useCallback((id: string) => {
+    setTocOpen(false)
+    if (id === 'main-content') {
+      requestAnimationFrame(() => { window.scrollTo({ top: 0, behavior: 'instant' }) })
+      return
+    }
     const el = document.getElementById(id)
     if (!el) return
-    setTocOpen(false)
     const isLast = id === HOME_TOC_SECTIONS[HOME_TOC_SECTIONS.length - 1].id
     const top = isLast
       ? document.documentElement.scrollHeight - window.innerHeight
