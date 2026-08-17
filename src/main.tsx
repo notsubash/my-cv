@@ -19,6 +19,7 @@ const loadBlogSteamGenreNetworks = () => import('./articles/blog-steam-genre-net
 const loadBlogMLFromScratch = () => import('./articles/blog-ml-from-scratch')
 const loadBlogActivityRecognitionPipeline = () => import('./articles/blog-activity-recognition-pipeline')
 const loadBlogIdeaWorkbench = () => import('./articles/blog-idea-workbench')
+const loadBlogCloudNativeAiPlatform = () => import('./articles/blog-cloud-native-ai-platform')
 const loadGavel = () => import('./articles/gavel')
 const loadActivityRecognition = () => import('./articles/activity-recognition')
 const loadSteamML = () => import('./articles/steam-ml')
@@ -33,6 +34,7 @@ const BlogSteamGenreNetworks = lazy(loadBlogSteamGenreNetworks)
 const BlogMLFromScratch = lazy(loadBlogMLFromScratch)
 const BlogActivityRecognitionPipeline = lazy(loadBlogActivityRecognitionPipeline)
 const BlogIdeaWorkbench = lazy(loadBlogIdeaWorkbench)
+const BlogCloudNativeAiPlatform = lazy(loadBlogCloudNativeAiPlatform)
 const Gavel = lazy(loadGavel)
 const ActivityRecognition = lazy(loadActivityRecognition)
 const SteamML = lazy(loadSteamML)
@@ -49,6 +51,7 @@ const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
   '/blog/ml-from-scratch': loadBlogMLFromScratch,
   '/blog/activity-recognition-pipeline': loadBlogActivityRecognitionPipeline,
   '/blog/building-an-idea-workbench': loadBlogIdeaWorkbench,
+  '/blog/building-a-cloud-native-ai-platform': loadBlogCloudNativeAiPlatform,
   '/projects/gavel': loadGavel,
   '/projects/activity-recognition': loadActivityRecognition,
   '/projects/steam-ml': loadSteamML,
@@ -186,6 +189,7 @@ const app = (
             {BLOG_ENABLED && <Route path="/blog/ml-from-scratch" element={<BlogMLFromScratch />} />}
             {BLOG_ENABLED && <Route path="/blog/activity-recognition-pipeline" element={<BlogActivityRecognitionPipeline />} />}
             {BLOG_ENABLED && <Route path="/blog/building-an-idea-workbench" element={<BlogIdeaWorkbench />} />}
+            {BLOG_ENABLED && <Route path="/blog/building-a-cloud-native-ai-platform" element={<BlogCloudNativeAiPlatform />} />}
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/projects/gavel" element={<Gavel />} />
             <Route path="/projects/activity-recognition" element={<ActivityRecognition />} />

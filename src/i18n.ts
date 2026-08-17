@@ -172,10 +172,12 @@ export const translations = {
           title: 'Cloud Native AI Platform',
           badge: 'MLOps / Platform',
           badgeBuilding: '',
-          desc: 'Cost-bounded cloud-native AI summarization platform: FastAPI + Kubernetes/Helm, Terraform on Hetzner, GitOps via Argo CD, full observability stack. Next up: autoscaling, canary deploys, DR. Runs under $15/month.',
-          tech: ['Kubernetes', 'Helm', 'Terraform', 'FastAPI', 'Argo CD','Prometheus','Grafana','Loki','Gitops','Hetzner'],
+          desc: 'Cost-capped cloud-native AI summarization lab: FastAPI on Kubernetes/Helm, Terraform on Hetzner, GitOps via Argo CD, Prometheus/Grafana/Loki. Next: secrets, TLS, autoscaling, canary, DR. Runs under $15/month.',
+          tech: ['Kubernetes', 'Helm', 'Terraform', 'FastAPI', 'Argo CD', 'Prometheus', 'Grafana', 'Loki', 'GitOps', 'Hetzner'],
           link: 'github.com/notsubash/cloud-native-AI-platform',
           image: '/projects/cloud-native-ai-platform.webp',
+          caseStudyUrl: '/blog/building-a-cloud-native-ai-platform',
+          caseStudyLabel: 'Read blog post',
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/cloud-native-AI-platform', icon: 'github' },
           ],
@@ -578,6 +580,13 @@ export const translations = {
       noPosts: 'First posts coming soon. Stay tuned.',
       items: [
         {
+          slug: 'building-a-cloud-native-ai-platform',
+          title: 'Building a Cloud Native AI Platform Under $15 a Month',
+          date: 'August 2026',
+          summary: 'A $15/month hobby lab around a thin FastAPI summarizer on one Hetzner box. Terraform, k3s, Helm, Argo CD, and Prometheus/Grafana/Loki are live. Autoscaling, secrets, TLS, canary, and disaster recovery are next.',
+          tags: ['Kubernetes', 'Helm', 'Terraform', 'Argo CD', 'FastAPI', 'Prometheus'],
+        },
+        {
           slug: 'building-an-idea-workbench',
           title: 'Building Gavel: Turning AI Opinions Into Experiments',
           date: 'July 2026',
@@ -618,6 +627,33 @@ export const translations = {
       title: 'Technical Notes',
       subtitle: 'Bite-sized things I learned building real systems.',
       items: [
+        {
+          title: 'Power-Off Still Bills the VPS',
+          body: 'Hetzner console power-off keeps charging for the reserved server. The real off switch is terraform destroy. If you are pausing more than a few days, destroy. Git and GHCR should be the source of truth, not the box.',
+          tags: ['Terraform', 'Hetzner'],
+          relatedBlog: {
+            slug: 'building-a-cloud-native-ai-platform',
+            title: 'Building a Cloud Native AI Platform Under $15 a Month',
+          },
+        },
+        {
+          title: 'CRDs Before GitOps Consumers',
+          body: 'Argo cannot sync a ServiceMonitor until kube-prometheus-stack has created monitoring.coreos.com CRDs. Install the operator first, then sync the app. Consumer before provider shows up as SyncFailed, not as a missing scrape target.',
+          tags: ['Kubernetes', 'Prometheus'],
+          relatedBlog: {
+            slug: 'building-a-cloud-native-ai-platform',
+            title: 'Building a Cloud Native AI Platform Under $15 a Month',
+          },
+        },
+        {
+          title: 'Liveness Is Not Readiness',
+          body: '/health should stay cheap and mean "process is up." /ready should dial Postgres and Redis and return 503 if either is missing. Mixing them either restarts a pod that is fine, or sends traffic to a pod that cannot do useful work.',
+          tags: ['Kubernetes', 'FastAPI'],
+          relatedBlog: {
+            slug: 'building-a-cloud-native-ai-platform',
+            title: 'Building a Cloud Native AI Platform Under $15 a Month',
+          },
+        },
         {
           title: 'Hybrid Retrieval in RAG',
           body: 'Run a metadata-filtered search (e.g. content_type + technology) and an unfiltered similarity search in parallel. Merge filtered-first, dedup by chunk ID. Filtered results give precision; unfiltered results fill context gaps the filters miss.',

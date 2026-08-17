@@ -90,6 +90,7 @@ export function getAltPaths(): Record<string, string> {
     '/blog/ml-from-scratch': '/blog/ml-from-scratch',
     '/blog/activity-recognition-pipeline': '/blog/activity-recognition-pipeline',
     '/blog/building-an-idea-workbench': '/blog/building-an-idea-workbench',
+    '/blog/building-a-cloud-native-ai-platform': '/blog/building-a-cloud-native-ai-platform',
     '/privacy': '/privacy',
   }
   for (const article of articleRegistry) {
@@ -110,6 +111,7 @@ export function getPageTitles(): Record<string, string> {
     '/blog/ml-from-scratch': 'Learning ML and Deep Learning by Building Everything Twice',
     '/blog/activity-recognition-pipeline': 'From Raw Sensor Logs to an Activity Classifier',
     '/blog/building-an-idea-workbench': 'Building Gavel: Turning AI Opinions Into Experiments',
+    '/blog/building-a-cloud-native-ai-platform': 'Building a Cloud Native AI Platform Under $15 a Month',
   }
   for (const article of articleRegistry) {
     titles[`/${article.slugs.en}`] = article.titles.en
