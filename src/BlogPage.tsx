@@ -56,7 +56,7 @@ export default function BlogPage() {
                   <p className="text-sm text-muted-foreground mb-3">
                     {post.summary}
                   </p>
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex flex-wrap gap-1.5">
                       {post.tags.map((tag) => (
                         <span key={tag} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs bg-muted text-muted-foreground">
@@ -65,7 +65,7 @@ export default function BlogPage() {
                         </span>
                       ))}
                     </div>
-                    <span className="text-xs text-primary font-medium inline-flex items-center gap-1 shrink-0 ml-4">
+                    <span className="text-xs text-primary font-medium inline-flex items-center gap-1">
                       {t.blog.readMore}
                       <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                     </span>

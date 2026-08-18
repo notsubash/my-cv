@@ -106,6 +106,7 @@ export function getPageTitles(): Record<string, string> {
     '/about': 'About',
     '/notes': 'Technical Notes',
     '/blog': 'Blog',
+    '/privacy': 'Privacy',
     '/blog/rag-pipeline': 'Building a Production RAG Pipeline',
     '/blog/steam-genre-networks': 'What 27,000 Steam Games Reveal About Genre Evolution',
     '/blog/ml-from-scratch': 'Learning ML and Deep Learning by Building Everything Twice',

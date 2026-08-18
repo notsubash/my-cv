@@ -155,7 +155,7 @@ function HomeToc() {
               />
               <button
                 onClick={() => scrollTo(section.id)}
-                className={`text-left text-[13px] tracking-wide py-1 transition-all duration-300 ${
+                className={`text-left text-[13px] tracking-wide min-h-11 py-2.5 transition-all duration-300 ${
                   isActive ? 'text-primary font-semibold translate-x-0.5'
                   : isPast ? 'text-foreground/70'
                   : 'text-muted-foreground/60 hover:text-foreground/80'
@@ -192,7 +192,7 @@ function HomeToc() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3 }}
             onClick={() => setTocOpen(o => !o)}
-            className="2xl:hidden fixed bottom-6 right-6 z-40 min-h-11 min-w-11 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
+            className="2xl:hidden fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))] z-40 min-h-11 min-w-11 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
             aria-label={tocOpen ? 'Close table of contents' : 'Open table of contents'}
             aria-expanded={tocOpen}
             aria-controls="home-toc-drawer"
@@ -202,7 +202,7 @@ function HomeToc() {
           {tocOpen && (
             <>
               <div className="2xl:hidden fixed inset-0 bg-background/60 backdrop-blur-sm z-40" onClick={() => setTocOpen(false)} />
-              <div id="home-toc-drawer" className="2xl:hidden fixed bottom-20 right-6 z-50 w-64 max-h-[70vh] overflow-y-auto bg-card border border-border rounded-xl shadow-xl p-4">
+              <div id="home-toc-drawer" className="2xl:hidden fixed inset-x-4 bottom-[max(5rem,calc(env(safe-area-inset-bottom)+4.5rem))] z-50 max-h-[70vh] overflow-y-auto bg-card border border-border rounded-xl shadow-xl p-4 sm:inset-x-auto sm:right-6 sm:left-auto sm:w-64">
                 {tocNav}
               </div>
             </>
@@ -510,11 +510,11 @@ function ProjectsGrid() {
                     </div>
                   )}
                   <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className={`font-display text-xl font-bold transition-colors ${
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <h3 className={`font-display text-xl font-bold min-w-0 transition-colors ${
                         isTool ? 'group-hover:text-tool' : 'group-hover:text-primary'
                       }`}>{project.title}</h3>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 shrink-0">
                         <span className={`badge px-2 py-0.5 ${
                           isTool
                             ? 'bg-tool/10 text-tool'
@@ -543,7 +543,7 @@ function ProjectsGrid() {
                           onClick={() => posthog.capture('project_link_clicked', { link_type: 'case_study', project_title: project.title })}
                           className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta"
                         >
-                          <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{project.caseStudyLabel}</span>
+                          <span className="inline-flex min-h-11 items-center px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-colors duration-200">{project.caseStudyLabel}</span>
                           <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                         </Link>
                       )}
@@ -562,7 +562,7 @@ function ProjectsGrid() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={() => posthog.capture('project_link_clicked', { link_type: pl.icon, project_title: project.title })}
-                                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                                className={`inline-flex min-h-11 items-center gap-1.5 px-3 py-2 rounded-lg text-xs transition-colors ${
                                   isTool
                                     ? 'bg-tool/10 text-tool hover:bg-tool/20'
                                     : 'bg-primary/10 text-primary hover:bg-primary/20'
@@ -691,7 +691,7 @@ function OtherContributions() {
                 <div className="rounded-2xl border border-border/70 bg-card/50 overflow-hidden">
                   <button
                     onClick={() => setExpanded(e => !e)}
-                    className="w-full flex items-center justify-between px-5 py-3 hover:bg-muted/30 transition-colors"
+                    className="w-full flex items-center justify-between min-h-11 px-5 py-3 hover:bg-muted/30 transition-colors"
                   >
                     <span className="text-sm font-medium text-muted-foreground">Other contributions at {t.experience.santifer.company}</span>
                     <motion.span
@@ -741,8 +741,8 @@ function App() {
     <main className="min-h-screen bg-background bg-[length:24px_24px] [background-image:radial-gradient(circle,hsl(var(--dot-grid))_1px,transparent_1px)]">
       <HomeToc />
 
-      {/* Hero Section — full viewport, no next-section leak */}
-      <header id="main-content" className="relative isolate flex h-dvh min-h-[36rem] flex-col overflow-hidden">
+      {/* Hero Section — grows with content on short phones; aurora is clipped separately */}
+      <header id="main-content" className="relative isolate flex min-h-dvh flex-col overflow-x-clip">
         {/* Aurora — inset + masked so glow dissolves instead of clipping */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -762,21 +762,21 @@ function App() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-6 py-16">
+        <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-4 py-10 sm:px-6 sm:py-16">
           <div className="flex w-full flex-col items-center text-center">
             <motion.div
               initial={hydrated ? { opacity: 0, scale: 0.85 } : false}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mb-6 md:mb-7"
+              className="relative mb-5 sm:mb-6 md:mb-7"
             >
               <Link
                 to="/about"
-                className="relative block h-36 w-36 rounded-full outline-offset-4 transition-opacity hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary md:h-44 md:w-44"
+                className="relative block h-28 w-28 rounded-full outline-offset-4 transition-opacity hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary sm:h-36 sm:w-36 md:h-44 md:w-44"
                 aria-label="About Subash Pandey"
               >
                 <div
-                  className="pointer-events-none absolute inset-[-28px] h-[calc(100%+56px)] w-[calc(100%+56px)] hero-ring-spin"
+                  className="pointer-events-none absolute inset-[-20px] h-[calc(100%+40px)] w-[calc(100%+40px)] sm:inset-[-28px] sm:h-[calc(100%+56px)] sm:w-[calc(100%+56px)] hero-ring-spin"
                   aria-hidden="true"
                 >
                   <img
@@ -806,7 +806,7 @@ function App() {
               initial={hydrated ? { opacity: 0, y: 16 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.12 }}
-              className="font-display text-5xl font-bold tracking-tight text-foreground sm:text-6xl md:text-[4rem] md:leading-[1.05]"
+              className="font-display text-[2.125rem] font-bold tracking-tight text-foreground leading-tight sm:text-5xl md:text-[4rem] md:leading-[1.05]"
             >
               Subash Pandey
             </motion.h1>
@@ -815,7 +815,7 @@ function App() {
               initial={hydrated ? { opacity: 0, y: 12 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.22 }}
-              className="mt-4 max-w-2xl text-lg font-medium leading-snug text-foreground/85 md:mt-5 md:text-xl md:leading-snug"
+              className="mt-3 max-w-2xl text-base font-medium leading-snug text-foreground/85 sm:mt-4 sm:text-lg md:mt-5 md:text-xl md:leading-snug"
             >
               {t.role}
             </motion.p>
@@ -834,17 +834,17 @@ function App() {
               initial={hydrated ? { opacity: 0, y: 12 } : false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4"
+              className="mt-7 flex w-full max-w-sm flex-col items-stretch justify-center gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:items-center sm:gap-4"
             >
               <CalBookButton
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.28)] transition-colors hover:bg-primary/90"
+                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.28)] transition-colors hover:bg-primary/90 sm:w-auto"
               >
                 <Calendar className="h-4 w-4" />
                 {t.cta.primaryHeroCta}
               </CalBookButton>
               <Link
                 to="/about"
-                className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
+                className="inline-flex min-h-12 w-full items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card sm:w-auto"
               >
                 About
                 <ChevronRight className="h-4 w-4 opacity-70" />
@@ -852,7 +852,7 @@ function App() {
               {BLOG_ENABLED && (
                 <Link
                   to="/blog"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card"
+                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card sm:w-auto"
                 >
                   <PenLine className="h-4 w-4" />
                   Blog
@@ -865,7 +865,7 @@ function App() {
               initial={hydrated ? { opacity: 0 } : false}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.65 }}
-              className="mt-10 flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 text-muted-foreground/75 transition-colors hover:text-muted-foreground md:mt-12"
+              className="mt-8 flex min-h-11 cursor-pointer flex-col items-center justify-center gap-1 text-muted-foreground/75 transition-colors hover:text-muted-foreground md:mt-12"
               onClick={(e) => {
                 e.preventDefault()
                 document.getElementById('projects')?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth' })
@@ -888,10 +888,10 @@ function App() {
 
       {/* Projects & Claude Code */}
       <section id="projects" className="scroll-mt-4 py-14 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1500px' }}>
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <AnimatedSection>
-            <div className="flex items-center justify-between mb-12">
-              <h2 className="font-display text-2xl font-semibold flex items-center gap-3">
+            <div className="flex items-center justify-between gap-3 mb-12">
+              <h2 className="font-display text-2xl font-semibold flex items-center gap-3 min-w-0">
                 <SectionIcon>
                   <FolderGit2 className="w-5 h-5 text-primary" />
                 </SectionIcon>
@@ -901,7 +901,7 @@ function App() {
                 href={`https://${t.projects.githubLink}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="flex items-center gap-1.5 min-h-11 text-sm text-muted-foreground hover:text-primary transition-colors shrink-0"
               >
                 <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -919,7 +919,7 @@ function App() {
 
       {/* Experience */}
       <section id="experience" className="py-10 md:py-16 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 2000px' }}>
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
               <SectionIcon>
@@ -954,7 +954,7 @@ function App() {
                 <div>
                   <h3 className="font-display text-xl font-bold">{t.experience.santifer.company}</h3>
                   <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
-                    <a href="https://scopicsoftware.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">scopicsoftware.com</a>
+                    <a href="https://scopicsoftware.com/" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-primary transition-colors">scopicsoftware.com</a>
                     <span className="text-border">·</span>
                     <span>{t.experience.santifer.location}</span>
                   </div>
@@ -1000,7 +1000,7 @@ function App() {
               {/* Deep dive CTA */}
               {t.experience.santifer.caseStudyUrl && (
                 <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                  <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.caseStudyLabel}</span>
+                  <span className="inline-flex min-h-11 items-center px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.caseStudyLabel}</span>
                 </Link>
               )}
             </div>
@@ -1039,7 +1039,7 @@ function App() {
                 </ul>
                 {t.experience.santifer.caseStudyUrl && (
                   <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.businessOS.footer}</span>
+                    <span className="inline-flex min-h-11 items-center px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.businessOS.footer}</span>
                     <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                   </Link>
                 )}
@@ -1074,7 +1074,7 @@ function App() {
                 </ul>
                 {t.experience.santifer.jacobo.caseStudyUrl && t.experience.santifer.jacobo.soldWith && (
                   <Link to={t.experience.santifer.jacobo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.jacobo.soldWith}</span>
+                    <span className="inline-flex min-h-11 items-center px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-colors duration-200">{t.experience.santifer.jacobo.soldWith}</span>
                     <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                   </Link>
                 )}
@@ -1146,7 +1146,7 @@ function App() {
                 <div>
                   <h3 className="font-display text-2xl font-bold">{t.experience.lico.company}</h3>
                   <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
-                    <a href="https://peacenepal.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">peacenepal.com</a>
+                    <a href="https://peacenepal.com/" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-primary transition-colors">peacenepal.com</a>
                     <span className="text-border">·</span>
                     <span>{t.experience.lico.location}</span>
                   </div>
@@ -1215,7 +1215,7 @@ function App() {
                 <div>
                   <h3 className="font-display text-2xl font-bold">{t.experience.imark.company}</h3>
                   <div className="flex flex-wrap items-center gap-x-2 text-xs text-muted-foreground">
-                    <a href="https://www.imarkdigital.com/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">imarkdigital.com</a>
+                    <a href="https://www.imarkdigital.com/" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-primary transition-colors">imarkdigital.com</a>
                     <span className="text-border">·</span>
                     <span>{t.experience.imark.location}</span>
                   </div>
@@ -1249,7 +1249,7 @@ function App() {
 
       {/* Sharing — Publications + LinkedIn */}
       <section id="speaking" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-8 flex items-center gap-3">
               <SectionIcon>
@@ -1287,7 +1287,7 @@ function App() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => posthog.capture('publication_link_clicked', { link_type: link.icon, label: link.label })}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent/10 text-xs text-muted-foreground hover:text-accent hover:bg-accent/20 transition-colors"
+                          className="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 rounded-lg bg-accent/10 text-xs text-muted-foreground hover:text-accent hover:bg-accent/20 transition-colors"
                         >
                           {linkIcons[link.icon] || <ExternalLink className="w-3.5 h-3.5" />}
                           {link.label}
@@ -1371,13 +1371,13 @@ function App() {
                     <p className="text-sm text-muted-foreground mt-2 flex-1">{talk.desc}</p>
                     <div className="mt-4 flex flex-wrap gap-3">
                       {talk.pdf && (
-                        <a href={talk.pdf} download className="inline-flex items-center gap-2 text-xs text-primary hover:underline">
+                        <a href={talk.pdf} download className="inline-flex min-h-11 items-center gap-2 text-xs text-primary hover:underline">
                           <Download className="w-4 h-4" />
                           {t.speaking.slides}
                         </a>
                       )}
                       {talk.materialUrl && (
-                        <Link to={talk.materialUrl} className="inline-flex items-center gap-2 text-xs text-primary hover:underline">
+                        <Link to={talk.materialUrl} className="inline-flex min-h-11 items-center gap-2 text-xs text-primary hover:underline">
                           <FileText className="w-4 h-4" />
                           {talk.materialLabel || 'Material'}
                         </Link>
@@ -1507,7 +1507,7 @@ function App() {
                 <div className="text-center mt-4">
                   <Link
                     to="/blog"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent/10 text-accent font-medium text-sm hover:bg-accent/20 transition-colors"
+                    className="inline-flex items-center gap-2 min-h-11 px-5 py-2.5 rounded-full bg-accent/10 text-accent font-medium text-sm hover:bg-accent/20 transition-colors"
                   >
                     <PenLine className="w-4 h-4" />
                     All posts
@@ -1522,7 +1522,7 @@ function App() {
 
       {/* Education & Certifications */}
       <section id="education" className="py-12 md:py-20" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}>
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Education */}
             <div>
@@ -1599,7 +1599,7 @@ function App() {
 
       {/* Skills */}
       <section id="tech" className="py-12 md:py-20 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <AnimatedSection>
             <h2 className="font-display text-2xl font-semibold mb-12 flex items-center gap-3">
               <SectionIcon>
@@ -1685,7 +1685,7 @@ function App() {
         <div className="absolute inset-0 pointer-events-none" style={{
           background: 'linear-gradient(90deg, transparent 0%, hsl(var(--background)) 25%, hsl(var(--background)) 75%, transparent 100%)',
         }} />
-        <div className="relative z-10 max-w-5xl mx-auto px-6">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6">
           <AnimatedSection>
             <div className="text-center mb-10">
               <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
@@ -1703,9 +1703,9 @@ function App() {
 
           <AnimatedSection delay={0.1}>
             <div className="flex flex-col items-center gap-4">
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                 <CalBookButton
-                  className="inline-flex items-center justify-center gap-2 min-h-11 px-8 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200 text-sm font-medium shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center justify-center gap-2 min-h-11 w-full px-8 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200 text-sm font-medium shadow-lg hover:shadow-xl sm:w-auto"
                 >
                   <Calendar className="w-5 h-5" />
                   {t.cta.bookCall}
@@ -1713,7 +1713,7 @@ function App() {
                 <a
                   href={`mailto:${t.email}`}
                   onClick={() => posthog.capture('contact_email_clicked', { placement: 'footer' })}
-                  className="inline-flex items-center justify-center gap-2 min-h-11 px-6 py-3 rounded-xl border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm"
+                  className="inline-flex items-center justify-center gap-2 min-h-11 w-full px-6 py-3 rounded-xl border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5 text-sm break-all sm:w-auto sm:break-normal"
                 >
                   <Mail className="w-4 h-4" />
                   {t.email}
@@ -1755,22 +1755,22 @@ function App() {
             </div>
           </AnimatedSection>
 
-          <p className="mt-12 text-xs text-muted-foreground text-center">
+          <p className="mt-12 text-xs text-muted-foreground text-center pb-[env(safe-area-inset-bottom)]">
             &copy; {new Date().getFullYear()} Subash Pandey
             <span className="mx-2 text-border">|</span>
             {BLOG_ENABLED && (
               <>
-                <Link to="/blog" className="hover:text-primary transition-colors">
+                <Link to="/blog" className="inline-flex min-h-11 items-center hover:text-primary transition-colors">
                   Blog
                 </Link>
                 <span className="mx-2 text-border">|</span>
               </>
             )}
-            <Link to="/notes" className="hover:text-primary transition-colors">
+            <Link to="/notes" className="inline-flex min-h-11 items-center hover:text-primary transition-colors">
               Technical Notes
             </Link>
             <span className="mx-2 text-border">|</span>
-            <Link to="/privacy" className="hover:text-primary transition-colors">
+            <Link to="/privacy" className="inline-flex min-h-11 items-center hover:text-primary transition-colors">
               Privacy
             </Link>
           </p>

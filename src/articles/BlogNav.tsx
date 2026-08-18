@@ -15,11 +15,11 @@ export default function BlogNav() {
 
   return (
     <nav className="mt-14 pt-8 border-t border-border" aria-label="Blog navigation">
-      <div className="flex items-stretch gap-4">
+      <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-stretch sm:gap-4">
         {prev ? (
           <Link
             to={`/blog/${prev.slug}`}
-            className="flex-1 group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors text-left"
+            className="flex-1 min-h-11 group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors text-left"
           >
             <span className="text-xs text-muted-foreground flex items-center gap-1 mb-1.5">
               <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
@@ -29,12 +29,12 @@ export default function BlogNav() {
               {prev.title}
             </span>
           </Link>
-        ) : <div className="flex-1" />}
+        ) : <div className="hidden flex-1 sm:block" />}
 
         {next ? (
           <Link
             to={`/blog/${next.slug}`}
-            className="flex-1 group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors text-right"
+            className="flex-1 min-h-11 group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors text-right"
           >
             <span className="text-xs text-muted-foreground flex items-center justify-end gap-1 mb-1.5">
               Next
@@ -44,7 +44,7 @@ export default function BlogNav() {
               {next.title}
             </span>
           </Link>
-        ) : <div className="flex-1" />}
+        ) : <div className="hidden flex-1 sm:block" />}
       </div>
     </nav>
   )

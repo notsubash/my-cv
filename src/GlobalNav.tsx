@@ -87,6 +87,7 @@ function BackToTop() {
 export default function GlobalNav() {
   const { pathname } = useLocation()
   const isHome = pathname === '/'
+  const isBlogPost = pathname.startsWith('/blog/')
   const { isDark, toggleTheme } = useTheme()
   const pageTitle = PAGE_TITLE[pathname] ?? null
 
@@ -94,11 +95,11 @@ export default function GlobalNav() {
     return (
       <div className="sticky top-0 z-50 relative">
         <div className="absolute inset-0 bg-background/80 backdrop-blur-md border-b border-border" />
-        <div className="relative pt-4 pb-3 px-6 pl-14 xl:pl-6 flex items-center justify-between">
+        <div className="relative flex items-center justify-between gap-3 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 sm:px-6">
           <div className="min-w-0 flex items-center">
             <nav
               aria-label="Breadcrumb"
-              className="inline-flex items-center gap-1.5 text-sm"
+              className="inline-flex min-w-0 items-center gap-1.5 text-sm"
             >
               <Link
                 to="/"
@@ -107,13 +108,24 @@ export default function GlobalNav() {
                 <House className="w-4 h-4" />
                 <span className="hidden sm:inline">Home</span>
               </Link>
+              {isBlogPost && (
+                <>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
+                  <Link
+                    to="/blog"
+                    className="inline-flex items-center min-h-11 text-muted-foreground hover:text-foreground transition-colors shrink-0"
+                  >
+                    Blog
+                  </Link>
+                </>
+              )}
               {pageTitle && (
                 <>
                   <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
                   <button
                     type="button"
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="text-foreground font-medium hover:text-foreground transition-colors cursor-pointer truncate min-h-11"
+                    className="min-w-0 truncate text-foreground font-medium hover:text-foreground transition-colors cursor-pointer min-h-11"
                   >
                     {pageTitle}
                   </button>
@@ -132,7 +144,7 @@ export default function GlobalNav() {
   // Both icons stay in the tree; CSS follows html.dark so the first paint
   // matches the blocking theme script (no wrong-icon flash on takeover).
   return (
-    <div className="fixed top-4 right-6 z-50 flex items-center gap-3">
+    <div className="fixed top-[max(1rem,env(safe-area-inset-top))] right-[max(1.5rem,env(safe-area-inset-right))] z-50 flex items-center gap-3">
       <BackToTop />
       <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
     </div>

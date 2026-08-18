@@ -72,15 +72,15 @@ export default function AboutPage() {
   })
 
   return (
-    <main id="main-content" className="max-w-3xl mx-auto px-6 py-16 md:py-24">
+    <main id="main-content" className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-14 md:py-24">
       <header className="mb-14">
         <div className="flex items-start gap-5 mb-4">
           <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shrink-0 border-2 border-border">
             <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="96px" alt="Subash Pandey" className="w-full h-full object-cover" width={96} height={96} />
           </div>
           <div>
-            <h1 className="font-display text-3xl md:text-4xl font-bold mb-1">Subash Pandey</h1>
-            <p className="text-lg text-muted-foreground">
+            <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold mb-1">Subash Pandey</h1>
+            <p className="text-base sm:text-lg text-muted-foreground">
               AI/ML Engineer · GenAI Developer · Data Scientist
             </p>
           </div>
@@ -249,9 +249,9 @@ export default function AboutPage() {
           Connect
         </h2>
         <div className="flex flex-col gap-4">
-          <div className="flex flex-wrap gap-3">
+          <div className="flex w-full max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
             <CalBookButton
-              className="inline-flex items-center justify-center gap-2 min-h-11 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm transition-colors"
+              className="inline-flex items-center justify-center gap-2 min-h-11 w-full px-5 py-2.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm transition-colors sm:w-auto"
             >
               <Calendar className="w-4 h-4" />
               {t.cta.bookCall}
@@ -259,7 +259,7 @@ export default function AboutPage() {
             <a
               href={`mailto:${t.email}`}
               onClick={() => posthog.capture('contact_email_clicked', { placement: 'about' })}
-              className="inline-flex items-center justify-center gap-2 min-h-11 px-5 py-2.5 rounded-xl border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors"
+              className="inline-flex items-center justify-center gap-2 min-h-11 w-full px-5 py-2.5 rounded-xl border border-border hover:border-primary/50 hover:bg-primary/5 text-sm transition-colors break-all sm:w-auto sm:break-normal"
             >
               <Mail className="w-4 h-4" />
               {t.email}

@@ -74,7 +74,7 @@ export default function TechnicalNotesPage() {
                 <div className="mt-3 pt-3 border-t border-border/30">
                   <Link
                     to={`/blog/${note.relatedBlog.slug}`}
-                    className="inline-flex items-center gap-1.5 text-[11px] text-accent hover:text-accent/80 transition-colors"
+                    className="inline-flex min-h-11 items-center gap-1.5 text-sm text-accent hover:text-accent/80 transition-colors"
                   >
                     <BookOpen className="w-3.5 h-3.5" />
                     Related article: {note.relatedBlog.title}
@@ -91,7 +91,7 @@ export default function TechnicalNotesPage() {
               type="button"
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-sm border border-border text-muted-foreground hover:text-primary hover:border-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex min-h-11 items-center gap-1 px-3 py-2 rounded-lg text-sm border border-border text-muted-foreground hover:text-primary hover:border-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
               Prev
@@ -105,7 +105,7 @@ export default function TechnicalNotesPage() {
                   key={nextPage}
                   type="button"
                   onClick={() => setPage(nextPage)}
-                  className={`w-9 h-9 rounded-lg text-sm border transition-colors ${
+                  className={`min-h-11 min-w-11 rounded-lg text-sm border transition-colors ${
                     active
                       ? 'bg-primary text-primary-foreground border-primary'
                       : 'bg-card text-muted-foreground border-border hover:text-primary hover:border-primary/40'
@@ -120,7 +120,7 @@ export default function TechnicalNotesPage() {
               type="button"
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-sm border border-border text-muted-foreground hover:text-primary hover:border-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex min-h-11 items-center gap-1 px-3 py-2 rounded-lg text-sm border border-border text-muted-foreground hover:text-primary hover:border-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               Next
               <ChevronRight className="w-4 h-4" />

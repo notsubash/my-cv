@@ -133,7 +133,7 @@ export default function BlogToc({ articleRef }: { articleRef: RefObject<HTMLElem
               )}
               <button
                 onClick={() => scrollTo(item.id)}
-                className={`text-left tracking-wide py-0.5 transition-all duration-300 ${
+                className={`text-left tracking-wide min-h-11 py-2 transition-all duration-300 ${
                   isH3 ? 'text-[11px]' : 'text-[12px]'
                 } ${
                   isActive ? 'text-primary font-semibold translate-x-0.5'
@@ -175,7 +175,7 @@ export default function BlogToc({ articleRef }: { articleRef: RefObject<HTMLElem
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.3 }}
             onClick={() => setTocOpen(o => !o)}
-            className="xl:hidden fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
+            className="xl:hidden fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))] z-40 min-h-11 min-w-11 w-11 h-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
             aria-label="Toggle table of contents"
           >
             <List className="w-5 h-5" />
@@ -184,7 +184,7 @@ export default function BlogToc({ articleRef }: { articleRef: RefObject<HTMLElem
             <>
               <div className="xl:hidden fixed inset-0 bg-background/60 backdrop-blur-sm z-40" onClick={() => setTocOpen(false)} />
               <div
-                className="xl:hidden fixed bottom-20 right-6 z-50 w-72 max-h-[70vh] overflow-y-auto bg-card border border-border rounded-xl shadow-xl p-4 custom-scrollbar"
+                className="xl:hidden fixed inset-x-4 bottom-[max(5rem,calc(env(safe-area-inset-bottom)+4.5rem))] z-50 max-h-[70vh] overflow-y-auto bg-card border border-border rounded-xl shadow-xl p-4 custom-scrollbar sm:inset-x-auto sm:right-6 sm:left-auto sm:w-72"
               >
                 <p className="text-[11px] font-semibold text-muted-foreground/50 uppercase tracking-widest mb-3">
                   On this page

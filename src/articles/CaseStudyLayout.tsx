@@ -98,11 +98,11 @@ export function ResultTable({ rows }: { rows: { label: string; value: string; no
   return (
     <div className="bg-card border border-border rounded-xl overflow-hidden">
       {rows.map((row, i) => (
-        <div key={i} className={`flex items-center justify-between px-4 py-3 text-sm ${i !== rows.length - 1 ? 'border-b border-border' : ''}`}>
-          <span className="text-foreground font-medium">{row.label}</span>
-          <div className="text-right">
+        <div key={i} className={`flex items-start justify-between gap-3 px-4 py-3 text-sm ${i !== rows.length - 1 ? 'border-b border-border' : ''}`}>
+          <span className="text-foreground font-medium min-w-0">{row.label}</span>
+          <div className="text-right shrink-0 max-w-[55%]">
             <span className="text-primary font-semibold">{row.value}</span>
-            {row.note && <span className="ml-2 text-xs text-muted-foreground">{row.note}</span>}
+            {row.note && <span className="ml-2 text-xs text-muted-foreground break-words">{row.note}</span>}
           </div>
         </div>
       ))}
@@ -141,7 +141,7 @@ export default function CaseStudyLayout({ meta, children }: { meta: CaseStudyMet
             </span>
             <span className="text-xs text-muted-foreground">Case Study</span>
           </div>
-          <h1 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-3 leading-tight">
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 leading-tight text-balance">
             {meta.title}
           </h1>
           <p className="text-base text-muted-foreground mb-5 leading-relaxed">
@@ -166,7 +166,7 @@ export default function CaseStudyLayout({ meta, children }: { meta: CaseStudyMet
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                  className="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 rounded-lg text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
                 >
                   <LinkIcon icon={link.icon} />
                   {link.label}
@@ -178,7 +178,7 @@ export default function CaseStudyLayout({ meta, children }: { meta: CaseStudyMet
 
         {/* Key metrics */}
         {meta.metrics.length > 0 && (
-          <div className={`grid gap-4 mb-10 ${meta.metrics.length === 3 ? 'grid-cols-3' : meta.metrics.length === 4 ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-2 sm:grid-cols-3'}`}>
+          <div className={`grid gap-3 mb-10 ${meta.metrics.length === 3 ? 'grid-cols-1 sm:grid-cols-3' : meta.metrics.length === 4 ? 'grid-cols-2 sm:grid-cols-4' : 'grid-cols-2 sm:grid-cols-3'}`}>
             {meta.metrics.map((m, i) => (
               <div key={i} className="bg-card border border-border rounded-xl p-4 text-center">
                 <p className="font-display text-2xl font-bold text-primary">{m.value}</p>
