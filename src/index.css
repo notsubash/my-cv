@@ -598,14 +598,22 @@ section[id], footer[id] {
   scroll-margin-top: 2rem;
 }
 
-/* Architecture diagrams stay readable on phones via horizontal pan */
-figure:has(svg[role="img"]) {
+/* Architecture diagrams stay readable on phones via horizontal pan.
+   Scroll the SVG's parent so a framed card cannot leak nodes past its border. */
+figure:has(> svg[role="img"]) {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
 }
+figure:has(svg[role="img"]) > :not(figcaption):has(svg[role="img"]) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  max-width: 100%;
+}
 @media (max-width: 639px) {
   figure svg[role="img"] {
+    display: block;
     min-width: 34rem;
   }
 }

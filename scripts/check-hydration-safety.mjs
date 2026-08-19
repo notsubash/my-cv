@@ -35,6 +35,14 @@ if (/\bhydrateRoot\s*\(/.test(main)) {
   failures.push('main.tsx: hydrateRoot cannot match Puppeteer snapshots (merged text nodes) and throws React #418')
 }
 
+const css = read('src/index.css')
+if (!css.includes('figure:has(svg[role="img"]) > :not(figcaption):has(svg[role="img"])')) {
+  failures.push('index.css: framed diagrams must scroll inside the card so SVG nodes cannot paint past the border')
+}
+if (!css.includes('figure:has(> svg[role="img"])')) {
+  failures.push('index.css: unframed diagram figures must be a horizontal scrollport on small screens')
+}
+
 if (failures.length) {
   console.error('Hydration safety check failed:\n' + failures.map((f) => `  - ${f}`).join('\n'))
   process.exit(1)
