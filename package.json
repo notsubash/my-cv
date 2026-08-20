@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "node scripts/check-hydration-safety.mjs && tsc -b && vite build && node scripts/prerender.mjs",
-    "test": "node scripts/check-hydration-safety.mjs",
+    "test": "node scripts/check-hydration-safety.mjs && node scripts/check-posthog-filter.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
