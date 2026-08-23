@@ -35,12 +35,12 @@ export const articleRegistry: ArticleConfig[] = [
   {
     id: 'activity-recognition',
     slugs: { en: 'projects/activity-recognition' },
-    titles: { en: 'Activity Recognition with XGBoost' },
+    titles: { en: 'Subject-independent HAR on WISDM' },
     seo: {
       en: {
-        title: 'Activity Recognition — Case Study | Subash Pandey',
+        title: 'WISDM HAR: Subject-Independent Case Study | Subash Pandey',
         description:
-          'XGBoost-based human activity recognition from wearable sensor data. 19 activity classes, 85.6% accuracy, hyperparameter tuning via random search.',
+          'Subject-independent WISDM HAR with GroupKFold XGBoost. Same 5 s phone flatten: 0.8925 leaky macro-F1 vs 0.2924 grouped. Watch statistical model 0.7031. CPU FastAPI for one 5 s window.',
       },
     },
     sectionLabels: { en: {} },
@@ -110,7 +110,7 @@ export function getPageTitles(): Record<string, string> {
     '/blog/rag-pipeline': 'Building a Production RAG Pipeline',
     '/blog/steam-genre-networks': 'What 27,000 Steam Games Reveal About Genre Evolution',
     '/blog/ml-from-scratch': 'Learning ML and Deep Learning by Building Everything Twice',
-    '/blog/activity-recognition-pipeline': 'From Raw Sensor Logs to an Activity Classifier',
+    '/blog/activity-recognition-pipeline': 'Rebuilding WISDM HAR after a leaky 0.89',
     '/blog/building-an-idea-workbench': 'Building Gavel: Turning AI Opinions Into Experiments',
     '/blog/building-a-cloud-native-ai-platform': 'Building a Cloud Native AI Platform Under $15 a Month',
   }

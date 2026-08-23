@@ -7,6 +7,8 @@ interface BlogSeoConfig {
   keywords: string
   ogImage: string
   datePublished: string
+  /** Material revisions. Defaults to datePublished. */
+  dateModified?: string
   slug: string
 }
 
@@ -28,6 +30,7 @@ export function useReadingTime() {
 }
 
 export function useBlogSeo(config: BlogSeoConfig) {
+  const dateModified = config.dateModified ?? config.datePublished
   const jsonLd = useMemo(
     () => ({
       '@context': 'https://schema.org',
@@ -36,7 +39,7 @@ export function useBlogSeo(config: BlogSeoConfig) {
       description: config.description,
       image: `https://www.subash-pandey.com${config.ogImage}`,
       datePublished: config.datePublished,
-      dateModified: config.datePublished,
+      dateModified,
       author: {
         '@type': 'Person',
         name: 'Subash Pandey',
@@ -52,7 +55,7 @@ export function useBlogSeo(config: BlogSeoConfig) {
         '@id': `https://www.subash-pandey.com/blog/${config.slug}`,
       },
     }),
-    [config.title, config.description, config.ogImage, config.datePublished, config.slug],
+    [config.title, config.description, config.ogImage, config.datePublished, dateModified, config.slug],
   )
 
   usePageSeo({

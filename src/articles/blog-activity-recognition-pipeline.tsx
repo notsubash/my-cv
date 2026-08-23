@@ -1,112 +1,99 @@
+import { type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, Calendar, Tag } from 'lucide-react'
 import BlogNav from './BlogNav'
 import BlogToc from './BlogToc'
 import CodeBlock from './CodeBlock'
+import { LeakageSplitDiagram, RepairPipelineDiagram } from './har-wisdm-diagrams'
 import { useBlogSeo, useReadingTime } from './useBlogSeo'
 
-function StepBox({ x, y, w, h, label, sublabel, accent }: { x: number; y: number; w: number; h: number; label: string; sublabel?: string; accent?: boolean }) {
-  return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={w}
-        height={h}
-        rx={8}
-        className={
-          accent
-            ? 'fill-[hsl(var(--accent)/0.15)] stroke-[hsl(var(--accent)/0.6)]'
-            : 'fill-[hsl(var(--card))] stroke-[hsl(var(--border))]'
-        }
-        strokeWidth={1.5}
-      />
-      <text
-        x={x + w / 2}
-        y={y + (sublabel ? h / 2 - 6 : h / 2 + 1)}
-        textAnchor="middle"
-        dominantBaseline="middle"
-        className="fill-[hsl(var(--foreground))] text-[11px] font-semibold"
-      >
-        {label}
-      </text>
-      {sublabel && (
-        <text
-          x={x + w / 2}
-          y={y + h / 2 + 10}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          className="fill-[hsl(var(--muted-foreground))] text-[9px]"
-        >
-          {sublabel}
-        </text>
-      )}
-    </g>
-  )
+const TITLE = 'Rebuilding WISDM HAR after a leaky 0.89'
+const DESCRIPTION =
+  'I froze the June WISDM notebook at git tag v1.0.0, then rebuilt subject-independent HAR. Same 5 s phone flatten: 0.8925 leaky macro-F1 vs 0.2924 GroupKFold. Watch statistical XGBoost is 0.7031.'
+
+function K({ children }: { children: ReactNode }) {
+  return <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">{children}</code>
 }
 
-function StepArrow({ x1, y1, x2, y2 }: { x1: number; y1: number; x2: number; y2: number }) {
-  const dx = x2 - x1
-  const dy = y2 - y1
-  const len = Math.sqrt(dx * dx + dy * dy)
-  const ux = dx / len
-  const uy = dy / len
-  const ax = x2 - ux * 6
-  const ay = y2 - uy * 6
-  return (
-    <g>
-      <line x1={x1} y1={y1} x2={ax} y2={ay} className="stroke-[hsl(var(--primary)/0.5)]" strokeWidth={1.5} />
-      <polygon
-        points={`${x2},${y2} ${ax - uy * 4},${ay + ux * 4} ${ax + uy * 4},${ay - ux * 4}`}
-        className="fill-[hsl(var(--primary)/0.5)]"
-      />
-    </g>
-  )
-}
-
-function PipelineDiagram() {
+function Shot({
+  src, alt, caption, width, height,
+}: {
+  src: string; alt: string; caption: string; width: number; height: number
+}) {
   return (
     <figure className="my-6">
-      <svg viewBox="0 0 640 185" className="w-full" role="img" aria-label="Activity recognition pipeline from raw data to model evaluation">
-        <StepBox x={10} y={10} w={95} h={50} label="WISDM files" sublabel="phone + watch" />
-        <StepArrow x1={105} y1={35} x2={130} y2={35} />
-        <StepBox x={130} y={10} w={110} h={50} label="DataLoader" sublabel="raw.csv / arff.csv" accent />
-        <StepArrow x1={240} y1={35} x2={265} y2={35} />
-        <StepBox x={265} y={10} w={110} h={50} label="Preprocess" sublabel="clean + encode" />
-        <StepArrow x1={375} y1={35} x2={400} y2={35} />
-        <StepBox x={400} y={10} w={110} h={50} label="Sensor merge" sublabel="accel + gyro" accent />
-        <StepArrow x1={510} y1={35} x2={535} y2={35} />
-        <StepBox x={535} y={10} w={95} h={50} label="Windowing" sublabel="80 / 40 hop" />
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className="w-full h-auto rounded-xl border border-border bg-card"
+        loading="lazy"
+      />
+      <figcaption className="text-center text-xs text-muted-foreground mt-2">{caption}</figcaption>
+    </figure>
+  )
+}
 
-        <StepArrow x1={582} y1={60} x2={582} y2={85} />
-        <StepBox x={495} y={95} w={120} h={50} label="XGBoost train" sublabel="flattened windows" accent />
-        <StepArrow x1={495} y1={120} x2={470} y2={120} />
-        <StepBox x={350} y={95} w={120} h={50} label="Evaluation" sublabel="confusion + F1" />
-        <StepArrow x1={350} y1={120} x2={325} y2={120} />
-        <StepBox x={210} y={95} w={110} h={50} label="Iterate" sublabel="fix weak classes" accent />
-      </svg>
-      <figcaption className="text-center text-xs text-muted-foreground mt-2">
-        End-to-end path from raw WISDM sensor logs to a trained activity classifier
-      </figcaption>
+function MetricTable({
+  caption, headers, rows,
+}: {
+  caption: string
+  headers: string[]
+  rows: string[][]
+}) {
+  return (
+    <figure className="my-6">
+      <div className="rounded-xl border border-border bg-card overflow-x-auto">
+        <table className="w-full text-xs">
+          <caption className="caption-bottom text-center text-xs text-muted-foreground px-3 py-2 border-t border-border">
+            {caption}
+          </caption>
+          <thead>
+            <tr className="border-b border-border bg-muted/50">
+              {headers.map((h) => (
+                <th key={h} scope="col" className="text-left px-3 py-2 text-foreground font-semibold whitespace-nowrap">
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr key={i} className={i % 2 === 0 ? undefined : 'bg-muted/30'}>
+                {row.map((cell, j) =>
+                  j === 0 ? (
+                    <th key={j} scope="row" className="px-3 py-2 text-left font-medium text-foreground whitespace-nowrap">
+                      {cell}
+                    </th>
+                  ) : (
+                    <td key={j} className="px-3 py-2 text-muted-foreground whitespace-nowrap">{cell}</td>
+                  ),
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </figure>
   )
 }
 
 export default function BlogActivityRecognitionPipeline() {
   useBlogSeo({
-    title: 'From Raw Sensor Logs to an Activity Classifier',
-    description:
-      'A practical build journey through my activity recognition project: loading WISDM sensor data, merging accel+gyro streams, windowing time series, training XGBoost, and learning from confusion matrix failures.',
+    title: TITLE,
+    description: DESCRIPTION,
     keywords:
-      'human activity recognition xgboost, wisdm dataset activity classification, accelerometer gyroscope feature engineering, time series windowing for classification, sensor fusion phone accelerometer gyroscope, xgboost multiclass confusion matrix, machine learning activity detection python, wearable sensor data preprocessing, sliding window activity recognition, practical ml project walkthrough',
-    ogImage: '/og-blog-rag-pipeline.webp',
-    datePublished: '2026-06-07',
+      'wisdm subject independent har, groupkfold activity recognition, xgboost wearable imu, sensor leakage sliding windows',
+    ogImage: '/og-blog-activity-recognition.webp',
+    datePublished: '2026-08-23',
+    dateModified: '2026-08-23',
     slug: 'activity-recognition-pipeline',
   })
   const { articleRef, readingTimeRef } = useReadingTime()
 
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" className="min-h-screen bg-background">
       <BlogToc articleRef={articleRef} />
       <article ref={articleRef} className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
         <Link
@@ -119,20 +106,24 @@ export default function BlogActivityRecognitionPipeline() {
 
         <header className="mb-10">
           <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
-            <span className="inline-flex items-center gap-1"><Calendar className="w-3.5 h-3.5" /> June 2026</span>
+            <span className="inline-flex items-center gap-1">
+              <Calendar className="w-3.5 h-3.5" />
+              <time dateTime="2026-08-23">August 2026</time>
+            </span>
             <span className="text-border">·</span>
-            <span ref={readingTimeRef}>12 min read</span>
+            <span ref={readingTimeRef}>14 min read</span>
           </div>
           <h1 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-            From Raw Sensor Logs to an Activity Classifier
+            {TITLE}
           </h1>
           <p className="text-base text-muted-foreground leading-relaxed mb-5">
-            I wanted to build an activity classifier that could tell what someone is doing from phone sensor data: walking, jogging,
-            sitting, climbing stairs, and more. This project started as a straightforward modeling task and turned into a practical lesson
-            in data cleaning, sensor alignment, and class-level error analysis.
+            The June notebook printed 0.8559 phone accuracy. I froze that tree at git tag v1.0.0 and
+            rebuilt the pipeline. Same 5 s phone flatten on repaired 20 Hz data: 0.8925 leaky
+            macro-F1 versus 0.2924 under GroupKFold. The 18-class number I would serve is watch
+            statistical XGBoost at 0.7031.
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {['Python', 'WISDM', 'XGBoost', 'Time Series', 'Feature Engineering'].map(tag => (
+            {['Python', 'WISDM', 'XGBoost','ONNX','MlFlow','GroupKFold', 'FastAPI'].map(tag => (
               <span key={tag} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs bg-muted text-muted-foreground">
                 <Tag className="w-3 h-3" />
                 {tag}
@@ -142,251 +133,490 @@ export default function BlogActivityRecognitionPipeline() {
         </header>
 
         <div className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-xs text-muted-foreground mb-6">
-          This post is based on my public repository: <a href="https://github.com/notsubash/Activity-Recognition" className="text-primary hover:underline">Activity-Recognition</a>.
-          The project is notebook-driven and still has a few hardcoded paths, so I also call out the rough edges I would fix first.
+          Source:{' '}
+          <a href="https://github.com/notsubash/Activity-Recognition" className="text-primary hover:underline">
+            github.com/notsubash/Activity-Recognition
+          </a>
+          {' '}at{' '}
+          <a href="https://github.com/notsubash/Activity-Recognition/releases/tag/v2.0.0" className="text-primary hover:underline">
+            v2.0.0
+          </a>
+          . June notebooks:{' '}
+          <a href="https://github.com/notsubash/Activity-Recognition/releases/tag/v1.0.0" className="text-primary hover:underline">
+            v1.0.0
+          </a>
+          . Frozen tables live in the{' '}
+          <Link to="/projects/activity-recognition" className="text-primary hover:underline">
+            case study
+          </Link>
+          .
         </div>
 
         <hr className="border-border mb-10" />
 
         <div className="prose-custom space-y-8 text-sm text-muted-foreground leading-relaxed">
           <section>
-            <h2 id="why-this-project" className="font-display text-lg font-semibold text-foreground mb-3">Why I built this</h2>
+            <h2 id="leaky-split" className="font-display text-lg font-semibold text-foreground mb-3">The 0.86 I published was a leaky split</h2>
             <p>
-              Activity recognition sits in a sweet spot for practical ML. The inputs are messy real-world signals, the labels are concrete,
-              and the modeling decisions are easy to explain. You can start simple and still learn a lot about preprocessing discipline.
+              In June I treated a phone-only XGBoost notebook as the project result. It printed{' '}
+              <K>Accuracy: 0.855905403547367</K>. That walkthrough lived on this URL. The code from
+              that week is still on GitHub as{' '}
+              <a href="https://github.com/notsubash/Activity-Recognition/releases/tag/v1.0.0" className="text-primary hover:underline">v1.0.0</a>.
+              I did not delete it. I tagged it, archived the notebooks, and asked a different question
+              on the same dump.
             </p>
             <p className="mt-3">
-              I used the WISDM dataset, which includes accelerometer and gyroscope streams from phones and watches. The task is multi-class
-              classification: predict an activity code from motion patterns.
+              Human activity recognition (HAR) here means: take a few seconds of accelerometer and
+              gyroscope, and name one of 18 daily activities. Those two sensors, three axes each, are
+              an inertial measurement unit (IMU).{' '}
+              <a
+                href="https://archive.ics.uci.edu/dataset/507/wisdm+smartphone+and+smartwatch+activity+and+biometrics+dataset"
+                className="text-primary hover:underline"
+              >
+                WISDM (UCI 507)
+              </a>{' '}
+              records them from a phone in a pocket and a watch on the dominant hand, 51 people,
+              codes A–S skipping N. There is no activity N. Eighteen classes, not nineteen. The June
+              case study got that wrong.
             </p>
-            <PipelineDiagram />
+            <p className="mt-3">
+              On repaired 20 Hz data, the same flattened 5 s phone windows still look strong if I
+              shuffle them the way the notebook did: <strong className="text-foreground">0.8925 macro-F1</strong>{' '}
+              (<K>configs/protocol_a2_phone_raw_flat_xgb.yaml</K>). Macro-F1 is the unweighted mean of
+              per-class F1. I use it as the primary metric because accuracy can hide that pasta and
+              sitting are noise. GroupKFold on <K>subject_id</K> drops that flatten to{' '}
+              <strong className="text-foreground">0.2924</strong>{' '}
+              (<K>configs/protocol_b_phone_raw_flat_xgb.yaml</K>).
+            </p>
+            <LeakageSplitDiagram />
+            <p>
+              That drop is the finding. The 18-class number I would actually serve is watch
+              statistical XGBoost at <strong className="text-foreground">0.7031</strong> GroupKFold
+              (<K>configs/protocol_b_watch_stat_xgb.yaml</K>). Pocket phone on the same feature family
+              is <strong className="text-foreground">0.3272</strong>. Concatenating phone and watch
+              windows as extra rows lands in between, at <strong className="text-foreground">0.5236</strong>.
+              That concat is still six channels per window, not time-aligned 12-channel fusion. The
+              June reflection said I would fuse next and jump past 90% with a CNN-LSTM. I have no
+              evidence for that jump. I have evidence that stacking both devices without alignment does
+              not beat the watch.
+            </p>
           </section>
 
           <section>
-            <h2 id="data-loading" className="font-display text-lg font-semibold text-foreground mb-3">Stage 1: from raw files to usable tables</h2>
+            <h2 id="v1-notebook" className="font-display text-lg font-semibold text-foreground mb-3">v1.0.0 did what student HAR notebooks usually do</h2>
             <p>
-              The first notebook, <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">DataLoader.ipynb</code>, does most of
-              the heavy lifting for ingestion. It parses raw text files and ARFF feature files, tags rows by device and sensor type,
-              and exports two main tables: <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">raw.csv</code> and
-              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> arff.csv</code>.
+              The tagged tree is <K>DataLoader.ipynb</K>, <K>analysis.ipynb</K>, and{' '}
+              <K>PhoneXGB2.ipynb</K>: no package, no tests, no subject-grouped split. TensorFlow sat
+              unused in <K>requirements.txt</K>. Watch files were on disk and unused. Evaluation lived
+              in a generic writeup, not a model card. The notebook concatenated{' '}
+              <strong className="text-foreground">15,649,253</strong> rows, inner-joined phone accel
+              and gyro on exact timestamps, cut 80-sample windows with hop 40, flattened them to 480
+              numbers, dropped subject id, and called <K>train_test_split</K>. Early stopping
+              watched the test set. A scaler saw every row before the split. Random search landed on
+              982 trees, <K>max_depth</K> 6. I still have that run: accuracy{' '}
+              <strong className="text-foreground">0.8559</strong>. Macro-F1 was not reported.
             </p>
             <p className="mt-3">
-              This step looks boring on paper, but it decides everything that comes later. If naming, timestamps, or column types are even
-              slightly inconsistent here, model quality drops and debugging gets painful.
+              Those steps leak. Once <K>Subject-id</K> is gone, the same gait and the same pocket sit
+              on both sides of the split, so a tree can memorize people. Hop 40 on length 80 puts
+              overlapping windows from one bout in train and test.{' '}
+              <K>get_frames</K> slid over the concatenated table, so a window at a file boundary can mix
+              two activities or two people. Sample deltas are about <K>5.03e7</K>; as nanoseconds
+              that is ~50 ms, about 20 Hz, but <K>pd.to_datetime(..., unit="us")</K> turns the same
+              integers into ~50 s gaps and decorative 2019 datetimes. Deltas are usable. Absolute epoch
+              is not.{' '}
+              <a href="https://arxiv.org/abs/2305.10222" className="text-primary hover:underline">
+                Heydarian and Doyle (rWISDM)
+              </a>{' '}
+              already warned that the published Unix times do not match 2017. IMU clocks almost never
+              share sample instants, so an inner join on the raw timestamp drops and distorts rows. I
+              knew clocks drift and still merged on <K>Timestamp</K> in v1 because that is the join
+              you write when you want a 6-column matrix today. The official line format is{' '}
+              <K>subject-id, activity-code, timestamp, x, y, z;</K> with a trailing semicolon on{' '}
+              <K>z</K>; student <K>read_csv</K> kept that semicolon as part of the string.
+            </p>
+            <p className="mt-3">
+              I am not going to relitigate v1 class by class from the leaky confusion matrix. Walking vs
+              jogging vs stairs, and the eating cluster, already showed up there. Under a
+              subject-independent split those confusions survive. The 0.89 score does not.
             </p>
           </section>
 
           <section>
-            <h2 id="preprocessing" className="font-display text-lg font-semibold text-foreground mb-3">Stage 2: preprocessing and sensor fusion</h2>
+            <h2 id="dump-not-20hz" className="font-display text-lg font-semibold text-foreground mb-3">The dump is not a clean 20 Hz grid</h2>
             <p>
-              In <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">PhoneXGB2.ipynb</code>, I convert
-              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> x/y/z</code> to numeric values, parse timestamps,
-              one-hot encode sensor metadata, and scale accelerometer and gyroscope channels separately.
+              UCI 507 claims 51 subjects (1600–1650), 18 activities for three minutes each, 20 Hz,
+              phone in the pocket, watch on the dominant hand. The description PDF is{' '}
+              <a
+                href="http://archive.ics.uci.edu/ml/machine-learning-databases/00507/WISDM-dataset-description.pdf"
+                className="text-primary hover:underline"
+              >
+                WISDM-dataset-description.pdf
+              </a>
+              . Instance count on the UCI page is 15,630,426. My extract matches Weiss stream totals
+              exactly: phone accel 4,804,403, phone gyro 3,608,635, watch accel 3,777,046, watch gyro
+              3,440,342. Total <strong className="text-foreground">15,630,426</strong>. The extra 18,827
+              rows in the student concat are a loader artifact, not extra physics.
+            </p>
+            <Shot
+              src="/blog/activity-recognition/sampling_rate_modes.webp"
+              alt="Histogram of implied sampling-rate modes in raw WISDM sessions, clustered at 20, 25, 50, and 100 Hz"
+              caption="Implied Hz from timestamp deltas. Official claim is 20 Hz. A 200-row ARFF window is 10 s at 20 Hz and about 4 s at 50 Hz."
+              width={1162}
+              height={652}
+            />
+            <p>
+              Implied Hz from timestamp deltas in this dump clusters at{' '}
+              <strong className="text-foreground">20</strong> (2,838 sessions),{' '}
+              <strong className="text-foreground">25</strong> (543),{' '}
+              <strong className="text-foreground">50</strong> (322), and{' '}
+              <strong className="text-foreground">100</strong> (14). A 200-row official ARFF window
+              is 10 s at 20 Hz and about 4 s at 50 Hz, so windowing by row count mixes time scales. ARFF
+              is Weka's attribute-relation format; WISDM ships precomputed 10 s feature files that
+              assume 20 Hz. I did not train on those files as ground truth.{' '}
+              <strong className="text-foreground">35</strong> subject × activity × stream cells are
+              empty. Phone accel alone is missing 1607 J, 1609 B, 1616 B and F, 1618 O, 1642 C and F,
+              1643 I. rWISDM had already listed a subset of those phone-accel holes; the 18-class grid
+              has more, including watch and gyro. There are no demographics, so there is no fairness
+              slice. Zero NaNs. Zero non-monotonic timestamps. The defects are coverage, sampling rate,
+              and orientation, not garbage floats.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="repair" className="font-display text-lg font-semibold text-foreground mb-3">Repair so a window is 5 seconds of real time</h2>
+            <p>
+              <K>python -m har.data.repair</K> interpolates each{' '}
+              <K>(subject, activity, device)</K> session onto a shared 20 Hz grid. Accel and gyro are
+              aligned by the intersection of their coverage, not by an exact-timestamp join.
+              Phone-accel reorient is implemented and <strong className="text-foreground">off</strong> by
+              default. Start-of-trial trim is implemented and <strong className="text-foreground">0 s</strong> by
+              default.
+            </p>
+            <RepairPipelineDiagram />
+            <p>
+              Windows are <strong className="text-foreground">5.0 s</strong> with a{' '}
+              <strong className="text-foreground">1.0 s</strong> hop, built inside one session. They
+              never slide across subject or activity boundaries. At 20 Hz that is T=100, C=6. A
+              session shorter than 5 s yields no windows. Coverage below 0.95 (any non-finite channel)
+              drops the window. Default features are 104-dimensional statistical summaries: per-axis
+              moments, a 10-bin histogram, magnitude, pairwise correlations. That family is what the
+              official ARFF was pointing at, minus MFCC. Flattened raw windows exist so I can compare
+              the student representation on the same repaired sessions. Six-channel flatten is 600
+              numbers on a 5 s window; the 80-sample A1 clone is 480. I skipped peak-interval and MFCC
+              on purpose. Phone eating is still a mess after statistical features. Adding cosine-mel bins
+              does not get you out of a pocket IMU that cannot see a fork. Parser, audit, repair,
+              windowing, and splits have fixture tests. CI never downloads WISDM.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="protocols" className="font-display text-lg font-semibold text-foreground mb-3">Three protocols, because one number is a trap</h2>
+            <p>
+              Protocol A copies the notebook and early-stops on the test set. A1 is the closest clone
+              of <K>PhoneXGB2.ipynb</K> (leaky <K>train_test_split</K> on 80-sample / hop-40 flatten).
+              A2 is the leaky side of the same-representation pair (5 s / 1 s flatten). Protocol B is
+              5-fold GroupKFold on <K>subject_id</K> and is the main table. Protocol C is a 46/5
+              grouped holdout, 3 repeats from one seed: a phone holdout check, not 51-fold leave-one-subject-out
+              (LOSO). Protocol D, train phone / test watch and reverse, is specified and not run.
+              Everything except A fits scalers, encoders, and early stopping on training subjects
+              only. Nested XGBoost validation on B/C is one held-out <strong className="text-foreground">train</strong> subject,
+              not a separate validation cohort.
             </p>
             <p className="mt-3">
-              The key decision was to train a phone-only pipeline first and merge phone accelerometer and gyroscope streams on shared keys:
-              timestamp, subject id, and activity code. Keeping that merge explicit made errors easier to catch.
+              A1 and A2 train on the <strong className="text-foreground">repaired</strong> parquet. They
+              clone the student split and window geometry, not the unrepaired concat table. Do not
+              treat A2 0.8925 vs the notebook 0.8559 as a leakage-only delta. Parse, timestamps, and
+              the accel/gyro join already changed the matrix. A1 came out{' '}
+              <strong className="text-foreground">0.8490</strong> macro-F1 /{' '}
+              <strong className="text-foreground">0.8475</strong> accuracy
+              (<K>configs/protocol_a1_phone_raw_flat_xgb.yaml</K>), in the same ballpark as 0.8559, on
+              80-sample windows. Different geometry from A2. The leakage experiment is A2 vs B on 5 s
+              flatten, same 982-tree family the notebook used. Honest B/C XGBoost is a smaller family:
+              200 trees, <K>max_depth</K> 6. Config YAML may say <K>device: cuda</K>; export and
+              machines without a GPU fall back to CPU. I am not treating those runs as a 982-tree
+              reproduction.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="same-flatten" className="font-display text-lg font-semibold text-foreground mb-3">Same flatten, leaky vs grouped</h2>
+            <MetricTable
+              caption="Phone flattened windows. A2 vs B is the leakage pair. A1 is a different window geometry."
+              headers={['Protocol', 'Config', 'Model', 'macro-F1', 'Accuracy']}
+              rows={[
+                ['Student notebook', 'notebooks/archive/student_evaluation.txt', 'xgboost', 'not reported', '0.8559'],
+                ['A1 leaky', 'protocol_a1_phone_raw_flat_xgb', 'xgboost (982 trees)', '0.8490', '0.8475'],
+                ['A2 leaky', 'protocol_a2_phone_raw_flat_xgb', 'xgboost (982 trees)', '0.8925', '0.8913'],
+                ['B GroupKFold', 'protocol_b_phone_raw_flat_xgb', 'xgboost (982 trees)', '0.2924', '0.3047'],
+              ]}
+            />
+            <Shot
+              src="/blog/activity-recognition/leakage_macro_f1.webp"
+              alt="Bar chart comparing leaky Protocol A2 macro-F1 of 0.8925 against GroupKFold Protocol B at 0.2924 on the same flattened 5 second phone windows"
+              caption="Same flattened 5 s phone windows under a leaky split versus GroupKFold. Frozen JSON under docs/reports/."
+              width={1406}
+              height={583}
+            />
+            <p>
+              A2 train and test subject lists are the same 51 ids. That is the leak, written down.
+              GroupKFold folds do not share people. If you only remember one pair from this post,
+              remember 0.8925 vs 0.2924.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="what-classifies" className="font-display text-lg font-semibold text-foreground mb-3">What actually classifies 18 activities</h2>
+            <p>
+              Protocol B, statistical features, GroupKFold 5, repaired 20 Hz, 5 s windows, full
+              51-subject UCI 507.
+            </p>
+            <MetricTable
+              caption="Protocol B statistical ladder on repaired 20 Hz windows."
+              headers={['Device', 'Config', 'Model', 'macro-F1', 'Accuracy']}
+              rows={[
+                ['phone', 'protocol_b_phone_stat_dummy', 'stratified dummy', '0.0151', '0.0551'],
+                ['phone', 'protocol_b_phone_stat_logreg', 'logreg', '0.2767', '0.2799'],
+                ['phone', 'protocol_b_phone_stat_rf', 'random forest', '0.3131', '0.3252'],
+                ['phone', 'protocol_b_phone_stat_xgb', 'xgboost (200 trees)', '0.3272', '0.3382'],
+                ['phone', 'protocol_b_phone_raw_flat_xgb', 'xgboost (982 trees), flatten', '0.2924', '0.3047'],
+                ['watch', 'protocol_b_watch_stat_xgb', 'xgboost (200 trees)', '0.7031', '0.7013'],
+                ['both (stacked rows)', 'protocol_b_concat_stat_xgb', 'xgboost (200 trees)', '0.5236', '0.5267'],
+              ]}
+            />
+            <Shot
+              src="/blog/activity-recognition/protocol_b_ladder.webp"
+              alt="Bar chart of Protocol B macro-F1 for dummy, logistic regression, random forest, phone XGBoost, watch XGBoost, and stacked concat"
+              caption="Protocol B model and device ladder on statistical features. Watch is the device that classifies 18 activities."
+              width={1531}
+              height={922}
+            />
+            <p>
+              Statistical phone XGBoost beats flattened raw under the same protocol. Gradient boosting
+              beat dummy, logistic regression, and random forest on that phone table, so I did not add
+              a 1D CNN or temporal convolutional network (TCN). "Trees won" means they won this
+              classical ladder on these windows. It does not mean a network cannot win later. A later
+              TCN is only a claim if it uses the same GroupKFold splits and the same windows, with a
+              row next to <K>protocol_b_phone_stat_xgb</K>. Watch fold macro-F1 ran from 0.637 to 0.770
+              (<K>std_fold_macro_f1</K> 0.0506). Phone was tighter (std 0.015). The 0.7031 headline is
+              a pooled number with real person-to-person spread. Protocol C phone statistical XGBoost
+              is <strong className="text-foreground">0.2985</strong> macro-F1, unweighted mean of three
+              46/5 repeats (<K>configs/protocol_c_phone_stat_xgb.yaml</K>). It tracks Protocol B phone
+              (0.3272), not Protocol A. Full 51-subject XGBoost is an overnight local run. 51-fold LOSO
+              would be that overnight, fifty-one times.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="phone-vs-watch" className="font-display text-lg font-semibold text-foreground mb-3">Pocket phone finds locomotion. It cannot name dinner.</h2>
+            <p>
+              Phone statistical XGBoost under Protocol B
+              (<K>protocol_b_phone_stat_xgb.json</K>): locomotion as a group is F1{' '}
+              <strong className="text-foreground">0.8873</strong>. Eating as a group is{' '}
+              <strong className="text-foreground">0.4945</strong>. Per-class F1: pasta 0.0749, soup
+              0.0807, chips 0.0964, drinking 0.1050, sandwich 0.1064, sitting 0.1943. Stairs (0.6588)
+              and kicking (0.6470) are the weakest locomotion classes. They are not the worst overall.
+              Sitting is worse than stairs. The June post called sitting a standout class. That was the
+              leaky phone story, where the model had already seen that person's still pocket.
+            </p>
+            <p className="mt-3">
+              Watch on the dominant hand flips the picture: locomotion 0.9292, hand 0.8788, eating
+              0.8450, posture 0.6606. Stairs 0.7028, kicking 0.7831. The hard watch class is sandwich
+              (L) at <strong className="text-foreground">0.2816</strong>. Typing, brushing teeth,
+              catch, dribbling, writing, clapping, folding are all much easier once the IMU is on the
+              wrist.
+            </p>
+            <Shot
+              src="/blog/activity-recognition/per_class_f1_phone_watch.webp"
+              alt="Per-class F1 bars for 18 WISDM activities comparing phone and watch statistical XGBoost under Protocol B"
+              caption="Per-class F1, Protocol B. Phone eating stays near 0.07–0.11. Watch sandwich is the weak served class at 0.2816."
+              width={1551}
+              height={1276}
+            />
+            <Shot
+              src="/blog/activity-recognition/per_group_f1_phone_watch.webp"
+              alt="Activity-group F1 for locomotion, posture, hand, and eating on phone versus watch"
+              caption="Activity-group F1. Pocket phone can tell locomotion as a group. Watch is the 18-way device."
+              width={1259}
+              height={683}
+            />
+            <p>
+              Do not send a phone window to a watch bundle. The API returns 422 on <K>device</K>{' '}
+              mismatch. Placement is part of the model. The June case study said watch soup and teeth
+              confused with standing, and that phone handled eating better. Under GroupKFold the phone
+              cannot name eating at all. I was reading a leaky matrix.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="ablations" className="font-display text-lg font-semibold text-foreground mb-3">Ablations that did not rescue the phone</h2>
+            <p>
+              Same GroupKFold, same 200-tree family as the phone statistical control (5 s, XYZ, trim
+              0, reorient off, flat 18-way, macro-F1 <strong className="text-foreground">0.3272</strong>,
+              eating group F1 <strong className="text-foreground">0.4945</strong>).
+            </p>
+            <MetricTable
+              caption="Protocol B phone statistical XGBoost ablations. Control stays 5 s, unreoriented, untrimmed, flat 18-way."
+              headers={['Setting', 'Config', 'macro-F1', 'Eating group F1']}
+              rows={[
+                ['Control 5 s XYZ', 'protocol_b_phone_stat_xgb', '0.3272', '0.4945'],
+                ['Window 10 s', 'ablations/window_10s', '0.3422', '0.5151'],
+                ['Window 2 s', 'ablations/window_2s', '0.2951', '0.4610'],
+                ['Trim first 15 s', 'ablations/trim_15s', '0.3247', '0.4712'],
+                ['Phone-accel reorient', 'ablations/reorient_on', '0.3230', '0.4830'],
+                ['Magnitude only', 'ablations/magnitude', '0.3142', '0.4516'],
+                ['Hierarchical', 'ablations/hierarchical', '0.3271', '0.5855'],
+              ]}
+            />
+            <Shot
+              src="/blog/activity-recognition/ablations_macro_f1.webp"
+              alt="Bar chart of Protocol B phone statistical XGBoost ablations showing 10 second windows slightly ahead of the 5 second control"
+              caption="10 s windows are the only knob that clearly beats 5 s. Reorient and a 15 s start trim do not."
+              width={1424}
+              height={1007}
+            />
+            <p>
+              rWISDM-style gravity repair on phone accel does not raise 18-class phone GroupKFold.
+              Dropping the first 15 s does not either, and it hurts eating. Magnitude-only (two
+              Euclidean channels, then the same extractor, 32 features) is worse than XYZ. Axis stats
+              matter. 10 s windows are the only row that clearly beats 5 s, by about 1.5 macro-F1
+              points. That is a latency and context trade, not a free lunch. Defaults stay 5 s,{' '}
+              <K>reorient: false</K>, <K>trim_start_s: 0.0</K>.
+            </p>
+            <p className="mt-3">
+              The two-stage head trains a group classifier (locomotion / posture / hand / eating) plus
+              four experts on the true group, then routes at inference by the{' '}
+              <strong className="text-foreground">predicted</strong> group. It does not beat flat
+              18-way on macro-F1 (0.3271 vs 0.3272). Eating group F1 rises from 0.4945 to 0.5855.
+              Hand rises; posture drops. If the product is "is this person eating," the two-stage head
+              is interesting. If the product is 18-way labels, it is not the shipped model. The first
+              full-WISDM hierarchical run died on fold 1. Locomotion includes kicking (M), which is
+              label index 12. XGBoost's sklearn wrapper rejected <K>[0, 1, 2, 12]</K>. Experts now
+              remap local <K>0..K-1</K>. A one-class-per-group unit test never hit that. The fixture had
+              to split by class so every expert actually ran. No XGBoost grid search on the
+              subject-independent table. The 982-tree student params stay on Protocol A and the B flatten
+              pair.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="what-shipped" className="font-display text-lg font-semibold text-foreground mb-3">What I shipped instead of another notebook</h2>
+            <p>
+              v2 is an installable <K>har</K> package. Config YAML pins every experiment. MLflow logs
+              protocol, subject lists, fold macro-F1, per-group F1. Frozen JSON lives under{' '}
+              <K>docs/reports/</K>. README figures are regenerated from those reports, so the charts and
+              the tables cannot drift by hand.
+            </p>
+            <CodeBlock
+              lang="bash"
+              code={`make install
+python -m har.data.download   # skips if the extract sentinel exists; not used in CI
+make audit                    # docs/data_card.md
+make prepare                  # 20 Hz parquet, gitignored
+make train CONFIG=configs/protocol_b_watch_stat_xgb.yaml
+make eval
+make figures
+make test                     # fixtures only`}
+            />
+            <p>
+              GitHub Actions: Python 3.13, ruff, pytest on committed tiny WISDM-shaped files. No zip in
+              CI. Full training is local and overnight. The product surface is a CPU FastAPI that scores
+              one 5 s, 20 Hz window (T=100, C=6). Default bundle is watch statistical XGBoost, trees
+              exported with <K>onnxmltools</K> to ONNX (Open Neural Network Exchange). Statistical
+              features still run in Python. joblib is a fallback for stubs. The serving contract and
+              the 422 cases are in the{' '}
+              <Link to="/projects/activity-recognition" className="text-primary hover:underline">
+                case study
+              </Link>
+              . The same watch bundle is on Hugging Face as{' '}
+              <a
+                href="https://huggingface.co/axlesubash/wisdm-watch-stat-xgb"
+                className="text-primary hover:underline"
+              >
+                axlesubash/wisdm-watch-stat-xgb
+              </a>
+              . Trees are the <K>.onnx</K> file. The 104-d stats still run in Python from the GitHub
+              package. Watch windows only. A phone window is out of contract.
             </p>
             <CodeBlock
               lang="python"
-              code={`# Merge accel + gyro streams after cleaning
-phone_accel = df[(df["Device"] == "phone") & (df["Sensor"] == "accel")]
-phone_gyro = df[(df["Device"] == "phone") & (df["Sensor"] == "gyro")]
+              code={`from pathlib import Path
+import numpy as np
+from huggingface_hub import snapshot_download
+from har.models.export import load_bundle, predict_window
 
-merged = phone_accel.merge(
-    phone_gyro,
-    on=["Timestamp", "Subject-id", "Activity Code"],
-    suffixes=("_acc", "_gyro")
-)
-
-# Features per timestep: 6 channels (3 accel + 3 gyro)
-X = merged[["x_acc", "y_acc", "z_acc", "x_gyro", "y_gyro", "z_gyro"]].values`}
-            />
-          </section>
-
-          <section>
-            <h2 id="windowing" className="font-display text-lg font-semibold text-foreground mb-3">Stage 3: windowing time series for XGBoost</h2>
-            <p>
-              Raw sensor rows are not ideal for classification directly, so I frame them into sliding windows. I used
-              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> frame_size=80</code> and
-              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> hop_size=40</code>, then flattened each
-              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> (80, 6)</code> window into a tabular feature vector.
-            </p>
-            <p className="mt-3">
-              I ended up with 72,727 framed samples. At that point I had two choices: sequence models or tree models. I went with XGBoost first
-              because I wanted a hard baseline I could iterate quickly and inspect class by class before reaching for deeper architectures.
-            </p>
-            <CodeBlock
-              lang="python"
-              code={`def create_windows(features, labels, frame_size=80, hop_size=40):
-    X_windows, y_windows = [], []
-    for i in range(0, len(features) - frame_size, hop_size):
-        window = features[i:i + frame_size]
-        segment_labels = labels[i:i + frame_size]
-        label = np.bincount(segment_labels).argmax()  # majority label in the frame
-        X_windows.append(window)
-        y_windows.append(label)
-    return np.array(X_windows), np.array(y_windows)
-
-Xw, yw = create_windows(X, y)
-Xw_flat = Xw.reshape(Xw.shape[0], -1)  # flatten for XGBoost`}
-            />
-          </section>
-
-          <section>
-            <h2 id="training" className="font-display text-lg font-semibold text-foreground mb-3">Stage 4: training and evaluation</h2>
-            <p>
-              This is where most of my effort went. XGBoost was not a side detail in this project. It was the center of the whole pipeline once
-              framing and fusion were stable. I split the framed data 80/20 (
-              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">58,181</code> train and
-              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">14,546</code> test), flattened the windows, and trained
-              with my best random-search parameter set.
-            </p>
-            <p className="mt-3">
-              The best run reached
-              <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">0.855905</code> accuracy. More important than that single
-              number was the class-level behavior. Some classes were very strong and some were consistently noisy, and the confusion matrix made it obvious where.
-            </p>
-            <CodeBlock
-              lang="python"
-              code={`xgb_model = xgb.XGBClassifier(
-    use_label_encoder=False,
-    eval_metric="mlogloss",
-    colsample_bytree=0.9396893641976711,
-    gamma=0,
-    learning_rate=0.10241823755571676,
-    max_depth=6,
-    n_estimators=982,
-    subsample=0.8545330472743582,
-    device="cuda",
-    early_stopping_rounds=10
-)
-
-xgb_model.fit(X_train, y_train, eval_set=[(X_test, y_test)], verbose=False)
-y_pred = xgb_model.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)`}
+local = snapshot_download("axlesubash/wisdm-watch-stat-xgb")
+bundle = load_bundle(Path(local) / "watch_stat_xgb.onnx")
+window = np.zeros((100, 6), dtype=np.float32)  # ax, ay, az, gx, gy, gz
+print(predict_window(bundle, window))`}
             />
             <p className="mt-3">
-              The standout classes were sitting, writing, and standing. The weaker ones were jogging, stairs, kicking, and dribbling. That lines up
-              with intuition: classes with similar motion profiles overlap more in the feature space.
+              Export refits on all windows from that config, with one train subject used only for early
+              stopping. That served fit is not a GroupKFold fold. Cite 0.7031 from{' '}
+              <K>docs/reports/protocol_b_watch_stat_xgb.json</K>, not from the ONNX file. p95 CPU
+              latency was <strong className="text-foreground">2.7 ms</strong> over 100{' '}
+              <K>POST /predict</K> calls through FastAPI TestClient, 200-tree XGBoost, statistical
+              100×6 window, this CPU. That is not Docker, not uvicorn, and not a claim about a phone in
+              a pocket. Pytest only checks that a stub path stays under 500 ms. The serve image is
+              inference-only (<K>python:3.13-slim</K>). It does not install MLflow, XGBoost, or
+              pyarrow. Mount <K>$PWD/models</K>. Training env is <K>pip install -e ".[dev]"</K>.{' '}
+              <K>pyarrow</K> is pinned to 19.0.1 because MLflow 2.22.5 wants <K>&lt;20</K>.{' '}
+              <K>onnx</K> 1.17 had no wheel and tried a source build; 1.22 has a wheel. Those two pins
+              ate more time than the FastAPI handlers.
             </p>
-            <figure className="my-6">
-              <img
-                src="/blog/activity-recognition/PhoneConfusionMatrix.webp"
-                alt="Confusion matrix for activity recognition XGBoost model"
-                className="w-full rounded-xl border border-border bg-card"
-                loading="lazy"
-              />
-              <figcaption className="text-center text-xs text-muted-foreground mt-2">
-                Confusion matrix from the best XGBoost run. Strong diagonal overall, with clear overlap in similar motion classes.
-              </figcaption>
-            </figure>
-            <ul className="space-y-2 mt-3">
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                <span>
-                  <strong className="text-foreground">Strong classes:</strong> <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">D</code> (sitting),
-                  <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> Q</code> (writing),
-                  <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> E</code> (standing).
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                <span>
-                  <strong className="text-foreground">Weak classes:</strong> <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">B</code> (jogging),
-                  <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> C</code> (stairs),
-                  <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> M</code> (kicking),
-                  <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> P</code> (dribbling).
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                <span>
-                  <strong className="text-foreground">Repeated confusions:</strong> <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">A↔B/C</code> and some
-                  <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground"> G/H↔E</code> overlap.
-                </span>
-              </li>
-            </ul>
-            <p className="mt-3">
-              I also hit a practical training warning: device mismatch (GPU booster but CPU input matrix), which still runs but adds overhead.
-              So even when the metric looked good, there was still systems-level cleanup left to do.
-            </p>
-            <figure className="my-6">
-              <img
-                src="/blog/activity-recognition/PhoneEvals.webp"
-                alt="Per-class precision, recall, and F1 evaluation chart for activity recognition model"
-                className="w-full rounded-xl border border-border bg-card"
-                loading="lazy"
-              />
-              <figcaption className="text-center text-xs text-muted-foreground mt-2">
-                Per-class evaluation view. This is what helped me see which activities needed more work beyond headline accuracy.
-              </figcaption>
-            </figure>
           </section>
 
           <section>
-            <h2 id="what-was-hard" className="font-display text-lg font-semibold text-foreground mb-3">What was harder than expected</h2>
-            <ul className="space-y-3 mt-3">
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                <span>
-                  <strong className="text-foreground">Scale and memory pressure.</strong> The raw data is large enough that one careless
-                  dataframe copy can slow the entire notebook loop.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                <span>
-                  <strong className="text-foreground">Environment mismatch warnings.</strong> XGBoost showed CPU/GPU mismatch warnings in
-                  some runs. It still worked, but with unnecessary overhead.
-                </span>
-              </li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 id="what-i-learned" className="font-display text-lg font-semibold text-foreground mb-3">What I learned</h2>
+            <h2 id="limits" className="font-display text-lg font-semibold text-foreground mb-3">Limits I am not going to talk past</h2>
             <p>
-              The model choice mattered, but the biggest gains came from cleaning and alignment choices upstream. In sensor projects, strong
-              preprocessing is not optional. It is most of the work.
-            </p>
-            <p className="mt-3">
-              I also stopped trusting aggregate metrics alone. A confusion matrix tells you where the model is genuinely useful and where it is
-              still guessing between similar activities.
+              No subject demographics, so no slice by sex, handedness, height, or phone model. Concat
+              is extra 6-channel rows. Phone+watch fusion that shares a clock is a new pipeline.
+              Protocol C is 46/5 × 3, not LOSO. Protocol D (hardware transfer) is not run. rWISDM argued
+              repair matters most when you train on one device and test on the other. I did not
+              measure that. Served ONNX is a refit. Abstain is uncalibrated. Features are still Python.
+              Mixed raw sampling rates are repaired to 20 Hz. Residual in-session orientation flips are
+              not fully modeled. The reorient ablation did not help 18-class phone GroupKFold, so the
+              default stays off. 10 s windows beat 5 s on phone GroupKFold. I kept 5 s because that is
+              the served window. Changing it is a product choice. I am not claiming state of the art
+              against papers that shuffled windows and did not say so. v1.0.0 remains the notebook you
+              can open if you want to see how the 0.8559 run was produced. It is not the training path.
+              Archived notebooks still expect <K>data/processed/raw.csv</K> from the old loader.
             </p>
           </section>
 
           <section>
-            <h2 id="next-iteration" className="font-display text-lg font-semibold text-foreground mb-3">What I would improve next</h2>
-            <div className="rounded-xl border border-accent/30 bg-accent/5 p-5 space-y-3">
+            <h2 id="next" className="font-display text-lg font-semibold text-foreground mb-3">What I would run next</h2>
+            <p>
+              The June post ended by saying the classifier was already useful. A pocket phone that
+              cannot tell sitting from eating pasta is not useful as an 18-way product. A watch at
+              0.70 macro-F1 with sandwich at 0.28 might be, if you name the failure. That is the version
+              I tagged as v2.0.0.
+            </p>
+            <div className="rounded-xl border border-accent/30 bg-accent/5 p-5 space-y-3 mt-4">
               <p>
-                <strong className="text-foreground">Make the project reproducible end-to-end.</strong> Prepare a Dockerfile and a requirements.txt file to make the project reproducible.
+                <strong className="text-foreground">Aligned fusion.</strong> Time-aligned 12-channel
+                phone+watch windows on the same GroupKFold splits. Stacked 6-channel rows are not that
+                experiment.
               </p>
               <p>
-                <strong className="text-foreground">Compare against sequence models.</strong> Keep XGBoost as a baseline, then test a compact
-                1D-CNN or LSTM on the same windowed data.
+                <strong className="text-foreground">LOSO, or more grouped repeats.</strong> Watch fold
+                macro-F1 already spans 0.637–0.770. Protocol C is 46/5 × 3, not 51-fold.
               </p>
               <p>
-                <strong className="text-foreground">Add stronger class-level balancing and diagnostics.</strong> Per-class weighting and more
-                targeted error analysis should help the confusing activity pairs.
+                <strong className="text-foreground">Calibration.</strong> Temperature scaling and a
+                non-zero abstain threshold, especially for sandwich and the phone eating cluster.
+                Default threshold 0.0 never abstains.
               </p>
               <p>
-                <strong className="text-foreground">Bring watch signals back in deliberately.</strong> I scoped to phone-only first for speed,
-                but a structured fusion strategy could improve hard classes.
+                <strong className="text-foreground">A TCN only as a side-by-side row</strong> next to{' '}
+                <K>protocol_b_phone_stat_xgb</K> and <K>protocol_b_watch_stat_xgb</K>. I will not add
+                PyTorch "just in case."
+              </p>
+              <p>
+                <strong className="text-foreground">Few-shot personalization</strong> (30–60 s of a
+                held-out user) is in the plan as stretch. Not done.
               </p>
             </div>
-          </section>
-
-          <section>
-            <h2 id="conclusion" className="font-display text-lg font-semibold text-foreground mb-3">Wrapping up</h2>
-            <p>
-              This project gave me exactly what I wanted: a practical pipeline that works, plus a list of concrete next moves. The classifier is
-              useful already, and the failure modes are clear enough to improve without guesswork.
-            </p>
-            <p className="mt-3">
-              If you are building from wearable or phone sensor data, start with your preprocessing story. Once that is solid, model iteration
-              gets much faster.
-            </p>
           </section>
         </div>
 

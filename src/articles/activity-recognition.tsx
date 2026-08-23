@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import CaseStudyLayout, {
   Section,
   InfoGrid,
@@ -6,46 +7,64 @@ import CaseStudyLayout, {
   ResultTable,
   Reflection,
 } from './CaseStudyLayout'
+import CodeBlock from './CodeBlock'
+import { ProtocolCompareDiagram, ServePathDiagram } from './har-wisdm-diagrams'
 
 const meta = {
-  title: 'Activity Recognition with XGBoost',
+  title: 'Subject-independent HAR on WISDM',
   badge: 'ML / Sensors',
   tagline:
-    '19 human physical activities classified from smartphone and smartwatch sensor data. Final accuracy reached 85.6% after tuning an XGBoost model with randomised search.',
-  tech: ['XGBoost', 'Python', 'scikit-learn', 'Feature Engineering', 'Random Search'],
+    'v1.0.0 is the June phone XGBoost notebook (0.8559 accuracy, leaky split). v2.0.0 is session-safe 20 Hz repair, GroupKFold, and a CPU API. Same 5 s phone flatten: 0.8925 leaky macro-F1 vs 0.2924 GroupKFold. Watch statistical XGBoost is 0.7031.',
+  tech: ['Python', 'WISDM', 'XGBoost', 'scikit-learn', 'FastAPI', 'ONNX', 'MLflow'],
   links: [
     { label: 'GitHub', url: 'https://github.com/notsubash/Activity-Recognition', icon: 'github' as const },
+    { label: 'Hugging Face', url: 'https://huggingface.co/axlesubash/wisdm-watch-stat-xgb', icon: 'external' as const },
+    { label: 'v2.0.0', url: 'https://github.com/notsubash/Activity-Recognition/releases/tag/v2.0.0', icon: 'external' as const },
+    { label: 'v1.0.0 notebooks', url: 'https://github.com/notsubash/Activity-Recognition/releases/tag/v1.0.0', icon: 'external' as const },
   ],
   metrics: [
-    { value: '85.6%', label: 'Overall accuracy' },
-    { value: '19', label: 'Activity classes' },
-    { value: '2', label: 'Sensor placements' },
-    { value: '≥96%', label: 'F1 on Sitting / Writing' },
+    { value: '0.7031', label: 'Watch macro-F1, Protocol B' },
+    { value: '0.89 → 0.29', label: 'Phone flatten, leaky vs GroupKFold' },
+    { value: '18', label: 'Activity classes (A–S, no N)' },
+    { value: '51', label: 'Subjects (UCI 507)' },
   ],
-  seoTitle: 'Activity Recognition: Case Study | Subash Pandey',
+  seoTitle: 'WISDM HAR: Subject-Independent Case Study | Subash Pandey',
   seoDescription:
-    'XGBoost-based human activity recognition from wearable sensor data. 19 activity classes, 85.6% accuracy, hyperparameter tuning via random search.',
-  seoKeywords: 'human activity recognition xgboost, wearable sensor classification python, accelerometer gyroscope machine learning, sklearn activity recognition tutorial, hyperparameter tuning random search xgboost, smartphone activity detection ml',
+    'Subject-independent WISDM HAR with GroupKFold XGBoost. Same 5 s phone flatten: 0.8925 leaky macro-F1 vs 0.2924 grouped. Watch statistical model 0.7031. CPU FastAPI for one 5 s window.',
+  seoKeywords:
+    'wisdm subject independent har, groupkfold xgboost activity recognition, wearable imu classification, har evaluation leakage',
 }
 
-const phonePerClass = [
-  { label: 'Sitting (D)', value: '~96%', note: 'F1-score' },
-  { label: 'Writing (Q)', value: '~96%', note: 'F1-score' },
-  { label: 'Soup (H)', value: '~89%', note: 'F1-score' },
-  { label: 'Drinking (K)', value: '~88%', note: 'F1-score' },
-  { label: 'Typing (F)', value: '~86%', note: 'F1-score' },
-  { label: 'Kicking (M)', value: '~52%', note: 'F1-score' },
-  { label: 'Stairs (C)', value: '~49%', note: 'F1-score' },
-  { label: 'Dribbling (P)', value: '~49%', note: 'F1-score' },
+const ladderRows = [
+  { label: 'Student notebook (leaky)', value: '0.8559 acc', note: 'macro-F1 not reported' },
+  { label: 'A1 leaky 80-sample flatten', value: '0.8490', note: 'macro-F1 · 0.8475 acc' },
+  { label: 'A2 leaky 5 s flatten', value: '0.8925', note: 'same 51 people both sides' },
+  { label: 'B same flatten, GroupKFold', value: '0.2924', note: 'leakage pair with A2' },
+  { label: 'B phone dummy', value: '0.0151', note: 'chance floor' },
+  { label: 'B phone logreg', value: '0.2767', note: 'statistical 104-d' },
+  { label: 'B phone random forest', value: '0.3131', note: 'statistical 104-d' },
+  { label: 'B phone XGBoost', value: '0.3272', note: '200 trees · 5 s' },
+  { label: 'B watch XGBoost', value: '0.7031', note: 'number to cite' },
+  { label: 'B concat (stacked 6-ch rows)', value: '0.5236', note: 'not 12-channel fusion' },
+  { label: 'C phone 46/5 × 3', value: '0.2985', note: 'tracks B, not A' },
 ]
 
-const hyperparams = [
-  { label: 'n_estimators', value: '982' },
-  { label: 'max_depth', value: '6' },
-  { label: 'learning_rate', value: '0.102' },
-  { label: 'colsample_bytree', value: '0.94' },
-  { label: 'subsample', value: '0.85' },
-  { label: 'gamma', value: '0' },
+const failRows = [
+  { label: 'Phone locomotion group F1', value: '0.8873', note: 'Protocol B stat XGB' },
+  { label: 'Phone eating group F1', value: '0.4945', note: 'pasta 0.0749' },
+  { label: 'Phone sitting F1', value: '0.1943', note: 'worse than stairs' },
+  { label: 'Watch eating group F1', value: '0.8450', note: 'sandwich 0.2816' },
+  { label: 'Watch locomotion group F1', value: '0.9292', note: 'stairs 0.7028' },
+]
+
+const ablationRows = [
+  { label: 'Control 5 s XYZ', value: '0.3272', note: 'eating group 0.4945' },
+  { label: 'Window 10 s', value: '0.3422', note: 'only clear 18-way win' },
+  { label: 'Window 2 s', value: '0.2951', note: 'worse' },
+  { label: 'Trim 15 s', value: '0.3247', note: 'eating group drops' },
+  { label: 'Reorient on', value: '0.3230', note: 'default stays off' },
+  { label: 'Magnitude only', value: '0.3142', note: '32 features' },
+  { label: 'Hierarchical', value: '0.3271', note: 'eating group 0.5855' },
 ]
 
 export default function ActivityRecognition() {
@@ -54,104 +73,126 @@ export default function ActivityRecognition() {
 
       <Section title="Overview">
         <p>
-          Human activity recognition (HAR) matters for health monitoring,
-          fitness tracking, elderly care, and sports analytics. This project built a multi-class
-          classifier to distinguish 19 daily physical activities using raw inertial measurement
-          unit (IMU) data captured simultaneously from a smartphone and a smartwatch.
-        </p>
-        <p>
-          XGBoost was selected for its strong handling of tabular sensor
-          features, robustness to outliers, and efficiency on medium-scale datasets. Hyperparameter
-          tuning via randomised search pushed accuracy past the 85% threshold.
+          Public{' '}
+          <a
+            href="https://archive.ics.uci.edu/dataset/507/wisdm+smartphone+and+smartwatch+activity+and+biometrics+dataset"
+            className="text-primary hover:underline"
+          >
+            WISDM (UCI 507)
+          </a>
+          {' '}smartphone and smartwatch IMU data, 18 activities. v1 shuffled overlapping phone
+          windows and reported 0.8559 accuracy. v2 is a package that refuses that split for any
+          number I would cite. Primary metric is macro-F1. Accuracy is secondary. Every cell names
+          a protocol. The rebuild story is in the{' '}
+          <Link to="/blog/activity-recognition-pipeline" className="text-primary hover:underline">
+            blog post
+          </Link>
+          . This page is the frozen table, the protocol contract, and the serving surface.
         </p>
       </Section>
 
-      <Section title="Dataset & Activities">
+      <Section title="Dataset">
         <p>
-          Sensor readings (three-axis accelerometer and three-axis gyroscope) were collected
-          from two placements: a <strong className="text-foreground font-medium">smartphone</strong> and
-          a <strong className="text-foreground font-medium">smartwatch</strong>. The dataset
-          covers 19 labelled activity classes:
+          51 subjects (1600–1650), phone in a pocket and watch on the dominant hand, accelerometer and
+          gyroscope. This extract matches Weiss at 15,630,426 rows. The archived notebook concatenated
+          15,649,253. Claimed 20 Hz; sessions also sit at 25, 50, and 100 Hz. 35 empty
+          subject×activity×stream cells. No demographics, so no fairness slice. Codes A–S skipping N.
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-3">
-          {[
-            'Walking (A)', 'Jogging (B)', 'Stairs (C)',
-            'Sitting (D)', 'Standing (E)', 'Typing (F)',
-            'Brushing Teeth (G)', 'Eating Soup (H)', 'Eating Chips (I)',
-            'Eating Pasta (J)', 'Drinking (K)', 'Eating Sandwich (L)',
-            'Kicking (M)', 'Catch (O)', 'Dribbling (P)',
-            'Writing (Q)', 'Clapping (R)', 'Folding (S)',
-          ].map(a => (
-            <span key={a} className="px-2.5 py-1.5 bg-muted rounded-lg text-xs text-foreground text-center">
-              {a}
-            </span>
-          ))}
-        </div>
       </Section>
 
-      <Section title="Methodology">
+      <Section title="Method">
         <InfoGrid>
-          <InfoCard title="Feature Engineering">
-            Statistical and frequency-domain features were extracted from raw 6-axis IMU windows
-            (mean, variance, energy, correlation between axes) for both sensor placements.
+          <InfoCard title="Repair">
+            Interpolate each session onto a shared 20 Hz grid. Align accel and gyro by coverage
+            intersection, not an exact-timestamp join. Reorient and 15 s trim exist as ablations and
+            stay off by default.
           </InfoCard>
-          <InfoCard title="Model">
-            XGBoost gradient-boosted trees were trained on the engineered feature vectors.
-            Separate models were evaluated for phone and watch placements.
+          <InfoCard title="Windows">
+            5.0 s length, 1.0 s hop, inside one (subject, activity, device) session. Statistical
+            features are 104-d. Flattened raw windows exist only to compare against v1.
           </InfoCard>
-          <InfoCard title="Hyperparameter Tuning">
-            Randomised search over key XGBoost parameters (n_estimators, max_depth,
-            learning_rate, subsample, colsample_bytree, gamma) to maximise validation accuracy.
+          <InfoCard title="Models">
+            Stratified dummy, logistic regression, random forest, XGBoost. Trees beat the classical
+            phone ladder, so no 1D CNN or TCN ships. Hierarchical group-then-expert is an ablation.
           </InfoCard>
-          <InfoCard title="Evaluation">
-            Per-class precision, recall, and F1-score reported alongside the confusion matrix.
-            Overall accuracy computed on a held-out test set.
+          <InfoCard title="Protocols">
+            A1/A2 leaky clones of the notebook split. B is 5-fold GroupKFold on subject_id. C is
+            46/5 × 3 grouped holdout, not 51-fold LOSO. D (phone↔watch transfer) is not run.
           </InfoCard>
         </InfoGrid>
+        <ProtocolCompareDiagram />
       </Section>
 
-      <Section title="Best Hyperparameters">
-        <ResultTable rows={hyperparams} />
-      </Section>
-
-      <Section title="Per-class Performance (Phone)">
-        <p className="mb-3">
-          Stationary activities (sitting, writing) were classified near-perfectly.
-          High-motion activities with similar kinematics (stairs vs. walking, kicking vs. dribbling)
-          remained the hardest to separate.
+      <Section title="Frozen results">
+        <p>
+          Full 51-subject UCI 507, repaired to 20 Hz. Cite Protocol B watch 0.7031 from{' '}
+          <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">docs/reports/protocol_b_watch_stat_xgb.json</code>
+          , not from the served ONNX file. A2 vs B is the leakage pair on the same 5 s flatten. Do
+          not treat A2 vs the notebook 0.8559 as leakage-only: A1/A2 already sit on repaired parquet.
         </p>
-        <ResultTable rows={phonePerClass} />
+        <ResultTable rows={ladderRows} />
       </Section>
 
-      <Section title="Key Findings">
+      <Section title="Failure cases">
+        <p>
+          Pocket phone can tell locomotion as a group and still cannot name eating or sitting. Watch
+          on the wrist flips that. Sandwich is the hard served class.
+        </p>
+        <ResultTable rows={failRows} />
+      </Section>
+
+      <Section title="Ablations (phone statistical XGBoost, Protocol B)">
+        <ResultTable rows={ablationRows} />
+      </Section>
+
+      <Section title="Serving">
+        <p>
+          CPU FastAPI for one 5 s, 20 Hz window (T=100, C=6). Default bundle is watch statistical
+          XGBoost. Trees are ONNX; statistical features stay in Python. Wrong T, C, device, or Hz is
+          422. Bodies over 1 MiB are 413. Abstain is <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">max(proba) &lt; threshold</code>
+          ; default threshold 0.0 never abstains. p95 2.7 ms is FastAPI TestClient on this CPU, not
+          Docker. The watch trees also live on Hugging Face as{' '}
+          <a href="https://huggingface.co/axlesubash/wisdm-watch-stat-xgb" className="text-primary hover:underline">
+            axlesubash/wisdm-watch-stat-xgb
+          </a>
+          . Cite Protocol B from <code className="px-1.5 py-0.5 bg-muted rounded text-xs text-foreground">docs/reports/protocol_b_watch_stat_xgb.json</code>
+          , not an export-fit score from the Hub file. Phone windows are a different bundle.
+        </p>
+        <ServePathDiagram />
+        <CodeBlock
+          lang="bash"
+          code={`python -m har.models.export --config configs/protocol_b_watch_stat_xgb.yaml --out models/watch_stat_xgb.onnx
+export HAR_MODEL_PATH=models/watch_stat_xgb.onnx
+make serve`}
+        />
+      </Section>
+
+      <Section title="Key findings">
         <FindingsList items={[
-          'Overall accuracy reached 85.59% after hyperparameter tuning, up noticeably from baseline defaults.',
-          'Sitting (D) and Writing (Q) achieved ~96% F1, confirming that highly distinctive postures are easy to identify.',
-          'Jogging (B) was frequently confused with Walking (A); the two share similar limb kinematics and are hard to separate without gait-specific features.',
-          'Stairs (C) showed lower performance due to its overlap with walking in stride pattern and acceleration profile.',
-          'Smartwatch and smartphone placements yielded different confusion profiles, suggesting sensor fusion could push accuracy further.',
-          'On the watch, "Teeth (G)" and "Soup (H)" were often confused with Standing (E). Wrist movements alone are too ambiguous for fine-grained eating activities.',
+          'Same 5 s phone flatten: 0.8925 leaky macro-F1 vs 0.2924 GroupKFold. That drop is the leakage finding.',
+          'Watch statistical XGBoost is 0.7031 under Protocol B. Phone statistical XGBoost is 0.3272. Concat stacked rows is 0.5236, not 12-channel fusion.',
+          'Eighteen classes, not nineteen. Sitting is a weak phone class under GroupKFold (F1 0.1943), not a standout.',
+          'Trees beat dummy, logreg, RF, and flatten on the phone B ladder, so no TCN shipped.',
+          '10 s windows are the only ablation that clearly beats 5 s (0.3422). Reorient and a 15 s trim do not.',
         ]} />
       </Section>
 
-      <Reflection>
+      <Reflection title="What I no longer claim">
         <p>
-          If I were to redo this project, I'd fuse the phone and watch features into a single model from the start instead of evaluating them separately. The confusion patterns were clearly complementary: watch data struggled with eating activities while phone data handled them better, and vice versa for some motion classes. I left that on the table.
-        </p>
-        <p>
-          I'd also skip the manual feature engineering and go straight to a CNN-LSTM on raw windowed signals. XGBoost was a solid baseline, but the temporal structure in IMU data is exactly what sequence models are built for. The 85.6% accuracy is respectable, but I think a well-tuned deep model could push past 90% without much more data.
-        </p>
-        <p>
-          Finally, I didn't think enough about deployment. An activity recognition model that can't run on a phone in real time is an academic exercise. I'd benchmark inference latency on actual mobile hardware next time.
+          The June writeup said sitting and writing were easy, fusion would lift the rest, and a
+          CNN-LSTM could pass 90%. Under subject-grouped splits, sitting is a weak phone class,
+          concat without alignment sits between phone and watch, and I did not train a network
+          because trees already beat flatten, logreg, and RF on this ladder. I would rather run
+          aligned fusion and LOSO than chase the leaky 0.86.
         </p>
       </Reflection>
 
-      <Section title="Limitations & Future Work">
+      <Section title="Limits">
         <FindingsList items={[
-          'A single sensor modality per model limits robustness; fusing phone + watch features simultaneously is a natural next step.',
-          'Larger, more diverse participant pools would improve generalisability across body types and movement styles.',
-          'Deep learning approaches (LSTM, CNN-LSTM) could automatically learn temporal patterns without manual feature engineering.',
-          'Real-time inference on-device was not evaluated. Latency and memory constraints of XGBoost on embedded hardware still need investigation.',
+          'No demographics, so no fairness slice.',
+          'Protocol C is 46/5 × 3, not 51-fold LOSO. Protocol D is not run.',
+          'Served ONNX is a refit. Abstain is uncalibrated. Features still run in Python.',
+          'v1.0.0 notebooks are archived and are not the training path.',
         ]} />
       </Section>
 

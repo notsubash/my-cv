@@ -186,14 +186,15 @@ export const translations = {
           title: 'Activity Recognition',
           badge: 'ML / Sensors',
           badgeBuilding: '',
-          desc: 'Classified human physical activities (walking, jogging, sitting, typing, etc.) using XGBoost on accelerometer and gyroscope data from smartphones and watches. Hyperparameter tuning via random search achieved >85% accuracy.',
-          tech: ['XGBoost', 'Python', 'scikit-learn', 'Feature Engineering'],
+          desc: 'Subject-independent 18-class HAR on WISDM. Same 5 s phone flatten: 0.89 leaky macro-F1 vs 0.29 GroupKFold. Watch statistical XGBoost is 0.70. CPU FastAPI for one 5 s window.',
+          tech: ['XGBoost', 'Python', 'WISDM', 'FastAPI', 'ONNX','MlFlow'],
           link: 'github.com/notsubash/Activity-Recognition',
           image: '/projects/activity-recognition.webp',
           caseStudyUrl: '/projects/activity-recognition',
           caseStudyLabel: 'Read case study',
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/Activity-Recognition', icon: 'github' },
+            { label: 'Hugging Face', url: 'https://huggingface.co/axlesubash/wisdm-watch-stat-xgb', icon: 'fileText' },
           ],
         },
         {
@@ -580,6 +581,13 @@ export const translations = {
       noPosts: 'First posts coming soon. Stay tuned.',
       items: [
         {
+          slug: 'activity-recognition-pipeline',
+          title: 'Rebuilding WISDM HAR after a leaky 0.89',
+          date: 'August 2026',
+          summary: 'I froze the June WISDM notebook at git tag v1.0.0, then rebuilt subject-independent HAR. Same 5 s phone flatten: 0.8925 leaky macro-F1 vs 0.2924 GroupKFold. Watch statistical XGBoost is 0.7031.',
+          tags: ['Python', 'WISDM', 'XGBoost', 'GroupKFold', 'FastAPI'],
+        },
+        {
           slug: 'building-a-cloud-native-ai-platform',
           title: 'Building a Cloud Native AI Platform Under $15 a Month',
           date: 'August 2026',
@@ -592,13 +600,6 @@ export const translations = {
           date: 'July 2026',
           summary: 'How I built Gavel, a workspace for shaping ideas, collecting evidence, running structured multi-agent judgment, and turning model feedback into the next validation cycle.',
           tags: ['Python', 'FastAPI', 'LangGraph', 'Next.js', 'SQLite'],
-        },
-        {
-          slug: 'activity-recognition-pipeline',
-          title: 'From Raw Sensor Logs to an Activity Classifier',
-          date: 'June 2026',
-          summary: 'A build-journey walkthrough of my Activity Recognition project using WISDM sensor data. Covers ingestion, phone accel/gyro fusion, sliding-window framing, XGBoost training, and what confusion matrix errors taught me.',
-          tags: ['Python', 'WISDM', 'XGBoost', 'Time Series', 'Sensor Fusion'],
         },
         {
           slug: 'rag-pipeline',
@@ -701,21 +702,21 @@ export const translations = {
           },
         },
         {
-          title: 'Window Labels Need a Clear Rule',
-          body: 'For sliding-window activity recognition, assign each frame the majority class inside the window before training. This avoids label drift at transition boundaries and gave me a cleaner XGBoost baseline than row-level labels.',
+          title: 'Windows Stay Inside One Session',
+          body: 'Build sliding windows inside one (subject, activity, device) run. The v1 notebook slid 80-sample frames over a concatenated table, so a window could mix two people or two labels. Majority vote on a mixed frame was a workaround. v2 never creates that frame.',
           tags: ['Time Series', 'XGBoost'],
           relatedBlog: {
             slug: 'activity-recognition-pipeline',
-            title: 'From Raw Sensor Logs to an Activity Classifier',
+            title: 'Rebuilding WISDM HAR after a leaky 0.89',
           },
         },
         {
-          title: 'Confusion Matrix Beats Headline Accuracy',
-          body: 'An 85%+ score looked good until class-level diagnostics showed repeated overlap in similar motion classes (like jogging vs stairs). Confusion patterns gave a better roadmap for iteration than aggregate accuracy alone.',
+          title: 'GroupKFold Beats Headline Accuracy',
+          body: 'The same 5 s phone flatten scored 0.8925 macro-F1 when windows were shuffled and 0.2924 under GroupKFold on subject_id. Per-class F1 then shows what survived: pocket phone still finds locomotion and cannot name eating. Cite the grouped number.',
           tags: ['Evaluation', 'ML'],
           relatedBlog: {
             slug: 'activity-recognition-pipeline',
-            title: 'From Raw Sensor Logs to an Activity Classifier',
+            title: 'Rebuilding WISDM HAR after a leaky 0.89',
           },
         },
       ],

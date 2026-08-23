@@ -121,7 +121,7 @@ export default function CaseStudyLayout({ meta, children }: { meta: CaseStudyMet
   })
 
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" className="min-h-screen bg-background">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
 
         {/* Back nav */}
