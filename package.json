@@ -16,6 +16,7 @@
     "@vercel/functions": "^3.7.5",
     "@vercel/speed-insights": "^2.0.0",
     "developer-icons": "^6.0.5",
+    "katex": "^0.18.4",
     "lucide-react": "^0.563.0",
     "motion": "^12.29.0",
     "posthog-js": "^1.409.5",

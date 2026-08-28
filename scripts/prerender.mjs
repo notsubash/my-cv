@@ -32,6 +32,7 @@ const ROUTES = [
   '/about',
   '/notes',
   '/blog',
+  '/blog/when-a-self-parking-car-cannot-trust-its-imagination',
   '/blog/rag-pipeline',
   '/blog/steam-genre-networks',
   '/blog/ml-from-scratch',

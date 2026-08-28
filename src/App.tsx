@@ -361,6 +361,7 @@ function ProjectsGrid() {
             const proj3 = allProjects[3]!
             const proj4 = allProjects[4]!
             const proj5 = allProjects[5]!
+            const proj6 = allProjects[6]!
 
             // Helper para parsear **bold** a elementos con estilo
             const parseBold = (text: string): React.ReactNode[] => {
@@ -377,6 +378,7 @@ function ProjectsGrid() {
               p3: useRef<HTMLDivElement>(null),
               p4: useRef<HTMLDivElement>(null),
               p5: useRef<HTMLDivElement>(null),
+              p6: useRef<HTMLDivElement>(null),
             }
 
             // Hook para calcular líneas de conexión SVG
@@ -420,6 +422,7 @@ function ProjectsGrid() {
                   { from: cardRefs.p2, fromEdge: 'bottom', to: cardRefs.p3, toEdge: 'top' },
                   { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top' },
                   { from: cardRefs.p4, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
+                  { from: cardRefs.p5, fromEdge: 'bottom', to: cardRefs.p6, toEdge: 'top' },
                 ] : [
                   { from: cardRefs.p0, fromEdge: 'right', to: cardRefs.p1, toEdge: 'left' },
                   { from: cardRefs.p0, fromEdge: 'bottom', to: cardRefs.p2, toEdge: 'top' },
@@ -428,6 +431,7 @@ function ProjectsGrid() {
                   { from: cardRefs.p2, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top' },
                   { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
                   { from: cardRefs.p4, fromEdge: 'right', to: cardRefs.p5, toEdge: 'left' },
+                  { from: cardRefs.p4, fromEdge: 'bottom', to: cardRefs.p6, toEdge: 'top' },
                 ]
 
                 const paths = connections.map(conn => {
@@ -663,12 +667,19 @@ function ProjectsGrid() {
                 </div>
 
                 {/* Row 3 */}
-                <div className="grid md:grid-cols-2 gap-6 relative z-10">
+                <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
                   <AnimatedSection delay={0.3}>
                     <ProjectCard project={proj4} cardRef={cardRefs.p4} />
                   </AnimatedSection>
                   <AnimatedSection delay={0.35}>
                     <ProjectCard project={proj5} cardRef={cardRefs.p5} />
+                  </AnimatedSection>
+                </div>
+
+                {/* Row 4 */}
+                <div className="grid md:grid-cols-2 gap-6 relative z-10">
+                  <AnimatedSection delay={0.4}>
+                    <ProjectCard project={proj6} cardRef={cardRefs.p6} />
                   </AnimatedSection>
                 </div>
               </div>

@@ -155,6 +155,20 @@ export const translations = {
       viewPrototype: 'View prototype',
       items: [
         {
+          title: 'Latent Parking',
+          badge: 'World Models / Control',
+          badgeBuilding: '',
+          desc: 'A parking planner that imagines a few seconds ahead with CEM. True-dynamics CEM reaches the parking-v0 success diagnostic; learned latent MPC parks 0 of 6 measured seeds. Residual, disagreement, and imagined spread sit at chance on crash-soon detection.',
+          tech: ['PyTorch', 'JEPA', 'CEM', 'MPC', 'highway-env', 'Gymnasium'],
+          link: 'github.com/notsubash/latent-parking',
+          image: '/projects/latent-parking.webp',
+          caseStudyUrl: '/blog/when-a-self-parking-car-cannot-trust-its-imagination',
+          caseStudyLabel: 'Read blog post',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/notsubash/latent-parking', icon: 'github' },
+          ],
+        },
+        {
           title: 'Gavel',
           badge: 'GenAI / Multi-Agent',
           badgeBuilding: '',
@@ -580,6 +594,13 @@ export const translations = {
       readMore: 'Read post',
       noPosts: 'First posts coming soon. Stay tuned.',
       items: [
+        {
+          slug: 'when-a-self-parking-car-cannot-trust-its-imagination',
+          title: 'Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It',
+          date: 'August 2026',
+          summary: 'True-dynamics CEM reaches the parking-v0 success diagnostic, then a scripted brake finishes the tape. Learned latent MPC parks 0 of 6 measured seeds. Residual, disagreement, and imagined spread sit at chance on crash-soon detection.',
+          tags: ['PyTorch', 'JEPA', 'CEM', 'MPC', 'highway-env'],
+        },
         {
           slug: 'activity-recognition-pipeline',
           title: 'Rebuilding WISDM HAR after a leaky 0.89',
