@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Calendar, Tag, PenLine } from 'lucide-react'
 import { translations } from './i18n'
 import { usePageSeo } from './hooks/usePageSeo'
+import posthog from './posthog'
 
 export default function BlogPage() {
   const t = translations.en
@@ -43,6 +44,7 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 to={`/blog/${post.slug}`}
+                onClick={() => posthog.capture('blog_post_clicked', { slug: post.slug, placement: 'catalog' })}
                 className="block group"
               >
                 <article className="p-5 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors">

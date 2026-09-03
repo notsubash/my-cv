@@ -24,7 +24,11 @@ if (!projectToken) {
   posthog.init(projectToken, {
     api_host: host,
     ui_host: 'https://us.posthog.com',
+    defaults: '2026-08-30',
+    person_profiles: 'identified_only',
     capture_pageview: 'history_change',
+    capture_pageleave: true,
+    secure_cookie: true,
     before_send: keepPosthogEvent,
   })
   // Skip exception autocapture in local/dev: Vite HMR chunk misses are not production bugs (#6).

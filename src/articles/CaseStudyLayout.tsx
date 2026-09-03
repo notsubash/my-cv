@@ -2,6 +2,7 @@ import { type ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ArrowLeft, ExternalLink, Github, FileText, Video } from 'lucide-react'
 import { usePageSeo } from '../hooks/usePageSeo'
+import posthog from '../posthog'
 
 export interface CaseStudyLink {
   label: string
@@ -166,6 +167,12 @@ export default function CaseStudyLayout({ meta, children }: { meta: CaseStudyMet
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => posthog.capture('project_link_clicked', {
+                    link_type: link.icon,
+                    project_title: meta.title,
+                    project_slug: pathname,
+                    placement: 'case_study',
+                  })}
                   className="inline-flex min-h-11 items-center gap-1.5 px-3 py-2 rounded-lg text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
                 >
                   <LinkIcon icon={link.icon} />

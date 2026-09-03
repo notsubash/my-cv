@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, BookOpen, ChevronLeft, ChevronRight, Code, Zap } from 'lucide-react'
 import { translations } from './i18n'
 import { usePageSeo } from './hooks/usePageSeo'
+import posthog from './posthog'
 
 const PAGE_SIZE = 6
 type TechnicalNote = {
@@ -74,6 +75,7 @@ export default function TechnicalNotesPage() {
                 <div className="mt-3 pt-3 border-t border-border/30">
                   <Link
                     to={`/blog/${note.relatedBlog.slug}`}
+                    onClick={() => posthog.capture('blog_post_clicked', { slug: note.relatedBlog?.slug, placement: 'notes' })}
                     className="inline-flex min-h-11 items-center gap-1.5 text-sm text-accent hover:text-accent/80 transition-colors"
                   >
                     <BookOpen className="w-3.5 h-3.5" />

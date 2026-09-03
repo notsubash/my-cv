@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { translations } from '../i18n'
+import posthog from '../posthog'
 
 export default function BlogNav() {
   const { pathname } = useLocation()
@@ -19,6 +20,7 @@ export default function BlogNav() {
         {prev ? (
           <Link
             to={`/blog/${prev.slug}`}
+            onClick={() => posthog.capture('blog_post_clicked', { slug: prev.slug, placement: 'article_nav' })}
             className="flex-1 min-h-11 group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors text-left"
           >
             <span className="text-xs text-muted-foreground flex items-center gap-1 mb-1.5">
@@ -34,6 +36,7 @@ export default function BlogNav() {
         {next ? (
           <Link
             to={`/blog/${next.slug}`}
+            onClick={() => posthog.capture('blog_post_clicked', { slug: next.slug, placement: 'article_nav' })}
             className="flex-1 min-h-11 group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors text-right"
           >
             <span className="text-xs text-muted-foreground flex items-center justify-end gap-1 mb-1.5">

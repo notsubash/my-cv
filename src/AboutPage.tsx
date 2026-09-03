@@ -251,6 +251,7 @@ export default function AboutPage() {
         <div className="flex flex-col gap-4">
           <div className="flex w-full max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap">
             <CalBookButton
+              placement="about"
               className="inline-flex items-center justify-center gap-2 min-h-11 w-full px-5 py-2.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm transition-colors sm:w-auto"
             >
               <Calendar className="w-4 h-4" />

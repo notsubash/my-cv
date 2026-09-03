@@ -6,6 +6,7 @@ const CAL_NAMESPACE = 'intro'
 const CAL_LINK = 'subash-pandey/intro'
 
 type CalTheme = 'dark' | 'light'
+export type BookingPlacement = 'hero' | 'about' | 'footer'
 
 function getSiteTheme(): CalTheme {
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
@@ -22,6 +23,7 @@ async function applyCalTheme(theme: CalTheme) {
 }
 
 let bookingSuccessBound = false
+let lastBookingPlacement: BookingPlacement | undefined
 
 function bindBookingSuccessOnce() {
   if (bookingSuccessBound) return
@@ -29,7 +31,10 @@ function bindBookingSuccessOnce() {
   void getCalApi({ namespace: CAL_NAMESPACE }).then((cal) => {
     cal('on', {
       action: 'bookingSuccessfulV2',
-      callback: () => posthog.capture('consultation_booking_completed'),
+      callback: () => posthog.capture(
+        'consultation_booking_completed',
+        lastBookingPlacement ? { placement: lastBookingPlacement } : {},
+      ),
     })
   })
 }
@@ -37,9 +42,10 @@ function bindBookingSuccessOnce() {
 type CalBookButtonProps = {
   children: ReactNode
   className?: string
+  placement: BookingPlacement
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'type'>
 
-export function CalBookButton({ children, className, onClick, ...props }: CalBookButtonProps) {
+export function CalBookButton({ children, className, onClick, placement, ...props }: CalBookButtonProps) {
   useEffect(() => {
     bindBookingSuccessOnce()
 
@@ -70,7 +76,8 @@ export function CalBookButton({ children, className, onClick, ...props }: CalBoo
       data-cal-config={calConfig}
       className={className}
       onClick={(event) => {
-        posthog.capture('consultation_booking_opened')
+        lastBookingPlacement = placement
+        posthog.capture('consultation_booking_opened', { placement })
         onClick?.(event)
       }}
       {...props}

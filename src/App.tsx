@@ -8,6 +8,7 @@ import { getTechIcon } from './tech-icons'
 import { BLOG_ENABLED } from './config'
 import { CalBookButton } from './CalBookButton'
 import posthog from './posthog'
+import { captureOnce } from './analytics'
 
 
 function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
@@ -67,6 +68,25 @@ function HomeToc() {
   const [visible, setVisible] = useState(false)
   const [activeId, setActiveId] = useState('')
   const [tocOpen, setTocOpen] = useState(false)
+
+  useEffect(() => {
+    if (Reflect.get(window, '__PRERENDER__')) return
+    const ids = HOME_TOC_SECTIONS.map((s) => s.id).filter((id) => id !== 'main-content')
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
+        const section = entry.target.id
+        captureOnce(sessionStorage, `ph:home_section_viewed:${section}`, () => {
+          posthog.capture('home_section_viewed', { section })
+        })
+      }
+    }, { threshold: 0.1 })
+    for (const id of ids) {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    }
+    return () => observer.disconnect()
+  }, [])
 
   // Show when first content section (#projects) reaches the viewport
   useEffect(() => {
@@ -848,6 +868,7 @@ function App() {
               className="mt-7 flex w-full max-w-sm flex-col items-stretch justify-center gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:items-center sm:gap-4"
             >
               <CalBookButton
+                placement="hero"
                 className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.28)] transition-colors hover:bg-primary/90 sm:w-auto"
               >
                 <Calendar className="h-4 w-4" />
@@ -1716,6 +1737,7 @@ function App() {
             <div className="flex flex-col items-center gap-4">
               <div className="flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
                 <CalBookButton
+                  placement="footer"
                   className="inline-flex items-center justify-center gap-2 min-h-11 w-full px-8 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200 text-sm font-medium shadow-lg hover:shadow-xl sm:w-auto"
                 >
                   <Calendar className="w-5 h-5" />
