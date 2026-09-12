@@ -173,7 +173,24 @@ export default function AboutPage() {
             Away from work I play football and watch a lot of it. Real Madrid is my club. I like travelling whenever I get the chance, and I happily lose an afternoon in a gallery.
           </p>
           <p>
-            This one is after getting soaked in heavy rain. We finally sat down for food and I was just glad to be dry, warm, and about to eat.
+            These two are from a talk I gave at Prime College to bachelor's students. The title was "AI in Nepal: Where We Stand and Where We're Headed.".
+          </p>
+          <StoryPhoto
+            src="/prime-college-talk.webp"
+            alt="Subash speaking at a Prime College podium, holding a microphone in front of a projected slide"
+            caption="Prime College, mid-talk"
+            width={1200}
+            height={674}
+          />
+          <StoryPhoto
+            src="/prime-college-group.webp"
+            alt="Subash with bachelor's students at Prime College after the talk, holding a wooden plaque"
+            caption="After the talk, plaque in hand"
+            width={1200}
+            height={674}
+          />
+          <p>
+            And this one is after getting soaked in heavy rain. We finally sat down for food and I was just glad to be dry, warm, and about to eat.
           </p>
         </div>
         <StoryPhoto
