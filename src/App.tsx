@@ -53,6 +53,8 @@ function useInView(threshold = 0.1) {
 }
 
 
+const HOME_BLOG_PREVIEW_COUNT = 3
+
 const HOME_TOC_SECTIONS = [
   { id: 'main-content', en: 'Top' },
   { id: 'projects', en: 'Projects' },
@@ -1433,13 +1435,13 @@ function App() {
           </AnimatedSection>
           {t.linkedinPosts.embeds.length > 0 ? (
             <div className="grid gap-4">
-              {t.linkedinPosts.embeds.map((post: { hook: string; reactions: string; comments: string; url: string }, i: number) => (
+              {t.linkedinPosts.embeds.map((post: { hook: string; reactions: string; comments: string; url: string; origin: string }, i: number) => (
                 <AnimatedSection key={`li-${i}`} delay={0.25 + i * 0.1}>
                   <a
                     href={post.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'linkedin_post' })}
+                    onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'linkedin_post', url: post.url, origin: post.origin })}
                     className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl bg-card border border-border/50 hover:border-[hsl(var(--linkedin))]/40 hover:shadow-md transition-all group"
                   >
                     <div className="flex items-start gap-3 flex-1 min-w-0">
@@ -1447,19 +1449,23 @@ function App() {
                         <LinkedInLogo className="w-5 h-5 text-[hsl(var(--linkedin))]" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs text-muted-foreground mb-1.5 font-medium">LinkedIn · Reposted</p>
+                        <p className="text-xs text-muted-foreground mb-1.5 font-medium">{post.origin}</p>
                         <p className="text-sm text-foreground leading-relaxed line-clamp-3">{post.hook}</p>
                       </div>
                     </div>
                     <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-2 text-xs text-muted-foreground shrink-0 pl-13 sm:pl-0">
                       <span className="flex items-center gap-1.5">
-                        <ThumbsUp className="w-3.5 h-3.5" />
+                        <ThumbsUp className="w-3.5 h-3.5" aria-hidden="true" />
+                        <span className="sr-only">Reactions </span>
                         {post.reactions}
                       </span>
-                      <span className="flex items-center gap-1.5">
-                        <MessageCircle className="w-3.5 h-3.5" />
-                        {post.comments}
-                      </span>
+                      {post.comments !== '0' && (
+                        <span className="flex items-center gap-1.5">
+                          <MessageCircle className="w-3.5 h-3.5" aria-hidden="true" />
+                          <span className="sr-only">Comments </span>
+                          {post.comments}
+                        </span>
+                      )}
                       <span className="ml-auto sm:ml-0 text-[hsl(var(--linkedin))] group-hover:underline flex items-center gap-1 transition-colors font-medium">
                         {t.linkedinPosts.cta}
                         <ExternalLink className="w-3 h-3" aria-hidden="true" />
@@ -1502,7 +1508,7 @@ function App() {
               </AnimatedSection>
               {t.blog.items.length > 0 ? (
                 <div className="grid gap-4 mb-4">
-                  {t.blog.items.map((post: { slug: string; title: string; date: string; summary: string; tags: readonly string[] }, i: number) => (
+                  {t.blog.items.slice(0, HOME_BLOG_PREVIEW_COUNT).map((post: { slug: string; title: string; date: string; summary: string; tags: readonly string[] }, i: number) => (
                     <AnimatedSection key={post.slug} delay={0.35 + i * 0.1}>
                       <Link
                         to={`/blog/${post.slug}`}
@@ -1535,18 +1541,21 @@ function App() {
                   </div>
                 </AnimatedSection>
               )}
-              <AnimatedSection delay={0.4}>
-                <div className="text-center mt-4">
-                  <Link
-                    to="/blog"
-                    className="inline-flex items-center gap-2 min-h-11 px-5 py-2.5 rounded-full bg-accent/10 text-accent font-medium text-sm hover:bg-accent/20 transition-colors"
-                  >
-                    <PenLine className="w-4 h-4" />
-                    All posts
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </AnimatedSection>
+              {t.blog.items.length > HOME_BLOG_PREVIEW_COUNT && (
+                <AnimatedSection delay={0.4}>
+                  <div className="text-center mt-4">
+                    <Link
+                      to="/blog"
+                      onClick={() => posthog.capture('blog_catalog_clicked', { placement: 'home' })}
+                      className="inline-flex items-center gap-2 min-h-11 px-5 py-2.5 rounded-full bg-accent/10 text-accent font-medium text-sm hover:bg-accent/20 transition-colors"
+                    >
+                      <PenLine className="w-4 h-4" />
+                      {t.blog.viewAll.replace('{count}', String(t.blog.items.length))}
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </AnimatedSection>
+              )}
             </>
           )}
         </div>

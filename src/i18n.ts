@@ -452,13 +452,21 @@ export const translations = {
       cta: 'View on LinkedIn',
       emptyState: 'Posts coming soon. Follow me on LinkedIn!',
       profileUrl: 'https://www.linkedin.com/in/subash-pandey-ai',
-      items: [] as { hook: string; reactions: string; comments: string; url: string }[],
+      items: [] as { hook: string; reactions: string; comments: string; url: string; origin: string }[],
       embeds: [
+        {
+          url: 'https://www.linkedin.com/posts/subash-pandey-ai_ai-ainepal-activity-7504752424998293504-shJi',
+          hook: 'I recently was invited to speak to Bachelor’s students at Prime College, Kathmandu, as part of ICT Meetup v8.0 on “AI in Nepal: Where We Stand and Where We’re Headed.”',
+          reactions: '26',
+          comments: '0',
+          origin: 'LinkedIn',
+        },
         {
           url: 'https://www.linkedin.com/feed/update/urn:li:activity:7424081279224074240/',
           hook: "Our Machine Learning Engineer Subash Pandey shared his 5-point checklist for debugging prompts during vibe coding. Fix vagueness, force formats, limit scope, seed style, and restate goals",
           reactions: '19',
           comments: '1',
+          origin: 'LinkedIn · Reposted',
         },
       ],
     },
@@ -592,6 +600,7 @@ export const translations = {
       title: 'Blog',
       subtitle: 'Writing about ML, data, and things I learn along the way.',
       readMore: 'Read post',
+      viewAll: 'View all {count} posts',
       noPosts: 'First posts coming soon. Stay tuned.',
       items: [
         {
@@ -600,6 +609,7 @@ export const translations = {
           date: 'August 2026',
           summary: 'True-dynamics CEM reaches the parking-v0 success diagnostic, then a scripted brake finishes the tape. Learned latent MPC parks 0 of 6 measured seeds. Residual, disagreement, and imagined spread sit at chance on crash-soon detection.',
           tags: ['PyTorch', 'JEPA', 'CEM', 'MPC', 'highway-env'],
+          image: '/og-blog-latent-parking.webp',
         },
         {
           slug: 'activity-recognition-pipeline',
@@ -607,6 +617,7 @@ export const translations = {
           date: 'August 2026',
           summary: 'I froze the June WISDM notebook at git tag v1.0.0, then rebuilt subject-independent HAR. Same 5 s phone flatten: 0.8925 leaky macro-F1 vs 0.2924 GroupKFold. Watch statistical XGBoost is 0.7031.',
           tags: ['Python', 'WISDM', 'XGBoost', 'GroupKFold', 'FastAPI'],
+          image: '/og-blog-activity-recognition.webp',
         },
         {
           slug: 'building-a-cloud-native-ai-platform',
@@ -614,6 +625,7 @@ export const translations = {
           date: 'August 2026',
           summary: 'A $15/month hobby lab around a thin FastAPI summarizer on one Hetzner box. Terraform, k3s, Helm, Argo CD, and Prometheus/Grafana/Loki are live. Autoscaling, secrets, TLS, canary, and disaster recovery are next.',
           tags: ['Kubernetes', 'Helm', 'Terraform', 'Argo CD', 'FastAPI', 'Prometheus'],
+          image: '/og-blog-cloud-native-ai-platform.webp',
         },
         {
           slug: 'building-an-idea-workbench',
@@ -621,6 +633,7 @@ export const translations = {
           date: 'July 2026',
           summary: 'How I built Gavel, a workspace for shaping ideas, collecting evidence, running structured multi-agent judgment, and turning model feedback into the next validation cycle.',
           tags: ['Python', 'FastAPI', 'LangGraph', 'Next.js', 'SQLite'],
+          image: '/projects/gavel.webp',
         },
         {
           slug: 'rag-pipeline',
@@ -628,6 +641,7 @@ export const translations = {
           date: 'October 2025',
           summary: 'Patterns and techniques for building RAG systems with LangGraph, Qdrant, and OpenAI. Covers chunking, hybrid retrieval, query rewriting, and hallucination prevention.',
           tags: ['LangGraph', 'Qdrant', 'RAG', 'OpenAI', 'Python'],
+          image: '/og-blog-rag-pipeline.webp',
         },
         {
           slug: 'steam-genre-networks',
@@ -635,6 +649,7 @@ export const translations = {
           date: 'December 2023',
           summary: 'Building a bipartite genre network from the Steam database, projecting it into a weighted graph, running centrality and community detection, and learning why static game properties cannot predict playtime.',
           tags: ['Python', 'NetworkX', 'Gephi', 'Louvain', 'Regression'],
+          image: '/projects/steam-ml.webp',
         },
         {
           slug: 'ml-from-scratch',
@@ -642,6 +657,7 @@ export const translations = {
           date: 'January 2024',
           summary: 'Implementing every ML algorithm twice: first from scratch in NumPy, then in PyTorch. From linear regression through CNNs, RNNs, and transformers, with miniprojects on MNIST, CIFAR-10, CelebA, and IMDB.',
           tags: ['Python', 'NumPy', 'PyTorch', 'Deep Learning', 'From Scratch'],
+          image: '/og-blog-ml-from-scratch.webp',
         },
       ],
     },

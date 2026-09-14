@@ -92,6 +92,8 @@ assert.match(app, /placement="hero"/)
 assert.match(app, /placement="footer"/)
 assert.match(app, /home_section_viewed/)
 assert.match(app, /captureOnce/)
+assert.match(app, /blog_catalog_clicked',\s*\{\s*placement:\s*'home'/)
+assert.match(app, /placement:\s*'linkedin_post',\s*url:\s*post\.url/)
 
 const about = read('src/AboutPage.tsx')
 assert.match(about, /placement="about"/)
