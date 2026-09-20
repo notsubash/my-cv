@@ -22,6 +22,7 @@ const loadBlogActivityRecognitionPipeline = () => import('./articles/blog-activi
 const loadBlogIdeaWorkbench = () => import('./articles/blog-idea-workbench')
 const loadBlogCloudNativeAiPlatform = () => import('./articles/blog-cloud-native-ai-platform')
 const loadGavel = () => import('./articles/gavel')
+const loadTheUnderlyingCurve = () => import('./articles/the-underlying-curve')
 const loadActivityRecognition = () => import('./articles/activity-recognition')
 const loadSteamML = () => import('./articles/steam-ml')
 const loadWikipediaVoting = () => import('./articles/wikipedia-voting')
@@ -38,6 +39,7 @@ const BlogActivityRecognitionPipeline = lazy(loadBlogActivityRecognitionPipeline
 const BlogIdeaWorkbench = lazy(loadBlogIdeaWorkbench)
 const BlogCloudNativeAiPlatform = lazy(loadBlogCloudNativeAiPlatform)
 const Gavel = lazy(loadGavel)
+const TheUnderlyingCurve = lazy(loadTheUnderlyingCurve)
 const ActivityRecognition = lazy(loadActivityRecognition)
 const SteamML = lazy(loadSteamML)
 const WikipediaVoting = lazy(loadWikipediaVoting)
@@ -56,6 +58,7 @@ const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
   '/blog/building-an-idea-workbench': loadBlogIdeaWorkbench,
   '/blog/building-a-cloud-native-ai-platform': loadBlogCloudNativeAiPlatform,
   '/projects/gavel': loadGavel,
+  '/projects/the-underlying-curve': loadTheUnderlyingCurve,
   '/projects/activity-recognition': loadActivityRecognition,
   '/projects/steam-ml': loadSteamML,
   '/projects/wikipedia-voting': loadWikipediaVoting,
@@ -196,6 +199,7 @@ const app = (
             {BLOG_ENABLED && <Route path="/blog/building-a-cloud-native-ai-platform" element={<BlogCloudNativeAiPlatform />} />}
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/projects/gavel" element={<Gavel />} />
+            <Route path="/projects/the-underlying-curve" element={<TheUnderlyingCurve />} />
             <Route path="/projects/activity-recognition" element={<ActivityRecognition />} />
             <Route path="/projects/steam-ml" element={<SteamML />} />
             <Route path="/projects/wikipedia-voting" element={<WikipediaVoting />} />

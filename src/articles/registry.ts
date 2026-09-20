@@ -33,6 +33,21 @@ export const articleRegistry: ArticleConfig[] = [
     component: () => import('./gavel'),
   },
   {
+    id: 'the-underlying-curve',
+    slugs: { en: 'projects/the-underlying-curve' },
+    titles: { en: 'The Underlying Curve' },
+    seo: {
+      en: {
+        title: 'The Underlying Curve — Education Series | Subash Pandey',
+        description:
+          'The Underlying Curve is my independent education series: mute visual explainers of data science, ML, and AI. One object per video. I built the brand and the pipeline in Manim and FFmpeg.',
+      },
+    },
+    sectionLabels: { en: {} },
+    type: 'case-study',
+    component: () => import('./the-underlying-curve'),
+  },
+  {
     id: 'activity-recognition',
     slugs: { en: 'projects/activity-recognition' },
     titles: { en: 'Subject-independent HAR on WISDM' },

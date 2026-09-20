@@ -155,6 +155,24 @@ export const translations = {
       viewPrototype: 'View prototype',
       items: [
         {
+          title: 'The Underlying Curve',
+          badge: 'Education / Visual',
+          badgeBuilding: '',
+          desc: 'Mute visual explainers of data science, ML, and AI. One object per video. Scenes in Manim, encodes and platform crops in FFmpeg. Instagram is the main channel.',
+          tech: ['Manim', 'FFmpeg', 'Python'],
+          link: 'www.instagram.com/theunderlyingcurve/',
+          image: '/projects/the-underlying-curve.webp',
+          video: '/blog/the-underlying-curve/stencil-that-slides-720p.mp4',
+          caseStudyUrl: '/projects/the-underlying-curve',
+          caseStudyLabel: 'View series',
+          links: [
+            { label: 'Instagram', url: 'https://www.instagram.com/theunderlyingcurve/', icon: 'instagram' },
+            { label: 'TikTok', url: 'https://www.tiktok.com/@theunderlyingcurve', icon: 'tiktok' },
+            { label: 'YouTube', url: 'https://www.youtube.com/channel/UCexmjydtgJk1ye02E4QdtyQ', icon: 'youtube' },
+            { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61594299692964', icon: 'facebook' },
+          ],
+        },
+        {
           title: 'Latent Parking',
           badge: 'World Models / Control',
           badgeBuilding: '',

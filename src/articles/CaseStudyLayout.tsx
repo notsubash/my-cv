@@ -7,7 +7,7 @@ import posthog from '../posthog'
 export interface CaseStudyLink {
   label: string
   url: string
-  icon: 'github' | 'fileText' | 'video' | 'external'
+  icon: 'github' | 'fileText' | 'video' | 'external' | 'youtube' | 'tiktok' | 'instagram' | 'facebook'
 }
 
 export interface MetricCard {
@@ -18,6 +18,7 @@ export interface MetricCard {
 export interface CaseStudyMeta {
   title: string
   badge: string
+  kind?: string
   tagline: string
   tech: string[]
   links: CaseStudyLink[]
@@ -28,11 +29,36 @@ export interface CaseStudyMeta {
 }
 
 function LinkIcon({ icon }: { icon: CaseStudyLink['icon'] }) {
+  const className = 'w-4 h-4'
   switch (icon) {
-    case 'github': return <Github className="w-4 h-4" />
-    case 'fileText': return <FileText className="w-4 h-4" />
-    case 'video': return <Video className="w-4 h-4" />
-    default: return <ExternalLink className="w-4 h-4" />
+    case 'github': return <Github className={className} />
+    case 'fileText': return <FileText className={className} />
+    case 'video': return <Video className={className} />
+    case 'youtube':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.5 15.6V8.4L15.8 12z" />
+        </svg>
+      )
+    case 'tiktok':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M14.1.1c.9 0 1.8 0 2.7.1.1 1.1.4 2.1 1.1 2.9.8.8 1.9 1.2 3 1.3v2.8c-1 0-2-.2-2.9-.7-.4-.2-.8-.4-1.1-.6v8.4c0 3.4-2.6 6.1-6 6.2-1.1.1-2.2-.2-3.1-.8-1.7-1.1-2.7-3-2.7-5.1 0-3.3 2.6-6 5.9-6.1.3 0 .6 0 .9.1v2.9c-.2 0-.5-.1-.7-.1-1.6.1-2.8 1.5-2.7 3.1.1 1.5 1.4 2.7 2.9 2.6 1.5-.1 2.6-1.3 2.6-2.8V.1z" />
+        </svg>
+      )
+    case 'instagram':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2.16c3.2 0 3.58 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85c.15-3.26 1.69-4.77 4.92-4.92C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24c3.26 0 3.67-.01 4.95-.07 4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95 0-3.26-.01-3.67-.07-4.95C23.1 2.7 20.7.27 16.36.07 15.08.01 14.67 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
+        </svg>
+      )
+    case 'facebook':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M22 12.1A10 10 0 1 0 10.6 22v-7H8.1v-2.9h2.5V9.9c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.5v1.9h2.8l-.4 2.9h-2.4V22A10 10 0 0 0 22 12.1z" />
+        </svg>
+      )
+    default: return <ExternalLink className={className} />
   }
 }
 
@@ -140,7 +166,7 @@ export default function CaseStudyLayout({ meta, children }: { meta: CaseStudyMet
             <span className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-semibold">
               {meta.badge}
             </span>
-            <span className="text-xs text-muted-foreground">Case Study</span>
+            <span className="text-xs text-muted-foreground">{meta.kind || 'Case Study'}</span>
           </div>
           <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 leading-tight text-balance">
             {meta.title}

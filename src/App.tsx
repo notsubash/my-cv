@@ -19,6 +19,148 @@ function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
   )
 }
 
+function ProjectLinkGlyph({ icon, className = "w-3.5 h-3.5" }: { icon: string; className?: string }) {
+  switch (icon) {
+    case 'github': return <Github className={className} />
+    case 'fileText': return <FileText className={className} />
+    case 'video': return <Video className={className} />
+    case 'youtube':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.5 15.6V8.4L15.8 12z" />
+        </svg>
+      )
+    case 'tiktok':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M14.1.1c.9 0 1.8 0 2.7.1.1 1.1.4 2.1 1.1 2.9.8.8 1.9 1.2 3 1.3v2.8c-1 0-2-.2-2.9-.7-.4-.2-.8-.4-1.1-.6v8.4c0 3.4-2.6 6.1-6 6.2-1.1.1-2.2-.2-3.1-.8-1.7-1.1-2.7-3-2.7-5.1 0-3.3 2.6-6 5.9-6.1.3 0 .6 0 .9.1v2.9c-.2 0-.5-.1-.7-.1-1.6.1-2.8 1.5-2.7 3.1.1 1.5 1.4 2.7 2.9 2.6 1.5-.1 2.6-1.3 2.6-2.8V.1z" />
+        </svg>
+      )
+    case 'instagram':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2.16c3.2 0 3.58 0 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s0-3.58.07-4.85c.15-3.26 1.69-4.77 4.92-4.92C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24c3.26 0 3.67-.01 4.95-.07 4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95 0-3.26-.01-3.67-.07-4.95C23.1 2.7 20.7.27 16.36.07 15.08.01 14.67 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
+        </svg>
+      )
+    case 'facebook':
+      return (
+        <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M22 12.1A10 10 0 1 0 10.6 22v-7H8.1v-2.9h2.5V9.9c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.5v1.9h2.8l-.4 2.9h-2.4V22A10 10 0 0 0 22 12.1z" />
+        </svg>
+      )
+    default: return <ExternalLink className={className} />
+  }
+}
+
+function ProjectClip({
+  src,
+  poster,
+  title,
+  reduceMotion,
+}: {
+  src: string
+  poster?: string
+  title: string
+  reduceMotion: boolean | null
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const wantPlayRef = useRef(false)
+  const [mounted, setMounted] = useState(false)
+  const [wantPlay, setWantPlay] = useState(false)
+  const [playing, setPlaying] = useState(false)
+  const allowMotion = reduceMotion === false
+
+  const canHoverPlay = (pointerType?: string) =>
+    allowMotion &&
+    pointerType !== 'touch' &&
+    !Reflect.get(window, '__PRERENDER__') &&
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches
+
+  const stop = () => {
+    wantPlayRef.current = false
+    setWantPlay(false)
+    setPlaying(false)
+    const video = videoRef.current
+    if (!video) return
+    video.pause()
+    try {
+      video.currentTime = 0
+    } catch {
+      /* not seekable until data arrives */
+    }
+  }
+
+  const onEnter = (e: React.PointerEvent) => {
+    if (!canHoverPlay(e.pointerType)) return
+    wantPlayRef.current = true
+    setMounted(true)
+    setWantPlay(true)
+  }
+
+  useEffect(() => {
+    if (!wantPlay) return
+    const video = videoRef.current
+    if (!video) return
+    let cancelled = false
+    void video.play()
+      .then(() => {
+        if (cancelled || !wantPlayRef.current) {
+          video.pause()
+          try {
+            video.currentTime = 0
+          } catch {
+            /* not seekable until data arrives */
+          }
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setPlaying(false)
+      })
+    return () => {
+      cancelled = true
+      video.pause()
+    }
+  }, [wantPlay, mounted])
+
+  return (
+    <div
+      className="aspect-video w-full overflow-hidden bg-muted shrink-0 relative"
+      onPointerEnter={onEnter}
+      onPointerLeave={stop}
+    >
+      {poster ? (
+        <img
+          src={poster}
+          alt={title}
+          loading="lazy"
+          decoding="async"
+          className={`h-full w-full object-cover object-top transform-gpu backface-hidden will-change-transform transition-transform duration-[1200ms] ease-out group-hover:scale-[1.02] ${playing ? 'opacity-0' : ''}`}
+        />
+      ) : null}
+      {mounted ? (
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 h-full w-full object-cover ${playing ? '' : 'invisible'}`}
+          muted
+          loop
+          playsInline
+          preload="none"
+          aria-hidden="true"
+          onPlaying={() => {
+            if (!wantPlayRef.current) {
+              videoRef.current?.pause()
+              return
+            }
+            setPlaying(true)
+          }}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      ) : null}
+    </div>
+  )
+}
+
 function useHydrated() {
   const [hydrated, setHydrated] = useState(false)
   useEffect(() => {
@@ -367,6 +509,8 @@ function ProjectsGrid() {
               link: string
               /** Cover under public/projects/ — swap the file to replace */
               image?: string
+              /** Optional muted loop in the card media slot */
+              video?: string
               links?: readonly ProjectLink[]
               isDependency?: boolean
               dependencyRole?: string
@@ -377,6 +521,7 @@ function ProjectsGrid() {
             }
 
             const allProjects = t.projects.items as readonly Project[]
+            const reduceMotion = useReducedMotion()
             const proj0 = allProjects[0]!
             const proj1 = allProjects[1]!
             const proj2 = allProjects[2]!
@@ -384,6 +529,7 @@ function ProjectsGrid() {
             const proj4 = allProjects[4]!
             const proj5 = allProjects[5]!
             const proj6 = allProjects[6]!
+            const proj7 = allProjects[7]!
 
             // Helper para parsear **bold** a elementos con estilo
             const parseBold = (text: string): React.ReactNode[] => {
@@ -401,6 +547,7 @@ function ProjectsGrid() {
               p4: useRef<HTMLDivElement>(null),
               p5: useRef<HTMLDivElement>(null),
               p6: useRef<HTMLDivElement>(null),
+              p7: useRef<HTMLDivElement>(null),
             }
 
             // Hook para calcular líneas de conexión SVG
@@ -445,6 +592,7 @@ function ProjectsGrid() {
                   { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p4, toEdge: 'top' },
                   { from: cardRefs.p4, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
                   { from: cardRefs.p5, fromEdge: 'bottom', to: cardRefs.p6, toEdge: 'top' },
+                  { from: cardRefs.p6, fromEdge: 'bottom', to: cardRefs.p7, toEdge: 'top' },
                 ] : [
                   { from: cardRefs.p0, fromEdge: 'right', to: cardRefs.p1, toEdge: 'left' },
                   { from: cardRefs.p0, fromEdge: 'bottom', to: cardRefs.p2, toEdge: 'top' },
@@ -454,6 +602,8 @@ function ProjectsGrid() {
                   { from: cardRefs.p3, fromEdge: 'bottom', to: cardRefs.p5, toEdge: 'top' },
                   { from: cardRefs.p4, fromEdge: 'right', to: cardRefs.p5, toEdge: 'left' },
                   { from: cardRefs.p4, fromEdge: 'bottom', to: cardRefs.p6, toEdge: 'top' },
+                  { from: cardRefs.p5, fromEdge: 'bottom', to: cardRefs.p7, toEdge: 'top' },
+                  { from: cardRefs.p6, fromEdge: 'right', to: cardRefs.p7, toEdge: 'left' },
                 ]
 
                 const paths = connections.map(conn => {
@@ -520,7 +670,14 @@ function ProjectsGrid() {
                       : 'bg-card border border-border hover:border-primary/30'
                   }`}
                 >
-                  {project.image && (
+                  {project.video ? (
+                    <ProjectClip
+                      src={project.video}
+                      poster={project.image}
+                      title={project.title}
+                      reduceMotion={reduceMotion}
+                    />
+                  ) : project.image ? (
                     <div className="aspect-video w-full overflow-hidden bg-muted shrink-0">
                       <img
                         src={project.image}
@@ -534,7 +691,7 @@ function ProjectsGrid() {
                         }}
                       />
                     </div>
-                  )}
+                  ) : null}
                   <div className="p-6 flex flex-col flex-1">
                     <div className="flex items-start justify-between gap-2 mb-3">
                       <h3 className={`font-display text-xl font-bold min-w-0 transition-colors ${
@@ -575,13 +732,7 @@ function ProjectsGrid() {
                       )}
                       {project.links && project.links.length > 0 ? (
                         <div className="flex flex-wrap items-center gap-2">
-                          {project.links.map((pl, li) => {
-                            const plIcons: Record<string, React.ReactNode> = {
-                              github: <Github className="w-3.5 h-3.5" />,
-                              fileText: <FileText className="w-3.5 h-3.5" />,
-                              video: <Video className="w-3.5 h-3.5" />,
-                            }
-                            return (
+                          {project.links.map((pl, li) => (
                               <a
                                 key={li}
                                 href={pl.url}
@@ -594,11 +745,10 @@ function ProjectsGrid() {
                                     : 'bg-primary/10 text-primary hover:bg-primary/20'
                                 }`}
                               >
-                                {plIcons[pl.icon] || <ExternalLink className="w-3.5 h-3.5" />}
+                                <ProjectLinkGlyph icon={pl.icon} />
                                 {pl.label}
                               </a>
-                            )
-                          })}
+                            ))}
                           {project.stars && (
                             <span className="flex items-center gap-1 text-xs text-muted-foreground">
                               <Star className="w-3.5 h-3.5 text-yellow-500" />
@@ -702,6 +852,9 @@ function ProjectsGrid() {
                 <div className="grid md:grid-cols-2 gap-6 relative z-10">
                   <AnimatedSection delay={0.4}>
                     <ProjectCard project={proj6} cardRef={cardRefs.p6} />
+                  </AnimatedSection>
+                  <AnimatedSection delay={0.45}>
+                    <ProjectCard project={proj7} cardRef={cardRefs.p7} />
                   </AnimatedSection>
                 </div>
               </div>
