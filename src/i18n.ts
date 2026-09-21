@@ -167,9 +167,7 @@ export const translations = {
           caseStudyLabel: 'View series',
           links: [
             { label: 'Instagram', url: 'https://www.instagram.com/theunderlyingcurve/', icon: 'instagram' },
-            { label: 'TikTok', url: 'https://www.tiktok.com/@theunderlyingcurve', icon: 'tiktok' },
             { label: 'YouTube', url: 'https://www.youtube.com/channel/UCexmjydtgJk1ye02E4QdtyQ', icon: 'youtube' },
-            { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61594299692964', icon: 'facebook' },
           ],
         },
         {

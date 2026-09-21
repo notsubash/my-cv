@@ -15,9 +15,7 @@ const meta = {
   tech: ['Manim', 'FFmpeg', 'Python'],
   links: [
     { label: 'Instagram', url: 'https://www.instagram.com/theunderlyingcurve/', icon: 'instagram' as const },
-    { label: 'TikTok', url: 'https://www.tiktok.com/@theunderlyingcurve', icon: 'tiktok' as const },
     { label: 'YouTube', url: 'https://www.youtube.com/channel/UCexmjydtgJk1ye02E4QdtyQ', icon: 'youtube' as const },
-    { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61594299692964', icon: 'facebook' as const },
   ],
   metrics: [] as { value: string; label: string }[],
   seoTitle: 'The Underlying Curve — Education Series | Subash Pandey',
