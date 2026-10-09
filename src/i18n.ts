@@ -155,22 +155,6 @@ export const translations = {
       viewPrototype: 'View prototype',
       items: [
         {
-          title: 'The Underlying Curve',
-          badge: 'Education / Visual',
-          badgeBuilding: '',
-          desc: 'Mute visual explainers of data science, ML, and AI. One object per video. Scenes in Manim, encodes and platform crops in FFmpeg. Instagram is the main channel.',
-          tech: ['Manim', 'FFmpeg', 'Python'],
-          link: 'www.instagram.com/theunderlyingcurve/',
-          image: '/projects/the-underlying-curve.webp',
-          video: '/blog/the-underlying-curve/stencil-that-slides-720p.mp4',
-          caseStudyUrl: '/projects/the-underlying-curve',
-          caseStudyLabel: 'View series',
-          links: [
-            { label: 'Instagram', url: 'https://www.instagram.com/theunderlyingcurve/', icon: 'instagram' },
-            { label: 'YouTube', url: 'https://www.youtube.com/channel/UCexmjydtgJk1ye02E4QdtyQ', icon: 'youtube' },
-          ],
-        },
-        {
           title: 'Latent Parking',
           badge: 'World Models / Control',
           badgeBuilding: '',
@@ -210,6 +194,21 @@ export const translations = {
           caseStudyLabel: 'Read blog post',
           links: [
             { label: 'GitHub', url: 'https://github.com/notsubash/cloud-native-AI-platform', icon: 'github' },
+          ],
+        },
+        {
+          title: 'The Underlying Curve',
+          badge: 'Education / Visual',
+          badgeBuilding: '',
+          desc: 'Mute visual explainers of data science, ML, and AI. One object per video. Scenes in Manim, encodes and platform crops in FFmpeg. Instagram is the main channel.',
+          tech: ['Manim', 'FFmpeg', 'Python'],
+          link: 'www.instagram.com/theunderlyingcurve/',
+          image: '/projects/the-underlying-curve.webp',
+          video: '/blog/the-underlying-curve/stencil-that-slides-720p.mp4',
+          caseStudyUrl: '/projects/the-underlying-curve',
+          caseStudyLabel: 'View series',
+          links: [
+            { label: 'Instagram', url: 'https://www.instagram.com/theunderlyingcurve/', icon: 'instagram' }
           ],
         },
         {
