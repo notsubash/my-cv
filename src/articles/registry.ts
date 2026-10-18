@@ -121,6 +121,7 @@ export function getPageTitles(): Record<string, string> {
     '/': "Subash Pandey's Portfolio",
     '/about': 'About',
     '/notes': 'Technical Notes',
+    '/open-source': 'Open Source',
     '/blog': 'Blog',
     '/privacy': 'Privacy',
     '/blog/when-a-self-parking-car-cannot-trust-its-imagination': 'Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It',

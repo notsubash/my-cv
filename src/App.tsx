@@ -197,6 +197,18 @@ function useInView(threshold = 0.1) {
 
 const HOME_BLOG_PREVIEW_COUNT = 3
 
+/** Small label under a hero control; the parent `group` decides when it shows. Pair with HINT_SHOW_DELAY on the hover state so a passing cursor doesn't flash it. */
+const HINT_BUBBLE = 'pointer-events-none absolute top-full z-20 mt-2 whitespace-nowrap rounded-md bg-foreground px-2 py-0.5 text-[11px] font-medium text-[hsl(var(--background))] opacity-0 shadow-md transition-opacity'
+const HINT_SHOW_DELAY = 'group-hover:delay-150'
+
+/** Noto Emoji icons (Apache-2.0, same set as the old globe) orbiting the hero avatar. */
+const HERO_ORBIT_LINKS: readonly ({ label: string; icon: string } & ({ to: string } | { href: string }))[] = [
+  { to: '/open-source', label: 'Open Source', icon: '/icons/hammer-and-wrench.svg' },
+  ...(BLOG_ENABLED ? [{ to: '/blog', label: 'Blog', icon: '/icons/memo.svg' }] : []),
+  { to: '/notes', label: 'Technical Notes', icon: '/icons/light-bulb.svg' },
+  { href: `https://${translations.en.projects.githubLink}`, label: 'GitHub', icon: '/icons/octopus.svg' },
+]
+
 const HOME_TOC_SECTIONS = [
   { id: 'main-content', en: 'Top' },
   { id: 'projects', en: 'Projects' },
@@ -954,25 +966,13 @@ function App() {
               initial={hydrated ? { opacity: 0, scale: 0.85 } : false}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mb-5 sm:mb-6 md:mb-7"
+              className="relative mt-10 mb-12 sm:mt-14 sm:mb-16 md:mt-[4.5rem] md:mb-[4.5rem]"
             >
               <Link
                 to="/about"
                 className="relative block h-28 w-28 rounded-full outline-offset-4 transition-opacity hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary sm:h-36 sm:w-36 md:h-44 md:w-44"
                 aria-label="About Subash Pandey"
               >
-                <div
-                  className="pointer-events-none absolute inset-[-20px] h-[calc(100%+40px)] w-[calc(100%+40px)] sm:inset-[-28px] sm:h-[calc(100%+56px)] sm:w-[calc(100%+56px)] hero-ring-spin"
-                  aria-hidden="true"
-                >
-                  <img
-                    src="/globe.svg"
-                    alt=""
-                    className="absolute top-[3%] left-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_8px_hsl(var(--gradient-from)/0.55)] md:h-7 md:w-7 hero-ring-spin-reverse"
-                    width={28}
-                    height={28}
-                  />
-                </div>
                 <div className="h-full w-full overflow-hidden rounded-full shadow-[0_16px_40px_hsl(0_0%_0%/0.35)]">
                   <img
                     src="/foto-avatar-sm.webp"
@@ -986,6 +986,44 @@ function App() {
                   />
                 </div>
               </Link>
+              {/* Orbiting page links; outside the avatar link because links can't nest. The orbit pauses on hover/focus (index.css). */}
+              <div
+                className="pointer-events-none absolute inset-[-32px] h-[calc(100%+64px)] w-[calc(100%+64px)] sm:inset-[-40px] sm:h-[calc(100%+80px)] sm:w-[calc(100%+80px)] md:inset-[-48px] md:h-[calc(100%+96px)] md:w-[calc(100%+96px)] hero-ring-spin"
+              >
+                {HERO_ORBIT_LINKS.map((item, i) => {
+                  // Start on the diagonals so the resting (reduced-motion) layout clears the name below.
+                  const angle = 45 + (360 / HERO_ORBIT_LINKS.length) * i
+                  const className = "hero-ring-link group pointer-events-auto absolute top-0 left-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card shadow-[0_4px_14px_hsl(var(--gradient-from)/0.3)] transition-[border-color,box-shadow,scale] active:scale-95 before:absolute before:-inset-1 before:content-[''] hover:border-primary/60 hover:shadow-[0_6px_20px_hsl(var(--gradient-from)/0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:h-10 md:w-10 hero-ring-spin-reverse"
+                  const content = (
+                    <>
+                      <img src={item.icon} alt="" className="h-5 w-5 md:h-6 md:w-6" width={24} height={24} />
+                      <span className={`${HINT_BUBBLE} ${HINT_SHOW_DELAY} group-hover:opacity-100 group-focus-visible:opacity-100`}>
+                        {item.label}
+                      </span>
+                    </>
+                  )
+                  return (
+                    <div key={item.label} className="absolute inset-0" style={{ rotate: `${angle}deg` }}>
+                      {'href' in item ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => posthog.capture('outbound_link_clicked', { destination: 'github', placement: 'hero_orbit', url: item.href })}
+                          className={className}
+                          style={{ rotate: `${-angle}deg` }}
+                        >
+                          {content}
+                        </a>
+                      ) : (
+                        <Link to={item.to} className={className} style={{ rotate: `${-angle}deg` }}>
+                          {content}
+                        </Link>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
             </motion.div>
 
             <motion.h1
@@ -1022,29 +1060,32 @@ function App() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="mt-7 flex w-full max-w-sm flex-col items-stretch justify-center gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:items-center sm:gap-4"
             >
-              <CalBookButton
-                placement="hero"
-                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.28)] transition-colors hover:bg-primary/90 sm:w-auto"
-              >
-                <Calendar className="h-4 w-4" />
-                {t.cta.primaryHeroCta}
-              </CalBookButton>
-              <Link
-                to="/about"
-                className="inline-flex min-h-12 w-full items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card sm:w-auto"
-              >
-                About
-                <ChevronRight className="h-4 w-4 opacity-70" />
-              </Link>
-              {BLOG_ENABLED && (
-                <Link
-                  to="/blog"
-                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card sm:w-auto"
+              <div className="group relative flex w-full justify-center sm:w-auto">
+                <CalBookButton
+                  placement="hero"
+                  aria-describedby="hero-hint-book"
+                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-primary bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.28)] transition-colors hover:bg-primary/90 sm:w-auto"
                 >
-                  <PenLine className="h-4 w-4" />
-                  Blog
+                  <Calendar className="h-4 w-4" />
+                  {t.cta.primaryHeroCta}
+                </CalBookButton>
+                <span id="hero-hint-book" role="tooltip" className={`${HINT_BUBBLE} ${HINT_SHOW_DELAY} group-hover:opacity-100 group-has-[:focus-visible]:opacity-100`}>
+                  {t.cta.primaryHeroHint}
+                </span>
+              </div>
+              <div className="group relative flex w-full justify-center sm:w-auto">
+                <Link
+                  to="/about"
+                  aria-describedby="hero-hint-about"
+                  className="inline-flex min-h-12 w-full items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-card/40 px-5 py-3.5 text-sm font-medium text-foreground/90 transition-colors hover:border-primary/40 hover:bg-card sm:w-auto"
+                >
+                  About
+                  <ChevronRight className="h-4 w-4 opacity-70" />
                 </Link>
-              )}
+                <span id="hero-hint-about" role="tooltip" className={`${HINT_BUBBLE} ${HINT_SHOW_DELAY} group-hover:opacity-100 group-has-[:focus-visible]:opacity-100`}>
+                  {t.cta.aboutHint}
+                </span>
+              </div>
             </motion.div>
 
             <motion.a
@@ -1963,6 +2004,10 @@ function App() {
             )}
             <Link to="/notes" className="inline-flex min-h-11 items-center hover:text-primary transition-colors">
               Technical Notes
+            </Link>
+            <span className="mx-2 text-border">|</span>
+            <Link to="/open-source" className="inline-flex min-h-11 items-center hover:text-primary transition-colors">
+              Open Source
             </Link>
             <span className="mx-2 text-border">|</span>
             <Link to="/privacy" className="inline-flex min-h-11 items-center hover:text-primary transition-colors">

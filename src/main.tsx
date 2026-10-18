@@ -14,6 +14,7 @@ const loadPrivacyPolicy = () => import('./PrivacyPolicy')
 const loadAboutPage = () => import('./AboutPage')
 const loadBlogPage = () => import('./BlogPage')
 const loadTechnicalNotesPage = () => import('./TechnicalNotesPage')
+const loadOpenSourcePage = () => import('./OpenSourcePage')
 const loadBlogLatentParking = () => import('./articles/blog-latent-parking')
 const loadBlogRagPipeline = () => import('./articles/blog-rag-pipeline')
 const loadBlogSteamGenreNetworks = () => import('./articles/blog-steam-genre-networks')
@@ -31,6 +32,7 @@ const PrivacyPolicy = lazy(loadPrivacyPolicy)
 const AboutPage = lazy(loadAboutPage)
 const BlogPage = lazy(loadBlogPage)
 const TechnicalNotesPage = lazy(loadTechnicalNotesPage)
+const OpenSourcePage = lazy(loadOpenSourcePage)
 const BlogLatentParking = lazy(loadBlogLatentParking)
 const BlogRagPipeline = lazy(loadBlogRagPipeline)
 const BlogSteamGenreNetworks = lazy(loadBlogSteamGenreNetworks)
@@ -48,6 +50,7 @@ const WikipediaVoting = lazy(loadWikipediaVoting)
 const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
   '/about': loadAboutPage,
   '/notes': loadTechnicalNotesPage,
+  '/open-source': loadOpenSourcePage,
   '/privacy': loadPrivacyPolicy,
   '/blog': loadBlogPage,
   '/blog/when-a-self-parking-car-cannot-trust-its-imagination': loadBlogLatentParking,
@@ -190,6 +193,7 @@ const app = (
             <Route path="/about" element={<AboutPage />} />
             {BLOG_ENABLED && <Route path="/blog" element={<BlogPage />} />}
             <Route path="/notes" element={<TechnicalNotesPage />} />
+            <Route path="/open-source" element={<OpenSourcePage />} />
             {BLOG_ENABLED && <Route path="/blog/when-a-self-parking-car-cannot-trust-its-imagination" element={<BlogLatentParking />} />}
             {BLOG_ENABLED && <Route path="/blog/rag-pipeline" element={<BlogRagPipeline />} />}
             {BLOG_ENABLED && <Route path="/blog/steam-genre-networks" element={<BlogSteamGenreNetworks />} />}

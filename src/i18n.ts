@@ -9,7 +9,7 @@ export const seo = {
 export const translations = {
   en: {
     greeting: "Hi, I'm",
-    scrollHint: 'Scroll',
+    scrollHint: 'Explore my projects',
     greetingRoles: ['Remote AI/ML Engineer', 'GenAI / LLM Engineer', 'Applied ML Engineer'],
     email: 'axlesubash111@gmail.com',
     role: 'Building production-ready AI systems for real business outcomes.',
@@ -604,6 +604,8 @@ export const translations = {
       title: "Let's talk",
       desc: 'I am actively interviewing for remote AI roles. If your team needs someone who can ship reliable GenAI features end to end, I would love to connect.',
       primaryHeroCta: 'Book a 30 min intro',
+      primaryHeroHint: 'Opens my calendar to pick a time',
+      aboutHint: "My story, how I work, and what I'm looking for",
       bookCall: 'Book a 30 min intro',
       contact: 'Contact',
       linkedin: 'LinkedIn',
@@ -673,6 +675,41 @@ export const translations = {
           summary: 'Implementing every ML algorithm twice: first from scratch in NumPy, then in PyTorch. From linear regression through CNNs, RNNs, and transformers, with miniprojects on MNIST, CIFAR-10, CelebA, and IMDB.',
           tags: ['Python', 'NumPy', 'PyTorch', 'Deep Learning', 'From Scratch'],
           image: '/og-blog-ml-from-scratch.webp',
+        },
+      ],
+    },
+    openSource: {
+      title: 'Open Source',
+      repos: [
+        {
+          name: 'vshulcz/deja-vu',
+          description: 'Coding agent memory for Claude Code, Codex, Cursor and 39 more, built from the session history already on your disk. One Go binary.',
+          language: 'Go',
+          // GitHub stars as of 2026-10-18; bump occasionally.
+          stars: 1237,
+        },
+      ],
+      // Newest first. `related` is another PR in the same repo that the title references.
+      contributions: [
+        {
+          repo: 'vshulcz/deja-vu',
+          number: 5108,
+          title: 'fix(index): a rollout waiting for zstd no longer rewrites the index on every pass',
+          mergedAt: '2026-10-17',
+          related: 5105,
+        },
+        {
+          repo: 'vshulcz/deja-vu',
+          number: 5065,
+          title: 'docs: bring docs in line with the code in a dozen places',
+          mergedAt: '2026-10-16',
+          related: 5060,
+        },
+        {
+          repo: 'vshulcz/deja-vu',
+          number: 5031,
+          title: 'fix(completion): PowerShell offers every --role, and stats offers --year',
+          mergedAt: '2026-10-15',
         },
       ],
     },

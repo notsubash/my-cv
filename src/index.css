@@ -59,6 +59,11 @@ button, a, [role="button"], summary { cursor: pointer; }
 .hero-scroll-hint {
   animation: hero-scroll-nudge 2s ease-in-out infinite;
 }
+/* Hold the orbit still while the orbiting link is being aimed at */
+.hero-ring-spin:has(.hero-ring-link:is(:hover, :focus-visible)),
+.hero-ring-spin:has(.hero-ring-link:is(:hover, :focus-visible)) .hero-ring-spin-reverse {
+  animation-play-state: paused;
+}
 
 html.theme-switching,
 html.theme-switching * {

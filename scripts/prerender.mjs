@@ -31,6 +31,7 @@ const ROUTES = [
   '/',
   '/about',
   '/notes',
+  '/open-source',
   '/blog',
   '/blog/when-a-self-parking-car-cannot-trust-its-imagination',
   '/blog/rag-pipeline',
