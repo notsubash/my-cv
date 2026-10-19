@@ -693,6 +693,18 @@ export const translations = {
       contributions: [
         {
           repo: 'vshulcz/deja-vu',
+          number: 5240,
+          title: 'Fix/completion subcommand cases',
+          mergedAt: '2026-10-19',
+        },
+        {
+          repo: 'vshulcz/deja-vu',
+          number: 5239,
+          title: 'fix(completion): offer --quiet to index, not to search',
+          mergedAt: '2026-10-19',
+        },
+        {
+          repo: 'vshulcz/deja-vu',
           number: 5108,
           title: 'fix(index): a rollout waiting for zstd no longer rewrites the index on every pass',
           mergedAt: '2026-10-17',
