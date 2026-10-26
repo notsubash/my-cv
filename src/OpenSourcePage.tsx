@@ -5,12 +5,6 @@ import { usePageSeo } from './hooks/usePageSeo'
 import posthog from './posthog'
 import { formatStars, ossContributions as contributions, ossRepos as repos, parseTitle, prUrl } from './open-source'
 
-const dateFormat = new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
-
-function formatDate(isoDate: string) {
-  return dateFormat.format(new Date(`${isoDate}T00:00:00Z`))
-}
-
 export default function OpenSourcePage() {
   const t = translations.en.openSource
 
@@ -99,7 +93,6 @@ export default function OpenSourcePage() {
                                 {scope ? `${type}: ${scope}` : type}
                               </span>
                             )}
-                            <time dateTime={pr.mergedAt}>Merged {formatDate(pr.mergedAt)}</time>
                             {pr.related && (
                               <a
                                 href={prUrl(pr.repo, pr.related)}

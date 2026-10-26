@@ -693,35 +693,45 @@ export const translations = {
       contributions: [
         {
           repo: 'vshulcz/deja-vu',
+          number: 5686,
+          title: 'fix: deja how and deja restore print the usage line deja help prints',
+        },
+        {
+          repo: 'vshulcz/deja-vu',
+          number: 5684,
+          title: 'fix: deja show --offset says it wants a number from 0 up, and quotes the value',
+        },
+        {
+          repo: 'vshulcz/deja-vu',
+          number: 5604,
+          title: 'docs(guide): delete Antigravity conversation history',
+        },
+        {
+          repo: 'vshulcz/deja-vu',
           number: 5240,
           title: 'Fix/completion subcommand cases',
-          mergedAt: '2026-10-19',
         },
         {
           repo: 'vshulcz/deja-vu',
           number: 5239,
           title: 'fix(completion): offer --quiet to index, not to search',
-          mergedAt: '2026-10-19',
         },
         {
           repo: 'vshulcz/deja-vu',
           number: 5108,
           title: 'fix(index): a rollout waiting for zstd no longer rewrites the index on every pass',
-          mergedAt: '2026-10-17',
           related: 5105,
         },
         {
           repo: 'vshulcz/deja-vu',
           number: 5065,
           title: 'docs: bring docs in line with the code in a dozen places',
-          mergedAt: '2026-10-16',
           related: 5060,
         },
         {
           repo: 'vshulcz/deja-vu',
           number: 5031,
           title: 'fix(completion): PowerShell offers every --role, and stats offers --year',
-          mergedAt: '2026-10-15',
         },
       ],
     },

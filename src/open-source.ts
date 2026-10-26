@@ -11,16 +11,13 @@ export type OssContribution = {
   repo: string
   number: number
   title: string
-  mergedAt: string
   related?: number
 }
 
 export const ossRepos = translations.en.openSource.repos as readonly OssRepo[]
 
-/** Newest first. */
-export const ossContributions = [...(translations.en.openSource.contributions as readonly OssContribution[])].sort(
-  (a, b) => b.mergedAt.localeCompare(a.mergedAt),
-)
+/** Newest first, as ordered in translations. */
+export const ossContributions = translations.en.openSource.contributions as readonly OssContribution[]
 
 /** Splits a conventional-commit title ("fix(index): ...") into its type, scope and a capitalized summary. */
 export function parseTitle(title: string) {
