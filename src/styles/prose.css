@@ -26,11 +26,11 @@
 /* ── header ────────────────────────────────────────────────────────── */
 .post > header, .case > header { margin-bottom: 2rem; font-family: var(--font-ui); }
 .post > header h1, .case > header h1 {
-  font-family: var(--font-ui); font-size: clamp(1.75rem, 1.2rem + 2vw, var(--text-display)); font-weight: 700;
-  line-height: 1.12; letter-spacing: -0.025em; color: var(--color-ink); text-wrap: balance; margin: 0.5rem 0 1rem;
+  font-family: var(--font-ui); font-size: clamp(2rem, 1.35rem + 2.6vw, 3rem); font-weight: 700;
+  line-height: 1.08; letter-spacing: -0.03em; color: var(--color-ink); text-wrap: balance; margin: 0.5rem 0 1.25rem;
 }
 .post > header > p, .case > header > p {
-  font-family: var(--font-prose); font-size: 1.1875rem; font-weight: 400; line-height: 1.55; color: var(--color-ink-2); text-wrap: pretty; margin-bottom: 1.25rem; max-width: 34em;
+  font-family: var(--font-prose); font-size: 1.25rem; font-weight: 400; line-height: 1.5; color: var(--color-ink-2); text-wrap: pretty; margin-bottom: 1.25rem; max-width: 34em;
 }
 /* meta row (date · reading time): no calendar icon, one quiet line */
 .post > header > div:first-child { font-size: var(--text-meta); color: var(--color-ink-3); gap: 0.5rem; }
@@ -46,14 +46,15 @@
 /* ── running text ──────────────────────────────────────────────────── */
 .prose-custom { color: var(--color-ink); font-size: var(--text-prose); line-height: 1.7; }
 @media (max-width: 639px) { .post, .case, .prose-custom { font-size: 1.0625rem; line-height: 1.65; } }
-.prose-custom > section + section { margin-top: 3.25rem; }
+.prose-custom > section + section { margin-top: 3.75rem; }
 .prose-custom p { margin-top: 1em; text-wrap: pretty; }
 .prose-custom section > :first-child { margin-top: 0; }
 .prose-custom h2 {
-  font-family: var(--font-ui); font-size: 1.625rem; font-weight: 650; line-height: 1.2; letter-spacing: -0.02em;
-  color: var(--color-ink); margin: 0 0 0.875rem; text-wrap: balance; scroll-margin-top: 1.5rem;
+  font-family: var(--font-ui); font-size: 1.75rem; font-weight: 650; line-height: 1.18; letter-spacing: -0.022em;
+  color: var(--color-ink); margin: 0 0 1rem; text-wrap: balance; scroll-margin-top: 1.5rem;
 }
-.prose-custom h3 { font-family: var(--font-ui); font-size: var(--text-h3); font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; color: var(--color-ink); margin: 1.75em 0 0.5rem; }
+.prose-custom h3 { font-family: var(--font-ui); font-size: 1.375rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; color: var(--color-ink); margin: 2em 0 0.5rem; }
+.prose-custom h2 + h3 { margin-top: 0.75em; }
 .prose-custom h4 { font-family: var(--font-ui); font-size: 1.0625rem; font-weight: 650; margin: 1.5em 0 0.25rem; }
 .prose-custom strong { color: var(--color-ink); font-weight: 600; }
 .prose-custom ul, .prose-custom ol { margin-top: 1em; padding-left: 0; list-style: none; }
@@ -224,3 +225,36 @@
 /* Plex at 400 renders thin on Windows ClearType; the variable axis allows a touch more colour */
 .post, .case, .prose-custom { font-weight: 420; }
 .prose-custom :is(h2, h3, h4) { font-weight: 650; }
+
+/* Type scale for reading (ratio 1.25 from the 18px body): h3 22 · h2 28 · h1 to 48. Mobile steps down one notch. */
+.prose-custom figure:not(.codeblock) figcaption { font-size: 0.9375rem !important; }
+@media (max-width: 639px) {
+  .post > header h1, .case > header h1 { font-size: 1.875rem; }
+  .post > header > p, .case > header > p { font-size: 1.125rem; }
+  .prose-custom h2 { font-size: 1.5rem; }
+  .prose-custom h3 { font-size: 1.25rem; }
+}
+
+/* ── about (long form, after the reference's structure) ────────────── */
+.about > header { margin-bottom: 1.5rem; }
+.about .about-lead { margin-bottom: 2.5rem; }
+.about-bio p:first-child { margin-top: 0; font-size: 1.25rem; line-height: 1.55; }
+.about > .about-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 2rem; font: 500 0.9375rem/1 var(--font-ui); }
+.about-block { margin-top: 3.5rem; font-family: var(--font-ui); }
+.about-block > h2, .about-insta-head h2 { font-size: 1.75rem; font-weight: 650; letter-spacing: -0.022em; line-height: 1.2; margin-bottom: 1rem; }
+.about-lines { display: grid; gap: 1.25rem; padding-top: 1.5rem; border-top: 1px solid var(--color-rule); }
+.about-lines dt { font-size: 0.9375rem; font-weight: 650; color: var(--color-ink); }
+.about-lines dd { margin-top: 0.25rem; font-family: var(--font-prose); font-size: 1rem; line-height: 1.6; color: var(--color-ink-2); }
+.about-recent { list-style: none; display: grid; gap: 0.75rem; }
+.about-recent li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; }
+.about-recent .link { display: inline-flex; align-items: center; gap: 2px; font-size: 1.125rem; font-weight: 600; }
+.about-recent span { color: var(--color-ink-2); font-family: var(--font-prose); }
+.about-more { margin-top: 1rem; font-size: 0.9375rem; }
+.about-with { list-style: none; display: grid; gap: 0.375rem; }
+.about-with li { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; color: var(--color-ink); }
+.about-insta-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.about-grid { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+@media (min-width: 640px) { .about-grid { grid-template-columns: repeat(3, 1fr); } }
+.about-grid a { display: block; overflow: hidden; border-radius: var(--radius-md); aspect-ratio: 1; background: var(--color-code); }
+.about-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 400ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .about-grid a:hover img { transform: scale(1.04); } }

@@ -53,6 +53,7 @@ const WikipediaVoting = lazy(loadWikipediaVoting)
 const LabHomeA = lazy(() => import('./lab/LabHomeA'))
 const LabHomeB = lazy(() => import('./lab/LabHomeB'))
 const LabArticle = lazy(() => import('./lab/LabArticle'))
+const LabLogos = lazy(() => import('./lab/LabLogos'))
 
 /** Preload the active route chunk before createRoot so Suspense does not flash null over prerendered HTML. */
 const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
@@ -219,6 +220,7 @@ const app = (
             <Route path="/lab/a" element={<LabHomeA />} />
             <Route path="/lab/b" element={<LabHomeB />} />
             <Route path="/lab/article" element={<LabArticle />} />
+            <Route path="/lab/logos" element={<LabLogos />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

@@ -1,6 +1,6 @@
 {
   "label": "after",
-  "date": "2026-11-23T08:56:25.158Z",
+  "date": "2026-11-23T09:19:32.971Z",
   "axe": {
     "/ @1440 light": [],
     "/ @1440 dark": [],
@@ -139,7 +139,7 @@
       },
       "fontSizesByChars": {
         "15px": 2438,
-        "13px": 1125,
+        "13px": 1178,
         "16px": 1043,
         "14px": 285,
         "17px": 164,
@@ -149,7 +149,7 @@
         "22px": 90,
         "28px": 43
       },
-      "pageHeight": 6279,
+      "pageHeight": 6333,
       "viewport": 812
     },
     "/ @1440": {
@@ -230,7 +230,7 @@
       },
       "fontSizesByChars": {
         "15px": 2438,
-        "13px": 1125,
+        "13px": 1178,
         "16px": 1043,
         "14px": 285,
         "17px": 164,
@@ -245,7 +245,7 @@
     "/about @375": {
       "body": {
         "tag": "body",
-        "text": "Skip to contentsubashpandeyWorkExperienceWritingAboutBook a callA grey",
+        "text": "Skip to contentsubashpandeyWorkExperienceWritingAboutBook a callHello,",
         "font": "Outfit",
         "size": "16px",
         "weight": "400",
@@ -259,70 +259,61 @@
         "tag": "h1",
         "text": "Hello, I’m Subash.",
         "font": "Outfit",
-        "size": "28px",
+        "size": "30px",
         "weight": "700",
-        "lineHeight": "31.36px",
-        "letterSpacing": "-0.7px",
+        "lineHeight": "32.4px",
+        "letterSpacing": "-0.9px",
         "color": "rgb(22, 24, 27)",
         "width": 343,
-        "cpl": 29
+        "cpl": 27
       },
       "h2": {
         "tag": "h2",
-        "text": "Where I started",
+        "text": "Skills and education",
         "font": "Outfit",
-        "size": "26px",
+        "size": "28px",
         "weight": "650",
-        "lineHeight": "31.2px",
-        "letterSpacing": "-0.52px",
+        "lineHeight": "33.6px",
+        "letterSpacing": "-0.616px",
         "color": "rgb(22, 24, 27)",
-        "width": 343,
-        "cpl": 31
+        "width": 1,
+        "cpl": 0
       },
       "h3": null,
       "paragraph": {
         "tag": "p",
-        "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was d",
+        "text": "I’m an AI/ML engineer from Kathmandu, Nepal. For the past two and a ha",
         "font": "IBM Plex Sans",
-        "size": "17px",
+        "size": "20px",
         "weight": "420",
-        "lineHeight": "28.05px",
+        "lineHeight": "31px",
         "letterSpacing": "normal",
         "color": "rgb(22, 24, 27)",
         "width": 343,
-        "cpl": 45
+        "cpl": 38
       },
-      "longParagraphs": 11,
+      "longParagraphs": 6,
       "pre": null,
       "katex": null,
-      "figcaption": {
-        "tag": "figcaption",
-        "text": "A grey day in London, during the MSc years.",
-        "font": "Outfit",
-        "size": "14px",
-        "weight": "400",
-        "lineHeight": "21px",
-        "letterSpacing": "normal",
-        "color": "rgb(70, 75, 83)",
-        "width": 343,
-        "cpl": 56
-      },
+      "figcaption": null,
       "fontSizesByChars": {
-        "17px": 2284,
-        "14px": 606,
-        "15px": 142,
-        "19px": 100,
-        "26px": 93,
+        "17px": 2162,
+        "20px": 402,
+        "16px": 326,
+        "15px": 119,
         "22px": 90,
-        "28px": 18
+        "28px": 66,
+        "14px": 37,
+        "30px": 18,
+        "18px": 18
       },
-      "pageHeight": 5336,
+      "pageHeight": 4503,
       "viewport": 812
     },
     "/about @1440": {
       "body": {
         "tag": "body",
-        "text": "Skip to contentsubashpandeyWorkExperienceWritingAboutBook a callA grey",
+        "text": "Skip to contentsubashpandeyWorkExperienceWritingAboutBook a callHello,",
         "font": "Outfit",
         "size": "16px",
         "weight": "400",
@@ -336,64 +327,53 @@
         "tag": "h1",
         "text": "Hello, I’m Subash.",
         "font": "Outfit",
-        "size": "39.056px",
+        "size": "48px",
         "weight": "700",
-        "lineHeight": "43.7427px",
-        "letterSpacing": "-0.9764px",
+        "lineHeight": "51.84px",
+        "letterSpacing": "-1.44px",
         "color": "rgb(22, 24, 27)",
         "width": 583,
-        "cpl": 35
+        "cpl": 29
       },
       "h2": {
         "tag": "h2",
-        "text": "Where I started",
+        "text": "Skills and education",
         "font": "Outfit",
-        "size": "26px",
+        "size": "28px",
         "weight": "650",
-        "lineHeight": "31.2px",
-        "letterSpacing": "-0.52px",
+        "lineHeight": "33.6px",
+        "letterSpacing": "-0.616px",
         "color": "rgb(22, 24, 27)",
-        "width": 583,
-        "cpl": 52
+        "width": 1,
+        "cpl": 0
       },
       "h3": null,
       "paragraph": {
         "tag": "p",
-        "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was d",
+        "text": "I’m an AI/ML engineer from Kathmandu, Nepal. For the past two and a ha",
         "font": "IBM Plex Sans",
-        "size": "18px",
+        "size": "20px",
         "weight": "420",
-        "lineHeight": "30.6px",
+        "lineHeight": "31px",
         "letterSpacing": "normal",
         "color": "rgb(22, 24, 27)",
         "width": 583,
-        "cpl": 72
+        "cpl": 65
       },
-      "longParagraphs": 11,
+      "longParagraphs": 6,
       "pre": null,
       "katex": null,
-      "figcaption": {
-        "tag": "figcaption",
-        "text": "A grey day in London, during the MSc years.",
-        "font": "Outfit",
-        "size": "14px",
-        "weight": "400",
-        "lineHeight": "21px",
-        "letterSpacing": "normal",
-        "color": "rgb(70, 75, 83)",
-        "width": 583,
-        "cpl": 95
-      },
+      "figcaption": null,
       "fontSizesByChars": {
-        "18px": 2284,
-        "14px": 606,
-        "15px": 142,
-        "19px": 100,
-        "26px": 93,
-        "28px": 90,
-        "39.056px": 18
+        "18px": 2180,
+        "20px": 402,
+        "16px": 326,
+        "28px": 156,
+        "15px": 119,
+        "14px": 37,
+        "48px": 18
       },
-      "pageHeight": 5581,
+      "pageHeight": 3976,
       "viewport": 900
     },
     "/blog @375": {
@@ -525,38 +505,38 @@
         "tag": "h1",
         "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
         "font": "Outfit",
-        "size": "28px",
+        "size": "30px",
         "weight": "700",
-        "lineHeight": "31.36px",
-        "letterSpacing": "-0.7px",
+        "lineHeight": "32.4px",
+        "letterSpacing": "-0.9px",
         "color": "rgb(22, 24, 27)",
         "width": 343,
-        "cpl": 29
+        "cpl": 27
       },
       "h2": {
         "tag": "h2",
         "text": "TL;DR",
         "font": "Outfit",
-        "size": "26px",
+        "size": "24px",
         "weight": "650",
-        "lineHeight": "31.2px",
-        "letterSpacing": "-0.52px",
+        "lineHeight": "28.32px",
+        "letterSpacing": "-0.528px",
         "color": "rgb(22, 24, 27)",
         "width": 343,
-        "cpl": 31
+        "cpl": 34
       },
       "h3": null,
       "paragraph": {
         "tag": "p",
         "text": "True-dynamics CEM reaches the environment outcome when its model is th",
         "font": "IBM Plex Sans",
-        "size": "19px",
+        "size": "18px",
         "weight": "400",
-        "lineHeight": "29.45px",
+        "lineHeight": "27px",
         "letterSpacing": "0.16px",
         "color": "rgb(70, 75, 83)",
         "width": 343,
-        "cpl": 39
+        "cpl": 41
       },
       "longParagraphs": 107,
       "pre": {
@@ -587,32 +567,32 @@
         "tag": "figcaption",
         "text": "True-dynamics CEM controls the first 40 actions, including the success",
         "font": "Outfit",
-        "size": "14px",
+        "size": "15px",
         "weight": "420",
-        "lineHeight": "21px",
+        "lineHeight": "22.5px",
         "letterSpacing": "0.16px",
         "color": "rgb(70, 75, 83)",
         "width": 343,
-        "cpl": 55
+        "cpl": 51
       },
       "fontSizesByChars": {
         "17px": 35442,
-        "14px": 3812,
-        "26px": 693,
+        "15px": 2627,
+        "14px": 1204,
+        "24px": 693,
         "19.04px": 294,
-        "19px": 200,
+        "18px": 200,
         "13.328px": 181,
         "13px": 128,
         "17.85px": 103,
         "1px": 95,
         "22px": 90,
-        "28px": 81,
+        "30px": 81,
         "12.495px": 81,
-        "15px": 19,
         "12px": 10,
         "9.52px": 1
       },
-      "pageHeight": 43238,
+      "pageHeight": 43449,
       "viewport": 812
     },
     "/blog/when-a-self-parking-car-cannot-trust-its-imagination @1440": {
@@ -632,38 +612,38 @@
         "tag": "h1",
         "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
         "font": "Outfit",
-        "size": "39.056px",
+        "size": "48px",
         "weight": "700",
-        "lineHeight": "43.7427px",
-        "letterSpacing": "-0.9764px",
+        "lineHeight": "51.84px",
+        "letterSpacing": "-1.44px",
         "color": "rgb(22, 24, 27)",
         "width": 583,
-        "cpl": 35
+        "cpl": 29
       },
       "h2": {
         "tag": "h2",
         "text": "TL;DR",
         "font": "Outfit",
-        "size": "26px",
+        "size": "28px",
         "weight": "650",
-        "lineHeight": "31.2px",
-        "letterSpacing": "-0.52px",
+        "lineHeight": "33.04px",
+        "letterSpacing": "-0.616px",
         "color": "rgb(22, 24, 27)",
         "width": 583,
-        "cpl": 52
+        "cpl": 49
       },
       "h3": null,
       "paragraph": {
         "tag": "p",
         "text": "True-dynamics CEM reaches the environment outcome when its model is th",
         "font": "IBM Plex Sans",
-        "size": "19px",
+        "size": "20px",
         "weight": "400",
-        "lineHeight": "29.45px",
+        "lineHeight": "30px",
         "letterSpacing": "0.16px",
         "color": "rgb(70, 75, 83)",
         "width": 583,
-        "cpl": 67
+        "cpl": 64
       },
       "longParagraphs": 107,
       "pre": {
@@ -694,32 +674,31 @@
         "tag": "figcaption",
         "text": "True-dynamics CEM controls the first 40 actions, including the success",
         "font": "Outfit",
-        "size": "14px",
+        "size": "15px",
         "weight": "420",
-        "lineHeight": "21px",
+        "lineHeight": "22.5px",
         "letterSpacing": "0.16px",
         "color": "rgb(70, 75, 83)",
         "width": 583,
-        "cpl": 93
+        "cpl": 87
       },
       "fontSizesByChars": {
         "18px": 35442,
-        "14px": 3812,
-        "26px": 693,
+        "15px": 2627,
+        "14px": 1204,
+        "28px": 783,
         "20.16px": 294,
-        "19px": 200,
+        "20px": 200,
         "14.112px": 181,
         "13px": 128,
         "18.9px": 103,
         "1px": 95,
-        "28px": 90,
-        "39.056px": 81,
+        "48px": 81,
         "13.23px": 81,
-        "15px": 19,
         "12px": 10,
         "10.08px": 1
       },
-      "pageHeight": 37729,
+      "pageHeight": 38195,
       "viewport": 900
     },
     "/projects/gavel @375": {
@@ -739,38 +718,38 @@
         "tag": "h1",
         "text": "Gavel: Durable Multi-Agent Pipeline Engineering",
         "font": "Outfit",
-        "size": "28px",
+        "size": "30px",
         "weight": "700",
-        "lineHeight": "31.36px",
-        "letterSpacing": "-0.7px",
+        "lineHeight": "32.4px",
+        "letterSpacing": "-0.9px",
         "color": "rgb(22, 24, 27)",
         "width": 343,
-        "cpl": 29
+        "cpl": 27
       },
       "h2": {
         "tag": "h2",
         "text": "Overview",
         "font": "Outfit",
-        "size": "26px",
+        "size": "24px",
         "weight": "650",
-        "lineHeight": "31.2px",
-        "letterSpacing": "-0.52px",
+        "lineHeight": "28.32px",
+        "letterSpacing": "-0.528px",
         "color": "rgb(22, 24, 27)",
         "width": 343,
-        "cpl": 31
+        "cpl": 34
       },
       "h3": null,
       "paragraph": {
         "tag": "p",
         "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fi",
         "font": "IBM Plex Sans",
-        "size": "19px",
+        "size": "18px",
         "weight": "400",
-        "lineHeight": "29.45px",
+        "lineHeight": "27px",
         "letterSpacing": "0.16px",
         "color": "rgb(70, 75, 83)",
         "width": 343,
-        "cpl": 39
+        "cpl": 41
       },
       "longParagraphs": 22,
       "pre": {
@@ -790,25 +769,26 @@
         "tag": "figcaption",
         "text": "One API process, three SQLite stores, models only fill judgment fields",
         "font": "Outfit",
-        "size": "14px",
+        "size": "15px",
         "weight": "420",
-        "lineHeight": "21px",
+        "lineHeight": "22.5px",
         "letterSpacing": "0.16px",
         "color": "rgb(70, 75, 83)",
         "width": 343,
-        "cpl": 55
+        "cpl": 51
       },
       "fontSizesByChars": {
         "17px": 9261,
-        "15px": 3496,
-        "14px": 1615,
+        "15px": 3650,
         "13px": 1593,
-        "26px": 277,
-        "19px": 174,
+        "14px": 1461,
+        "24px": 270,
+        "18px": 174,
         "22px": 90,
-        "28px": 47
+        "30px": 47,
+        "26px": 7
       },
-      "pageHeight": 18377,
+      "pageHeight": 18366,
       "viewport": 812
     },
     "/projects/gavel @1440": {
@@ -828,38 +808,38 @@
         "tag": "h1",
         "text": "Gavel: Durable Multi-Agent Pipeline Engineering",
         "font": "Outfit",
-        "size": "39.056px",
+        "size": "48px",
         "weight": "700",
-        "lineHeight": "43.7427px",
-        "letterSpacing": "-0.9764px",
+        "lineHeight": "51.84px",
+        "letterSpacing": "-1.44px",
         "color": "rgb(22, 24, 27)",
         "width": 583,
-        "cpl": 35
+        "cpl": 29
       },
       "h2": {
         "tag": "h2",
         "text": "Overview",
         "font": "Outfit",
-        "size": "26px",
+        "size": "28px",
         "weight": "650",
-        "lineHeight": "31.2px",
-        "letterSpacing": "-0.52px",
+        "lineHeight": "33.04px",
+        "letterSpacing": "-0.616px",
         "color": "rgb(22, 24, 27)",
         "width": 583,
-        "cpl": 52
+        "cpl": 49
       },
       "h3": null,
       "paragraph": {
         "tag": "p",
         "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fi",
         "font": "IBM Plex Sans",
-        "size": "19px",
+        "size": "20px",
         "weight": "400",
-        "lineHeight": "29.45px",
+        "lineHeight": "30px",
         "letterSpacing": "0.16px",
         "color": "rgb(70, 75, 83)",
         "width": 583,
-        "cpl": 67
+        "cpl": 64
       },
       "longParagraphs": 22,
       "pre": {
@@ -879,25 +859,25 @@
         "tag": "figcaption",
         "text": "One API process, three SQLite stores, models only fill judgment fields",
         "font": "Outfit",
-        "size": "14px",
+        "size": "15px",
         "weight": "420",
-        "lineHeight": "21px",
+        "lineHeight": "22.5px",
         "letterSpacing": "0.16px",
         "color": "rgb(70, 75, 83)",
         "width": 583,
-        "cpl": 93
+        "cpl": 87
       },
       "fontSizesByChars": {
         "18px": 9261,
-        "15px": 3496,
-        "14px": 1615,
+        "15px": 3650,
         "13px": 1593,
-        "26px": 277,
-        "19px": 174,
-        "28px": 90,
-        "39.056px": 47
+        "14px": 1461,
+        "28px": 360,
+        "20px": 174,
+        "48px": 47,
+        "26px": 7
       },
-      "pageHeight": 15092,
+      "pageHeight": 15144,
       "viewport": 900
     }
   },
@@ -968,7 +948,7 @@
         },
         {
           "text": "Book a 30-min intro",
-          "top": 6017,
+          "top": 6071,
           "inFold": false
         }
       ],
@@ -1146,44 +1126,19 @@
           "text": "Book a call"
         },
         {
-          "tag": "img",
-          "top": 148,
-          "text": "Subash with Tower Bridge and the Thames behind him in London"
-        },
-        {
           "tag": "h1",
-          "top": 476,
+          "top": 156,
           "text": "Hello, I’m Subash."
         },
         {
-          "tag": "p",
-          "top": 524,
-          "text": "An AI/ML engineer from Kathmandu who likes taking ideas past the demo and into something p"
+          "tag": "img",
+          "top": 212,
+          "text": "Subash with Tower Bridge and the Thames behind him in London"
         },
         {
           "tag": "p",
-          "top": 632,
-          "text": "Download CVFull experience"
-        },
-        {
-          "tag": "a",
-          "top": 632,
-          "text": "Download CV"
-        },
-        {
-          "tag": "a",
-          "top": 647,
-          "text": "Full experience"
-        },
-        {
-          "tag": "h2",
-          "top": 710,
-          "text": "Where I started"
-        },
-        {
-          "tag": "p",
-          "top": 758,
-          "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was doing data analysis a"
+          "top": 510,
+          "text": "I’m an AI/ML engineer from Kathmandu, Nepal. For the past two and a half years I’ve built "
         }
       ],
       "cta": [
@@ -1194,7 +1149,7 @@
         },
         {
           "text": "Book a 30-min intro",
-          "top": 5102,
+          "top": 4269,
           "inFold": false
         }
       ],
@@ -1239,34 +1194,19 @@
           "text": "Book a call"
         },
         {
-          "tag": "img",
-          "top": 120,
-          "text": "Subash with Tower Bridge and the Thames behind him in London"
-        },
-        {
           "tag": "h1",
-          "top": 736,
+          "top": 128,
           "text": "Hello, I’m Subash."
         },
         {
-          "tag": "p",
-          "top": 796,
-          "text": "An AI/ML engineer from Kathmandu who likes taking ideas past the demo and into something p"
+          "tag": "img",
+          "top": 204,
+          "text": "Subash with Tower Bridge and the Thames behind him in London"
         },
         {
           "tag": "p",
-          "top": 875,
-          "text": "Download CVFull experience"
-        },
-        {
-          "tag": "a",
-          "top": 875,
-          "text": "Download CV"
-        },
-        {
-          "tag": "a",
-          "top": 891,
-          "text": "Full experience"
+          "top": 789,
+          "text": "I’m an AI/ML engineer from Kathmandu, Nepal. For the past two and a half years I’ve built "
         }
       ],
       "cta": [
@@ -1277,7 +1217,7 @@
         },
         {
           "text": "Book a 30-min intro",
-          "top": 5391,
+          "top": 3786,
           "inFold": false
         }
       ],
@@ -1499,17 +1439,17 @@
         },
         {
           "tag": "p",
-          "top": 383,
+          "top": 391,
           "text": "True-dynamics CEM reaches the environment outcome when its model is the real bicycle. Lear"
         },
         {
           "tag": "a",
-          "top": 663,
+          "top": 657,
           "text": "github.com/notsubash/latent-parking"
         },
         {
           "tag": "img",
-          "top": 756,
+          "top": 750,
           "text": "True-dynamics CEM parking in the empty lot"
         }
       ],
@@ -1521,7 +1461,7 @@
         },
         {
           "text": "Book a 30-min intro",
-          "top": 42960,
+          "top": 43170,
           "inFold": false
         }
       ],
@@ -1577,17 +1517,17 @@
         },
         {
           "tag": "p",
-          "top": 361,
+          "top": 441,
           "text": "True-dynamics CEM reaches the environment outcome when its model is the real bicycle. Lear"
         },
         {
           "tag": "a",
-          "top": 561,
+          "top": 643,
           "text": "github.com/notsubash/latent-parking"
         },
         {
           "tag": "img",
-          "top": 635,
+          "top": 717,
           "text": "True-dynamics CEM parking in the empty lot"
         }
       ],
@@ -1599,7 +1539,7 @@
         },
         {
           "text": "Book a 30-min intro",
-          "top": 37539,
+          "top": 38005,
           "inFold": false
         }
       ],
@@ -1660,28 +1600,23 @@
         },
         {
           "tag": "p",
-          "top": 317,
+          "top": 355,
           "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fixed LangGraph debate"
         },
         {
           "tag": "p",
-          "top": 484,
+          "top": 510,
           "text": "Python · FastAPI · LangGraph · Next.js · SQLite · SSE · Pydantic · Ollama"
         },
         {
           "tag": "p",
-          "top": 539,
+          "top": 565,
           "text": "GitHub"
         },
         {
           "tag": "a",
-          "top": 539,
+          "top": 565,
           "text": "GitHub"
-        },
-        {
-          "tag": "h2",
-          "top": 807,
-          "text": "Overview"
         }
       ],
       "cta": [
@@ -1692,7 +1627,7 @@
         },
         {
           "text": "Book a 30-min intro",
-          "top": 18099,
+          "top": 18088,
           "inFold": false
         }
       ],
@@ -1753,32 +1688,32 @@
         },
         {
           "tag": "p",
-          "top": 314,
+          "top": 334,
           "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fixed LangGraph debate"
         },
         {
           "tag": "p",
-          "top": 422,
+          "top": 444,
           "text": "Python · FastAPI · LangGraph · Next.js · SQLite · SSE · Pydantic · Ollama"
         },
         {
           "tag": "p",
-          "top": 458,
+          "top": 479,
           "text": "GitHub"
         },
         {
           "tag": "a",
-          "top": 458,
+          "top": 479,
           "text": "GitHub"
         },
         {
           "tag": "h2",
-          "top": 725,
+          "top": 747,
           "text": "Overview"
         },
         {
           "tag": "p",
-          "top": 774,
+          "top": 798,
           "text": "Gavel is a local idea validation workbench. You keep a versioned worksheet, log evidence, "
         }
       ],
@@ -1790,7 +1725,7 @@
         },
         {
           "text": "Book a 30-min intro",
-          "top": 14902,
+          "top": 14954,
           "inFold": false
         }
       ],
@@ -2035,25 +1970,25 @@
   },
   "perf": {
     "/": {
-      "lcpMs": 1900,
+      "lcpMs": 2148,
       "lcpElement": "h1 I’m Subash, an AI/ML engineer. I ship LLM systems ",
       "cls": 0.004,
-      "transferKB": 748,
-      "requests": 15
+      "transferKB": 746,
+      "requests": 14
     },
     "/blog/when-a-self-parking-car-cannot-trust-its-imagination": {
-      "lcpMs": 2636,
+      "lcpMs": 3936,
       "lcpElement": "p True-dynamics CEM reaches the environment outcome ",
       "cls": 0,
-      "transferKB": 1361,
-      "requests": 29
+      "transferKB": 1360,
+      "requests": 28
     },
     "/projects/gavel": {
-      "lcpMs": 4960,
+      "lcpMs": 2392,
       "lcpElement": "p Running a long judge pipeline on local 9B models: ",
       "cls": 0,
-      "transferKB": 794,
-      "requests": 19
+      "transferKB": 792,
+      "requests": 18
     }
   },
   "page": {}

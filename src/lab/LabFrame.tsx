@@ -6,6 +6,7 @@ const LINKS = [
   { to: '/lab/a', label: 'A · Ledger' },
   { to: '/lab/b', label: 'B · Evidence rail' },
   { to: '/lab/article', label: 'Article' },
+  { to: '/lab/logos', label: 'Logos' },
   { to: '/', label: 'Current site' },
 ]
 
