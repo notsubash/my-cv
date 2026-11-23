@@ -59,7 +59,7 @@ export const work: readonly WorkItem[] = [
     kind: 'Multi-agent LLM system',
     problem: 'One model reviewing a startup idea gives one confident opinion and no way to check it.',
     built: 'A panel of five LLM judges (investor, engineer, product manager, customer, competitor) that score an idea, debate it in LangGraph rounds and return a structured verdict. A FastAPI engine streams each run and resumes it after a crash.',
-    result: { value: '$0', label: 'API cost per run: five judges and a debate on local 9B models, capped at 10 minutes, replayable after a crash' },
+    result: { value: '≥95%', label: 'valid structured verdicts from local 9B judges, gated on a golden set; herding checks stop five judges echoing one another' },
     href: '/blog/building-an-idea-workbench',
     linkLabel: 'Read the write-up',
     repo: 'https://github.com/notsubash/gavel',
