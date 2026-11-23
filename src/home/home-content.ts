@@ -15,7 +15,7 @@ export const person = {
 /** Recruiter checklist: the six things a screen looks for, in the order they look. */
 export const facts = [
   { term: 'Role', detail: 'AI/ML Engineer at Scopic Software', note: 'Oct 2024 – now' },
-  { term: 'Focus', detail: 'RAG, LangGraph agents, LLM evaluation, voice AI' },
+  { term: 'Focus', detail: 'Backend, Agentic AI, LLM evaluation, voice AI, SaaS' },
   { term: 'Stack', detail: 'Python, PyTorch, LangGraph, FastAPI, AWS, Docker, Kubernetes' },
   { term: 'Education', detail: 'MSc Data Science, University of Exeter' },
   { term: 'Based', detail: 'Kathmandu, working remotely', clock: true },
@@ -77,7 +77,7 @@ export const work: readonly WorkItem[] = [
     external: true,
     linkLabel: 'View on GitHub',
     image: '/projects/craft.webp',
-    tags: ['Node.js', 'LLM-as-judge', 'GitHub Actions'],
+    tags: ['Node.js','Claude', 'LLM-as-judge', 'GitHub Actions'],
   },
   {
     slug: 'activity-recognition',
@@ -138,10 +138,12 @@ export const experience = [
     role: 'AI/ML Engineer',
     period: 'Oct 2024 – now',
     points: [
-      'Benchmarked a routing classifier against GPT-4o-mini: 88% vs 80% handler accuracy, about 6× cheaper, p95 under 0.6 s.',
-      'Lead a LangGraph and RAG sales chatbot in Zoho CRM that qualifies 5+ warm leads a month.',
-      'Built chatbot and RAG evaluation pipelines: response accuracy up 20%, latency and cost down.',
-      'Maintain a production AI receptionist, including its voice layer.',
+      'Benchmarked a replacement routing classifier against GPT-4o-mini: 88% vs 80% handler accuracy, 86% vs 77% intent, about 6× cheaper, p95 under 0.6 s.',
+      'Lead a GenAI sales chatbot on LangGraph and RAG over Qdrant, integrated with Zoho CRM for lead qualification and scoring; it processes 5+ warm leads a month.',
+      'Built evaluation pipelines for chatbot and RAG releases that raised response accuracy by 20% while lowering latency and cost.',
+      'Develop and maintain a production AI receptionist platform, including its voice-agent layer (speech-to-text, text-to-speech, turn handling).',
+      'Build an AI interviewer platform, assessment engine and interviewer agent.',
+      'Work on SEO Keyword Clustering and Search Intent Analysis for a SaaS product.',
     ],
   },
   { org: 'Peace Nepal Dot Com', role: 'AI/ML Engineer', period: 'Jul – Nov 2024', points: ['RAG and multi-agent chatbots for banking, travel and support; fine-tuned LLMs for 5 use cases.'] },
