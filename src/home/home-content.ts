@@ -13,14 +13,16 @@ export const person = {
 }
 
 /** Recruiter checklist: the six things a screen looks for, in the order they look. */
-export const facts = [
-  { term: 'Role', detail: 'AI/ML Engineer at Scopic Software'},
+export type Fact = { term: string; detail: string; note?: string; clock?: boolean }
+
+export const facts: readonly Fact[] = [
+  { term: 'Role', detail: 'AI/ML Engineer at Scopic Software' },
   { term: 'Focus', detail: 'Backend, Agentic AI, LLM evaluation, voice AI, SaaS' },
   { term: 'Stack', detail: 'Python, PyTorch, LangGraph, FastAPI, AWS, Docker, Kubernetes' },
   { term: 'Education', detail: 'MSc Data Science, University of Exeter' },
   { term: 'Based', detail: 'Kathmandu, working remotely', clock: true },
   { term: 'Open to', detail: 'Remote AI/ML engineering roles' },
-] as const
+]
 
 export type WorkItem = {
   slug: string

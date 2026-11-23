@@ -175,8 +175,8 @@ function App() {
                 <dt>{f.term}</dt>
                 <dd className={f.term === 'Open to' ? 'hm-open' : undefined}>
                   {f.detail}
-                  {'note' in f && <span className="hm-fact-note"> · {f.note}</span>}
-                  {'clock' in f && (
+                  {f.note && <span className="hm-fact-note"> · {f.note}</span>}
+                  {f.clock && (
                     <span className="hm-fact-note">
                       {' '}· {person.utcOffset}
                       <span className="hm-clock">{time ? <> · <time>{time}</time> there now</> : null}</span>
