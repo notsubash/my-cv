@@ -12,8 +12,9 @@ node scripts/audit/audit.mjs baseline       # axe, keyboard, motion, typography,
 node scripts/audit/probe-prose.mjs          # true characters-per-line of running text
 ```
 
-Artifacts: `docs/redesign/screenshots/baseline/` (full page), `docs/redesign/screenshots/baseline-fold/`
-(first viewport), `docs/redesign/audit/baseline.json` (raw numbers).
+Artifacts: `docs/redesign/audit/baseline.json` (raw numbers, committed). Screenshots are not committed (136 MB of
+review evidence); the commands above regenerate them into `docs/redesign/screenshots/` (gitignored). The baseline
+is `master` at 5dbceac; for a live capture use `node scripts/audit/shoot.mjs baseline --base https://www.subash-pandey.com`.
 
 ---
 

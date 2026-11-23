@@ -55,3 +55,6 @@ scripts/chunks/
 
 # Redesign reference screenshots are third-party content: keep local only
 docs/redesign/references/*.webp
+
+# Redesign screenshots are generated review evidence (node scripts/audit/shoot.mjs <label>); keep them local
+docs/redesign/screenshots/

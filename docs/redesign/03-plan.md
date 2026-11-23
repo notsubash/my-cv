@@ -9,7 +9,7 @@ Prototypes (real pages, real content, proposed tokens). Run `npm run dev` and op
 | `/lab/article` | **Article template**: a real excerpt of the latent-parking post re-set (KaTeX, code, figure, TOC) |
 
 These routes are lazy-loaded, `noindex`, not prerendered, and not in the sitemap. A switcher pill sits at the bottom.
-Screenshots: `docs/redesign/screenshots/lab/` (375 + 1440, light + dark).
+Screenshots (not committed): `MSYS_NO_PATHCONV=1 node scripts/audit/shoot.mjs lab --route /lab/a,/lab/b,/lab/article`.
 Budgets measured on the prototypes (`scripts/audit/probe-lab.mjs`):
 
 | Page | Running-text CPL @1440 / @375 | axe (light + dark, both widths) | Length @1440 / @375 |
