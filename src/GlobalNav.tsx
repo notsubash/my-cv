@@ -104,9 +104,10 @@ export default function GlobalNav() {
             >
               <Link
                 to="/"
+                aria-label="Home"
                 className="inline-flex items-center gap-1.5 min-h-11 text-muted-foreground hover:text-foreground transition-colors shrink-0"
               >
-                <House className="w-4 h-4" />
+                <House className="w-4 h-4" aria-hidden="true" />
                 <span className="hidden sm:inline">Home</span>
               </Link>
               {isBlogPost && (

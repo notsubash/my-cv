@@ -12,6 +12,7 @@ import './posthog'
 
 const loadPrivacyPolicy = () => import('./PrivacyPolicy')
 const loadAboutPage = () => import('./AboutPage')
+const loadCvPage = () => import('./CvPage')
 const loadBlogPage = () => import('./BlogPage')
 const loadTechnicalNotesPage = () => import('./TechnicalNotesPage')
 const loadOpenSourcePage = () => import('./OpenSourcePage')
@@ -30,6 +31,7 @@ const loadWikipediaVoting = () => import('./articles/wikipedia-voting')
 
 const PrivacyPolicy = lazy(loadPrivacyPolicy)
 const AboutPage = lazy(loadAboutPage)
+const CvPage = lazy(loadCvPage)
 const BlogPage = lazy(loadBlogPage)
 const TechnicalNotesPage = lazy(loadTechnicalNotesPage)
 const OpenSourcePage = lazy(loadOpenSourcePage)
@@ -53,6 +55,7 @@ const LabArticle = lazy(() => import('./lab/LabArticle'))
 /** Preload the active route chunk before createRoot so Suspense does not flash null over prerendered HTML. */
 const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
   '/about': loadAboutPage,
+  '/cv': loadCvPage,
   '/notes': loadTechnicalNotesPage,
   '/open-source': loadOpenSourcePage,
   '/privacy': loadPrivacyPolicy,
@@ -195,6 +198,7 @@ const app = (
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/cv" element={<CvPage />} />
             {BLOG_ENABLED && <Route path="/blog" element={<BlogPage />} />}
             <Route path="/notes" element={<TechnicalNotesPage />} />
             <Route path="/open-source" element={<OpenSourcePage />} />

@@ -30,6 +30,7 @@ const BASE = `http://localhost:${PORT}`
 const ROUTES = [
   '/',
   '/about',
+  '/cv',
   '/notes',
   '/open-source',
   '/blog',

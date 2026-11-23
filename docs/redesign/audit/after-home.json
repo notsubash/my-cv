@@ -1,0 +1,3505 @@
+{
+  "label": "after-home",
+  "date": "2026-11-23T07:37:44.501Z",
+  "axe": {
+    "/ @1440 light": [],
+    "/ @1440 dark": [],
+    "/ @375 light": [],
+    "/about @1440 light": [],
+    "/about @1440 dark": [],
+    "/about @375 light": [
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      }
+    ],
+    "/cv @1440 light": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 8,
+        "sample": [
+          {
+            "target": ".py-2\\.5",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 4.15 (foreground color: #19766d, background color: #d8e3e3, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": ".border-accent\\/20.cursor-default.px-3:nth-child(1)",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 4.15 (foreground color: #19766d, background color: #d8e3e3, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": ".border-accent\\/20.cursor-default.px-3:nth-child(2)",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 4.15 (foreground color: #19766d, background color: #d8e3e3, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": ".border-accent\\/20.cursor-default.px-3:nth-child(3)",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 4.15 (foreground color: #19766d, background color: #d8e3e3, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "/cv @1440 dark": [],
+    "/cv @375 light": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 8,
+        "sample": [
+          {
+            "target": ".py-2\\.5",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 4.15 (foreground color: #19766d, background color: #d8e3e3, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": ".border-accent\\/20.cursor-default.px-3:nth-child(1)",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 4.15 (foreground color: #19766d, background color: #d8e3e3, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": ".border-accent\\/20.cursor-default.px-3:nth-child(2)",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 4.15 (foreground color: #19766d, background color: #d8e3e3, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": ".border-accent\\/20.cursor-default.px-3:nth-child(3)",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 4.15 (foreground color: #19766d, background color: #d8e3e3, font size: 10.5pt (14px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      }
+    ],
+    "/notes @1440 light": [],
+    "/notes @1440 dark": [],
+    "/notes @375 light": [
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".hover\\:text-foreground[href=\"/\"][data-discover=\"true\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      }
+    ],
+    "/open-source @1440 light": [],
+    "/open-source @1440 dark": [],
+    "/open-source @375 light": [
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".hover\\:text-foreground.min-h-11[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      }
+    ],
+    "/blog @1440 light": [],
+    "/blog @1440 dark": [],
+    "/blog @375 light": [
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".hover\\:text-foreground.min-h-11[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      }
+    ],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @1440 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 18,
+        "sample": [
+          {
+            "target": ".rounded-lg > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "p:nth-child(2) > .hover\\:underline.text-primary:nth-child(2)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(3) > p:nth-child(8) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(3) > .mt-3:nth-child(12) > .hover\\:underline.text-primary:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      }
+    ],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @1440 dark": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 22,
+        "sample": [
+          {
+            "target": ".text-\\[11px\\]",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 1.01 (foreground color: #171b1e, background color: #161a1d, font size: 8.3pt (11px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": ".gap-3.items-center.flex:nth-child(2) > .text-muted-foreground\\/60.hover\\:text-foreground\\/80.text-left",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 1.01 (foreground color: #171b1e, background color: #161a1d, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": ".gap-3.items-center.flex:nth-child(3) > .text-muted-foreground\\/60.hover\\:text-foreground\\/80.text-left",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 1.01 (foreground color: #171b1e, background color: #161a1d, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+          },
+          {
+            "target": ".gap-3.items-center.flex:nth-child(4) > .text-muted-foreground\\/60.hover\\:text-foreground\\/80.text-left",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 1.01 (foreground color: #171b1e, background color: #161a1d, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      },
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 18,
+        "sample": [
+          {
+            "target": ".rounded-lg > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "p:nth-child(2) > .hover\\:underline.text-primary:nth-child(2)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "section:nth-child(3) > p:nth-child(8) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "section:nth-child(3) > .mt-3:nth-child(12) > .hover\\:underline.text-primary:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          }
+        ]
+      }
+    ],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @375 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 18,
+        "sample": [
+          {
+            "target": ".rounded-lg > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "p:nth-child(2) > .hover\\:underline.text-primary:nth-child(2)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(3) > p:nth-child(8) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(3) > .mt-3:nth-child(12) > .hover\\:underline.text-primary:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 12,
+        "sample": [
+          {
+            "target": "section:nth-child(5) > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].overflow-hidden > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": ".my-6:nth-child(11) > .katex-display",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(11) > .my-6:nth-child(6) > .katex-display",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(11) > .my-6:nth-child(8) > .katex-display",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      }
+    ],
+    "/blog/rag-pipeline @1440 light": [
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/rag-pipeline @1440 dark": [
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/rag-pipeline @375 light": [
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": "section:nth-child(1) > figure",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(4) > figure",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/steam-genre-networks @1440 light": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".text-red-500",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 3.8 (foreground color: #fb2c36, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      },
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".hover\\:underline:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "a[href$=\"steam-ml\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/steam-genre-networks @1440 dark": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".text-red-500",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 4.24 (foreground color: #fb2c36, background color: #1e2124, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      },
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".hover\\:underline:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "a[href$=\"steam-ml\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/steam-genre-networks @375 light": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".text-red-500",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 3.8 (foreground color: #fb2c36, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      },
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".hover\\:underline:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "a[href$=\"steam-ml\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 11,
+        "sample": [
+          {
+            "target": "section:nth-child(1) > figure",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(2) > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].relative > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(3) > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].relative > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(4) > figure",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/ml-from-scratch @1440 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".hover\\:underline:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": ".hover\\:underline:nth-child(2)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/ml-from-scratch @1440 dark": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".hover\\:underline:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": ".hover\\:underline:nth-child(2)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/ml-from-scratch @375 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".hover\\:underline:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": ".hover\\:underline:nth-child(2)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 11,
+        "sample": [
+          {
+            "target": "section:nth-child(1) > figure",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(2) > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].overflow-hidden > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(3) > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].overflow-hidden > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(3) > figure",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/activity-recognition-pipeline @1440 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 6,
+        "sample": [
+          {
+            "target": "section:nth-child(1) > p:nth-child(2) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(1) > .mt-3:nth-child(3) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(2) > .mt-3:nth-child(3) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(3) > p:nth-child(2) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      }
+    ],
+    "/blog/activity-recognition-pipeline @1440 dark": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 6,
+        "sample": [
+          {
+            "target": "section:nth-child(1) > p:nth-child(2) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "section:nth-child(1) > .mt-3:nth-child(3) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "section:nth-child(2) > .mt-3:nth-child(3) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "section:nth-child(3) > p:nth-child(2) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          }
+        ]
+      }
+    ],
+    "/blog/activity-recognition-pipeline @375 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 6,
+        "sample": [
+          {
+            "target": "section:nth-child(1) > p:nth-child(2) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(1) > .mt-3:nth-child(3) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(2) > .mt-3:nth-child(3) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(3) > p:nth-child(2) > .hover\\:underline.text-primary",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 7,
+        "sample": [
+          {
+            "target": "section:nth-child(1) > .my-8 > .rounded-2xl.border-border\\/80.bg-gradient-to-b",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(4) > .my-8 > .rounded-2xl.border-border\\/80.bg-gradient-to-b",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": ".my-6:nth-child(2) > .overflow-x-auto.rounded-xl.border",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(7) > .my-6:nth-child(3) > .overflow-x-auto.rounded-xl.border",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      }
+    ],
+    "/blog/building-an-idea-workbench @1440 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".hover\\:underline.text-primary:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "a[href$=\"gavel\"]:nth-child(2)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/building-an-idea-workbench @1440 dark": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".hover\\:underline.text-primary:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "a[href$=\"gavel\"]:nth-child(2)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/building-an-idea-workbench @375 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".hover\\:underline.text-primary:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "a[href$=\"gavel\"]:nth-child(2)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 8,
+        "sample": [
+          {
+            "target": "section:nth-child(1) > .my-8 > .border-border\\/80.bg-gradient-to-b.from-card",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(2) > .my-8 > .border-border\\/80.bg-gradient-to-b.from-card",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(3) > .my-8 > .border-border\\/80.bg-gradient-to-b.from-card",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(4) > .my-8 > .border-border\\/80.bg-gradient-to-b.from-card",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/building-a-cloud-native-ai-platform @1440 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".hover\\:underline",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/building-a-cloud-native-ai-platform @1440 dark": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".hover\\:underline",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/blog/building-a-cloud-native-ai-platform @375 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".hover\\:underline",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 4,
+        "sample": [
+          {
+            "target": "section:nth-child(1) > .my-8 > .rounded-2xl.border-border\\/80.bg-gradient-to-b",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(4) > .my-8 > .rounded-2xl.border-border\\/80.bg-gradient-to-b",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(4) > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].overflow-hidden > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(8) > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].overflow-hidden > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/projects/gavel @1440 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".hover\\:underline",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "section:nth-child(11) > .space-y-3.leading-relaxed.text-sm > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].group > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      }
+    ],
+    "/projects/gavel @1440 dark": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".hover\\:underline",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "section:nth-child(11) > .space-y-3.leading-relaxed.text-sm > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].group > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      }
+    ],
+    "/projects/gavel @375 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".hover\\:underline",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 6,
+        "sample": [
+          {
+            "target": "section:nth-child(8) > .space-y-3.leading-relaxed.text-sm > figure",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(9) > .space-y-3.leading-relaxed.text-sm > figure",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(11) > .space-y-3.leading-relaxed.text-sm > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].group > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(12) > .space-y-3.leading-relaxed.text-sm > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].group:nth-child(2) > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      }
+    ],
+    "/projects/the-underlying-curve @1440 light": [],
+    "/projects/the-underlying-curve @1440 dark": [],
+    "/projects/the-underlying-curve @375 light": [
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      }
+    ],
+    "/projects/activity-recognition @1440 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 3,
+        "sample": [
+          {
+            "target": ".hover\\:underline:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": ".hover\\:underline[data-discover=\"true\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(11) > .space-y-3.leading-relaxed.text-sm > p > .hover\\:underline",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".space-y-3.leading-relaxed.text-sm > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].group > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      }
+    ],
+    "/projects/activity-recognition @1440 dark": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 3,
+        "sample": [
+          {
+            "target": ".hover\\:underline:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": ".hover\\:underline[data-discover=\"true\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "section:nth-child(11) > .space-y-3.leading-relaxed.text-sm > p > .hover\\:underline",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".space-y-3.leading-relaxed.text-sm > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].group > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      }
+    ],
+    "/projects/activity-recognition @375 light": [
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 3,
+        "sample": [
+          {
+            "target": ".hover\\:underline:nth-child(1)",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": ".hover\\:underline[data-discover=\"true\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "section:nth-child(11) > .space-y-3.leading-relaxed.text-sm > p > .hover\\:underline",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "help": "Scrollable region must have keyboard access",
+        "nodes": 3,
+        "sample": [
+          {
+            "target": "section:nth-child(7) > .space-y-3.leading-relaxed.text-sm > figure > .rounded-2xl.border-border\\/80.bg-gradient-to-b",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": "section:nth-child(11) > .space-y-3.leading-relaxed.text-sm > figure > .rounded-2xl.border-border\\/80.bg-gradient-to-b",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          },
+          {
+            "target": ".space-y-3.leading-relaxed.text-sm > .my-4.bg-\\[hsl\\(var\\(--card\\)\\)\\].group > pre",
+            "summary": "Fix any of the following:   Element should have focusable content"
+          }
+        ]
+      }
+    ],
+    "/projects/steam-ml @1440 light": [],
+    "/projects/steam-ml @1440 dark": [],
+    "/projects/steam-ml @375 light": [
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      }
+    ],
+    "/projects/wikipedia-voting @1440 light": [],
+    "/projects/wikipedia-voting @1440 dark": [],
+    "/projects/wikipedia-voting @375 light": [
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "a[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      }
+    ],
+    "/privacy @1440 light": [
+      {
+        "id": "landmark-one-main",
+        "impact": "moderate",
+        "help": "Document should have one main landmark",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "html",
+            "summary": "Fix all of the following:   Document does not have a main landmark"
+          }
+        ]
+      },
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 3,
+        "sample": [
+          {
+            "target": "li:nth-child(2) > a[href$=\"privacy\"][target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "li:nth-child(3) > a[href$=\"privacy\"][target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "a[href=\"mailto:axlesubash111@gmail.com\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          },
+          {
+            "target": "#root > div:nth-child(3)",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/privacy @1440 dark": [
+      {
+        "id": "landmark-one-main",
+        "impact": "moderate",
+        "help": "Document should have one main landmark",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "html",
+            "summary": "Fix all of the following:   Document does not have a main landmark"
+          }
+        ]
+      },
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 3,
+        "sample": [
+          {
+            "target": "li:nth-child(2) > a[href$=\"privacy\"][target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "li:nth-child(3) > a[href$=\"privacy\"][target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          },
+          {
+            "target": "a[href=\"mailto:axlesubash111@gmail.com\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 1.02:1 with the surrounding text. (Minimum contrast is 3:1, link text: #2badee, surrounding text: #a1a6aa)"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          },
+          {
+            "target": "#root > div:nth-child(3)",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ],
+    "/privacy @375 light": [
+      {
+        "id": "landmark-one-main",
+        "impact": "moderate",
+        "help": "Document should have one main landmark",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": "html",
+            "summary": "Fix all of the following:   Document does not have a main landmark"
+          }
+        ]
+      },
+      {
+        "id": "link-in-text-block",
+        "impact": "serious",
+        "help": "Links must be distinguishable without relying on color",
+        "nodes": 3,
+        "sample": [
+          {
+            "target": "li:nth-child(2) > a[href$=\"privacy\"][target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "li:nth-child(3) > a[href$=\"privacy\"][target=\"_blank\"][rel=\"noopener noreferrer\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          },
+          {
+            "target": "a[href=\"mailto:axlesubash111@gmail.com\"]",
+            "summary": "Fix any of the following:   The link has insufficient color contrast of 2.44:1 with the surrounding text. (Minimum contrast is 3:1, link text: #116e9c, surrounding text: #282e33)"
+          }
+        ]
+      },
+      {
+        "id": "link-name",
+        "impact": "serious",
+        "help": "Links must have discernible text",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".gap-1\\.5.hover\\:text-foreground[href=\"/\"]",
+            "summary": "Fix all of the following:   Element is in tab order and does not have accessible text"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "help": "All page content should be contained by landmarks",
+        "nodes": 2,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          },
+          {
+            "target": "#root > div:nth-child(3)",
+            "summary": "Fix any of the following:   Some page content is not contained by landmarks"
+          }
+        ]
+      },
+      {
+        "id": "skip-link",
+        "impact": "moderate",
+        "help": "The skip-link target should exist and be focusable",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".sr-only",
+            "summary": "Fix any of the following:   No skip link target"
+          }
+        ]
+      }
+    ]
+  },
+  "typography": {
+    "/ @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callI’m S",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "I’m Subash, an AI/ML engineer. I ship LLM systems to production, and I",
+        "font": "Iowan Old Style",
+        "size": "24px",
+        "weight": "400",
+        "lineHeight": "30.72px",
+        "letterSpacing": "-0.288px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 31
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Selected work",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.2px",
+        "color": "rgb(22, 24, 27)",
+        "width": 126,
+        "cpl": 14
+      },
+      "h3": {
+        "tag": "h3",
+        "text": "Gavel",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "650",
+        "lineHeight": "25px",
+        "letterSpacing": "-0.24px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 39
+      },
+      "paragraph": {
+        "tag": "p",
+        "text": "BuiltA crash-safe FastAPI run engine: SSE streaming, a durable SQLite ",
+        "font": "Outfit",
+        "size": "15px",
+        "weight": "400",
+        "lineHeight": "22.5px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 52
+      },
+      "longParagraphs": 5,
+      "pre": null,
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "Akash Raghuvanshi, AI Product Leader · LinkedIn recommendation",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 56
+      },
+      "fontSizesByChars": {
+        "15px": 1629,
+        "16px": 850,
+        "13px": 781,
+        "14px": 326,
+        "17px": 139,
+        "20px": 133,
+        "19px": 126,
+        "24px": 112,
+        "22px": 90,
+        "28px": 30
+      },
+      "pageHeight": 5235,
+      "viewport": 812
+    },
+    "/ @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callI’m S",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "I’m Subash, an AI/ML engineer. I ship LLM systems to production, and I",
+        "font": "Iowan Old Style",
+        "size": "34px",
+        "weight": "400",
+        "lineHeight": "43.52px",
+        "letterSpacing": "-0.408px",
+        "color": "rgb(22, 24, 27)",
+        "width": 672,
+        "cpl": 43
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Selected work",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.2px",
+        "color": "rgb(22, 24, 27)",
+        "width": 126,
+        "cpl": 14
+      },
+      "h3": {
+        "tag": "h3",
+        "text": "Gavel",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "650",
+        "lineHeight": "25px",
+        "letterSpacing": "-0.24px",
+        "color": "rgb(22, 24, 27)",
+        "width": 440,
+        "cpl": 50
+      },
+      "paragraph": {
+        "tag": "p",
+        "text": "BuiltA crash-safe FastAPI run engine: SSE streaming, a durable SQLite ",
+        "font": "Outfit",
+        "size": "15px",
+        "weight": "400",
+        "lineHeight": "22.5px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 440,
+        "cpl": 67
+      },
+      "longParagraphs": 5,
+      "pre": null,
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "Akash Raghuvanshi, AI Product Leader · LinkedIn recommendation",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 672,
+        "cpl": 110
+      },
+      "fontSizesByChars": {
+        "15px": 1629,
+        "16px": 850,
+        "13px": 781,
+        "14px": 326,
+        "17px": 139,
+        "20px": 133,
+        "22px": 126,
+        "28px": 120,
+        "34px": 112
+      },
+      "pageHeight": 3850,
+      "viewport": 900
+    },
+    "/about @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentHomeAboutSubash PandeyAI/ML Engineer · GenAI Developer ",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Subash Pandey",
+        "font": "Outfit",
+        "size": "24px",
+        "weight": "700",
+        "lineHeight": "32px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 243,
+        "cpl": 22
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Where I started",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "600",
+        "lineHeight": "28px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 343,
+        "cpl": 38
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was d",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "26px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 343,
+        "cpl": 48
+      },
+      "longParagraphs": 14,
+      "pre": null,
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "Graduation day at Exeter",
+        "font": "Outfit",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 343,
+        "cpl": 63
+      },
+      "fontSizesByChars": {
+        "16px": 2292,
+        "12px": 972,
+        "14px": 798,
+        "20px": 124,
+        "24px": 13
+      },
+      "pageHeight": 5984,
+      "viewport": 812
+    },
+    "/about @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentHomeAboutSubash PandeyAI/ML Engineer · GenAI Developer ",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Subash Pandey",
+        "font": "Outfit",
+        "size": "36px",
+        "weight": "700",
+        "lineHeight": "40px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 401,
+        "cpl": 24
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Where I started",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "600",
+        "lineHeight": "28px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 720,
+        "cpl": 79
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was d",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "26px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 720,
+        "cpl": 101
+      },
+      "longParagraphs": 14,
+      "pre": null,
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "Graduation day at Exeter",
+        "font": "Outfit",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 720,
+        "cpl": 133
+      },
+      "fontSizesByChars": {
+        "16px": 2243,
+        "12px": 972,
+        "14px": 798,
+        "20px": 124,
+        "18px": 49,
+        "36px": 13
+      },
+      "pageHeight": 5913,
+      "viewport": 900
+    },
+    "/blog @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentHomeBlogBack homeBlogWriting about ML, data, and things",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": null,
+      "h2": {
+        "tag": "h2",
+        "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
+        "font": "Outfit",
+        "size": "18px",
+        "weight": "600",
+        "lineHeight": "28px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 301,
+        "cpl": 37
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "True-dynamics CEM reaches the parking-v0 success diagnostic, then a sc",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "20px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 301,
+        "cpl": 48
+      },
+      "longParagraphs": 1,
+      "pre": null,
+      "katex": null,
+      "figcaption": null,
+      "fontSizesByChars": {
+        "14px": 232,
+        "18px": 81,
+        "12px": 48
+      },
+      "pageHeight": 4047,
+      "viewport": 812
+    },
+    "/blog @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentHomeBlogBack homeBlogWriting about ML, data, and things",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": null,
+      "h2": {
+        "tag": "h2",
+        "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
+        "font": "Outfit",
+        "size": "18px",
+        "weight": "600",
+        "lineHeight": "28px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 376,
+        "cpl": 46
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "True-dynamics CEM reaches the parking-v0 success diagnostic, then a sc",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "20px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 376,
+        "cpl": 60
+      },
+      "longParagraphs": 1,
+      "pre": null,
+      "katex": null,
+      "figcaption": null,
+      "fontSizesByChars": {
+        "14px": 232,
+        "18px": 81,
+        "12px": 48
+      },
+      "pageHeight": 2498,
+      "viewport": 900
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentHomeBlogTeaching a Car to Park by Imagining the Future,",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
+        "font": "Outfit",
+        "size": "30px",
+        "weight": "700",
+        "lineHeight": "37.5px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 343,
+        "cpl": 25
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "TL;DR",
+        "font": "Outfit",
+        "size": "18px",
+        "weight": "600",
+        "lineHeight": "28px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 343,
+        "cpl": 42
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "True-dynamics CEM reaches the environment outcome when its model is th",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "26px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 343,
+        "cpl": 48
+      },
+      "longParagraphs": 107,
+      "pre": {
+        "tag": "pre",
+        "text": "observation\nachieved_goal\ndesired_goal",
+        "font": "ui-monospace",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "19.5px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 341,
+        "cpl": 43
+      },
+      "katex": {
+        "tag": "span",
+        "text": "(ot, at, ot+1)(o_t,\\ a_t,\\ o_{t+1})(ot​, at​, ot+1​)",
+        "font": "KaTeX_Main",
+        "size": "24.5px",
+        "weight": "400",
+        "lineHeight": "29.4px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 343,
+        "cpl": 32
+      },
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "True-dynamics CEM controls the first 40 actions, including the success",
+        "font": "Outfit",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 343,
+        "cpl": 63
+      },
+      "fontSizesByChars": {
+        "14px": 33819,
+        "12px": 5449,
+        "18px": 693,
+        "24.5px": 294,
+        "16px": 200,
+        "17.15px": 181,
+        "17.5px": 103,
+        "1px": 95,
+        "12.25px": 82,
+        "30px": 81,
+        "10px": 62
+      },
+      "pageHeight": 30997,
+      "viewport": 812
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentHomeBlogTeaching a Car to Park by Imagining the Future,",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
+        "font": "Outfit",
+        "size": "36px",
+        "weight": "700",
+        "lineHeight": "45px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 720,
+        "cpl": 44
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "TL;DR",
+        "font": "Outfit",
+        "size": "18px",
+        "weight": "600",
+        "lineHeight": "28px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 720,
+        "cpl": 88
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "True-dynamics CEM reaches the environment outcome when its model is th",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "26px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 720,
+        "cpl": 101
+      },
+      "longParagraphs": 107,
+      "pre": {
+        "tag": "pre",
+        "text": "observation\nachieved_goal\ndesired_goal",
+        "font": "ui-monospace",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "19.5px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 718,
+        "cpl": 95
+      },
+      "katex": {
+        "tag": "span",
+        "text": "(ot, at, ot+1)(o_t,\\ a_t,\\ o_{t+1})(ot​, at​, ot+1​)",
+        "font": "KaTeX_Main",
+        "size": "24.5px",
+        "weight": "400",
+        "lineHeight": "29.4px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 720,
+        "cpl": 67
+      },
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "True-dynamics CEM controls the first 40 actions, including the success",
+        "font": "Outfit",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 720,
+        "cpl": 133
+      },
+      "fontSizesByChars": {
+        "14px": 33819,
+        "12px": 5449,
+        "18px": 693,
+        "24.5px": 294,
+        "16px": 200,
+        "17.15px": 181,
+        "17.5px": 103,
+        "1px": 95,
+        "12.25px": 82,
+        "36px": 81,
+        "10px": 62
+      },
+      "pageHeight": 25558,
+      "viewport": 900
+    },
+    "/projects/gavel @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentHomeGavel: Durable Multi-Agent Pipeline EngineeringBack",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Gavel: Durable Multi-Agent Pipeline Engineering",
+        "font": "Outfit",
+        "size": "24px",
+        "weight": "700",
+        "lineHeight": "30px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 343,
+        "cpl": 31
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Overview",
+        "font": "Outfit",
+        "size": "18px",
+        "weight": "600",
+        "lineHeight": "28px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 343,
+        "cpl": 42
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fi",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "26px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 343,
+        "cpl": 48
+      },
+      "longParagraphs": 22,
+      "pre": {
+        "tag": "pre",
+        "text": "id: 42\ndata: {\"type\":\"judge_verdict_completed\",\"run_id\":\"…\",\"sequence\"",
+        "font": "ui-monospace",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "19.5px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 341,
+        "cpl": 43
+      },
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "One API process, three SQLite stores, models only fill judgment fields",
+        "font": "Outfit",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 343,
+        "cpl": 63
+      },
+      "fontSizesByChars": {
+        "14px": 12485,
+        "12px": 3364,
+        "18px": 243,
+        "16px": 174,
+        "24px": 54,
+        "10px": 46
+      },
+      "pageHeight": 14221,
+      "viewport": 812
+    },
+    "/projects/gavel @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentHomeGavel: Durable Multi-Agent Pipeline EngineeringBack",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Gavel: Durable Multi-Agent Pipeline Engineering",
+        "font": "Outfit",
+        "size": "36px",
+        "weight": "700",
+        "lineHeight": "45px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 720,
+        "cpl": 44
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Overview",
+        "font": "Outfit",
+        "size": "18px",
+        "weight": "600",
+        "lineHeight": "28px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(12, 15, 18)",
+        "width": 720,
+        "cpl": 88
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fi",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "26px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 720,
+        "cpl": 101
+      },
+      "longParagraphs": 22,
+      "pre": {
+        "tag": "pre",
+        "text": "id: 42\ndata: {\"type\":\"judge_verdict_completed\",\"run_id\":\"…\",\"sequence\"",
+        "font": "ui-monospace",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "19.5px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 718,
+        "cpl": 95
+      },
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "One API process, three SQLite stores, models only fill judgment fields",
+        "font": "Outfit",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "16px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(40, 46, 51)",
+        "width": 720,
+        "cpl": 133
+      },
+      "fontSizesByChars": {
+        "14px": 12485,
+        "12px": 3364,
+        "18px": 243,
+        "16px": 174,
+        "36px": 47,
+        "10px": 46,
+        "24px": 7
+      },
+      "pageHeight": 10245,
+      "viewport": 900
+    }
+  },
+  "fold": {
+    "/ @375": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "h1",
+          "top": 156,
+          "text": "I’m Subash, an AI/ML engineer. I ship LLM systems to production, and I build the evaluatio"
+        },
+        {
+          "tag": "button",
+          "top": 713,
+          "text": "Book a 30-min intro"
+        },
+        {
+          "tag": "a",
+          "top": 771,
+          "text": "Full CV"
+        },
+        {
+          "tag": "button",
+          "top": 771,
+          "text": "Copy email"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 713,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 4973,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/ @1440": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "h1",
+          "top": 136,
+          "text": "I’m Subash, an AI/ML engineer. I ship LLM systems to production, and I build the evaluatio"
+        },
+        {
+          "tag": "button",
+          "top": 523,
+          "text": "Book a 30-min intro"
+        },
+        {
+          "tag": "a",
+          "top": 523,
+          "text": "Full CV"
+        },
+        {
+          "tag": "button",
+          "top": 523,
+          "text": "Copy email"
+        },
+        {
+          "tag": "h2",
+          "top": 633,
+          "text": "Selected work"
+        },
+        {
+          "tag": "p",
+          "top": 641,
+          "text": "The problem, what I built, and what it showed"
+        },
+        {
+          "tag": "li",
+          "top": 676,
+          "text": "GavelMulti-agent LLM systemProblemLong multi-agent judge runs on local 9B models died mid-"
+        },
+        {
+          "tag": "a",
+          "top": 684,
+          "text": "GavelMulti-agent LLM systemProblemLong multi-agent judge runs on local 9B models died mid-"
+        },
+        {
+          "tag": "h3",
+          "top": 700,
+          "text": "Gavel"
+        },
+        {
+          "tag": "p",
+          "top": 727,
+          "text": "Multi-agent LLM system"
+        },
+        {
+          "tag": "p",
+          "top": 757,
+          "text": "ProblemLong multi-agent judge runs on local 9B models died mid-run, and their scores drift"
+        },
+        {
+          "tag": "p",
+          "top": 811,
+          "text": "BuiltA crash-safe FastAPI run engine: SSE streaming, a durable SQLite event log, five para"
+        },
+        {
+          "tag": "p",
+          "top": 890,
+          "text": "LangGraph · FastAPI · SQLite · Next.jsCode for Gavel (opens GitHub)"
+        },
+        {
+          "tag": "a",
+          "top": 890,
+          "text": "Code for Gavel (opens GitHub)"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 523,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 3628,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    },
+    "/about @375": {
+      "items": [
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Home"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "img",
+          "top": 102,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "h1",
+          "top": 100,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "p",
+          "top": 136,
+          "text": "AI/ML Engineer · GenAI Developer · Data Scientist"
+        },
+        {
+          "tag": "h2",
+          "top": 276,
+          "text": "Where I started"
+        },
+        {
+          "tag": "p",
+          "top": 320,
+          "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was doing data analysis a"
+        },
+        {
+          "tag": "p",
+          "top": 492,
+          "text": "I finished a BSc (Hons) in Computing with London Metropolitan University (2:1), then did a"
+        },
+        {
+          "tag": "h2",
+          "top": 712,
+          "text": "Exeter days"
+        },
+        {
+          "tag": "p",
+          "top": 756,
+          "text": "Studying in the UK was a lot. One month I had five exams, a thesis to submit, and a part-t"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a 30 min intro",
+          "top": 5679,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/about @1440": {
+      "items": [
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Home"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "img",
+          "top": 166,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "h1",
+          "top": 164,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "p",
+          "top": 208,
+          "text": "AI/ML Engineer · GenAI Developer · Data Scientist"
+        },
+        {
+          "tag": "h2",
+          "top": 352,
+          "text": "Where I started"
+        },
+        {
+          "tag": "p",
+          "top": 396,
+          "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was doing data analysis a"
+        },
+        {
+          "tag": "p",
+          "top": 490,
+          "text": "I finished a BSc (Hons) in Computing with London Metropolitan University (2:1), then did a"
+        },
+        {
+          "tag": "h2",
+          "top": 632,
+          "text": "Exeter days"
+        },
+        {
+          "tag": "p",
+          "top": 676,
+          "text": "Studying in the UK was a lot. One month I had five exams, a thesis to submit, and a part-t"
+        },
+        {
+          "tag": "p",
+          "top": 770,
+          "text": "Graduation day felt great. Worth every late night."
+        },
+        {
+          "tag": "img",
+          "top": 820,
+          "text": "Subash in graduation gown beside the University of Exeter plaque"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a 30 min intro",
+          "top": 5600,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    },
+    "/blog @375": {
+      "items": [
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Home"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Blog"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 108,
+          "text": "Back home"
+        },
+        {
+          "tag": "h1",
+          "top": 160,
+          "text": "Blog"
+        },
+        {
+          "tag": "p",
+          "top": 208,
+          "text": "Writing about ML, data, and things I learn along the way."
+        },
+        {
+          "tag": "a",
+          "top": 308,
+          "text": "August 2026Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust "
+        },
+        {
+          "tag": "img",
+          "top": 309,
+          "text": ""
+        },
+        {
+          "tag": "h2",
+          "top": 545,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "p",
+          "top": 637,
+          "text": "True-dynamics CEM reaches the parking-v0 success diagnostic, then a scripted brake finishe"
+        }
+      ],
+      "cta": [],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/blog @1440": {
+      "items": [
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Home"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Blog"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 124,
+          "text": "Back home"
+        },
+        {
+          "tag": "h1",
+          "top": 176,
+          "text": "Blog"
+        },
+        {
+          "tag": "p",
+          "top": 228,
+          "text": "Writing about ML, data, and things I learn along the way."
+        },
+        {
+          "tag": "a",
+          "top": 302,
+          "text": "August 2026Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust "
+        },
+        {
+          "tag": "img",
+          "top": 323,
+          "text": ""
+        },
+        {
+          "tag": "h2",
+          "top": 347,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "p",
+          "top": 411,
+          "text": "True-dynamics CEM reaches the parking-v0 success diagnostic, then a scripted brake finishe"
+        },
+        {
+          "tag": "a",
+          "top": 638,
+          "text": "August 2026Rebuilding WISDM HAR after a leaky 0.89I froze the June WISDM notebook at git t"
+        },
+        {
+          "tag": "img",
+          "top": 659,
+          "text": ""
+        },
+        {
+          "tag": "h2",
+          "top": 683,
+          "text": "Rebuilding WISDM HAR after a leaky 0.89"
+        },
+        {
+          "tag": "p",
+          "top": 719,
+          "text": "I froze the June WISDM notebook at git tag v1.0.0, then rebuilt subject-independent HAR. S"
+        }
+      ],
+      "cta": [],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @375": {
+      "items": [
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Home"
+        },
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Blog"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 108,
+          "text": "Back to blog"
+        },
+        {
+          "tag": "h1",
+          "top": 188,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "p",
+          "top": 354,
+          "text": "True-dynamics CEM reaches the environment outcome when its model is the real bicycle. Lear"
+        },
+        {
+          "tag": "a",
+          "top": 611,
+          "text": "github.com/notsubash/latent-parking"
+        },
+        {
+          "tag": "img",
+          "top": 737,
+          "text": "True-dynamics CEM parking in the empty lot"
+        }
+      ],
+      "cta": [],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @1440": {
+      "items": [
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Home"
+        },
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Blog"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 124,
+          "text": "Back to blog"
+        },
+        {
+          "tag": "h1",
+          "top": 204,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "p",
+          "top": 310,
+          "text": "True-dynamics CEM reaches the environment outcome when its model is the real bicycle. Lear"
+        },
+        {
+          "tag": "a",
+          "top": 485,
+          "text": "github.com/notsubash/latent-parking"
+        },
+        {
+          "tag": "img",
+          "top": 579,
+          "text": "True-dynamics CEM parking in the empty lot"
+        }
+      ],
+      "cta": [],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    },
+    "/projects/gavel @375": {
+      "items": [
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Home"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Gavel: Durable Multi-Agent Pipeline Engineering"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 108,
+          "text": "Back to projects"
+        },
+        {
+          "tag": "h1",
+          "top": 196,
+          "text": "Gavel: Durable Multi-Agent Pipeline Engineering"
+        },
+        {
+          "tag": "p",
+          "top": 268,
+          "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fixed LangGraph debate"
+        },
+        {
+          "tag": "a",
+          "top": 472,
+          "text": "GitHub"
+        },
+        {
+          "tag": "p",
+          "top": 573,
+          "text": "5"
+        },
+        {
+          "tag": "p",
+          "top": 609,
+          "text": "Parallel judges"
+        },
+        {
+          "tag": "p",
+          "top": 573,
+          "text": "19"
+        },
+        {
+          "tag": "p",
+          "top": 609,
+          "text": "SSE event types"
+        },
+        {
+          "tag": "p",
+          "top": 671,
+          "text": "389"
+        },
+        {
+          "tag": "p",
+          "top": 707,
+          "text": "Python unit tests"
+        },
+        {
+          "tag": "p",
+          "top": 671,
+          "text": "3"
+        },
+        {
+          "tag": "p",
+          "top": 707,
+          "text": "Eval tiers"
+        }
+      ],
+      "cta": [],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/projects/gavel @1440": {
+      "items": [
+        {
+          "tag": "a",
+          "top": 12,
+          "text": "Home"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Gavel: Durable Multi-Agent Pipeline Engineering"
+        },
+        {
+          "tag": "button",
+          "top": 12,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 124,
+          "text": "Back to projects"
+        },
+        {
+          "tag": "h1",
+          "top": 212,
+          "text": "Gavel: Durable Multi-Agent Pipeline Engineering"
+        },
+        {
+          "tag": "p",
+          "top": 314,
+          "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fixed LangGraph debate"
+        },
+        {
+          "tag": "a",
+          "top": 434,
+          "text": "GitHub"
+        },
+        {
+          "tag": "p",
+          "top": 535,
+          "text": "5"
+        },
+        {
+          "tag": "p",
+          "top": 571,
+          "text": "Parallel judges"
+        },
+        {
+          "tag": "p",
+          "top": 535,
+          "text": "19"
+        },
+        {
+          "tag": "p",
+          "top": 571,
+          "text": "SSE event types"
+        },
+        {
+          "tag": "p",
+          "top": 535,
+          "text": "389"
+        },
+        {
+          "tag": "p",
+          "top": 571,
+          "text": "Python unit tests"
+        },
+        {
+          "tag": "p",
+          "top": 535,
+          "text": "3"
+        },
+        {
+          "tag": "p",
+          "top": 571,
+          "text": "Eval tiers"
+        },
+        {
+          "tag": "h2",
+          "top": 685,
+          "text": "Overview"
+        },
+        {
+          "tag": "p",
+          "top": 729,
+          "text": "Gavel is a local idea validation workbench. You keep a versioned worksheet, log evidence, "
+        },
+        {
+          "tag": "p",
+          "top": 809,
+          "text": "I spent more time on failure modes than on prompts. Browser refresh killing a run. A 9B mo"
+        },
+        {
+          "tag": "p",
+          "top": 890,
+          "text": "Product loop and design choices are in the companion blog post. This page is architecture,"
+        },
+        {
+          "tag": "a",
+          "top": 892,
+          "text": "companion blog post"
+        }
+      ],
+      "cta": [],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    }
+  },
+  "motion": {
+    "/ reduce=false": [
+      {
+        "name": "hm-mark",
+        "duration": 720,
+        "iterations": 1,
+        "easing": "linear",
+        "target": "mark.hm-mark.hm-mark--1"
+      },
+      {
+        "name": "hm-mark",
+        "duration": 720,
+        "iterations": 1,
+        "easing": "linear",
+        "target": "mark.hm-mark.hm-mark--2"
+      }
+    ],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination reduce=false": [],
+    "/ reduce=true": [],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination reduce=true": []
+  },
+  "keyboard": {
+    "home": [
+      {
+        "tag": "a",
+        "name": "Skip to content",
+        "indicator": "outline 2px rgb(17, 110, 156)",
+        "y": 16,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Switch to dark theme",
+        "indicator": "outline 2px rgb(12, 15, 18)",
+        "y": 16,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Subash Pandey",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 20,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Work",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Experience",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Writing",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "About",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Book a call",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Book a 30-min intro",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 523,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Full CV",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 523,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Copy email",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 523,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "GavelMulti-agent LLM systemProblemLong multi-agent",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 684,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Code for Gavel (opens GitHub)",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 890,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Activity RecognitionML evaluationProblemAn activit",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 955,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Code for Activity Recognition (opens GitHub)",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1163,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Cloud Native AI PlatformMLOpsProblemShow that a pr",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1228,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Code for Cloud Native AI Platform (opens GitHub)",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1434,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Latent ParkingWorld models and controlProblemCan a",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1499,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Code for Latent Parking (opens GitHub)",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1682,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Steam Genre NetworksNetwork analysis, MSc thesisPr",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1747,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Code for Steam Genre Networks (opens GitHub)",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1953,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "The Underlying CurveVisual explainersProblemML ide",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 2018,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Akash Raghuvanshi",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 2400,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Full CV, talks and certifications",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 2506,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "All posts",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 3171,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Teaching a Car to Park by Imagining the Future, an",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 3221,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Rebuilding WISDM HAR after a leaky 0.89",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 3274,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Building a Cloud Native AI Platform Under $15 a Mo",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 3327,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Building Gavel: Turning AI Opinions Into Experimen",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 3380,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Book a 30-min intro",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 3628,
+        "visible": true
+      }
+    ]
+  },
+  "perf": {
+    "/": {
+      "lcpMs": 1796,
+      "lcpElement": "h1 I’m Subash, an AI/ML engineer. I ship LLM systems ",
+      "cls": 0.004,
+      "transferKB": 714,
+      "requests": 14
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination": {
+      "lcpMs": 2516,
+      "lcpElement": "h1 Teaching a Car to Park by Imagining the Future, an",
+      "cls": 0,
+      "transferKB": 1432,
+      "requests": 27
+    },
+    "/projects/gavel": {
+      "lcpMs": 2068,
+      "lcpElement": "p Running a long judge pipeline on local 9B models: ",
+      "cls": 0,
+      "transferKB": 747,
+      "requests": 16
+    }
+  },
+  "page": {}
+}
