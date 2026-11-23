@@ -44,7 +44,7 @@
   --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-:root { --dur-1: 120ms; --dur-2: 180ms; --dur-3: 260ms; --measure: 66ch; }
+:root { --dur-1: 120ms; --dur-2: 180ms; --dur-3: 260ms; --measure: 55ch; }
 
 @layer base {
   .dark {

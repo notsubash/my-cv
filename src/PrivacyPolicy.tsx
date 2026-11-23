@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { usePageSeo } from './hooks/usePageSeo'
 
 export default function PrivacyPolicy() {
@@ -9,11 +8,14 @@ export default function PrivacyPolicy() {
   })
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-14 md:py-24">
-      <h1 className="font-display text-3xl md:text-4xl font-bold mb-4">Privacy Policy</h1>
-      <p className="text-sm text-muted-foreground mb-8">Last updated: September 2026</p>
+    <main id="main-content" className="site">
+    <article className="post">
+      <header>
+        <h1>Privacy policy</h1>
+        <p>What this site collects, who processes it, and how to ask about it. Last updated September 2026.</p>
+      </header>
 
-      <div className="prose prose-sm max-w-none text-muted-foreground space-y-6">
+      <div className="prose-custom">
         <section>
           <h2 className="font-display text-xl font-semibold text-foreground mb-3">What data is collected</h2>
           <ul className="list-disc pl-5 space-y-1">
@@ -37,9 +39,7 @@ export default function PrivacyPolicy() {
         </section>
       </div>
 
-      <div className="mt-12">
-        <Link to="/" className="inline-flex min-h-11 items-center text-primary hover:underline text-sm">← Back to home</Link>
-      </div>
-    </div>
+    </article>
+    </main>
   )
 }

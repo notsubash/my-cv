@@ -5,8 +5,10 @@ import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-do
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import './index.css'
+import './styles/prose.css'
 import App from './App.tsx'
 import GlobalNav from './GlobalNav.tsx'
+import { SiteShell } from './site/SiteChrome'
 import { BLOG_ENABLED } from './config'
 import './posthog'
 
@@ -164,21 +166,19 @@ function NotFound() {
   })
 
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center text-center px-6">
-      <p className="text-8xl font-display font-bold text-primary mb-4">404</p>
-      <h1 className="text-2xl font-display font-semibold text-foreground mb-2">
-        Page not found
-      </h1>
-      <p className="text-muted-foreground mb-8 max-w-md">
-        The page you're looking for doesn't exist or has been moved.
-      </p>
-      <Link
-        to="/"
-        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
-      >
-        ← Back to home
-      </Link>
-    </div>
+    <main id="main-content" className="site">
+      <div className="site-col">
+        <header className="site-intro">
+          <h1>This page doesn’t exist</h1>
+          <p>It may have moved when the site was reorganised. Most people are looking for one of these.</p>
+        </header>
+        <ul className="ledger">
+          <li className="ledger-row"><Link to="/#work" className="ledger-link"><span className="ledger-title">Selected work</span></Link></li>
+          <li className="ledger-row"><Link to="/cv" className="ledger-link"><span className="ledger-title">Experience and CV</span></Link></li>
+          <li className="ledger-row"><Link to="/blog" className="ledger-link"><span className="ledger-title">Writing</span></Link></li>
+        </ul>
+      </div>
+    </main>
   )
 }
 
@@ -193,6 +193,7 @@ const app = (
         Skip to content
       </a>
       <GlobalNav />
+      <SiteShell />
       <PageTransition>
         <Suspense fallback={null}>
           <Routes>

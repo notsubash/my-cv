@@ -27,7 +27,7 @@ const MIME = {
   '.txt': 'text/plain', '.pdf': 'application/pdf',
 }
 
-export function serve(port = 4174) {
+export function serve(port = Number(process.env.AUDIT_PORT) || 4174) {
   return new Promise((resolve) => {
     const server = createServer((req, res) => {
       const url = decodeURIComponent(req.url.split('?')[0])
@@ -49,7 +49,7 @@ export async function launch() {
 }
 
 /** New page with external requests blocked and theme / motion emulated. */
-export async function openPage(browser, { width, theme = 'light', reducedMotion = false }) {
+export async function openPage(browser, { width, theme = 'light', reducedMotion = false, allowOrigin = null }) {
   const page = await browser.newPage()
   const mobile = width < 768
   await page.setViewport({ width, height: mobile ? 812 : 900, deviceScaleFactor: 1, isMobile: mobile, hasTouch: mobile })
@@ -60,7 +60,7 @@ export async function openPage(browser, { width, theme = 'light', reducedMotion 
   await page.setRequestInterception(true)
   page.on('request', (req) => {
     const u = req.url()
-    if (u.startsWith('http://localhost') || u.startsWith('data:') || u.startsWith('blob:')) req.continue()
+    if (u.startsWith('http://localhost') || u.startsWith('data:') || u.startsWith('blob:') || (allowOrigin && u.startsWith(allowOrigin))) req.continue()
     else req.abort()
   })
   return page

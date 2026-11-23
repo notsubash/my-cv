@@ -1,5 +1,6 @@
 // Homepage copy, written for hiring managers and recruiters.
-// Every claim traces to src/i18n.ts (experience, education, projects) or a case-study metric tile.
+// Every claim traces to src/i18n.ts, public CV (Nov 2026), a case-study metric tile,
+// or numbers the owner supplied (Scopic routing benchmark, 2026-11-23).
 
 export const person = {
   name: 'Subash Pandey',
@@ -28,26 +29,61 @@ export type WorkItem = {
   built: string
   result: { value: string; label: string } | null
   resultFallback?: string
-  href: string
-  linkLabel: string
+  /** Internal route, external URL, or absent for confidential work */
+  href?: string
+  external?: boolean
+  linkLabel?: string
   repo?: string
-  image: string
+  image?: string
   tags: readonly string[]
 }
 
 export const work: readonly WorkItem[] = [
   {
+    slug: 'scopic-routing',
+    title: 'Chatbot routing benchmark',
+    kind: 'At Scopic Software, production chatbot',
+    problem: 'Handler and intent routing in a production chatbot ran on GPT-4o-mini, at 2–3 s p95 per call.',
+    built: 'Benchmarked a replacement classifier against it on the team’s golden set for handler and intent classification.',
+    result: { value: '88% vs 80%', label: 'handler accuracy vs GPT-4o-mini; intent 86% vs 77%, about 6× cheaper, p95 under 0.6 s' },
+    tags: ['LLM evaluation', 'Classification', 'Golden set'],
+  },
+  {
+    slug: 'lastcall',
+    title: 'LastCall',
+    kind: 'Full-stack product, built solo for the Buffer Commit contest',
+    problem: 'Scheduled social posts keep publishing after the product sells out, the job closes or the event is cancelled.',
+    built: 'A Buffer app that checks every queued link and holds stale posts as drafts. A deterministic rule engine decides, never a model, so a blocked page can never cause a hold.',
+    result: { value: '100%', label: 'precision on 150 real URLs (zero false holds), 95% recall, 1,773 tests' },
+    href: 'https://lastcall.subash-pandey.com',
+    external: true,
+    linkLabel: 'Open the live app',
+    tags: ['TypeScript', 'Hono', 'SQLite', 'OAuth PKCE'],
+  },
+  {
     slug: 'gavel',
     title: 'Gavel',
     kind: 'Multi-agent LLM system',
-    problem: 'Long multi-agent judge runs on local 9B models died mid-run, and their scores drifted between versions.',
-    built: 'A crash-safe FastAPI run engine: SSE streaming, a durable SQLite event log, five parallel LLM judges and a LangGraph debate behind readiness gates.',
-    result: { value: '389', label: 'unit tests across 3 eval tiers' },
+    problem: 'One model reviewing a startup idea gives one confident opinion and no way to check it.',
+    built: 'A panel of five LLM judges (investor, engineer, product manager, customer, competitor) that score an idea, debate it in LangGraph rounds and return a structured verdict. A FastAPI engine streams each run and resumes it after a crash.',
+    result: { value: '389', label: 'unit tests across 3 eval tiers, 19 streamed event types' },
     href: '/projects/gavel',
     linkLabel: 'Read the case study',
     repo: 'https://github.com/notsubash/gavel',
     image: '/projects/gavel.webp',
-    tags: ['LangGraph', 'FastAPI', 'SQLite', 'Next.js'],
+    tags: ['LangGraph', 'FastAPI', 'Pydantic', 'SQLite'],
+  },
+  {
+    slug: 'craft',
+    title: 'Craft',
+    kind: 'Agent tooling and evaluation',
+    problem: 'Agent skills are easy to write and hard to trust: no evals, no pinned versions, no review.',
+    built: 'A Claude Code plugin marketplace and dependency-free CLI: 17 skills in 5 plugins, 42 third-party skills pinned to audited commits, guardrail hooks, and an LLM-judged eval suite that CI enforces.',
+    result: { value: '+0.67', label: 'task-score gain over the no-skill baseline; 100% trigger accuracy on evaluated skills' },
+    href: 'https://github.com/notsubash/claude-skills',
+    external: true,
+    linkLabel: 'View on GitHub',
+    tags: ['Node.js', 'LLM-as-judge', 'GitHub Actions'],
   },
   {
     slug: 'activity-recognition',
@@ -66,9 +102,9 @@ export const work: readonly WorkItem[] = [
     slug: 'cloud-native-ai-platform',
     title: 'Cloud Native AI Platform',
     kind: 'MLOps',
-    problem: 'Show that a production-grade AI service does not need a production-grade budget.',
-    built: 'A FastAPI summarization service on Kubernetes with Helm, Terraform on Hetzner, Argo CD GitOps, and Prometheus, Grafana and Loki.',
-    result: { value: '< $15', label: 'a month, with full observability' },
+    problem: 'Moving an AI API from a laptop to a cluster usually means hand-run deploys, no rollback and no view of failures.',
+    built: 'A FastAPI summarization service shipped through CI to a Terraform-built k3s cluster, released by Argo CD with Helm rollbacks, and watched through Prometheus, Grafana and Loki.',
+    result: { value: '< $15', label: 'a month, with GitOps releases and full observability' },
     href: '/blog/building-a-cloud-native-ai-platform',
     linkLabel: 'Read the write-up',
     repo: 'https://github.com/notsubash/cloud-native-AI-platform',
@@ -89,26 +125,12 @@ export const work: readonly WorkItem[] = [
     tags: ['PyTorch', 'JEPA', 'MPC'],
   },
   {
-    slug: 'steam-ml',
-    title: 'Steam Genre Networks',
-    kind: 'Network analysis, MSc thesis',
-    problem: 'How do game genres evolve, and what actually drives player engagement?',
-    built: 'A genre co-occurrence network over the Steam catalogue, with community detection and engagement regressions. Published on Zenodo.',
-    result: { value: '27,075', label: 'games mapped into 8 genre communities' },
-    href: '/projects/steam-ml',
-    linkLabel: 'Read the case study',
-    repo: 'https://github.com/notsubash/Game-Genre-Network-Analysis',
-    image: '/projects/steam-ml.webp',
-    tags: ['NetworkX', 'Gephi', 'Python'],
-  },
-  {
     slug: 'the-underlying-curve',
     title: 'The Underlying Curve',
     kind: 'Visual explainers',
     problem: 'ML ideas usually arrive as walls of notation.',
-    built: 'Short, silent explainers of one idea each, animated in Manim and cut per platform with FFmpeg.',
-    result: null,
-    resultFallback: 'Ongoing series on Instagram',
+    built: 'Short, silent explainers of one idea each, animated in Manim and rendered separately for widescreen and vertical with FFmpeg.',
+    result: { value: '100K', label: 'views and 1,000+ followers in the first 40 days' },
     href: '/projects/the-underlying-curve',
     linkLabel: 'Watch the series',
     image: '/projects/the-underlying-curve.webp',
@@ -122,14 +144,16 @@ export const experience = [
     role: 'AI/ML Engineer',
     period: 'Oct 2024 – now',
     points: [
-      'Led a GenAI chatbot built on LangGraph and RAG over Qdrant, integrated with a CRM for intent detection and user-info extraction.',
-      'Built and maintain the voice-agent layer (speech-to-text, text-to-speech, turn handling) of a production AI receptionist.',
-      'Built evaluation pipelines that track hallucination rate, accuracy, cost and latency for chatbot and RAG releases.',
+      'Benchmarked a replacement routing classifier against GPT-4o-mini: 88% vs 80% handler accuracy, 86% vs 77% intent, about 6× cheaper, p95 under 0.6 s.',
+      'Lead a GenAI sales chatbot on LangGraph and RAG over Qdrant, integrated with Zoho CRM for lead qualification and scoring; it processes 5+ warm leads a month.',
+      'Built evaluation pipelines for chatbot and RAG releases that raised response accuracy by 20% while lowering latency and cost.',
+      'Develop and maintain a production AI receptionist platform, including its voice-agent layer (speech-to-text, text-to-speech, turn handling).',
     ],
   },
-  { org: 'Peace Nepal Dot Com', role: 'AI/ML Engineer', period: 'Jul – Nov 2024', points: ['Chatbots for banking, travel and customer support, using RAG and multi-agent frameworks.'] },
+  { org: 'Peace Nepal Dot Com', role: 'AI/ML Engineer', period: 'Jul – Nov 2024', points: ['Chatbots for banking, travel and customer support with RAG and a multi-agent framework; fine-tuned LLMs for 5 domain use cases.'] },
   { org: 'Icebrkr AI Solutions', role: 'AI/ML Engineer', period: 'Mar – Jun 2024', points: ['Built, optimised and deployed ML models for analysis and automation on cloud infrastructure.'] },
-  { org: 'University of Exeter', role: 'MSc Data Science, Merit', period: '2022 – 2023', points: ['Thesis: machine learning on the Steam video game database.'] },
+  { org: 'University of Exeter', role: 'MSc Data Science, Merit', period: '2022 – 2023', points: ['Thesis: machine learning on the Steam video game database (27,075 games, 8 genre communities).'] },
+  { org: 'Contentio Lab', role: 'Data Analyst', period: 'Aug 2021 – Apr 2022', points: ['Python data pipelines that cut processing time by 20%; segmentation and churn analysis for marketing and sales.'] },
 ] as const
 
 export const recommendation = {

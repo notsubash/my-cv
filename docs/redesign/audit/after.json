@@ -1,0 +1,2260 @@
+{
+  "label": "after",
+  "date": "2026-11-23T08:28:15.366Z",
+  "axe": {
+    "/ @1440 light": [],
+    "/ @1440 dark": [],
+    "/ @375 light": [],
+    "/about @1440 light": [],
+    "/about @1440 dark": [],
+    "/about @375 light": [],
+    "/cv @1440 light": [],
+    "/cv @1440 dark": [],
+    "/cv @375 light": [],
+    "/notes @1440 light": [],
+    "/notes @1440 dark": [],
+    "/notes @375 light": [],
+    "/open-source @1440 light": [],
+    "/open-source @1440 dark": [],
+    "/open-source @375 light": [],
+    "/blog @1440 light": [],
+    "/blog @1440 dark": [],
+    "/blog @375 light": [],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @1440 light": [],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @1440 dark": [],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @375 light": [],
+    "/blog/rag-pipeline @1440 light": [],
+    "/blog/rag-pipeline @1440 dark": [],
+    "/blog/rag-pipeline @375 light": [],
+    "/blog/steam-genre-networks @1440 light": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".text-red-500",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 3.8 (foreground color: #fb2c36, background color: #ffffff, font size: 12.8pt (17px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "/blog/steam-genre-networks @1440 dark": [],
+    "/blog/steam-genre-networks @375 light": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "help": "Elements must meet minimum color contrast ratio thresholds",
+        "nodes": 1,
+        "sample": [
+          {
+            "target": ".text-red-500",
+            "summary": "Fix any of the following:   Element has insufficient color contrast of 3.8 (foreground color: #fb2c36, background color: #ffffff, font size: 12.8pt (17px), font weight: normal). Expected contrast ratio of 4.5:1"
+          }
+        ]
+      }
+    ],
+    "/blog/ml-from-scratch @1440 light": [],
+    "/blog/ml-from-scratch @1440 dark": [],
+    "/blog/ml-from-scratch @375 light": [],
+    "/blog/activity-recognition-pipeline @1440 light": [],
+    "/blog/activity-recognition-pipeline @1440 dark": [],
+    "/blog/activity-recognition-pipeline @375 light": [],
+    "/blog/building-an-idea-workbench @1440 light": [],
+    "/blog/building-an-idea-workbench @1440 dark": [],
+    "/blog/building-an-idea-workbench @375 light": [],
+    "/blog/building-a-cloud-native-ai-platform @1440 light": [],
+    "/blog/building-a-cloud-native-ai-platform @1440 dark": [],
+    "/blog/building-a-cloud-native-ai-platform @375 light": [],
+    "/projects/gavel @1440 light": [],
+    "/projects/gavel @1440 dark": [],
+    "/projects/gavel @375 light": [],
+    "/projects/the-underlying-curve @1440 light": [],
+    "/projects/the-underlying-curve @1440 dark": [],
+    "/projects/the-underlying-curve @375 light": [],
+    "/projects/activity-recognition @1440 light": [],
+    "/projects/activity-recognition @1440 dark": [],
+    "/projects/activity-recognition @375 light": [],
+    "/projects/steam-ml @1440 light": [],
+    "/projects/steam-ml @1440 dark": [],
+    "/projects/steam-ml @375 light": [],
+    "/projects/wikipedia-voting @1440 light": [],
+    "/projects/wikipedia-voting @1440 dark": [],
+    "/projects/wikipedia-voting @375 light": [],
+    "/privacy @1440 light": [],
+    "/privacy @1440 dark": [],
+    "/privacy @375 light": []
+  },
+  "typography": {
+    "/ @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callI’m S",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "I’m Subash, an AI/ML engineer. I ship LLM systems to production, and I",
+        "font": "Iowan Old Style",
+        "size": "24px",
+        "weight": "400",
+        "lineHeight": "30.72px",
+        "letterSpacing": "-0.288px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 31
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Selected work",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.2px",
+        "color": "rgb(22, 24, 27)",
+        "width": 126,
+        "cpl": 14
+      },
+      "h3": {
+        "tag": "h3",
+        "text": "Chatbot routing benchmark",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "650",
+        "lineHeight": "25px",
+        "letterSpacing": "-0.24px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 39
+      },
+      "paragraph": {
+        "tag": "p",
+        "text": "BuiltA Buffer app that checks every queued link and holds stale posts ",
+        "font": "Outfit",
+        "size": "15px",
+        "weight": "400",
+        "lineHeight": "22.5px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 52
+      },
+      "longParagraphs": 7,
+      "pre": null,
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "Akash Raghuvanshi, AI Product Leader · LinkedIn recommendation",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 56
+      },
+      "fontSizesByChars": {
+        "15px": 2531,
+        "13px": 1288,
+        "16px": 1140,
+        "14px": 285,
+        "17px": 164,
+        "20px": 151,
+        "19px": 126,
+        "24px": 112,
+        "22px": 90,
+        "28px": 47
+      },
+      "pageHeight": 6632,
+      "viewport": 812
+    },
+    "/ @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callI’m S",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "I’m Subash, an AI/ML engineer. I ship LLM systems to production, and I",
+        "font": "Iowan Old Style",
+        "size": "34px",
+        "weight": "400",
+        "lineHeight": "43.52px",
+        "letterSpacing": "-0.408px",
+        "color": "rgb(22, 24, 27)",
+        "width": 672,
+        "cpl": 43
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Selected work",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.2px",
+        "color": "rgb(22, 24, 27)",
+        "width": 126,
+        "cpl": 14
+      },
+      "h3": {
+        "tag": "h3",
+        "text": "Chatbot routing benchmark",
+        "font": "Outfit",
+        "size": "20px",
+        "weight": "650",
+        "lineHeight": "25px",
+        "letterSpacing": "-0.24px",
+        "color": "rgb(22, 24, 27)",
+        "width": 440,
+        "cpl": 50
+      },
+      "paragraph": {
+        "tag": "p",
+        "text": "BuiltA Buffer app that checks every queued link and holds stale posts ",
+        "font": "Outfit",
+        "size": "15px",
+        "weight": "400",
+        "lineHeight": "22.5px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 440,
+        "cpl": 67
+      },
+      "longParagraphs": 7,
+      "pre": null,
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "Akash Raghuvanshi, AI Product Leader · LinkedIn recommendation",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 672,
+        "cpl": 110
+      },
+      "fontSizesByChars": {
+        "15px": 2531,
+        "13px": 1288,
+        "16px": 1140,
+        "14px": 285,
+        "17px": 164,
+        "20px": 151,
+        "28px": 137,
+        "22px": 126,
+        "34px": 112
+      },
+      "pageHeight": 4727,
+      "viewport": 900
+    },
+    "/about @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callAbout",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "About",
+        "font": "Outfit",
+        "size": "28px",
+        "weight": "700",
+        "lineHeight": "31.36px",
+        "letterSpacing": "-0.7px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 29
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Where I started",
+        "font": "Outfit",
+        "size": "25px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.375px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 32
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was d",
+        "font": "Iowan Old Style",
+        "size": "17px",
+        "weight": "400",
+        "lineHeight": "27.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 42
+      },
+      "longParagraphs": 12,
+      "pre": null,
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "Graduation day at Exeter",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 56
+      },
+      "fontSizesByChars": {
+        "17px": 2246,
+        "14px": 702,
+        "20px": 543,
+        "15px": 116,
+        "25px": 93,
+        "22px": 90,
+        "28px": 5
+      },
+      "pageHeight": 5949,
+      "viewport": 812
+    },
+    "/about @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callAbout",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "About",
+        "font": "Outfit",
+        "size": "39.056px",
+        "weight": "700",
+        "lineHeight": "43.7427px",
+        "letterSpacing": "-0.9764px",
+        "color": "rgb(22, 24, 27)",
+        "width": 714,
+        "cpl": 43
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Where I started",
+        "font": "Outfit",
+        "size": "25px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.375px",
+        "color": "rgb(22, 24, 27)",
+        "width": 714,
+        "cpl": 66
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was d",
+        "font": "Iowan Old Style",
+        "size": "17px",
+        "weight": "400",
+        "lineHeight": "27.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(22, 24, 27)",
+        "width": 714,
+        "cpl": 88
+      },
+      "longParagraphs": 12,
+      "pre": null,
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "Graduation day at Exeter",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 714,
+        "cpl": 117
+      },
+      "fontSizesByChars": {
+        "17px": 2246,
+        "14px": 702,
+        "20px": 543,
+        "15px": 116,
+        "25px": 93,
+        "28px": 90,
+        "39.056px": 5
+      },
+      "pageHeight": 5852,
+      "viewport": 900
+    },
+    "/blog @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callWriti",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Writing",
+        "font": "Outfit",
+        "size": "28px",
+        "weight": "700",
+        "lineHeight": "31.36px",
+        "letterSpacing": "-0.7px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 29
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
+        "font": "Outfit",
+        "size": "18px",
+        "weight": "650",
+        "lineHeight": "23.4px",
+        "letterSpacing": "-0.18px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 43
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "True-dynamics CEM reaches the parking-v0 success diagnostic, then a sc",
+        "font": "Outfit",
+        "size": "15px",
+        "weight": "400",
+        "lineHeight": "22.5px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 52
+      },
+      "longParagraphs": 7,
+      "pre": null,
+      "katex": null,
+      "figcaption": null,
+      "fontSizesByChars": {
+        "15px": 1435,
+        "13px": 420,
+        "18px": 380,
+        "22px": 90,
+        "20px": 88,
+        "14px": 37,
+        "16px": 23,
+        "28px": 7
+      },
+      "pageHeight": 4119,
+      "viewport": 812
+    },
+    "/blog @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callWriti",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Writing",
+        "font": "Outfit",
+        "size": "39.056px",
+        "weight": "700",
+        "lineHeight": "43.7427px",
+        "letterSpacing": "-0.9764px",
+        "color": "rgb(22, 24, 27)",
+        "width": 672,
+        "cpl": 40
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
+        "font": "Outfit",
+        "size": "18px",
+        "weight": "650",
+        "lineHeight": "23.4px",
+        "letterSpacing": "-0.18px",
+        "color": "rgb(22, 24, 27)",
+        "width": 496,
+        "cpl": 63
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "True-dynamics CEM reaches the parking-v0 success diagnostic, then a sc",
+        "font": "Outfit",
+        "size": "15px",
+        "weight": "400",
+        "lineHeight": "22.5px",
+        "letterSpacing": "normal",
+        "color": "rgb(70, 75, 83)",
+        "width": 496,
+        "cpl": 76
+      },
+      "longParagraphs": 7,
+      "pre": null,
+      "katex": null,
+      "figcaption": null,
+      "fontSizesByChars": {
+        "15px": 1435,
+        "13px": 420,
+        "18px": 380,
+        "28px": 90,
+        "20px": 88,
+        "14px": 37,
+        "16px": 23,
+        "39.056px": 7
+      },
+      "pageHeight": 2185,
+      "viewport": 900
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callOn th",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
+        "font": "Outfit",
+        "size": "28px",
+        "weight": "700",
+        "lineHeight": "31.36px",
+        "letterSpacing": "-0.7px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 29
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "TL;DR",
+        "font": "Outfit",
+        "size": "25px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.375px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 32
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "True-dynamics CEM reaches the environment outcome when its model is th",
+        "font": "Iowan Old Style",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "30px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 35
+      },
+      "longParagraphs": 107,
+      "pre": {
+        "tag": "pre",
+        "text": "observation\nachieved_goal\ndesired_goal",
+        "font": "ui-monospace",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "23.1px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(22, 24, 27)",
+        "width": 341,
+        "cpl": 37
+      },
+      "katex": {
+        "tag": "span",
+        "text": "(ot, at, ot+1)(o_t,\\ a_t,\\ o_{t+1})(ot​, at​, ot+1​)",
+        "font": "KaTeX_Main",
+        "size": "19.04px",
+        "weight": "400",
+        "lineHeight": "22.848px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 41
+      },
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "True-dynamics CEM controls the first 40 actions, including the success",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 55
+      },
+      "fontSizesByChars": {
+        "17px": 35442,
+        "14px": 3812,
+        "25px": 693,
+        "19.04px": 294,
+        "20px": 200,
+        "13.328px": 181,
+        "13px": 128,
+        "17.85px": 103,
+        "1px": 95,
+        "22px": 90,
+        "28px": 81,
+        "12.495px": 81,
+        "15px": 19,
+        "12px": 10,
+        "9.52px": 1
+      },
+      "pageHeight": 43446,
+      "viewport": 812
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callOn th",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not ",
+        "font": "Outfit",
+        "size": "39.056px",
+        "weight": "700",
+        "lineHeight": "43.7427px",
+        "letterSpacing": "-0.9764px",
+        "color": "rgb(22, 24, 27)",
+        "width": 714,
+        "cpl": 43
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "TL;DR",
+        "font": "Outfit",
+        "size": "25px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.375px",
+        "color": "rgb(22, 24, 27)",
+        "width": 714,
+        "cpl": 66
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "True-dynamics CEM reaches the environment outcome when its model is th",
+        "font": "Iowan Old Style",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "30px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(70, 75, 83)",
+        "width": 714,
+        "cpl": 74
+      },
+      "longParagraphs": 107,
+      "pre": {
+        "tag": "pre",
+        "text": "observation\nachieved_goal\ndesired_goal",
+        "font": "ui-monospace",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "23.1px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(22, 24, 27)",
+        "width": 856,
+        "cpl": 99
+      },
+      "katex": {
+        "tag": "span",
+        "text": "(ot, at, ot+1)(o_t,\\ a_t,\\ o_{t+1})(ot​, at​, ot+1​)",
+        "font": "KaTeX_Main",
+        "size": "19.04px",
+        "weight": "400",
+        "lineHeight": "22.848px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(22, 24, 27)",
+        "width": 714,
+        "cpl": 85
+      },
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "True-dynamics CEM controls the first 40 actions, including the success",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(70, 75, 83)",
+        "width": 714,
+        "cpl": 114
+      },
+      "fontSizesByChars": {
+        "17px": 35442,
+        "14px": 3812,
+        "25px": 693,
+        "19.04px": 294,
+        "20px": 200,
+        "13.328px": 181,
+        "13px": 128,
+        "17.85px": 103,
+        "1px": 95,
+        "28px": 90,
+        "39.056px": 81,
+        "12.495px": 81,
+        "15px": 19,
+        "12px": 10,
+        "9.52px": 1
+      },
+      "pageHeight": 33735,
+      "viewport": 900
+    },
+    "/projects/gavel @375": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callAll w",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 375,
+        "cpl": 52
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Gavel: Durable Multi-Agent Pipeline Engineering",
+        "font": "Outfit",
+        "size": "28px",
+        "weight": "700",
+        "lineHeight": "31.36px",
+        "letterSpacing": "-0.7px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 29
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Overview",
+        "font": "Outfit",
+        "size": "25px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.375px",
+        "color": "rgb(22, 24, 27)",
+        "width": 343,
+        "cpl": 32
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fi",
+        "font": "Iowan Old Style",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "30px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 35
+      },
+      "longParagraphs": 22,
+      "pre": {
+        "tag": "pre",
+        "text": "id: 42\ndata: {\"type\":\"judge_verdict_completed\",\"run_id\":\"…\",\"sequence\"",
+        "font": "ui-monospace",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "23.1px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(22, 24, 27)",
+        "width": 341,
+        "cpl": 37
+      },
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "One API process, three SQLite stores, models only fill judgment fields",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(70, 75, 83)",
+        "width": 343,
+        "cpl": 55
+      },
+      "fontSizesByChars": {
+        "17px": 9261,
+        "15px": 3496,
+        "14px": 1615,
+        "13px": 1593,
+        "25px": 270,
+        "20px": 174,
+        "22px": 90,
+        "28px": 47,
+        "26px": 7
+      },
+      "pageHeight": 18344,
+      "viewport": 812
+    },
+    "/projects/gavel @1440": {
+      "body": {
+        "tag": "body",
+        "text": "Skip to contentSubash PandeyWorkExperienceWritingAboutBook a callAll w",
+        "font": "Outfit",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(23, 25, 28)",
+        "width": 1440,
+        "cpl": 201
+      },
+      "h1": {
+        "tag": "h1",
+        "text": "Gavel: Durable Multi-Agent Pipeline Engineering",
+        "font": "Outfit",
+        "size": "39.056px",
+        "weight": "700",
+        "lineHeight": "43.7427px",
+        "letterSpacing": "-0.9764px",
+        "color": "rgb(22, 24, 27)",
+        "width": 714,
+        "cpl": 43
+      },
+      "h2": {
+        "tag": "h2",
+        "text": "Overview",
+        "font": "Outfit",
+        "size": "25px",
+        "weight": "650",
+        "lineHeight": "30px",
+        "letterSpacing": "-0.375px",
+        "color": "rgb(22, 24, 27)",
+        "width": 714,
+        "cpl": 66
+      },
+      "h3": null,
+      "paragraph": {
+        "tag": "p",
+        "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fi",
+        "font": "Iowan Old Style",
+        "size": "20px",
+        "weight": "400",
+        "lineHeight": "30px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(70, 75, 83)",
+        "width": 714,
+        "cpl": 74
+      },
+      "longParagraphs": 22,
+      "pre": {
+        "tag": "pre",
+        "text": "id: 42\ndata: {\"type\":\"judge_verdict_completed\",\"run_id\":\"…\",\"sequence\"",
+        "font": "ui-monospace",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "23.1px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(22, 24, 27)",
+        "width": 856,
+        "cpl": 99
+      },
+      "katex": null,
+      "figcaption": {
+        "tag": "figcaption",
+        "text": "One API process, three SQLite stores, models only fill judgment fields",
+        "font": "Outfit",
+        "size": "14px",
+        "weight": "400",
+        "lineHeight": "21px",
+        "letterSpacing": "0.16px",
+        "color": "rgb(70, 75, 83)",
+        "width": 714,
+        "cpl": 114
+      },
+      "fontSizesByChars": {
+        "17px": 9261,
+        "15px": 3496,
+        "14px": 1615,
+        "13px": 1593,
+        "25px": 270,
+        "20px": 174,
+        "28px": 90,
+        "39.056px": 47,
+        "26px": 7
+      },
+      "pageHeight": 13304,
+      "viewport": 900
+    }
+  },
+  "fold": {
+    "/ @375": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "h1",
+          "top": 156,
+          "text": "I’m Subash, an AI/ML engineer. I ship LLM systems to production, and I build the evaluatio"
+        },
+        {
+          "tag": "button",
+          "top": 713,
+          "text": "Book a 30-min intro"
+        },
+        {
+          "tag": "a",
+          "top": 771,
+          "text": "Full CV"
+        },
+        {
+          "tag": "button",
+          "top": 771,
+          "text": "Copy email"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 713,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 6370,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/ @1440": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "h1",
+          "top": 136,
+          "text": "I’m Subash, an AI/ML engineer. I ship LLM systems to production, and I build the evaluatio"
+        },
+        {
+          "tag": "button",
+          "top": 523,
+          "text": "Book a 30-min intro"
+        },
+        {
+          "tag": "a",
+          "top": 523,
+          "text": "Full CV"
+        },
+        {
+          "tag": "button",
+          "top": 523,
+          "text": "Copy email"
+        },
+        {
+          "tag": "h2",
+          "top": 633,
+          "text": "Selected work"
+        },
+        {
+          "tag": "p",
+          "top": 641,
+          "text": "The problem, what I built, and what it showed"
+        },
+        {
+          "tag": "li",
+          "top": 676,
+          "text": "Chatbot routing benchmarkAt Scopic Software, production chatbotProblemHandler and intent r"
+        },
+        {
+          "tag": "h3",
+          "top": 700,
+          "text": "Chatbot routing benchmark"
+        },
+        {
+          "tag": "p",
+          "top": 727,
+          "text": "At Scopic Software, production chatbot"
+        },
+        {
+          "tag": "p",
+          "top": 757,
+          "text": "ProblemHandler and intent routing in a production chatbot ran on GPT-4o-mini, at 2–3 s p95"
+        },
+        {
+          "tag": "p",
+          "top": 811,
+          "text": "BuiltBenchmarked a replacement classifier against it on the team’s golden set for handler "
+        },
+        {
+          "tag": "p",
+          "top": 868,
+          "text": "LLM evaluation · Classification · Golden set"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 523,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 4505,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    },
+    "/about @375": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "img",
+          "top": 148,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "h1",
+          "top": 232,
+          "text": "About"
+        },
+        {
+          "tag": "p",
+          "top": 279,
+          "text": "An AI/ML engineer from Kathmandu who likes taking ideas past the demo and into something p"
+        },
+        {
+          "tag": "h2",
+          "top": 431,
+          "text": "Where I started"
+        },
+        {
+          "tag": "p",
+          "top": 480,
+          "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was doing data analysis a"
+        },
+        {
+          "tag": "p",
+          "top": 689,
+          "text": "I finished a BSc (Hons) in Computing with London Metropolitan University (2:1), then did a"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 5716,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/about @1440": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "img",
+          "top": 120,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "h1",
+          "top": 204,
+          "text": "About"
+        },
+        {
+          "tag": "p",
+          "top": 264,
+          "text": "An AI/ML engineer from Kathmandu who likes taking ideas past the demo and into something p"
+        },
+        {
+          "tag": "h2",
+          "top": 356,
+          "text": "Where I started"
+        },
+        {
+          "tag": "p",
+          "top": 404,
+          "text": "I'm from Kathmandu. Midway through my bachelor's in computing, I was doing data analysis a"
+        },
+        {
+          "tag": "p",
+          "top": 505,
+          "text": "I finished a BSc (Hons) in Computing with London Metropolitan University (2:1), then did a"
+        },
+        {
+          "tag": "h2",
+          "top": 630,
+          "text": "Exeter days"
+        },
+        {
+          "tag": "p",
+          "top": 679,
+          "text": "Studying in the UK was a lot. One month I had five exams, a thesis to submit, and a part-t"
+        },
+        {
+          "tag": "p",
+          "top": 779,
+          "text": "Graduation day felt great. Worth every late night."
+        },
+        {
+          "tag": "img",
+          "top": 836,
+          "text": "Subash in graduation gown beside the University of Exeter plaque"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 5662,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    },
+    "/blog @375": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "h1",
+          "top": 156,
+          "text": "Writing"
+        },
+        {
+          "tag": "p",
+          "top": 199,
+          "text": "Long-form write-ups of what I built and measured, including the experiments that failed."
+        },
+        {
+          "tag": "li",
+          "top": 330,
+          "text": "August 2026Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust "
+        },
+        {
+          "tag": "a",
+          "top": 330,
+          "text": "August 2026Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust "
+        },
+        {
+          "tag": "p",
+          "top": 350,
+          "text": "August 2026"
+        },
+        {
+          "tag": "h2",
+          "top": 372,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "p",
+          "top": 425,
+          "text": "True-dynamics CEM reaches the parking-v0 success diagnostic, then a scripted brake finishe"
+        },
+        {
+          "tag": "p",
+          "top": 568,
+          "text": "PyTorch · JEPA · CEM · MPC · highway-env"
+        },
+        {
+          "tag": "img",
+          "top": 603,
+          "text": ""
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 3889,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/blog @1440": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "h1",
+          "top": 128,
+          "text": "Writing"
+        },
+        {
+          "tag": "p",
+          "top": 184,
+          "text": "Long-form write-ups of what I built and measured, including the experiments that failed."
+        },
+        {
+          "tag": "li",
+          "top": 293,
+          "text": "August 2026Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust "
+        },
+        {
+          "tag": "a",
+          "top": 293,
+          "text": "August 2026Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust "
+        },
+        {
+          "tag": "p",
+          "top": 313,
+          "text": "August 2026"
+        },
+        {
+          "tag": "h2",
+          "top": 334,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "p",
+          "top": 387,
+          "text": "True-dynamics CEM reaches the parking-v0 success diagnostic, then a scripted brake finishe"
+        },
+        {
+          "tag": "p",
+          "top": 485,
+          "text": "PyTorch · JEPA · CEM · MPC · highway-env"
+        },
+        {
+          "tag": "img",
+          "top": 313,
+          "text": ""
+        },
+        {
+          "tag": "li",
+          "top": 526,
+          "text": "August 2026Rebuilding WISDM HAR after a leaky 0.89I froze the June WISDM notebook at git t"
+        },
+        {
+          "tag": "a",
+          "top": 526,
+          "text": "August 2026Rebuilding WISDM HAR after a leaky 0.89I froze the June WISDM notebook at git t"
+        },
+        {
+          "tag": "p",
+          "top": 546,
+          "text": "August 2026"
+        },
+        {
+          "tag": "h2",
+          "top": 567,
+          "text": "Rebuilding WISDM HAR after a leaky 0.89"
+        },
+        {
+          "tag": "p",
+          "top": 597,
+          "text": "I froze the June WISDM notebook at git tag v1.0.0, then rebuilt subject-independent HAR. S"
+        },
+        {
+          "tag": "p",
+          "top": 673,
+          "text": "Python · WISDM · XGBoost · GroupKFold · FastAPI"
+        },
+        {
+          "tag": "img",
+          "top": 546,
+          "text": ""
+        },
+        {
+          "tag": "li",
+          "top": 713,
+          "text": "August 2026Building a Cloud Native AI Platform Under $15 a MonthA $15/month hobby lab arou"
+        },
+        {
+          "tag": "a",
+          "top": 713,
+          "text": "August 2026Building a Cloud Native AI Platform Under $15 a MonthA $15/month hobby lab arou"
+        },
+        {
+          "tag": "p",
+          "top": 733,
+          "text": "August 2026"
+        },
+        {
+          "tag": "h2",
+          "top": 755,
+          "text": "Building a Cloud Native AI Platform Under $15 a Month"
+        },
+        {
+          "tag": "p",
+          "top": 785,
+          "text": "A $15/month hobby lab around a thin FastAPI summarizer on one Hetzner box. Terraform, k3s,"
+        },
+        {
+          "tag": "p",
+          "top": 860,
+          "text": "Kubernetes · Helm · Terraform · Argo CD · FastAPI · Prometheus"
+        },
+        {
+          "tag": "img",
+          "top": 733,
+          "text": ""
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 1995,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @375": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "a",
+          "top": 148,
+          "text": "Back to blog"
+        },
+        {
+          "tag": "h1",
+          "top": 241,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "p",
+          "top": 383,
+          "text": "True-dynamics CEM reaches the environment outcome when its model is the real bicycle. Lear"
+        },
+        {
+          "tag": "a",
+          "top": 696,
+          "text": "github.com/notsubash/latent-parking"
+        },
+        {
+          "tag": "img",
+          "top": 789,
+          "text": "True-dynamics CEM parking in the empty lot"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 43213,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination @1440": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "a",
+          "top": 120,
+          "text": "Back to blog"
+        },
+        {
+          "tag": "h1",
+          "top": 213,
+          "text": "Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It"
+        },
+        {
+          "tag": "p",
+          "top": 317,
+          "text": "True-dynamics CEM reaches the environment outcome when its model is the real bicycle. Lear"
+        },
+        {
+          "tag": "a",
+          "top": 489,
+          "text": "github.com/notsubash/latent-parking"
+        },
+        {
+          "tag": "img",
+          "top": 545,
+          "text": "True-dynamics CEM parking in the empty lot"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 33545,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    },
+    "/projects/gavel @375": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 68,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "a",
+          "top": 148,
+          "text": "All work"
+        },
+        {
+          "tag": "p",
+          "top": 212,
+          "text": "Case study · GenAI / Systems"
+        },
+        {
+          "tag": "h1",
+          "top": 238,
+          "text": "Gavel: Durable Multi-Agent Pipeline Engineering"
+        },
+        {
+          "tag": "p",
+          "top": 317,
+          "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fixed LangGraph debate"
+        },
+        {
+          "tag": "p",
+          "top": 517,
+          "text": "Python · FastAPI · LangGraph · Next.js · SQLite · SSE · Pydantic · Ollama"
+        },
+        {
+          "tag": "p",
+          "top": 572,
+          "text": "GitHub"
+        },
+        {
+          "tag": "a",
+          "top": 572,
+          "text": "GitHub"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 18111,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 812
+    },
+    "/projects/gavel @1440": {
+      "items": [
+        {
+          "tag": "button",
+          "top": 16,
+          "text": "Switch to dark theme"
+        },
+        {
+          "tag": "a",
+          "top": 20,
+          "text": "Subash Pandey"
+        },
+        {
+          "tag": "img",
+          "top": 26,
+          "text": ""
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Work"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Experience"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "Writing"
+        },
+        {
+          "tag": "a",
+          "top": 22,
+          "text": "About"
+        },
+        {
+          "tag": "button",
+          "top": 22,
+          "text": "Book a call"
+        },
+        {
+          "tag": "a",
+          "top": 120,
+          "text": "All work"
+        },
+        {
+          "tag": "p",
+          "top": 184,
+          "text": "Case study · GenAI / Systems"
+        },
+        {
+          "tag": "h1",
+          "top": 210,
+          "text": "Gavel: Durable Multi-Agent Pipeline Engineering"
+        },
+        {
+          "tag": "p",
+          "top": 314,
+          "text": "Running a long judge pipeline on local 9B models: durable SSE runs, fixed LangGraph debate"
+        },
+        {
+          "tag": "p",
+          "top": 424,
+          "text": "Python · FastAPI · LangGraph · Next.js · SQLite · SSE · Pydantic · Ollama"
+        },
+        {
+          "tag": "p",
+          "top": 459,
+          "text": "GitHub"
+        },
+        {
+          "tag": "a",
+          "top": 459,
+          "text": "GitHub"
+        },
+        {
+          "tag": "h2",
+          "top": 662,
+          "text": "Overview"
+        },
+        {
+          "tag": "p",
+          "top": 711,
+          "text": "Gavel is a local idea validation workbench. You keep a versioned worksheet, log evidence, "
+        },
+        {
+          "tag": "p",
+          "top": 838,
+          "text": "I spent more time on failure modes than on prompts. Browser refresh killing a run. A 9B mo"
+        }
+      ],
+      "cta": [
+        {
+          "text": "Book a call",
+          "top": 22,
+          "inFold": true
+        },
+        {
+          "text": "Book a 30-min intro",
+          "top": 13114,
+          "inFold": false
+        }
+      ],
+      "firstProjectTitleTop": null,
+      "viewport": 900
+    }
+  },
+  "motion": {
+    "/ reduce=false": [
+      {
+        "name": "hm-mark",
+        "duration": 620,
+        "iterations": 1,
+        "easing": "linear",
+        "target": "mark.hm-mark.hm-mark--1"
+      },
+      {
+        "name": "hm-mark",
+        "duration": 620,
+        "iterations": 1,
+        "easing": "linear",
+        "target": "mark.hm-mark.hm-mark--2"
+      }
+    ],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination reduce=false": [],
+    "/ reduce=true": [],
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination reduce=true": []
+  },
+  "keyboard": {
+    "home": [
+      {
+        "tag": "a",
+        "name": "Skip to content",
+        "indicator": "outline 2px rgb(11, 105, 153)",
+        "y": 16,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Switch to dark theme",
+        "indicator": "outline 2px rgb(23, 25, 28)",
+        "y": 16,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Subash Pandey",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 20,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Work",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Experience",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Writing",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "About",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Book a call",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 22,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Book a 30-min intro",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 523,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Full CV",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 523,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Copy email",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 523,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "LastCallFull-stack product, built solo for the Buf",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 912,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "GavelMulti-agent LLM systemProblemOne model review",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1209,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Code for Gavel (opens GitHub)",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1460,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "CraftAgent tooling and evaluationProblemAgent skil",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1525,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Activity RecognitionML evaluationProblemAn activit",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 1798,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Code for Activity Recognition (opens GitHub)",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 2006,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Cloud Native AI PlatformMLOpsProblemMoving an AI A",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 2071,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Code for Cloud Native AI Platform (opens GitHub)",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 2323,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Latent ParkingWorld models and controlProblemCan a",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 2388,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Code for Latent Parking (opens GitHub)",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 2572,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "The Underlying CurveVisual explainersProblemML ide",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 2637,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Akash Raghuvanshi",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 3041,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Full CV, talks and certifications",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 3147,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "All posts",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 4048,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Teaching a Car to Park by Imagining the Future, an",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 4098,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Rebuilding WISDM HAR after a leaky 0.89",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 4151,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Building a Cloud Native AI Platform Under $15 a Mo",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 4204,
+        "visible": true
+      },
+      {
+        "tag": "a",
+        "name": "Building Gavel: Turning AI Opinions Into Experimen",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 4257,
+        "visible": true
+      },
+      {
+        "tag": "button",
+        "name": "Book a 30-min intro",
+        "indicator": "outline 2px rgb(11, 106, 153)",
+        "y": 4505,
+        "visible": true
+      }
+    ]
+  },
+  "perf": {
+    "/": {
+      "lcpMs": 1784,
+      "lcpElement": "h1 I’m Subash, an AI/ML engineer. I ship LLM systems ",
+      "cls": 0.004,
+      "transferKB": 697,
+      "requests": 14
+    },
+    "/blog/when-a-self-parking-car-cannot-trust-its-imagination": {
+      "lcpMs": 2376,
+      "lcpElement": "p True-dynamics CEM reaches the environment outcome ",
+      "cls": 0,
+      "transferKB": 1295,
+      "requests": 27
+    },
+    "/projects/gavel": {
+      "lcpMs": 2052,
+      "lcpElement": "p Running a long judge pipeline on local 9B models: ",
+      "cls": 0,
+      "transferKB": 728,
+      "requests": 17
+    }
+  },
+  "page": {}
+}

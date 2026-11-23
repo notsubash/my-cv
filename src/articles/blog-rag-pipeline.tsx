@@ -122,9 +122,9 @@ export default function BlogRagPipeline() {
   const { articleRef, readingTimeRef } = useReadingTime()
 
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" className="min-h-screen bg-background">
       <BlogToc articleRef={articleRef} />
-      <article ref={articleRef} className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <article ref={articleRef} className="post">
 
         <Link
           to="/blog"
@@ -162,7 +162,7 @@ export default function BlogRagPipeline() {
 
         <hr className="border-border mb-10" />
 
-        <div className="prose-custom space-y-8 text-sm text-muted-foreground leading-relaxed">
+        <div className="prose-custom">
 
           <section>
             <h2 id="setup" className="font-display text-lg font-semibold text-foreground mb-3">Context and stack</h2>

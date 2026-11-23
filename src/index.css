@@ -84,12 +84,13 @@ html.theme-switching * {
   --radius-lg: 12px;
   --shadow-pop: 0 12px 32px rgb(16 24 32 / 0.14), 0 2px 6px rgb(16 24 32 / 0.08);
 
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);    /* strong ease-out: instant response */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1); /* on-screen movement */
   --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-:root { --dur-1: 120ms; --dur-2: 180ms; --dur-3: 260ms; --measure: 66ch; }
+:root { --dur-1: 120ms; --dur-2: 180ms; --dur-3: 260ms; --measure: 55ch; }
 
 /* Dark values for the redesign tokens. The inline script in index.html always sets .dark or .light. */
 .dark {
@@ -110,25 +111,25 @@ html.theme-switching * {
 @layer base {
   /* ========== PROFILE: BLUE-TEAL (Default) ========== */
   :root {
-    --background: 210 12% 96%;
-    --foreground: 210 20% 6%;
-    --muted: 210 10% 88%;
-    --muted-foreground: 210 12% 18%;
-    --primary: 200 80% 34%;
+    --background: 60 9% 98%;
+    --foreground: 216 10% 10%;
+    --muted: 210 8% 96%;
+    --muted-foreground: 217 8% 30%;
+    --primary: 200 87% 32%;
     --primary-foreground: 0 0% 100%;
-    --accent: 174 65% 28%;
+    --accent: 200 87% 32%;
     --accent-foreground: 0 0% 100%;
-    --border: 210 12% 78%;
+    --border: 220 5% 89%;
     --card: 0 0% 100%;
-    --card-foreground: 210 20% 6%;
-    --gradient-from: 200 85% 50%;  /* blue */
-    --gradient-to: 174 72% 42%;    /* teal */
-    --gold: 43 80% 32%;
-    --success: 142 72% 26%;
-    --tool: 200 72% 34%;
+    --card-foreground: 216 10% 10%;
+    --gradient-from: 200 87% 32%;  /* blue */
+    --gradient-to: 200 87% 32%;    /* teal */
+    --gold: 200 87% 32%;
+    --success: 145 54% 32%;
+    --tool: 200 87% 32%;
     --linkedin: 210 91% 36%;
-    --codeblock: 210 17% 95%;
-    --codeblock-text: 215 25% 17%;
+    --codeblock: 210 8% 96%;
+    --codeblock-text: 216 10% 10%;
     --code-keyword: 200 60% 40%;
     --code-string: 25 70% 45%;
     --code-comment: 210 10% 45%;
@@ -137,30 +138,30 @@ html.theme-switching * {
     --code-var: 200 50% 40%;
     --hero-orb-primary: 200 80% 38% / 0.15;
     --hero-orb-accent: 174 62% 32% / 0.12;
-    --dot-grid: 210 5% 35% / 0.25;
+    --dot-grid: 0 0% 0% / 0;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not(.light) {
-      --background: 210 12% 10%;
-      --foreground: 0 0% 93%;
-      --muted: 210 8% 14%;
-      --muted-foreground: 210 5% 65%;
-      --primary: 200 85% 55%;
-      --primary-foreground: 210 20% 6%;
-      --accent: 174 72% 52%;
-      --accent-foreground: 0 0% 100%;
-      --border: 210 6% 20%;
-      --card: 210 8% 13%;
-      --card-foreground: 0 0% 93%;
-      --gradient-from: 200 85% 55%;
-      --gradient-to: 174 72% 52%;
-      --gold: 45 97% 49%;
-      --success: 142 71% 45%;
-      --tool: 200 85% 55%;
+      --background: 210 11% 7%;
+      --foreground: 220 8% 93%;
+      --muted: 214 11% 12%;
+      --muted-foreground: 215 8% 72%;
+      --primary: 202 87% 69%;
+      --primary-foreground: 210 11% 7%;
+      --accent: 202 87% 69%;
+      --accent-foreground: 210 11% 7%;
+      --border: 218 9% 18%;
+      --card: 216 10% 10%;
+      --card-foreground: 220 8% 93%;
+      --gradient-from: 202 87% 69%;
+      --gradient-to: 202 87% 69%;
+      --gold: 202 87% 69%;
+      --success: 145 50% 55%;
+      --tool: 202 87% 69%;
       --linkedin: 210 88% 71%;
-      --codeblock: 215 19% 5%;
-      --codeblock-text: 213 14% 90%;
+      --codeblock: 214 11% 12%;
+      --codeblock-text: 220 8% 93%;
       --code-keyword: 200 100% 75%;
       --code-string: 24 80% 65%;
       --code-comment: 213 10% 55%;
@@ -169,34 +170,34 @@ html.theme-switching * {
       --code-var: 200 70% 75%;
       --hero-orb-primary: 200 85% 55% / 0.08;
       --hero-orb-accent: 174 72% 52% / 0.10;
-      --dot-grid: 210 5% 65% / 0.15;
+      --dot-grid: 0 0% 0% / 0;
     }
   }
 
   /* Manual dark override (user toggled) */
   .dark {
-    --background: 210 12% 10%;
-    --foreground: 0 0% 93%;
-    --muted: 210 8% 14%;
-    --muted-foreground: 210 5% 65%;
-    --primary: 200 85% 55%;
-    --primary-foreground: 210 20% 6%;
-    --accent: 174 72% 52%;
-    --accent-foreground: 0 0% 100%;
-    --border: 210 6% 20%;
-    --card: 210 8% 13%;
-    --card-foreground: 0 0% 93%;
-    --gradient-from: 200 85% 55%;
-    --gradient-to: 174 72% 52%;
-    --gold: 45 97% 49%;
-    --success: 142 71% 45%;
-    --tool: 200 85% 55%;
+    --background: 210 11% 7%;
+    --foreground: 220 8% 93%;
+    --muted: 214 11% 12%;
+    --muted-foreground: 215 8% 72%;
+    --primary: 202 87% 69%;
+    --primary-foreground: 210 11% 7%;
+    --accent: 202 87% 69%;
+    --accent-foreground: 210 11% 7%;
+    --border: 218 9% 18%;
+    --card: 216 10% 10%;
+    --card-foreground: 220 8% 93%;
+    --gradient-from: 202 87% 69%;
+    --gradient-to: 202 87% 69%;
+    --gold: 202 87% 69%;
+    --success: 145 50% 55%;
+    --tool: 202 87% 69%;
     --linkedin: 210 88% 71%;
     --hero-orb-primary: 200 85% 55% / 0.08;
     --hero-orb-accent: 174 72% 52% / 0.10;
-    --dot-grid: 210 5% 65% / 0.15;
-    --codeblock: 215 19% 5%;
-    --codeblock-text: 213 14% 90%;
+    --dot-grid: 0 0% 0% / 0;
+    --codeblock: 214 11% 12%;
+    --codeblock-text: 220 8% 93%;
     --code-keyword: 200 100% 75%;
     --code-string: 24 80% 65%;
     --code-comment: 213 10% 55%;
@@ -207,26 +208,26 @@ html.theme-switching * {
 
   /* Manual light override (user toggled when system is dark) */
   .light {
-    --background: 210 12% 96%;
-    --foreground: 210 20% 6%;
-    --muted: 210 10% 88%;
-    --muted-foreground: 210 12% 18%;
-    --primary: 200 80% 34%;
+    --background: 60 9% 98%;
+    --foreground: 216 10% 10%;
+    --muted: 210 8% 96%;
+    --muted-foreground: 217 8% 30%;
+    --primary: 200 87% 32%;
     --primary-foreground: 0 0% 100%;
-    --accent: 174 65% 28%;
+    --accent: 200 87% 32%;
     --accent-foreground: 0 0% 100%;
-    --border: 210 12% 78%;
+    --border: 220 5% 89%;
     --card: 0 0% 100%;
-    --card-foreground: 210 20% 6%;
-    --gradient-from: 200 85% 50%;
-    --gradient-to: 174 72% 42%;
-    --gold: 43 80% 32%;
-    --success: 142 72% 26%;
-    --tool: 200 72% 34%;
+    --card-foreground: 216 10% 10%;
+    --gradient-from: 200 87% 32%;
+    --gradient-to: 200 87% 32%;
+    --gold: 200 87% 32%;
+    --success: 145 54% 32%;
+    --tool: 200 87% 32%;
     --linkedin: 210 91% 36%;
     --hero-orb-primary: 200 80% 38% / 0.15;
     --hero-orb-accent: 174 62% 32% / 0.12;
-    --dot-grid: 210 5% 35% / 0.25;
+    --dot-grid: 0 0% 0% / 0;
   }
 
   * {

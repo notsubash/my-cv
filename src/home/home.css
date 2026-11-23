@@ -1,67 +1,13 @@
 /* Homepage, Direction A "Ledger". Tokens live in index.css @theme (docs/redesign/03-plan.md §2). */
 
-.hm {
-  --col: 44rem;
-  --gutter: 1rem;
-  min-height: 100dvh;
-  background: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-ui);
-  font-size: var(--text-ui);
-  line-height: 1.5;
-  letter-spacing: 0;
-}
-.hm :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 3px; }
 
-/* ── bar ──────────────────────────────────────────────────────────── */
-.hm-bar {
-  max-width: var(--col); margin: 0 auto; padding: 1.25rem var(--gutter) 0;
-  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0.25rem 1rem;
-  padding-right: calc(var(--gutter) + 3.5rem); /* floating theme toggle */
-}
-.hm-name { font-weight: 650; font-size: 1.0625rem; letter-spacing: -0.01em; text-decoration: none; color: var(--color-ink); min-height: 44px; display: inline-flex; align-items: center; gap: 0.625rem; }
-.hm-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px var(--color-rule); }
-.hm-open::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 0.45rem; vertical-align: 0.08em; border-radius: 50%; background: #2f9e5b; box-shadow: 0 0 0 3px color-mix(in srgb, #2f9e5b 22%, transparent); }
-.hm-nav { grid-column: 1 / -1; grid-row: 2; display: flex; gap: 1.25rem; font-size: 0.9375rem; color: var(--color-ink-2); }
-.hm-nav a { min-height: 40px; display: inline-flex; align-items: center; text-decoration: none; color: inherit; transition: color var(--dur-1) var(--ease-standard); }
-.hm-nav a:hover { color: var(--color-ink); }
-@media (min-width: 720px) {
-  .hm-bar { grid-template-columns: auto 1fr auto; }
-  .hm-nav { grid-column: 2; grid-row: 1; justify-content: flex-end; }
-}
-@media (min-width: 1100px) { .hm-bar { padding-right: var(--gutter); } }
-
-/* ── buttons ──────────────────────────────────────────────────────── */
-.hm-btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  min-height: 46px; padding: 0 1.25rem; border-radius: var(--radius-md);
-  font: 600 0.9375rem/1 var(--font-ui); letter-spacing: 0; text-decoration: none; cursor: pointer;
-  border: 1px solid transparent; color: var(--color-ink); background: transparent;
-  transition: background-color var(--dur-1) var(--ease-standard), border-color var(--dur-1) var(--ease-standard), color var(--dur-1) var(--ease-standard), transform var(--dur-1) var(--ease-out);
-}
-.hm-btn:active { transform: scale(0.97); }
-.hm-btn--primary { background: var(--color-ink); color: var(--color-paper); }
-.hm-btn--primary:hover { background: color-mix(in srgb, var(--color-ink) 84%, var(--color-accent)); }
-.hm-btn--quiet { border-color: var(--color-rule); background: var(--color-surface); }
-.hm-btn--quiet:hover { border-color: color-mix(in srgb, var(--color-ink) 35%, var(--color-rule)); }
-.hm-btn--small { min-height: 40px; padding: 0 0.875rem; font-size: 0.875rem; border-color: var(--color-ink); }
-.hm-btn--small:hover { background: var(--color-ink); color: var(--color-paper); }
 
 .hm-copy-icon { position: relative; width: 16px; height: 16px; display: inline-block; }
-.hm-copy-icon svg { position: absolute; inset: 0; transition: opacity var(--dur-1) var(--ease-out), transform var(--dur-2) var(--ease-arrive); }
-.hm-copy-b { opacity: 0; transform: scale(0.6); color: #2f9e5b; }
-.hm-copy[data-copied] .hm-copy-a { opacity: 0; transform: scale(0.6); }
+.hm-copy-icon svg { position: absolute; inset: 0; transition: opacity 140ms var(--ease-out), transform 180ms var(--ease-out), filter 140ms ease; }
+.hm-copy-icon svg { filter: blur(0); }
+.hm-copy-b { opacity: 0; transform: scale(0.8); filter: blur(2px); color: #2f9e5b; }
+.hm-copy[data-copied] .hm-copy-a { opacity: 0; transform: scale(0.8); filter: blur(2px); }
 .hm-copy[data-copied] .hm-copy-b { opacity: 1; transform: none; }
-
-.hm-link {
-  color: var(--color-ink);
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--color-accent) 50%, transparent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.22em;
-  transition: color var(--dur-1) var(--ease-standard), text-decoration-color var(--dur-1) var(--ease-standard);
-}
-.hm-link:hover { color: var(--color-accent); text-decoration-color: currentColor; }
 
 /* ── hero ─────────────────────────────────────────────────────────── */
 .hm-col { max-width: var(--col); margin: 0 auto; padding: 0 var(--gutter) 6rem; }
@@ -86,9 +32,9 @@
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .hm-mark { animation: hm-mark 720ms var(--ease-arrive) both; }
-  .hm-mark--1 { animation-delay: 380ms; }
-  .hm-mark--2 { animation-delay: 820ms; }
+  .hm-mark { animation: hm-mark 620ms var(--ease-arrive) both; }
+  .hm-mark--1 { animation-delay: 300ms; }
+  .hm-mark--2 { animation-delay: 680ms; }
 }
 @keyframes hm-mark { from { background-size: 0% 42%; } to { background-size: 100% 42%; } }
 
@@ -103,18 +49,11 @@
 .hm-clock time { font-variant-numeric: tabular-nums; }
 
 .hm-cta { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
-@media (max-width: 479px) { .hm-hero .hm-cta > .hm-btn--primary { flex: 1 0 100%; } }
+@media (max-width: 479px) { .hm-hero .hm-cta > .btn--primary { flex: 1 0 100%; } }
 
 /* ── sections ─────────────────────────────────────────────────────── */
 .hm-section { margin-top: 4.5rem; scroll-margin-top: 1.5rem; }
 .hm-hero + .hm-section { margin-top: 0; }
-.hm-head {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem 1rem; flex-wrap: wrap;
-  padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-ink);
-}
-.hm-head h2 { font-size: var(--text-h3); font-weight: 650; letter-spacing: -0.01em; }
-.hm-head p { font-size: var(--text-meta); color: var(--color-ink-3); }
-.hm-head .hm-link { font-size: 0.875rem; }
 
 /* ── work rows ────────────────────────────────────────────────────── */
 .hm-work { position: relative; }
@@ -128,8 +67,12 @@
 @media (hover: hover) { .hm-row-link:hover { background: color-mix(in srgb, var(--color-ink) 3.5%, transparent); } }
 .hm-row-title { font-size: var(--text-h3); font-weight: 650; letter-spacing: -0.012em; line-height: 1.25; display: flex; align-items: center; gap: 0.4rem; transition: color var(--dur-1) var(--ease-standard); }
 .hm-row-arrow { color: var(--color-ink-3); flex: none; transition: transform var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
-.hm-row-link:hover .hm-row-title, .hm-row-link:focus-visible .hm-row-title { color: var(--color-accent); }
-.hm-row-link:hover .hm-row-arrow, .hm-row-link:focus-visible .hm-row-arrow { transform: translateX(4px); color: var(--color-accent); }
+.hm-row-link:focus-visible .hm-row-title { color: var(--color-accent); }
+.hm-row-link:focus-visible .hm-row-arrow { color: var(--color-accent); }
+@media (hover: hover) and (pointer: fine) {
+  .hm-row-link:hover .hm-row-title { color: var(--color-accent); }
+  .hm-row-link:hover .hm-row-arrow { transform: translateX(4px); color: var(--color-accent); }
+}
 .hm-row-kind { font-size: var(--text-meta); color: var(--color-ink-3); margin-top: 0.125rem; }
 .hm-row-line { margin-top: 0.625rem; max-width: 37em; text-wrap: pretty; display: grid; grid-template-columns: 4rem minmax(0, 1fr); }
 .hm-row-line--built { margin-top: 0.375rem; color: var(--color-ink-2); font-size: 0.9375rem; }
@@ -154,9 +97,11 @@
     box-shadow: var(--shadow-pop); pointer-events: none;
     transform: translate3d(0, calc(var(--y, 0px) + 1.25rem), 0);
     opacity: 0; clip-path: inset(12% 12% 12% 12% round var(--radius-lg));
-    transition: transform 420ms var(--ease-out), opacity 160ms var(--ease-standard), clip-path 320ms var(--ease-arrive);
+    /* closing: fast and quiet */
+    transition: transform 280ms var(--ease-out), opacity 120ms ease, clip-path 160ms var(--ease-out);
   }
-  .hm-preview[data-open] { opacity: 1; clip-path: inset(0 0 0 0 round var(--radius-lg)); }
+  /* opening: the reveal can take a little longer than the exit */
+  .hm-preview[data-open] { opacity: 1; clip-path: inset(0 0 0 0 round var(--radius-lg)); transition: transform 280ms var(--ease-out), opacity 160ms ease, clip-path 260ms var(--ease-arrive); }
   .hm-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 200ms var(--ease-standard); }
   .hm-preview img[data-on] { opacity: 1; }
 }
@@ -185,7 +130,7 @@
 /* ── writing ──────────────────────────────────────────────────────── */
 .hm-posts { list-style: none; }
 .hm-posts li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.875rem 0; border-bottom: 1px solid var(--color-rule); }
-.hm-posts .hm-link { text-wrap: pretty; }
+.hm-posts .link { text-wrap: pretty; }
 .hm-post-date { font-size: var(--text-meta); color: var(--color-ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 /* ── footer ───────────────────────────────────────────────────────── */
@@ -198,3 +143,16 @@
 @media (prefers-reduced-motion: reduce) {
   .hm *, .hm *::before, .hm *::after { transition-duration: 1ms !important; }
 }
+
+/* Row variants: external product (arrow points out), confidential work (no link, no hover). */
+@media (hover: hover) and (pointer: fine) { .hm-row-link:hover .hm-row-arrow--out { transform: translate(2px, -2px); } }
+.hm-row-link:focus-visible .hm-row-arrow--out { transform: translate(2px, -2px); }
+.hm-row-link--static { cursor: default; }
+@media (hover: hover) { .hm-row-link--static:hover { background: none; } }
+
+/* Preview swap: the outgoing shot softens and settles while the next one sharpens in. */
+@media (min-width: 1280px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hm-preview img { filter: blur(4px); transform: scale(1.03); transition: opacity 200ms ease, filter 220ms var(--ease-out), transform 280ms var(--ease-out); }
+  .hm-preview img[data-on] { filter: none; transform: none; }
+}
+.hm-row-link--static:hover .hm-row-title { color: inherit; }

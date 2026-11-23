@@ -1,9 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { Sun, Moon, House, ChevronRight, ChevronUp } from 'lucide-react'
-import { getPageTitles } from './articles/registry'
-
-const PAGE_TITLE = getPageTitles()
+import { Sun, Moon, ChevronUp } from 'lucide-react'
 
 function useTheme() {
   const [isDark, setIsDark] = useState(() =>
@@ -43,7 +39,7 @@ function useTheme() {
 }
 
 const navIconBtn =
-  'min-h-11 min-w-11 w-11 h-11 rounded-full bg-card border border-border flex items-center justify-center shadow-lg hover:border-primary/50 hover:shadow-primary/20 hover:shadow-xl transition-colors'
+  'min-h-11 min-w-11 w-11 h-11 rounded-full bg-card border border-border flex items-center justify-center hover:border-foreground/40 transition-colors'
 
 function ThemeToggle({ isDark, toggleTheme }: { isDark: boolean; toggleTheme: () => void }) {
   return (
@@ -54,8 +50,8 @@ function ThemeToggle({ isDark, toggleTheme }: { isDark: boolean; toggleTheme: ()
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
       aria-pressed={isDark}
     >
-      <Sun className="w-5 h-5 text-primary hidden [.dark_&]:block" aria-hidden="true" />
-      <Moon className="w-5 h-5 text-primary [.dark_&]:hidden" aria-hidden="true" />
+      <Sun className="w-5 h-5 text-foreground hidden [.dark_&]:block" aria-hidden="true" />
+      <Moon className="w-5 h-5 text-foreground [.dark_&]:hidden" aria-hidden="true" />
     </button>
   )
 }
@@ -79,69 +75,14 @@ function BackToTop() {
       className={navIconBtn}
       aria-label="Back to top"
     >
-      <ChevronUp className="w-5 h-5 text-primary" aria-hidden="true" />
+      <ChevronUp className="w-5 h-5 text-foreground" aria-hidden="true" />
     </button>
   )
 }
 
 export default function GlobalNav() {
-  const { pathname } = useLocation()
-  // /lab/* design prototypes carry their own header; give them the floating toggle like home.
-  const isHome = pathname === '/' || pathname.startsWith('/lab/')
-  const isBlogPost = pathname.startsWith('/blog/')
+  // Every page now carries SiteHeader; GlobalNav is only the floating theme toggle + back-to-top.
   const { isDark, toggleTheme } = useTheme()
-  const pageTitle = PAGE_TITLE[pathname] ?? null
-
-  if (!isHome) {
-    return (
-      <div className="sticky top-0 z-50 relative">
-        <div className="absolute inset-0 bg-background/80 backdrop-blur-md border-b border-border" />
-        <div className="relative flex items-center justify-between gap-3 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 sm:px-6">
-          <div className="min-w-0 flex items-center">
-            <nav
-              aria-label="Breadcrumb"
-              className="inline-flex min-w-0 items-center gap-1.5 text-sm"
-            >
-              <Link
-                to="/"
-                aria-label="Home"
-                className="inline-flex items-center gap-1.5 min-h-11 text-muted-foreground hover:text-foreground transition-colors shrink-0"
-              >
-                <House className="w-4 h-4" aria-hidden="true" />
-                <span className="hidden sm:inline">Home</span>
-              </Link>
-              {isBlogPost && (
-                <>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
-                  <Link
-                    to="/blog"
-                    className="inline-flex items-center min-h-11 text-muted-foreground hover:text-foreground transition-colors shrink-0"
-                  >
-                    Blog
-                  </Link>
-                </>
-              )}
-              {pageTitle && (
-                <>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
-                  <button
-                    type="button"
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="min-w-0 truncate text-foreground font-medium hover:text-foreground transition-colors cursor-pointer min-h-11"
-                  >
-                    {pageTitle}
-                  </button>
-                </>
-              )}
-            </nav>
-          </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
-          </div>
-        </div>
-      </div>
-    )
-  }
 
   // Both icons stay in the tree; CSS follows html.dark so the first paint
   // matches the blocking theme script (no wrong-icon flash on takeover).
