@@ -1,6 +1,6 @@
 {
   "label": "after",
-  "date": "2026-11-23T09:38:11.380Z",
+  "date": "2026-11-23T11:45:58.859Z",
   "axe": {
     "/ @1440 light": [],
     "/ @1440 dark": [],
@@ -112,17 +112,17 @@
       },
       "paragraph": {
         "tag": "p",
-        "text": "BuiltA Buffer app that checks every queued link and holds stale posts ",
-        "font": "Outfit",
-        "size": "15px",
+        "text": "“He helped my team and me navigate our initial AI strategy, clarify ou",
+        "font": "IBM Plex Sans",
+        "size": "19px",
         "weight": "400",
-        "lineHeight": "22.5px",
-        "letterSpacing": "normal",
-        "color": "rgb(70, 75, 83)",
+        "lineHeight": "27.55px",
+        "letterSpacing": "-0.095px",
+        "color": "rgb(22, 24, 27)",
         "width": 343,
-        "cpl": 52
+        "cpl": 41
       },
-      "longParagraphs": 7,
+      "longParagraphs": 1,
       "pre": null,
       "katex": null,
       "figcaption": {
@@ -138,18 +138,18 @@
         "cpl": 56
       },
       "fontSizesByChars": {
-        "15px": 2438,
-        "13px": 1178,
-        "16px": 1043,
+        "15px": 1606,
+        "13px": 891,
+        "16px": 833,
         "14px": 285,
         "17px": 164,
         "20px": 126,
         "19px": 126,
         "26px": 112,
         "22px": 90,
-        "28px": 43
+        "28px": 45
       },
-      "pageHeight": 6333,
+      "pageHeight": 5552,
       "viewport": 812
     },
     "/ @1440": {
@@ -203,17 +203,17 @@
       },
       "paragraph": {
         "tag": "p",
-        "text": "BuiltA Buffer app that checks every queued link and holds stale posts ",
-        "font": "Outfit",
-        "size": "15px",
+        "text": "“He helped my team and me navigate our initial AI strategy, clarify ou",
+        "font": "IBM Plex Sans",
+        "size": "22px",
         "weight": "400",
-        "lineHeight": "22.5px",
-        "letterSpacing": "normal",
-        "color": "rgb(70, 75, 83)",
-        "width": 440,
-        "cpl": 67
+        "lineHeight": "31.9px",
+        "letterSpacing": "-0.11px",
+        "color": "rgb(22, 24, 27)",
+        "width": 672,
+        "cpl": 69
       },
-      "longParagraphs": 7,
+      "longParagraphs": 1,
       "pre": null,
       "katex": null,
       "figcaption": {
@@ -229,17 +229,17 @@
         "cpl": 110
       },
       "fontSizesByChars": {
-        "15px": 2438,
-        "13px": 1178,
-        "16px": 1043,
+        "15px": 1606,
+        "13px": 891,
+        "16px": 833,
         "14px": 285,
         "17px": 164,
-        "28px": 133,
+        "28px": 135,
         "20px": 126,
         "22px": 126,
         "38px": 112
       },
-      "pageHeight": 4562,
+      "pageHeight": 4175,
       "viewport": 900
     },
     "/about @375": {
@@ -945,7 +945,7 @@
         },
         {
           "text": "Book a 30-min intro",
-          "top": 6071,
+          "top": 5290,
           "inFold": false
         }
       ],
@@ -1037,12 +1037,12 @@
         {
           "tag": "li",
           "top": 739,
-          "text": "LastCallFull-stack product, built solo for the Buffer Commit contestProblemScheduled socia"
+          "text": "LastCallFull-stack product, built soloProblemScheduled posts still publish after the produ"
         },
         {
           "tag": "a",
           "top": 747,
-          "text": "LastCallFull-stack product, built solo for the Buffer Commit contestProblemScheduled socia"
+          "text": "LastCallFull-stack product, built soloProblemScheduled posts still publish after the produ"
         },
         {
           "tag": "h3",
@@ -1052,17 +1052,17 @@
         {
           "tag": "p",
           "top": 790,
-          "text": "Full-stack product, built solo for the Buffer Commit contest"
+          "text": "Full-stack product, built solo"
         },
         {
           "tag": "p",
           "top": 819,
-          "text": "ProblemScheduled social posts keep publishing after the product sells out, the job closes "
+          "text": "ProblemScheduled posts still publish after the product sells out or the job closes."
         },
         {
           "tag": "p",
-          "top": 897,
-          "text": "BuiltA Buffer app that checks every queued link and holds stale posts as drafts. A determi"
+          "top": 873,
+          "text": "BuiltA Buffer app that checks every queued link and holds stale posts. Rules decide, never"
         }
       ],
       "cta": [
@@ -1078,7 +1078,7 @@
         },
         {
           "text": "Book a 30-min intro",
-          "top": 4340,
+          "top": 3953,
           "inFold": false
         }
       ],
@@ -1763,15 +1763,15 @@
   "motion": {
     "/ reduce=false": [
       {
-        "name": "hm-mark",
-        "duration": 620,
+        "name": "hm-pen",
+        "duration": 720,
         "iterations": 1,
         "easing": "linear",
         "target": "mark.hm-mark.hm-mark--1"
       },
       {
-        "name": "hm-mark",
-        "duration": 620,
+        "name": "hm-pen",
+        "duration": 720,
         "iterations": 1,
         "easing": "linear",
         "target": "mark.hm-mark.hm-mark--2"
@@ -1876,142 +1876,142 @@
       },
       {
         "tag": "a",
-        "name": "LastCallFull-stack product, built solo for the Buf",
+        "name": "LastCallFull-stack product, built soloProblemSched",
         "indicator": "outline 2px rgb(207, 58, 14)",
         "y": 747,
         "visible": true
       },
       {
         "tag": "a",
-        "name": "GavelMulti-agent LLM systemProblemOne model review",
+        "name": "GavelMulti-agent LLM systemProblemOne model’s revi",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 1044,
+        "y": 975,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Code for Gavel (opens GitHub)",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 1295,
+        "y": 1181,
         "visible": true
       },
       {
         "tag": "a",
         "name": "CraftAgent tooling and evaluationProblemAgent skil",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 1360,
+        "y": 1246,
         "visible": true
       },
       {
         "tag": "a",
-        "name": "Activity RecognitionML evaluationProblemAn activit",
+        "name": "Activity RecognitionML evaluationProblemA 0.89 mac",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 1633,
+        "y": 1474,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Code for Activity Recognition (opens GitHub)",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 1840,
+        "y": 1657,
         "visible": true
       },
       {
         "tag": "a",
-        "name": "Cloud Native AI PlatformMLOpsProblemMoving an AI A",
+        "name": "Cloud Native AI PlatformMLOpsProblemAI APIs often ",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 1905,
+        "y": 1722,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Code for Cloud Native AI Platform (opens GitHub)",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 2158,
+        "y": 1906,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Latent ParkingWorld models and controlProblemCan a",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 2223,
+        "y": 1971,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Code for Latent Parking (opens GitHub)",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 2406,
+        "y": 2154,
         "visible": true
       },
       {
         "tag": "a",
         "name": "The Underlying CurveVisual explainersProblemML ide",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 2471,
+        "y": 2219,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Akash Raghuvanshi",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 2875,
+        "y": 2600,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Full CV, talks and certifications",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 2981,
+        "y": 2707,
         "visible": true
       },
       {
         "tag": "a",
         "name": "All posts",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 3882,
+        "y": 3495,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Teaching a Car to Park by Imagining the Future, an",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 3932,
+        "y": 3545,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Rebuilding WISDM HAR after a leaky 0.89",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 3985,
+        "y": 3598,
         "visible": true
       },
       {
         "tag": "a",
         "name": "Building a Cloud Native AI Platform Under $15 a Mo",
         "indicator": "outline 2px rgb(207, 58, 14)",
-        "y": 4038,
+        "y": 3651,
         "visible": true
       }
     ]
   },
   "perf": {
     "/": {
-      "lcpMs": 2240,
+      "lcpMs": 2096,
       "lcpElement": "h1 I’m Subash, an AI/ML engineer. I ship LLM systems ",
       "cls": 0.004,
       "transferKB": 743,
       "requests": 14
     },
     "/blog/when-a-self-parking-car-cannot-trust-its-imagination": {
-      "lcpMs": 3148,
+      "lcpMs": 2684,
       "lcpElement": "p True-dynamics CEM reaches the environment outcome ",
       "cls": 0,
-      "transferKB": 1357,
+      "transferKB": 1356,
       "requests": 28
     },
     "/projects/gavel": {
-      "lcpMs": 2596,
+      "lcpMs": 2308,
       "lcpElement": "p Running a long judge pipeline on local 9B models: ",
       "cls": 0,
       "transferKB": 789,

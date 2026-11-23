@@ -4,7 +4,7 @@
 
 .site {
   min-height: 100dvh;
-  background: var(--color-paper);
+  background: transparent; /* the body carries the paper colour and the warm glow */
   color: var(--color-ink);
   font-family: var(--font-ui);
   font-size: var(--text-ui);
@@ -159,3 +159,22 @@
 }
 .wr-grid { display: grid; gap: 3rem 2rem; }
 @media (min-width: 720px) { .wr-grid { grid-template-columns: 1fr 1fr; } }
+
+/* ── page atmosphere ───────────────────────────────────────────────── */
+/* One warm glow from the accent, entering top-left like low sun on paper; a fainter echo top-right.
+   Same hue as the accent (no second colour), low enough that every text pair keeps its contrast.
+   It scrolls with the page, so it lives behind the first screen and the rest stays plain paper.
+   Positions are in rem: percentages resolve against the whole page height and push the glow off-screen. */
+body {
+  background-image:
+    radial-gradient(64rem 36rem at 10% -6rem, color-mix(in srgb, var(--color-accent-wash) 60%, transparent), transparent 72%),
+    radial-gradient(48rem 28rem at 100% -4rem, color-mix(in srgb, var(--color-accent-wash) 28%, transparent), transparent 70%);
+  background-repeat: no-repeat;
+}
+.dark body {
+  background-image:
+    radial-gradient(64rem 36rem at 10% -6rem, color-mix(in srgb, var(--color-accent-wash) 42%, transparent), transparent 72%),
+    radial-gradient(48rem 28rem at 100% -4rem, color-mix(in srgb, var(--color-accent-wash) 20%, transparent), transparent 70%);
+}
+/* legacy page wrappers paint opaque paper; let the body's atmosphere through */
+main.bg-background { background-color: transparent; }
