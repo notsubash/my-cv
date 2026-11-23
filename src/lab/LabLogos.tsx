@@ -13,8 +13,9 @@ const ACCENT = { light: '#cf3a0e', dark: '#ff7a52' }
 const WASH = { light: '#ffcbb8', dark: '#5c2416' }
 
 
-const S_PX = ['.###', '#...', '.##.', '...#', '###.']
-const P_PX = ['###.', '#..#', '#..#', '###.', '#...', '#...']
+// v2: 5-wide letterforms on an exact 16-cell grid (1 cell = 4 units = 1px at 16px favicon size)
+const S_PX = ['.####', '#....', '.###.', '....#', '####.']
+const P_PX = ['####.', '#...#', '#...#', '#...#', '####.', '#....', '#....']
 function pixels(rows: string[], x0: number, y0: number, size: number, fill: string) {
   return rows.flatMap((row, y) => [...row].map((c, x) => c === '#'
     ? <rect key={`${x0}-${x}-${y}`} x={x0 + x * size} y={y0 + y * size} width={size} height={size} fill={fill} />
@@ -200,14 +201,14 @@ const concepts: Concept[] = [
     ),
   },
   {
-    id: 'pixel', name: 'sp in pixels', style: 'Pixel',
-    why: 'Drawn on the pixel grid, so at 16 px every edge lands on a real pixel: the sharpest favicon of the set.',
+    id: 'pixel', name: 'sp in pixels', style: 'Pixel', shortlisted: true,
+    why: 'Chosen. Redrawn with 5-pixel letterforms on an exact 16-cell grid: at 16, 32 and 48 px every edge lands on a real pixel, so it stays the sharpest and most readable favicon of the set.',
     mark: (t) => (
       <svg viewBox="0 0 64 64" role="img" aria-label="sp in pixel type" shapeRendering="crispEdges">
-        <rect width="64" height="64" rx="14" fill={INK[t]} shapeRendering="auto" />
-        {pixels(S_PX, 11, 19, 5, PAPER[t])}
-        {pixels(P_PX, 33, 19, 5, PAPER[t])}
-        <rect x="54" y="34" width="5" height="5" fill={ACCENT[t]} />
+        <rect width="64" height="64" rx="12" fill={INK[t]} shapeRendering="auto" />
+        {pixels(S_PX, 8, 16, 4, PAPER[t])}
+        {pixels(P_PX, 32, 16, 4, PAPER[t])}
+        <rect x="56" y="32" width="4" height="4" fill={ACCENT[t]} />
       </svg>
     ),
   },

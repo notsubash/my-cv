@@ -9,7 +9,7 @@
   line-height: 1.7;
   color: var(--color-ink);
   font-variant-numeric: lining-nums;
-  max-width: calc(54ch + 2 * var(--gutter)); /* IBM Plex Sans 18px: 54ch measured at ~70 CPL on real posts */
+  max-width: calc(45rem + 2 * var(--gutter)); /* 720px column, matched to Lilian Weng (owner preference, 2026-11-23) */
   margin: 0 auto;
   padding: 2.5rem var(--gutter) 0;
   font-kerning: normal;
@@ -26,11 +26,11 @@
 /* ── header ────────────────────────────────────────────────────────── */
 .post > header, .case > header { margin-bottom: 2rem; font-family: var(--font-ui); }
 .post > header h1, .case > header h1 {
-  font-family: var(--font-ui); font-size: clamp(2rem, 1.35rem + 2.6vw, 3rem); font-weight: 700;
+  font-family: var(--font-ui); font-size: clamp(1.875rem, 1.3rem + 2.2vw, 2.625rem); font-weight: 700;
   line-height: 1.08; letter-spacing: -0.03em; color: var(--color-ink); text-wrap: balance; margin: 0.5rem 0 1.25rem;
 }
 .post > header > p, .case > header > p {
-  font-family: var(--font-prose); font-size: 1.25rem; font-weight: 400; line-height: 1.5; color: var(--color-ink-2); text-wrap: pretty; margin-bottom: 1.25rem; max-width: 34em;
+  font-family: var(--font-prose); font-size: 1.125rem; font-weight: 400; line-height: 1.55; color: var(--color-ink-2); text-wrap: pretty; margin-bottom: 1.25rem; max-width: 34em;
 }
 /* meta row (date · reading time): no calendar icon, one quiet line */
 .post > header > div:first-child { font-size: var(--text-meta); color: var(--color-ink-3); gap: 0.5rem; }
@@ -44,16 +44,16 @@
 .post > hr { display: none; }
 
 /* ── running text ──────────────────────────────────────────────────── */
-.prose-custom { color: var(--color-ink); font-size: var(--text-prose); line-height: 1.7; }
-@media (max-width: 639px) { .post, .case, .prose-custom { font-size: 1.0625rem; line-height: 1.65; } }
+.prose-custom { color: var(--color-ink); font-size: 1rem; line-height: 1.7; }
+@media (max-width: 639px) { .post, .case, .prose-custom { font-size: 1rem; line-height: 1.65; } }
 .prose-custom > section + section { margin-top: 3.75rem; }
 .prose-custom p { margin-top: 1em; text-wrap: pretty; }
 .prose-custom section > :first-child { margin-top: 0; }
 .prose-custom h2 {
-  font-family: var(--font-ui); font-size: 1.75rem; font-weight: 650; line-height: 1.18; letter-spacing: -0.022em;
-  color: var(--color-ink); margin: 0 0 1rem; text-wrap: balance; scroll-margin-top: 1.5rem;
+  font-family: var(--font-ui); font-size: 1.625rem; font-weight: 650; line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--color-ink); margin: 0 0 0.875rem; text-wrap: balance; scroll-margin-top: 1.5rem;
 }
-.prose-custom h3 { font-family: var(--font-ui); font-size: 1.375rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; color: var(--color-ink); margin: 2em 0 0.5rem; }
+.prose-custom h3 { font-family: var(--font-ui); font-size: 1.25rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; color: var(--color-ink); margin: 2em 0 0.5rem; }
 .prose-custom h2 + h3 { margin-top: 0.75em; }
 .prose-custom h4 { font-family: var(--font-ui); font-size: 1.0625rem; font-weight: 650; margin: 1.5em 0 0.25rem; }
 .prose-custom strong { color: var(--color-ink); font-weight: 600; }
@@ -172,18 +172,6 @@
 .case-table-value { font-weight: 650; color: var(--color-ink); }
 .case-table-note { display: block; font-size: var(--text-meta); color: var(--color-ink-3); white-space: normal; }
 
-/* ── about ─────────────────────────────────────────────────────────── */
-.about-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px var(--color-rule); margin-bottom: 0.75rem; }
-.about-portrait { max-width: 22rem; margin-inline: auto !important; }
-.about-skills { display: grid; gap: 1rem 2rem; margin-top: 1.5rem; font-family: var(--font-ui); }
-@media (min-width: 640px) { .about-skills { grid-template-columns: 1fr 1fr; } }
-.about-skills dt { font-size: 0.9375rem; font-weight: 650; color: var(--color-ink); }
-.about-skills dd { margin-top: 0.125rem; font-size: 0.875rem; line-height: 1.5; color: var(--color-ink-2); }
-.prose-custom .about-quote { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--color-rule); }
-.about-quote blockquote p { font-size: 1.25rem; line-height: 1.45; text-wrap: pretty; text-indent: -0.42em; }
-.prose-custom .about-quote figcaption { display: flex; align-items: center; gap: 0.75rem; margin-inline: 0 !important; }
-.about-quote figcaption img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex: none; border: 0; }
-.about-quote-src { color: var(--color-ink-3); }
 .toc-rail, .toc-fab {
   opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(-6px);
   transition: opacity 140ms ease, transform 140ms var(--ease-out), visibility 0s linear 140ms;
@@ -198,11 +186,7 @@
   text-decoration-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
 }
 .post a.text-primary:hover { color: var(--color-accent); text-decoration-color: currentColor; }
-.about-lead { margin: 0 0 2.5rem; }
-.about-lead img { display: block; width: 100%; height: auto; border-radius: var(--radius-lg); }
-.about-lead figcaption { margin-top: 0.625rem; font: 400 0.875rem/1.5 var(--font-ui); color: var(--color-ink-2); }
-@media (min-width: 1000px) { .about-lead { margin-inline: calc(-1 * var(--bleed)); } .about-lead figcaption { margin-inline: var(--bleed); } }
-.post > header .about-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin: 1.25rem 0 0; font: 500 0.9375rem/1 var(--font-ui); }
+
 
 /* ── diagrams (hand-drawn SVGs in posts) ───────────────────────────── */
 /* Labels in the reading face, with a legible floor; the 9–10px originals were unreadable at column width. */
@@ -226,7 +210,7 @@
 .post, .case, .prose-custom { font-weight: 420; }
 .prose-custom :is(h2, h3, h4) { font-weight: 650; }
 
-/* Type scale for reading (ratio 1.25 from the 18px body): h3 22 · h2 28 · h1 to 48. Mobile steps down one notch. */
+/* Type scale for a 16px body (after Lilian Weng): h3 20 · h2 26 · h1 to 42. Mobile steps down one notch. */
 .prose-custom figure:not(.codeblock) figcaption { font-size: 0.9375rem !important; }
 @media (max-width: 639px) {
   .post > header h1, .case > header h1 { font-size: 1.875rem; }
@@ -234,27 +218,3 @@
   .prose-custom h2 { font-size: 1.5rem; }
   .prose-custom h3 { font-size: 1.25rem; }
 }
-
-/* ── about (long form, after the reference's structure) ────────────── */
-.about > header { margin-bottom: 1.5rem; }
-.about .about-lead { margin-bottom: 2.5rem; }
-.about-bio p:first-child { margin-top: 0; font-size: 1.25rem; line-height: 1.55; }
-.about > .about-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 2rem; font: 500 0.9375rem/1 var(--font-ui); }
-.about-block { margin-top: 3.5rem; font-family: var(--font-ui); }
-.about-block > h2, .about-insta-head h2 { font-size: 1.75rem; font-weight: 650; letter-spacing: -0.022em; line-height: 1.2; margin-bottom: 1rem; }
-.about-lines { display: grid; gap: 1.25rem; padding-top: 1.5rem; border-top: 1px solid var(--color-rule); }
-.about-lines dt { font-size: 0.9375rem; font-weight: 650; color: var(--color-ink); }
-.about-lines dd { margin-top: 0.25rem; font-family: var(--font-prose); font-size: 1rem; line-height: 1.6; color: var(--color-ink-2); }
-.about-recent { list-style: none; display: grid; gap: 0.75rem; }
-.about-recent li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; }
-.about-recent .link { display: inline-flex; align-items: center; gap: 2px; font-size: 1.125rem; font-weight: 600; }
-.about-recent span { color: var(--color-ink-2); font-family: var(--font-prose); }
-.about-more { margin-top: 1rem; font-size: 0.9375rem; }
-.about-with { list-style: none; display: grid; gap: 0.375rem; }
-.about-with li { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; color: var(--color-ink); }
-.about-insta-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
-.about-grid { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-@media (min-width: 640px) { .about-grid { grid-template-columns: repeat(3, 1fr); } }
-.about-grid a { display: block; overflow: hidden; border-radius: var(--radius-md); aspect-ratio: 1; background: var(--color-code); }
-.about-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 400ms var(--ease-out); }
-@media (hover: hover) and (pointer: fine) { .about-grid a:hover img { transform: scale(1.04); } }
