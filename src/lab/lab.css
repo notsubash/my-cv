@@ -1,0 +1,108 @@
+/* Phase 3 prototype tokens. Scoped to .lab so production pages are untouched.
+   Same names/values as docs/redesign/theme.proposed.css (the @theme block for Phase 4).
+   Every value is justified in docs/redesign/03-plan.md §2. */
+
+.lab {
+  /* type — modular scale, ratio 1.25 (reference medians: h2÷body 1.50, h1÷body 2.00) */
+  --font-ui: "Outfit", system-ui, sans-serif;
+  --font-prose: "Iowan Old Style", "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+  --text-meta: 0.8125rem;   /* 13px — floor; nothing smaller ships */
+  --text-ui: 1rem;          /* 16px */
+  --text-prose: 1.0625rem;  /* 17px — reference article median 16–17, range 14–19.2 */
+  --text-lead: 1.25rem;     /* 20px  step +1 */
+  --text-h3: 1.25rem;       /* 20px  step +1 */
+  --text-h2: 1.5625rem;     /* 25px  step +2 (≈1.5× prose) */
+  --text-h1: 1.953rem;      /* 31px  step +3 (≈2× prose) */
+  --text-display: 2.441rem; /* 39px  step +4 */
+  --leading-prose: 1.6;     /* reference median 1.5, long-form serif sites 1.6–1.65 */
+  --leading-ui: 1.45;
+  --leading-tight: 1.15;
+  --measure: 66ch;          /* 73 CPL measured at 1440 (article template overrides in ch) */
+
+  /* space — 4px base, 8px rhythm */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+
+  /* colour — near-monochrome ink + one accent (light) */
+  --paper: #fbfbfa;
+  --surface: #ffffff;
+  --ink: #16181b;        /* 17.2:1 on paper */
+  --ink-2: #464b53;      /* 8.5:1 — secondary text, a real step below ink */
+  --ink-3: #676c75;      /* 5.1:1 (4.8:1 on code-bg) — metadata */
+  --rule: #e2e3e5;
+  --accent: #0b6a99;     /* 5.7:1 — continuity with current primary hsl(200 80% 34%) */
+  --accent-wash: #dcefff;
+  --code-bg: #f3f4f5;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-pop: 0 8px 24px rgb(0 0 0 / 0.12), 0 1px 2px rgb(0 0 0 / 0.08);
+
+  /* motion */
+  --dur-1: 120ms; --dur-2: 180ms; --dur-3: 260ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  line-height: var(--leading-ui);
+  letter-spacing: 0;
+  min-height: 100dvh;
+}
+
+.dark .lab {
+  --paper: #111315;
+  --surface: #17191c;
+  --ink: #ebecee;        /* 15.8:1 */
+  --ink-2: #b3b8bf;      /* 9.3:1 */
+  --ink-3: #8b9099;      /* 5.8:1 */
+  --rule: #2a2d32;
+  --accent: #6cc4f5;     /* 9.6:1 */
+  --accent-wash: #12324a;
+  --code-bg: #1b1e22;
+  --shadow-pop: 0 8px 24px rgb(0 0 0 / 0.5);
+}
+
+/* ---------- shared primitives ---------- */
+.lab a { color: inherit; }
+.lab :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.lab .meta { font-size: var(--text-meta); color: var(--ink-3); letter-spacing: 0.01em; }
+.lab .num { font-variant-numeric: tabular-nums; }
+.lab .link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--dur-1) var(--ease-standard), color var(--dur-1) var(--ease-standard);
+}
+.lab .link:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.lab .mark { background: linear-gradient(transparent 58%, var(--accent-wash) 58%); padding: 0 0.08em; }
+
+.lab .btn {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  min-height: 44px; padding: 0 var(--s-5);
+  border-radius: var(--radius-md); border: 1px solid transparent;
+  font: 600 var(--text-ui)/1 var(--font-ui); text-decoration: none; cursor: pointer;
+  transition: background-color var(--dur-1) var(--ease-standard), border-color var(--dur-1) var(--ease-standard), transform var(--dur-1) var(--ease-out);
+}
+.lab .btn:active { transform: scale(0.98); }
+.lab .btn-primary { background: var(--ink); color: var(--paper); }
+.lab .btn-primary:hover { background: color-mix(in srgb, var(--ink) 86%, var(--accent)); }
+.lab .btn-quiet { background: transparent; color: var(--ink); border-color: var(--rule); }
+.lab .btn-quiet:hover { border-color: var(--ink-3); }
+
+.lab .chip { font-size: var(--text-meta); color: var(--ink-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .lab *, .lab *::before, .lab *::after { transition-duration: 0.01ms !important; animation: none !important; }
+}
+
+/* entrance: one fade-up for the hero block only, CSS so the prerender snapshot is the final state */
+@keyframes lab-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.lab .rise { animation: lab-rise var(--dur-3) var(--ease-out) both; }
+.lab .rise-2 { animation-delay: 60ms; }
+.lab .rise-3 { animation-delay: 120ms; }

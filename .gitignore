@@ -52,3 +52,6 @@ chatbot/.playwright-mcp/
 scripts/chunks/
 .superpowers/
 .worktrees/
+
+# Redesign reference screenshots are third-party content: keep local only
+docs/redesign/references/*.webp

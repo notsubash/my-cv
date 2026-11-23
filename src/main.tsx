@@ -45,6 +45,10 @@ const TheUnderlyingCurve = lazy(loadTheUnderlyingCurve)
 const ActivityRecognition = lazy(loadActivityRecognition)
 const SteamML = lazy(loadSteamML)
 const WikipediaVoting = lazy(loadWikipediaVoting)
+// Phase 3 design prototypes (redesign/evidence-first). Not prerendered, noindex.
+const LabHomeA = lazy(() => import('./lab/LabHomeA'))
+const LabHomeB = lazy(() => import('./lab/LabHomeB'))
+const LabArticle = lazy(() => import('./lab/LabArticle'))
 
 /** Preload the active route chunk before createRoot so Suspense does not flash null over prerendered HTML. */
 const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
@@ -207,6 +211,9 @@ const app = (
             <Route path="/projects/activity-recognition" element={<ActivityRecognition />} />
             <Route path="/projects/steam-ml" element={<SteamML />} />
             <Route path="/projects/wikipedia-voting" element={<WikipediaVoting />} />
+            <Route path="/lab/a" element={<LabHomeA />} />
+            <Route path="/lab/b" element={<LabHomeB />} />
+            <Route path="/lab/article" element={<LabArticle />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

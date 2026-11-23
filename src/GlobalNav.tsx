@@ -86,7 +86,8 @@ function BackToTop() {
 
 export default function GlobalNav() {
   const { pathname } = useLocation()
-  const isHome = pathname === '/'
+  // /lab/* design prototypes carry their own header; give them the floating toggle like home.
+  const isHome = pathname === '/' || pathname.startsWith('/lab/')
   const isBlogPost = pathname.startsWith('/blog/')
   const { isDark, toggleTheme } = useTheme()
   const pageTitle = PAGE_TITLE[pathname] ?? null
