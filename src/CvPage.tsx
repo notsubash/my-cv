@@ -74,7 +74,7 @@ export default function CvPage() {
       <div className="site-col">
         <header className="site-intro">
           <h1>Experience &amp; CV</h1>
-          <p>AI/ML engineer shipping LLM systems since 2024. Everything behind the homepage, in one place.</p>
+          <p>AI/ML engineer shipping LLM systems and working on Data since 2021. Everything behind the homepage, in one place.</p>
           <p className="cv-actions"><CvDownload placement="cv" className="btn btn--primary">Download CV (PDF)</CvDownload></p>
         </header>
 

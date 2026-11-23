@@ -14,7 +14,7 @@ export const person = {
 
 /** Recruiter checklist: the six things a screen looks for, in the order they look. */
 export const facts = [
-  { term: 'Role', detail: 'AI/ML Engineer at Scopic Software', note: 'Oct 2024 – now' },
+  { term: 'Role', detail: 'AI/ML Engineer at Scopic Software'},
   { term: 'Focus', detail: 'Backend, Agentic AI, LLM evaluation, voice AI, SaaS' },
   { term: 'Stack', detail: 'Python, PyTorch, LangGraph, FastAPI, AWS, Docker, Kubernetes' },
   { term: 'Education', detail: 'MSc Data Science, University of Exeter' },
@@ -44,14 +44,14 @@ export const work: readonly WorkItem[] = [
     slug: 'lastcall',
     title: 'LastCall',
     kind: 'Full-stack product, built solo',
-    problem: 'Scheduled posts still publish after the product sells out or the job closes.',
+    problem: 'Scheduled posts still publish after the linked product sells out or the job closes.',
     built: 'A Buffer app that checks every queued link and holds stale posts. Rules decide, never a model.',
     result: { value: '100% / 95%', label: 'precision / recall on 150 real links; 1,773 tests' },
     href: 'https://lastcall.subash-pandey.com',
     external: true,
     linkLabel: 'Open the live app',
     image: '/projects/lastcall.webp',
-    tags: ['TypeScript', 'Hono', 'SQLite', 'OAuth PKCE'],
+    tags: ['TypeScript', 'Hono', 'Buffer GraphQL API', 'OAuth PKCE'],
   },
   {
     slug: 'gavel',
@@ -70,7 +70,7 @@ export const work: readonly WorkItem[] = [
     slug: 'craft',
     title: 'Craft',
     kind: 'Agent tooling and evaluation',
-    problem: 'Agent skills ship without evals, pinned versions or review.',
+    problem: 'Agent skills ship without evals, pinned versions or review. Personal skills directory for Claude.',
     built: 'A Claude Code marketplace and CLI: 17 skills, 42 audited third-party skills, evals enforced in CI.',
     result: { value: '+0.67', label: 'task score over the no-skill baseline' },
     href: 'https://github.com/notsubash/claude-skills',
