@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { translations } from './i18n'
 import { usePageSeo } from './hooks/usePageSeo'
-import { SiteFooter } from './site/SiteChrome'
+import { CvDownload, SiteFooter } from './site/SiteChrome'
 
 function StoryPhoto({
   src,
@@ -28,7 +28,6 @@ function StoryPhoto({
 
 export default function AboutPage() {
   const t = translations.en
-  const recommendation = t.recommendations.items[0]
 
   usePageSeo({
     title: 'About | Subash Pandey',
@@ -39,10 +38,17 @@ export default function AboutPage() {
   return (
     <main id="main-content" className="site">
       <article className="post about">
+        <figure className="about-lead">
+          <img src="/UK_stay-800.webp" srcSet="/UK_stay-480.webp 480w, /UK_stay-800.webp 800w, /UK_stay.webp 1200w" sizes="(min-width: 1000px) 46rem, calc(100vw - 2rem)" alt="Subash with Tower Bridge and the Thames behind him in London" width={1200} height={900} fetchPriority="high" decoding="async" />
+          <figcaption>A grey day in London, during the MSc years.</figcaption>
+        </figure>
         <header>
-          <img className="about-avatar" src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="72px" alt="Subash Pandey" width={72} height={72} />
-          <h1>About</h1>
+          <h1>Hello, I’m Subash.</h1>
           <p>An AI/ML engineer from Kathmandu who likes taking ideas past the demo and into something people use.</p>
+          <p className="about-actions">
+            <CvDownload placement="about" className="btn btn--quiet">Download CV</CvDownload>
+            <Link className="link" to="/cv">Full experience</Link>
+          </p>
         </header>
 
         <div className="prose-custom">
@@ -68,9 +74,8 @@ export default function AboutPage() {
           <section>
             <h2>UK years, then home</h2>
             <p>
-              Living abroad wasn't only lectures. I got to wander, meet people, and take photos like this one in London when the sky was doing its usual grey thing.
+              Living abroad wasn't only lectures. I got to wander, meet people, and take photos like the one at the top of this page, when London's sky was doing its usual grey thing.
             </p>
-            <StoryPhoto src="/UK_stay.webp" alt="Subash with Tower Bridge and the Thames behind him in London" caption="A grey day in London" width={1200} height={900} />
             <p>
               Now I'm back in Kathmandu, working remotely. I like problems where automation makes someone's day easier: chat systems, voice features, evaluation, assessment tools, and the product pieces around them. Different projects, same curiosity.
             </p>
@@ -116,24 +121,10 @@ export default function AboutPage() {
             <h2>What I'm looking for</h2>
             <p>
               Remote AI/ML or GenAI roles where I can help build things end to end. I'm based in Kathmandu (UTC+5:45) and keep overlap with US and EU teams.
-              The full record is on my <Link to="/cv">experience page</Link>.
+              The full record is on my <Link to="/cv">experience page</Link>, or <CvDownload placement="about_body">download the CV</CvDownload>.
             </p>
           </section>
 
-          {recommendation && (
-            <figure className="about-quote">
-              <blockquote>
-                <p>“{recommendation.quote}”</p>
-              </blockquote>
-              <figcaption>
-                <img src="/akash.webp" alt="" width={36} height={36} loading="lazy" decoding="async" />
-                <span>
-                  <a href={recommendation.url} target="_blank" rel="noopener noreferrer">{recommendation.author}</a>, {recommendation.role}
-                  <span className="about-quote-src"> · {recommendation.source}, {recommendation.date}</span>
-                </span>
-              </figcaption>
-            </figure>
-          )}
         </div>
 
         <SiteFooter placement="about" />

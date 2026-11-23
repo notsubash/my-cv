@@ -175,7 +175,6 @@ export default function BlogLatentParking() {
               caption={<>True-dynamics CEM controls the first 40 actions, including the success-triggering action. A scripted full brake <K>[-1, 0]</K> supplies the final five, so the stopped pose is not entirely CEM output. This is not the learned-model result.</>}
               width={600}
               height={300}
-              eager
             />
             <p>
               A planner can look intelligent because every future it considers is perfectly simulated. With the real vehicle physics, it can test action sequences, rewind, and choose a move toward the stall. The search is real, but the imagination is an oracle.

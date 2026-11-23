@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight, Calendar, Check, Copy, FileText } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Calendar, Check, Copy, FileDown, Github, Linkedin } from 'lucide-react'
 import { seo } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
 import { CalBookButton } from './CalBookButton'
@@ -8,7 +8,7 @@ import posthog from './posthog'
 import { captureOnce } from './analytics'
 import { BLOG_ENABLED } from './config'
 import { experience, facts, person, posts, recommendation, work, type WorkItem } from './home/home-content'
-import { SiteHeader, SiteLinks } from './site/SiteChrome'
+import { CvDownload, SiteHeader, SiteLinks } from './site/SiteChrome'
 import './home/home.css'
 
 const SECTIONS = ['work', 'experience', 'writing', 'contact'] as const
@@ -63,7 +63,7 @@ function CopyEmail({ placement }: { placement: 'hero' | 'footer' }) {
     )
   }, [placement])
   return (
-    <button type="button" className="btn btn--quiet hm-copy" data-copied={copied || undefined} onClick={copy}>
+    <button type="button" className="hm-elsewhere-link hm-copy" data-copied={copied || undefined} onClick={copy}>
       <span className="hm-copy-icon" aria-hidden="true">
         <Copy size={16} className="hm-copy-a" />
         <Check size={16} className="hm-copy-b" />
@@ -192,18 +192,28 @@ function App() {
               <Calendar size={18} aria-hidden="true" />
               Book a 30-min intro
             </CalBookButton>
-            <Link to="/cv" className="btn btn--quiet" onClick={() => posthog.capture('cv_viewed', { placement: 'hero' })}>
-              <FileText size={16} aria-hidden="true" />
-              Full CV
-            </Link>
-            <CopyEmail placement="hero" />
+            <CvDownload placement="hero" className="btn btn--quiet">
+              <FileDown size={16} aria-hidden="true" />
+              Download CV
+            </CvDownload>
           </div>
+          <p className="hm-elsewhere">
+            <CopyEmail placement="hero" />
+            <a className="hm-elsewhere-link" href={person.linkedin} target="_blank" rel="noopener noreferrer"
+              onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'hero' })}>
+              <Linkedin size={15} aria-hidden="true" />LinkedIn
+            </a>
+            <a className="hm-elsewhere-link" href={person.github} target="_blank" rel="noopener noreferrer"
+              onClick={() => posthog.capture('outbound_link_clicked', { destination: 'github', placement: 'hero' })}>
+              <Github size={15} aria-hidden="true" />GitHub
+            </a>
+          </p>
         </section>
 
         <section id="work" aria-labelledby="hm-work-h" className="hm-section">
           <div className="site-head">
             <h2 id="hm-work-h">Selected work</h2>
-            <p>The problem, what I built, and what it showed</p>
+            <p>Problem, build, result</p>
           </div>
           <WorkList />
         </section>

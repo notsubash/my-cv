@@ -3,8 +3,7 @@ import { translations } from './i18n'
 import { usePageSeo } from './hooks/usePageSeo'
 import posthog from './posthog'
 import { BLOG_ENABLED } from './config'
-import { SiteFooter } from './site/SiteChrome'
-import { person } from './home/home-content'
+import { CvDownload, SiteFooter } from './site/SiteChrome'
 import './site/cv.css'
 
 // Source of truth: CV_November_2026 (public/) and src/i18n.ts. Nothing here is new information.
@@ -76,6 +75,7 @@ export default function CvPage() {
         <header className="site-intro">
           <h1>Experience &amp; CV</h1>
           <p>AI/ML engineer shipping LLM systems since 2024. Everything behind the homepage, in one place.</p>
+          <p className="cv-actions"><CvDownload placement="cv" className="btn btn--primary">Download CV (PDF)</CvDownload></p>
         </header>
 
         <section aria-labelledby="cv-exp" className="cv-section">
@@ -183,9 +183,6 @@ export default function CvPage() {
           </dl>
         </section>
 
-        <p className="cv-pdf">
-          Need a PDF for an applicant tracking system? <a className="link" href={`mailto:${person.email}?subject=CV%20request`} onClick={() => posthog.capture('contact_email_clicked', { placement: 'cv', action: 'request_pdf' })}>Email me</a> and I’ll send the current version.
-        </p>
       </div>
       <SiteFooter placement="cv" />
     </main>

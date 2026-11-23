@@ -17,20 +17,20 @@ function DiagramBox({
       />
       <text
         x={x + w / 2}
-        y={y + (sublabel ? h / 2 - 6 : h / 2 + 1)}
+        y={y + (sublabel ? h / 2 - 7 : h / 2 + 1)}
         textAnchor="middle"
         dominantBaseline="middle"
-        className="fill-[hsl(var(--foreground))] text-[11px] font-semibold"
+        className="diagram-label fill-[hsl(var(--foreground))] text-[13px] font-semibold"
       >
         {label}
       </text>
       {sublabel && (
         <text
           x={x + w / 2}
-          y={y + h / 2 + 10}
+          y={y + h / 2 + 11}
           textAnchor="middle"
           dominantBaseline="middle"
-          className="fill-[hsl(var(--muted-foreground))] text-[9px]"
+          className="diagram-label fill-[hsl(var(--muted-foreground))] text-[11px]"
         >
           {sublabel}
         </text>
@@ -69,7 +69,7 @@ function ArchFrame({
 }) {
   return (
     <figure className="my-8">
-      <div className="rounded-2xl border border-border/80 bg-gradient-to-b from-card via-card/90 to-muted/40 p-3 sm:p-5">
+      <div className="rounded-lg border border-border bg-card p-3 sm:p-5">
         <svg viewBox={viewBox} className="w-full" role="img" aria-label={label}>
           {children}
         </svg>
@@ -77,7 +77,7 @@ function ArchFrame({
       <figcaption className="text-center text-xs text-muted-foreground mt-2.5 px-2">{caption}</figcaption>
       {mermaid && (
         <details className="mt-2">
-          <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">Mermaid source</summary>
+          <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">Mermaid source</summary>
           <CodeBlock lang="mermaid" code={mermaid} />
         </details>
       )}

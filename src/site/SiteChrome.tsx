@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { CalBookButton } from '../CalBookButton'
 import posthog from '../posthog'
@@ -13,16 +13,33 @@ const NAV = [
   { to: '/about', match: (p: string) => p === '/about', label: 'About' },
 ]
 
+/** The name as a logo: weight contrast plus an accent full stop that turns on hover. */
+export function Wordmark({ current = false }: { current?: boolean }) {
+  return (
+    <Link to="/" className="wordmark" aria-label={`${person.name}, home`} aria-current={current ? 'page' : undefined}>
+      <span className="wordmark-first" aria-hidden="true">subash</span>
+      <span className="wordmark-last" aria-hidden="true">pandey</span>
+      <span className="wordmark-dot" aria-hidden="true" />
+    </Link>
+  )
+}
+
+/** Download link for the hosted PDF CV; every placement is tracked. */
+export function CvDownload({ placement, className = 'link', children = 'Download CV' }: { placement: string; className?: string; children?: ReactNode }) {
+  return (
+    <a className={className} href={person.cv} download onClick={() => posthog.capture('cv_downloaded', { placement })}>
+      {children}
+    </a>
+  )
+}
+
 /** One header for every page: who, where to go, and the booking action. */
 export function SiteHeader({ width = 'col' }: { width?: 'col' | 'wide' }) {
   const { pathname } = useLocation()
   const isHome = pathname === '/'
   return (
     <header className={`site-bar site-bar--${width}`}>
-      <Link to="/" className="site-name" aria-current={isHome ? 'page' : undefined}>
-        <img className="site-avatar" src="/foto-avatar-sm.webp" alt="" width={32} height={32} />
-        {person.name}
-      </Link>
+      <Wordmark current={isHome} />
       <nav aria-label="Primary" className="site-nav">
         {NAV.map((n) => {
           const href = isHome && n.to.startsWith('/#') ? n.to.slice(1) : n.to

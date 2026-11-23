@@ -9,6 +9,7 @@ export const person = {
   linkedin: 'https://www.linkedin.com/in/subash-pandey-ai',
   timeZone: 'Asia/Kathmandu',
   utcOffset: 'UTC+5:45',
+  cv: '/Subash-Pandey-CV.pdf',
 }
 
 /** Recruiter checklist: the six things a screen looks for, in the order they look. */
@@ -40,24 +41,16 @@ export type WorkItem = {
 
 export const work: readonly WorkItem[] = [
   {
-    slug: 'scopic-routing',
-    title: 'Chatbot routing benchmark',
-    kind: 'At Scopic Software, production chatbot',
-    problem: 'Handler and intent routing in a production chatbot ran on GPT-4o-mini, at 2–3 s p95 per call.',
-    built: 'Benchmarked a replacement classifier against it on the team’s golden set for handler and intent classification.',
-    result: { value: '88% vs 80%', label: 'handler accuracy vs GPT-4o-mini; intent 86% vs 77%, about 6× cheaper, p95 under 0.6 s' },
-    tags: ['LLM evaluation', 'Classification', 'Golden set'],
-  },
-  {
     slug: 'lastcall',
     title: 'LastCall',
     kind: 'Full-stack product, built solo for the Buffer Commit contest',
     problem: 'Scheduled social posts keep publishing after the product sells out, the job closes or the event is cancelled.',
     built: 'A Buffer app that checks every queued link and holds stale posts as drafts. A deterministic rule engine decides, never a model, so a blocked page can never cause a hold.',
-    result: { value: '100%', label: 'precision on 150 real URLs (zero false holds), 95% recall, 1,773 tests' },
+    result: { value: '15 days', label: 'solo, from spec to a live product; zero false holds on 150 real links' },
     href: 'https://lastcall.subash-pandey.com',
     external: true,
     linkLabel: 'Open the live app',
+    image: '/projects/lastcall.webp',
     tags: ['TypeScript', 'Hono', 'SQLite', 'OAuth PKCE'],
   },
   {
@@ -66,9 +59,9 @@ export const work: readonly WorkItem[] = [
     kind: 'Multi-agent LLM system',
     problem: 'One model reviewing a startup idea gives one confident opinion and no way to check it.',
     built: 'A panel of five LLM judges (investor, engineer, product manager, customer, competitor) that score an idea, debate it in LangGraph rounds and return a structured verdict. A FastAPI engine streams each run and resumes it after a crash.',
-    result: { value: '389', label: 'unit tests across 3 eval tiers, 19 streamed event types' },
-    href: '/projects/gavel',
-    linkLabel: 'Read the case study',
+    result: { value: '5 → 1', label: 'five expert judges debate an idea down to one structured verdict' },
+    href: '/blog/building-an-idea-workbench',
+    linkLabel: 'Read the write-up',
     repo: 'https://github.com/notsubash/gavel',
     image: '/projects/gavel.webp',
     tags: ['LangGraph', 'FastAPI', 'Pydantic', 'SQLite'],
@@ -83,6 +76,7 @@ export const work: readonly WorkItem[] = [
     href: 'https://github.com/notsubash/claude-skills',
     external: true,
     linkLabel: 'View on GitHub',
+    image: '/projects/craft.webp',
     tags: ['Node.js', 'LLM-as-judge', 'GitHub Actions'],
   },
   {
@@ -92,8 +86,8 @@ export const work: readonly WorkItem[] = [
     problem: 'An activity classifier scored 0.89 macro-F1, but only because the same 51 people appeared in both training and test data.',
     built: 'A subject-independent pipeline with GroupKFold splits, XGBoost, ONNX export and a CPU FastAPI endpoint.',
     result: { value: '0.89 → 0.29', label: 'macro-F1 once the leak is removed; the smartwatch model holds 0.70' },
-    href: '/projects/activity-recognition',
-    linkLabel: 'Read the case study',
+    href: '/blog/activity-recognition-pipeline',
+    linkLabel: 'Read the write-up',
     repo: 'https://github.com/notsubash/Activity-Recognition',
     image: '/projects/activity-recognition.webp',
     tags: ['XGBoost', 'ONNX', 'FastAPI', 'MLflow'],
@@ -117,7 +111,7 @@ export const work: readonly WorkItem[] = [
     kind: 'World models and control',
     problem: 'Can a self-parking planner tell when its learned world model is wrong?',
     built: 'A CEM planner, a JEPA latent dynamics model, latent MPC and three distrust signals in highway-env.',
-    result: { value: '0 / 6', label: 'seeds parked by the learned planner, written up as a negative result' },
+    result: { value: '0.41 m', label: 'from the stall with neighbours parked; the learned model beats the no-change baseline to horizon 20' },
     href: '/blog/when-a-self-parking-car-cannot-trust-its-imagination',
     linkLabel: 'Read the write-up',
     repo: 'https://github.com/notsubash/latent-parking',

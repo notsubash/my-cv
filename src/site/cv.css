@@ -21,3 +21,4 @@
 .cv-skills dt { font-size: var(--text-meta); color: var(--color-ink-3); padding-top: 0.15rem; }
 .cv-skills dd { font-size: 0.9375rem; color: var(--color-ink); max-width: 38em; }
 .cv-pdf { margin-top: 3rem; font-size: 0.9375rem; color: var(--color-ink-2); }
+.site-intro .cv-actions { margin-top: 1.5rem; font: inherit; }

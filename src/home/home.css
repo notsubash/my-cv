@@ -156,3 +156,19 @@
   .hm-preview img[data-on] { filter: none; transform: none; }
 }
 .hm-row-link--static:hover .hm-row-title { color: inherit; }
+
+/* Hero: display voice in the brand face; the sentence itself is the headline. */
+.hm-lede {
+  font-family: var(--font-ui); font-weight: 450; letter-spacing: -0.022em;
+  font-size: clamp(1.625rem, 1.1rem + 2.1vw, 2.375rem); line-height: 1.2; max-width: 19em;
+}
+/* Elsewhere: quiet text actions under the two buttons (email, LinkedIn, GitHub). */
+.hm-elsewhere { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.hm-elsewhere-link {
+  display: inline-flex; align-items: center; gap: 0.4rem; min-height: 40px; padding: 0;
+  font: 500 0.9375rem/1 var(--font-ui); color: var(--color-ink-2); background: none; border: 0; cursor: pointer;
+  text-decoration: none; transition: color var(--dur-1) var(--ease-standard);
+}
+.hm-elsewhere-link:hover { color: var(--color-ink); }
+.hm-elsewhere-link svg { color: var(--color-ink-3); transition: color var(--dur-1) var(--ease-standard); }
+.hm-elsewhere-link:hover svg { color: var(--color-accent); }

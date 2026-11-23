@@ -124,3 +124,38 @@
 .oss-pr-link:hover { color: var(--color-accent); }
 .oss-pr-link:hover svg { color: var(--color-accent); transform: translate(2px, -2px); }
 .oss-repo .ledger { border-top-color: var(--color-rule); }
+
+/* ── wordmark ──────────────────────────────────────────────────────── */
+.wordmark {
+  display: inline-flex; align-items: baseline; min-height: 44px; padding-top: 0.55rem;
+  font-family: var(--font-ui); font-size: 1.375rem; line-height: 1; letter-spacing: -0.045em;
+  color: var(--color-ink); text-decoration: none;
+}
+.wordmark-first { font-weight: 750; }
+.wordmark-last { font-weight: 350; margin-left: 0.16em; }
+.wordmark-dot {
+  width: 0.26em; height: 0.26em; margin-left: 0.09em; background: var(--color-accent); border-radius: 1px;
+  transition: transform 260ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .wordmark:hover .wordmark-dot { transform: rotate(45deg) scale(1.15); } }
+.wordmark:focus-visible .wordmark-dot { transform: rotate(45deg) scale(1.15); }
+
+/* ── writing index ─────────────────────────────────────────────────── */
+.wr-card { display: grid; gap: 1rem; text-decoration: none; color: var(--color-ink); border-radius: var(--radius-lg); }
+.wr-cover { display: block; overflow: hidden; border-radius: var(--radius-md); border: 1px solid var(--color-rule); background: var(--color-code); }
+.wr-cover img { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: cover; transition: transform 400ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .wr-card:hover .wr-cover img { transform: scale(1.015); } }
+.wr-body { display: flex; flex-direction: column; gap: 0.375rem; }
+.wr-date { font-size: var(--text-meta); color: var(--color-ink-3); font-variant-numeric: tabular-nums; }
+.wr-title { font-size: 1.25rem; font-weight: 650; line-height: 1.25; letter-spacing: -0.015em; text-wrap: balance; transition: color var(--dur-1) var(--ease-standard); }
+.wr-card:hover .wr-title { color: var(--color-accent); }
+.wr-summary { font-family: var(--font-prose); font-size: 0.9375rem; line-height: 1.6; color: var(--color-ink-2); text-wrap: pretty; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.wr-tags { font-size: var(--text-meta); color: var(--color-ink-3); }
+.wr-card--lead { padding-bottom: 2.5rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--color-rule); border-radius: 0; }
+.wr-card--lead .wr-title { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2rem); }
+.wr-card--lead .wr-summary { -webkit-line-clamp: 4; font-size: 1rem; }
+@media (min-width: 860px) {
+  .wr-card--lead { grid-template-columns: 1.35fr 1fr; gap: 2rem; align-items: center; }
+}
+.wr-grid { display: grid; gap: 3rem 2rem; }
+@media (min-width: 720px) { .wr-grid { grid-template-columns: 1fr 1fr; } }
