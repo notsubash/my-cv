@@ -5,13 +5,16 @@ import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-do
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import './index.css'
+import './styles/prose.css'
 import App from './App.tsx'
 import GlobalNav from './GlobalNav.tsx'
+import { SiteShell } from './site/SiteChrome'
 import { BLOG_ENABLED } from './config'
 import './posthog'
 
 const loadPrivacyPolicy = () => import('./PrivacyPolicy')
 const loadAboutPage = () => import('./AboutPage')
+const loadCvPage = () => import('./CvPage')
 const loadBlogPage = () => import('./BlogPage')
 const loadTechnicalNotesPage = () => import('./TechnicalNotesPage')
 const loadOpenSourcePage = () => import('./OpenSourcePage')
@@ -30,6 +33,7 @@ const loadWikipediaVoting = () => import('./articles/wikipedia-voting')
 
 const PrivacyPolicy = lazy(loadPrivacyPolicy)
 const AboutPage = lazy(loadAboutPage)
+const CvPage = lazy(loadCvPage)
 const BlogPage = lazy(loadBlogPage)
 const TechnicalNotesPage = lazy(loadTechnicalNotesPage)
 const OpenSourcePage = lazy(loadOpenSourcePage)
@@ -45,10 +49,16 @@ const TheUnderlyingCurve = lazy(loadTheUnderlyingCurve)
 const ActivityRecognition = lazy(loadActivityRecognition)
 const SteamML = lazy(loadSteamML)
 const WikipediaVoting = lazy(loadWikipediaVoting)
+// Phase 3 design prototypes (redesign/evidence-first). Not prerendered, noindex.
+const LabHomeA = lazy(() => import('./lab/LabHomeA'))
+const LabHomeB = lazy(() => import('./lab/LabHomeB'))
+const LabArticle = lazy(() => import('./lab/LabArticle'))
+const LabLogos = lazy(() => import('./lab/LabLogos'))
 
 /** Preload the active route chunk before createRoot so Suspense does not flash null over prerendered HTML. */
 const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
   '/about': loadAboutPage,
+  '/cv': loadCvPage,
   '/notes': loadTechnicalNotesPage,
   '/open-source': loadOpenSourcePage,
   '/privacy': loadPrivacyPolicy,
@@ -157,21 +167,19 @@ function NotFound() {
   })
 
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center text-center px-6">
-      <p className="text-8xl font-display font-bold text-primary mb-4">404</p>
-      <h1 className="text-2xl font-display font-semibold text-foreground mb-2">
-        Page not found
-      </h1>
-      <p className="text-muted-foreground mb-8 max-w-md">
-        The page you're looking for doesn't exist or has been moved.
-      </p>
-      <Link
-        to="/"
-        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
-      >
-        ← Back to home
-      </Link>
-    </div>
+    <main id="main-content" className="site">
+      <div className="site-col">
+        <header className="site-intro">
+          <h1>This page doesn’t exist</h1>
+          <p>It may have moved when the site was reorganised. Most people are looking for one of these.</p>
+        </header>
+        <ul className="ledger">
+          <li className="ledger-row"><Link to="/#work" className="ledger-link"><span className="ledger-title">Selected work</span></Link></li>
+          <li className="ledger-row"><Link to="/cv" className="ledger-link"><span className="ledger-title">Experience and CV</span></Link></li>
+          <li className="ledger-row"><Link to="/blog" className="ledger-link"><span className="ledger-title">Writing</span></Link></li>
+        </ul>
+      </div>
+    </main>
   )
 }
 
@@ -186,11 +194,13 @@ const app = (
         Skip to content
       </a>
       <GlobalNav />
+      <SiteShell />
       <PageTransition>
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/cv" element={<CvPage />} />
             {BLOG_ENABLED && <Route path="/blog" element={<BlogPage />} />}
             <Route path="/notes" element={<TechnicalNotesPage />} />
             <Route path="/open-source" element={<OpenSourcePage />} />
@@ -207,6 +217,10 @@ const app = (
             <Route path="/projects/activity-recognition" element={<ActivityRecognition />} />
             <Route path="/projects/steam-ml" element={<SteamML />} />
             <Route path="/projects/wikipedia-voting" element={<WikipediaVoting />} />
+            <Route path="/lab/a" element={<LabHomeA />} />
+            <Route path="/lab/b" element={<LabHomeB />} />
+            <Route path="/lab/article" element={<LabArticle />} />
+            <Route path="/lab/logos" element={<LabLogos />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

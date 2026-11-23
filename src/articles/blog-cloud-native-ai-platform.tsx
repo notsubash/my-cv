@@ -198,9 +198,9 @@ export default function BlogCloudNativeAiPlatform() {
   const { articleRef, readingTimeRef } = useReadingTime()
 
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" className="min-h-screen bg-background">
       <BlogToc articleRef={articleRef} />
-      <article ref={articleRef} className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <article ref={articleRef} className="post">
         <Link
           to="/blog"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group"
@@ -243,7 +243,7 @@ export default function BlogCloudNativeAiPlatform() {
 
         <hr className="border-border mb-10" />
 
-        <div className="prose-custom space-y-8 text-sm text-muted-foreground leading-relaxed">
+        <div className="prose-custom">
           <section>
             <h2 id="why-small" className="font-display text-lg font-semibold text-foreground mb-3">Why the API is small</h2>
             <p>

@@ -98,6 +98,7 @@ export function getAltPaths(): Record<string, string> {
   const paths: Record<string, string> = {
     '/': '/',
     '/about': '/about',
+    '/cv': '/cv',
     '/notes': '/notes',
     '/blog': '/blog',
     '/blog/when-a-self-parking-car-cannot-trust-its-imagination': '/blog/when-a-self-parking-car-cannot-trust-its-imagination',
@@ -120,6 +121,7 @@ export function getPageTitles(): Record<string, string> {
   const titles: Record<string, string> = {
     '/': "Subash Pandey's Portfolio",
     '/about': 'About',
+    '/cv': 'Experience & CV',
     '/notes': 'Technical Notes',
     '/open-source': 'Open Source',
     '/blog': 'Blog',

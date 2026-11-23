@@ -123,7 +123,7 @@ export default function BlogLatentParking() {
   return (
     <main id="main-content" className="min-h-screen bg-background">
       <BlogToc articleRef={articleRef} />
-      <article ref={articleRef} className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <article ref={articleRef} className="post">
         <Link
           to="/blog"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group"
@@ -167,7 +167,7 @@ export default function BlogLatentParking() {
 
         <hr className="border-border mb-10" />
 
-        <div className="prose-custom space-y-8 text-sm text-muted-foreground leading-relaxed">
+        <div className="prose-custom">
           <section>
             <Shot
               src={`${IMG}/parking_cem.webp`}
@@ -175,7 +175,6 @@ export default function BlogLatentParking() {
               caption={<>True-dynamics CEM controls the first 40 actions, including the success-triggering action. A scripted full brake <K>[-1, 0]</K> supplies the final five, so the stopped pose is not entirely CEM output. This is not the learned-model result.</>}
               width={600}
               height={300}
-              eager
             />
             <p>
               A planner can look intelligent because every future it considers is perfectly simulated. With the real vehicle physics, it can test action sequences, rewind, and choose a move toward the stall. The search is real, but the imagination is an oracle.

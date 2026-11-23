@@ -1,0 +1,63 @@
+/* Direction A — Ledger. Single measure column, serif lede, result-first rows. */
+.la { --col: 44rem; }
+.la-bar {
+  max-width: var(--col); margin: 0 auto; padding: var(--s-5) var(--s-4) 0;
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4);
+}
+.la-name { font-weight: 600; text-decoration: none; letter-spacing: -0.01em; }
+.la-nav { display: flex; gap: var(--s-5); font-size: 0.9375rem; color: var(--ink-2); padding-right: 56px; /* clears the global theme toggle */ }
+.la-nav a { text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+.la-nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 0.25em; }
+
+.la-col { max-width: var(--col); margin: 0 auto; padding: 0 var(--s-4) var(--s-9); }
+.la-hero { padding: var(--s-8) 0 var(--s-7); }
+.la-lede {
+  font-family: var(--font-prose); font-weight: 400;
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, var(--text-h2)); /* 22 → 25px */
+  line-height: 1.38; letter-spacing: -0.005em; max-width: 34em; text-wrap: pretty;
+}
+.la-sub { margin-top: var(--s-4); color: var(--ink-2); font-size: var(--text-ui); max-width: 33em; text-wrap: pretty; }
+.la-cta { margin-top: var(--s-5); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-4); }
+.la-status { display: inline-flex; align-items: center; gap: var(--s-2); }
+.la-dot { width: 7px; height: 7px; border-radius: 50%; background: #2f9e5b; box-shadow: 0 0 0 3px color-mix(in srgb, #2f9e5b 22%, transparent); }
+
+.la-section { margin-top: var(--s-8); }
+.la-hero + .la-section { margin-top: 0; }
+.la-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-4); padding-bottom: var(--s-3); border-bottom: 1px solid var(--ink); }
+.la-section-head h2 { font-size: var(--text-h3); font-weight: 600; letter-spacing: -0.01em; }
+
+.la-work { list-style: none; }
+.la-row { border-bottom: 1px solid var(--rule); padding: var(--s-5) 0 var(--s-4); }
+.la-row-link { display: grid; grid-template-columns: 1fr; gap: var(--s-3); text-decoration: none; border-radius: var(--radius-sm); }
+.la-row-main h3 { font-size: var(--text-h3); font-weight: 600; letter-spacing: -0.01em; margin-top: 2px; display: flex; align-items: center; gap: var(--s-2); }
+.la-arrow { color: var(--ink-3); transition: transform var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+.la-row-link:hover .la-arrow { transform: translateX(3px); color: var(--accent); }
+.la-row-link:hover h3 { color: var(--accent); }
+.la-problem { margin-top: var(--s-2); color: var(--ink); text-wrap: pretty; max-width: 33em; }
+.la-built { margin-top: var(--s-1); color: var(--ink-2); font-size: 0.9375rem; text-wrap: pretty; max-width: 35em; }
+.la-result { display: flex; flex-direction: column; gap: 2px; }
+.la-result-value { font-size: var(--text-h2); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+.la-result-label { font-size: var(--text-meta); color: var(--ink-2); max-width: 16em; }
+.la-row-foot { margin-top: var(--s-3); }
+.la-row-foot a { display: inline-flex; align-items: center; gap: 2px; }
+
+@media (min-width: 720px) {
+  .la-row-link { grid-template-columns: 1fr 12rem; gap: var(--s-6); align-items: start; }
+  .la-result { text-align: right; align-items: flex-end; padding-top: 22px; }
+}
+
+.la-prod { display: grid; gap: var(--s-4); padding-top: var(--s-5); }
+.la-prod dt { font-weight: 600; }
+.la-prod dd { color: var(--ink-2); margin-top: 2px; }
+@media (min-width: 720px) { .la-prod { grid-template-columns: repeat(3, 1fr); gap: var(--s-5); } }
+
+.la-quote { border-left: 2px solid var(--accent); padding-left: var(--s-5); }
+.la-quote blockquote { font-family: var(--font-prose); font-size: var(--text-lead); line-height: 1.5; text-wrap: pretty; }
+.la-quote figcaption { margin-top: var(--s-3); }
+
+.la-writing { list-style: none; }
+.la-writing li { display: flex; justify-content: space-between; gap: var(--s-4); align-items: baseline; padding: var(--s-3) 0; border-bottom: 1px solid var(--rule); }
+.la-writing li .meta { white-space: nowrap; }
+
+.la-foot-line { font-family: var(--font-prose); font-size: var(--text-lead); }
+.la-foot .meta { margin-top: var(--s-4); }

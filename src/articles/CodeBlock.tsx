@@ -1,34 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Check, Copy } from 'lucide-react'
 import posthog from '../posthog'
 
 export default function CodeBlock({ code, lang = 'python' }: { code: string; lang?: string }) {
   const [copied, setCopied] = useState(false)
+  const timer = useRef<number | undefined>(undefined)
+  useEffect(() => () => window.clearTimeout(timer.current), [])
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code).then(() => {
       posthog.capture('code_block_copied', { language: lang })
       setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      window.clearTimeout(timer.current)
+      timer.current = window.setTimeout(() => setCopied(false), 1600)
     })
   }
 
   return (
-    <div className="relative group my-4 rounded-xl border border-border bg-[hsl(var(--card))] overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/30">
-        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">{lang}</span>
-        <button
-          onClick={handleCopy}
-          className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
-          aria-label="Copy code"
-        >
-          {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-          {copied ? 'Copied' : 'Copy'}
+    <figure className="codeblock">
+      <figcaption className="codeblock-bar">
+        <span>{lang}</span>
+        <button type="button" onClick={handleCopy} aria-label={copied ? 'Copied' : `Copy ${lang} code`}>
+          {copied ? <Check className="w-3.5 h-3.5" aria-hidden="true" /> : <Copy className="w-3.5 h-3.5" aria-hidden="true" />}
+          <span aria-live="polite">{copied ? 'Copied' : 'Copy'}</span>
         </button>
-      </div>
-      <pre className="p-4 overflow-x-auto text-xs leading-relaxed">
-        <code className="text-foreground font-mono whitespace-pre">{code}</code>
-      </pre>
-    </div>
+      </figcaption>
+      {/* tabIndex: horizontal scroll must be reachable by keyboard */}
+      <pre tabIndex={0} aria-label={`${lang} code`}><code>{code}</code></pre>
+    </figure>
   )
 }

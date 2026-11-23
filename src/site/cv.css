@@ -1,0 +1,24 @@
+/* /cv — the full record, set as a ledger: period column, entry, plain bullets. */
+.cv-section { margin-top: 3.5rem; }
+.cv-section:first-of-type { margin-top: 0; }
+.cv-list { list-style: none; }
+.cv-item { display: grid; gap: 0.25rem; padding: 1.25rem 0; border-bottom: 1px solid var(--color-rule); }
+@media (min-width: 720px) { .cv-item { grid-template-columns: 8.5rem 1fr; gap: 1.5rem; } }
+.cv-period { font-size: var(--text-meta); color: var(--color-ink-3); font-variant-numeric: tabular-nums; padding-top: 0.2rem; }
+.cv-item h3 { font-size: 1.0625rem; font-weight: 650; line-height: 1.35; display: flex; flex-wrap: wrap; gap: 0 0.5rem; align-items: baseline; text-wrap: pretty; }
+.cv-org { font-weight: 450; color: var(--color-ink-2); }
+.cv-points { list-style: none; margin-top: 0.5rem; display: grid; gap: 0.5rem; }
+.cv-points li { position: relative; padding-left: 1rem; color: var(--color-ink-2); font-size: 0.9375rem; max-width: 38em; text-wrap: pretty; }
+.cv-points li::before { content: ''; position: absolute; left: 0.125rem; top: 0.7em; width: 5px; height: 1px; background: var(--color-ink-3); }
+.cv-stack, .cv-note { margin-top: 0.625rem; font-size: 0.875rem; color: var(--color-ink-3); max-width: 40em; text-wrap: pretty; }
+.cv-note { color: var(--color-ink-2); font-size: 0.9375rem; margin-top: 0.375rem; }
+.cv-quote { font-family: var(--font-prose); font-size: 1.0625rem; line-height: 1.5; max-width: 34em; text-wrap: pretty; }
+.cv-small { display: inline-flex; align-items: center; min-height: 40px; font-size: 0.875rem; }
+.cv-links { display: flex; flex-wrap: wrap; gap: 0 1rem; }
+.cv-skills { display: grid; gap: 1rem; padding-top: 1.25rem; }
+.cv-skills div { display: grid; gap: 0.125rem; }
+@media (min-width: 720px) { .cv-skills div { grid-template-columns: 8.5rem 1fr; gap: 1.5rem; } }
+.cv-skills dt { font-size: var(--text-meta); color: var(--color-ink-3); padding-top: 0.15rem; }
+.cv-skills dd { font-size: 0.9375rem; color: var(--color-ink); max-width: 38em; }
+.cv-pdf { margin-top: 3rem; font-size: 0.9375rem; color: var(--color-ink-2); }
+.site-intro .cv-actions { margin-top: 1.5rem; font: inherit; }

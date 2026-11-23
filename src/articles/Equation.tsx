@@ -22,9 +22,13 @@ export default function Eq({
   )
 
   if (block) {
+    // The wrapper is the one scroll region for wide equations, so it takes keyboard focus.
     return (
       <div
-        className="my-6 text-foreground"
+        className="eq text-foreground"
+        role="group"
+        aria-label="Equation"
+        tabIndex={0}
         dangerouslySetInnerHTML={{ __html: html }}
       />
     )

@@ -265,9 +265,9 @@ export default function BlogSteamGenreNetworks() {
   const { articleRef, readingTimeRef } = useReadingTime()
 
   return (
-    <main className="min-h-screen bg-background">
+    <main id="main-content" className="min-h-screen bg-background">
       <BlogToc articleRef={articleRef} />
-      <article ref={articleRef} className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+      <article ref={articleRef} className="post">
 
         <Link
           to="/blog"
@@ -305,7 +305,7 @@ export default function BlogSteamGenreNetworks() {
 
         <hr className="border-border mb-10" />
 
-        <div className="prose-custom space-y-8 text-sm text-muted-foreground leading-relaxed">
+        <div className="prose-custom">
 
           <section>
             <h2 id="motivation" className="font-display text-lg font-semibold text-foreground mb-3">Why model genres as a network?</h2>
@@ -577,7 +577,7 @@ X_train, X_test, y_train, y_test = train_test_split(
                   ].map(([model, r2, rmse, cv], i) => (
                     <tr key={i} className={i % 2 === 0 ? '' : 'bg-muted/30'}>
                       <td className="px-3 py-2 text-foreground font-medium">{model}</td>
-                      <td className={`px-3 py-2 text-right font-medium ${i === 2 ? 'text-red-500' : 'text-muted-foreground'}`}>{r2}</td>
+                      <td className={`px-3 py-2 text-right font-medium ${i === 2 ? 'text-red-700 [.dark_&]:text-red-400' : 'text-muted-foreground'}`}>{r2}</td>
                       <td className="px-3 py-2 text-right text-muted-foreground">{rmse}</td>
                       <td className="px-3 py-2 text-right text-muted-foreground">{cv}</td>
                     </tr>
