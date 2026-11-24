@@ -45,7 +45,7 @@ export const work: readonly WorkItem[] = [
   {
     slug: 'lastcall',
     title: 'LastCall',
-    kind: 'Full-stack product, built solo',
+    kind: 'Full-stack product, built for Buffer Commit',
     problem: 'Scheduled posts still publish after the linked product sells out or the job closes.',
     built: 'A Buffer app that checks every queued link and holds stale posts. Rules decide, never a model.',
     result: { value: '100% / 95%', label: 'precision / recall on 150 real links; 1,773 tests' },
@@ -126,7 +126,7 @@ export const work: readonly WorkItem[] = [
     kind: 'Visual explainers',
     problem: 'ML ideas usually arrive as walls of notation.',
     built: 'Silent one-idea explainers, animated in Manim and cut with FFmpeg.',
-    result: { value: '100K', label: 'views and 1,000+ followers in 40 days' },
+    result: { value: '100K+', label: 'views and 2,000+ followers' },
     href: '/projects/the-underlying-curve',
     linkLabel: 'Watch the series',
     image: '/projects/the-underlying-curve.webp',

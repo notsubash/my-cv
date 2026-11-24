@@ -1,7 +1,6 @@
 import { usePageSeo } from './hooks/usePageSeo'
-import posthog from './posthog'
 import { CvDownload, SiteFooter } from './site/SiteChrome'
-import { INSTAGRAM_HANDLE, INSTAGRAM_URL, photos } from './about/about-content'
+import { INSTAGRAM_HANDLE, photos } from './about/about-content'
 import './site/about.css'
 
 export default function AboutPage() {
@@ -30,25 +29,19 @@ export default function AboutPage() {
         <div className="ab-text">
           <h1 id="ab-title">Hello, I’m Subash.</h1>
           <p>
-            I’ve always liked problems where the answer has to be measured, not guessed. That pulled me from data analysis into
-            machine learning, and from there into building language-model systems that people rely on every day.
+            I’m drawn to problems where the answer matters to someone real, and that pull has carried me from data analysis into machine learning and now into language-model systems.
           </p>
           <p>
-            At Scopic Software I build and evaluate GenAI features end to end: retrieval and agents with LangGraph, the voice layer
-            of an AI receptionist, and the evaluation pipelines that decide what ships. The work I’m proudest of is usually the
-            measurement, like proving a cheaper model is the better one, or that an impressive score was leakage.
+            At Scopic Software I work on GenAI features from idea to production: retrieval and agents, the voice side of an AI receptionist, an AI interviewer platform and the evaluations that decide what’s ready to ship. I care most about whether the thing actually helps the person using it.
           </p>
           <p>
-            Working with remote, cross-functional teams has taught me to translate business goals into model behaviour, and to scope
-            work honestly before it starts.
+            I’ve learned that the best work starts with honest scoping and a clear picture of what success looks like. Working with remote, cross-functional teams has taught me to translate business goals into model behaviour, and to speak plainly about what’s possible.
           </p>
           <p>
-            I studied Computing at London Metropolitan University and Data Science at the University of Exeter. I’m currently an
-            AI/ML Engineer at Scopic Software, and open to remote roles.
+            I studied Computing at London Metropolitan University and Data Science at the University of Exeter. I’m currently an AI/ML Engineer at Scopic Software and open to remote roles.
           </p>
           <p>
-            When I’m not building, I’m playing or watching football (Real Madrid), travelling, losing an afternoon in a gallery, or
-            animating machine-learning ideas for The Underlying Curve.
+            Away from the keyboard, I follow Real Madrid, travel when I can, ride my bike and spend time with my family. I also create for The Underlying Curve, where I try to make machine learning ideas feel clear and a little fun.
           </p>
           <p className="ab-cv"><CvDownload placement="about" className="link">View my CV</CvDownload></p>
         </div>
@@ -58,22 +51,19 @@ export default function AboutPage() {
         <section className="ab-insta" aria-labelledby="ab-insta-h">
           <h2 id="ab-insta-h">Instagram</h2>
           <p>
-            Instagram is where I share a bit of life outside work.
-            {INSTAGRAM_URL && (
+            Instagram is where I share some of life’s adventures.
+            {INSTAGRAM_HANDLE && (
               <>
-                {' '}Feel free to follow along{' '}
-                <a className="link" href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
-                  onClick={() => posthog.capture('outbound_link_clicked', { destination: 'instagram', placement: 'about' })}>
-                  @{INSTAGRAM_HANDLE}
-                </a>.
+                {' '}I’d love to connect with you, so feel free to follow me{' '}
+                <strong className="ab-handle">@{INSTAGRAM_HANDLE}</strong>.
               </>
             )}
           </p>
           <ul className="ab-grid">
             {photos.map((ph) => (
-              <li key={ph.src}>
+              <li key={ph.src} className={ph.wide ? 'is-wide' : undefined}>
                 <a href={ph.href ?? ph.src} target="_blank" rel="noopener noreferrer" aria-label={`${ph.alt} (opens full size)`}>
-                  <img src={ph.src} alt="" loading="lazy" decoding="async" width={600} height={600} />
+                  <img src={ph.src} alt="" loading="lazy" decoding="async" width={ph.width} height={ph.height} />
                 </a>
               </li>
             ))}

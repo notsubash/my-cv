@@ -6,7 +6,7 @@ import { useHomeSeo } from './articles/use-article-seo'
 import { CalBookButton } from './CalBookButton'
 import posthog from './posthog'
 import { captureOnce } from './analytics'
-import { BLOG_ENABLED } from './config'
+import { BLOG_ENABLED, WORK_PREVIEW_IMAGES_ENABLED } from './config'
 import { experience, facts, person, posts, recommendation, work, type WorkItem } from './home/home-content'
 import { CvDownload, SiteHeader, SiteLinks } from './site/SiteChrome'
 import './home/home.css'
@@ -134,7 +134,7 @@ function WorkList() {
   const [y, setY] = useState(0)
   const [armed, setArmed] = useState(false) // images load only after first interaction
   const onActive = useCallback((i: number, el: HTMLElement) => {
-    if (!work[i]?.image) { setActive(null); return }
+    if (!WORK_PREVIEW_IMAGES_ENABLED || !work[i]?.image) { setActive(null); return }
     setArmed(true)
     setActive(i)
     setY(el.offsetTop)
@@ -144,11 +144,13 @@ function WorkList() {
       <ol className="hm-rows">
         {work.map((item, i) => <WorkRow key={item.slug} item={item} index={i} onActive={onActive} />)}
       </ol>
-      <div className="hm-preview" data-open={active !== null || undefined} style={{ '--y': `${y}px` } as CSSProperties} aria-hidden="true">
-        {armed && work.map((item, i) => item.image && (
-          <img key={item.slug} src={item.image} alt="" decoding="async" data-on={active === i || undefined} width={640} height={360} />
-        ))}
-      </div>
+      {WORK_PREVIEW_IMAGES_ENABLED && (
+        <div className="hm-preview" data-open={active !== null || undefined} style={{ '--y': `${y}px` } as CSSProperties} aria-hidden="true">
+          {armed && work.map((item, i) => item.image && (
+            <img key={item.slug} src={item.image} alt="" decoding="async" data-on={active === i || undefined} width={640} height={360} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
