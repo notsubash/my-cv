@@ -6,7 +6,7 @@ const CAL_NAMESPACE = 'intro'
 const CAL_LINK = 'subash-pandey/intro'
 
 type CalTheme = 'dark' | 'light'
-export type BookingPlacement = 'hero' | 'nav' | 'footer' | 'about' | 'cv' | 'case_study' | 'article'
+export type BookingPlacement = 'hero' | 'nav' | 'footer' | 'about' | 'cv' | 'case_study' | 'article' | 'contact'
 
 function getSiteTheme(): CalTheme {
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light'

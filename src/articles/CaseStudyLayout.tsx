@@ -133,9 +133,9 @@ export default function CaseStudyLayout({ meta, children }: { meta: CaseStudyMet
   return (
     <main id="main-content" className="min-h-screen bg-background">
       <div className="case">
-        <Link to="/#work">
+        <Link to="/projects">
           <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-          All work
+          All projects
         </Link>
 
         <header>

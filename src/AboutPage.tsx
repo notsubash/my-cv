@@ -26,19 +26,16 @@ export default function AboutPage() {
           />
         </figure>
 
-        <div className="ab-text">
+        <div className="ab-text ab-lead">
           <h1 id="ab-title">Hello, I’m Subash.</h1>
           <p>
             I’m drawn to problems where the answer matters to someone real, and that pull has carried me from data analysis into machine learning and now into language-model systems.
           </p>
-          <p>
-            At Scopic Software I work on GenAI features from idea to production: retrieval and agents, the voice side of an AI receptionist, an AI interviewer platform and the evaluations that decide what’s ready to ship. I care most about whether the thing actually helps the person using it.
-          </p>
+        </div>
+
+        <div className="ab-rest">
           <p>
             I’ve learned that the best work starts with honest scoping and a clear picture of what success looks like. Working with remote, cross-functional teams has taught me to translate business goals into model behaviour, and to speak plainly about what’s possible.
-          </p>
-          <p>
-            I studied Computing at London Metropolitan University and Data Science at the University of Exeter. I’m currently an AI/ML Engineer at Scopic Software and open to remote roles.
           </p>
           <p>
             Away from the keyboard, I follow Real Madrid, travel when I can, ride my bike and spend time with my family. I also create for The Underlying Curve, where I try to make machine learning ideas feel clear and a little fun.

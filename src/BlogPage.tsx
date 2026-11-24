@@ -1,37 +1,26 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import { translations } from './i18n'
 import { usePageSeo } from './hooks/usePageSeo'
 import posthog from './posthog'
 import { SiteFooter } from './site/SiteChrome'
 
-type Post = { slug: string; title: string; date: string; summary: string; tags: readonly string[]; image?: string }
+type Post = { slug: string; title: string; date: string; summary: string; tags: readonly string[] }
 
-function PostCard({ post, lead = false, eager = false }: { post: Post; lead?: boolean; eager?: boolean }) {
-  return (
-    <Link
-      to={`/blog/${post.slug}`}
-      onClick={() => posthog.capture('blog_post_clicked', { slug: post.slug, placement: 'catalog' })}
-      className={`wr-card${lead ? ' wr-card--lead' : ''}`}
-    >
-      {post.image && (
-        <span className="wr-cover">
-          <img src={post.image} alt="" width={1200} height={630} loading={eager ? 'eager' : 'lazy'} decoding="async" />
-        </span>
-      )}
-      <span className="wr-body">
-        <time className="wr-date">{post.date}</time>
-        <span className="wr-title">{post.title}</span>
-        <span className="wr-summary">{post.summary}</span>
-        <span className="wr-tags">{post.tags.join(' · ')}</span>
-      </span>
-    </Link>
-  )
+const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+
+/** "August 27, 2025" or "August 2026" → sortable key, year, and a short month. Parsed by hand: Safari won't parse "August 2026". */
+function parseDate(date: string) {
+  const year = Number(date.match(/\d{4}/)?.[0] ?? 0)
+  const month = Math.max(0, MONTHS.indexOf(date.slice(0, 3).toLowerCase()))
+  return { key: year * 12 + month, year, month: date.slice(0, 3) }
 }
 
 export default function BlogPage() {
-  const t = translations.en
-  const posts = t.blog.items as readonly Post[]
-  const [lead, ...rest] = posts
+  const posts = (translations.en.blog.items as readonly Post[])
+    .map((p) => ({ ...p, when: parseDate(p.date) }))
+    .sort((a, b) => b.when.key - a.when.key)
+  const years = [...new Set(posts.map((p) => p.when.year))]
 
   usePageSeo({
     title: 'Blog | Subash Pandey',
@@ -41,19 +30,37 @@ export default function BlogPage() {
 
   return (
     <main id="main-content" className="site">
-      <div className="site-col site-col--wide">
+      <div className="site-col">
         <header className="site-intro">
-          <h1>Writing</h1>
+          <h1>Blog</h1>
           <p>Long-form write-ups of what I built and measured, including the experiments that failed.</p>
         </header>
 
-        {lead && <PostCard post={lead} lead eager />}
-        <div className="wr-grid">
-          {rest.map((post, i) => <PostCard key={post.slug} post={post} eager={i < 2} />)}
+        <div className="bl">
+          {years.map((year) => (
+            <section key={year} className="bl-year" aria-labelledby={`bl-${year}`}>
+              <h2 id={`bl-${year}`} className="bl-year-label">{year}</h2>
+              <ol className="bl-list">
+                {posts.filter((p) => p.when.year === year).map((post) => (
+                  <li key={post.slug}>
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      className="bl-link"
+                      onClick={() => posthog.capture('blog_post_clicked', { slug: post.slug, placement: 'catalog' })}
+                    >
+                      <span className="bl-title">{post.title}<ArrowRight size={16} aria-hidden="true" /></span>
+                      <span className="bl-summary">{post.summary}</span>
+                      <span className="bl-meta"><time>{post.when.month}</time>{post.tags.length > 0 && <> · {post.tags.slice(0, 3).join(' · ')}</>}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))}
         </div>
         <p className="ledger-after">Shorter lessons live in <Link className="link" to="/notes">technical notes</Link>.</p>
       </div>
-      <SiteFooter placement="footer" width="wide" />
+      <SiteFooter placement="footer" />
     </main>
   )
 }
