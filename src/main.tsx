@@ -18,6 +18,8 @@ const loadCvPage = () => import('./CvPage')
 const loadBlogPage = () => import('./BlogPage')
 const loadTechnicalNotesPage = () => import('./TechnicalNotesPage')
 const loadOpenSourcePage = () => import('./OpenSourcePage')
+const loadProjectsPage = () => import('./ProjectsPage')
+const loadContactPage = () => import('./ContactPage')
 const loadBlogLatentParking = () => import('./articles/blog-latent-parking')
 const loadBlogRagPipeline = () => import('./articles/blog-rag-pipeline')
 const loadBlogSteamGenreNetworks = () => import('./articles/blog-steam-genre-networks')
@@ -37,6 +39,8 @@ const CvPage = lazy(loadCvPage)
 const BlogPage = lazy(loadBlogPage)
 const TechnicalNotesPage = lazy(loadTechnicalNotesPage)
 const OpenSourcePage = lazy(loadOpenSourcePage)
+const ProjectsPage = lazy(loadProjectsPage)
+const ContactPage = lazy(loadContactPage)
 const BlogLatentParking = lazy(loadBlogLatentParking)
 const BlogRagPipeline = lazy(loadBlogRagPipeline)
 const BlogSteamGenreNetworks = lazy(loadBlogSteamGenreNetworks)
@@ -54,6 +58,7 @@ const LabHomeA = lazy(() => import('./lab/LabHomeA'))
 const LabHomeB = lazy(() => import('./lab/LabHomeB'))
 const LabArticle = lazy(() => import('./lab/LabArticle'))
 const LabLogos = lazy(() => import('./lab/LabLogos'))
+const LabConcepts = lazy(() => import('./lab/LabConcepts'))
 
 /** Preload the active route chunk before createRoot so Suspense does not flash null over prerendered HTML. */
 const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
@@ -61,6 +66,8 @@ const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
   '/cv': loadCvPage,
   '/notes': loadTechnicalNotesPage,
   '/open-source': loadOpenSourcePage,
+  '/projects': loadProjectsPage,
+  '/contact': loadContactPage,
   '/privacy': loadPrivacyPolicy,
   '/blog': loadBlogPage,
   '/blog/when-a-self-parking-car-cannot-trust-its-imagination': loadBlogLatentParking,
@@ -174,9 +181,9 @@ function NotFound() {
           <p>It may have moved when the site was reorganised. Most people are looking for one of these.</p>
         </header>
         <ul className="ledger">
-          <li className="ledger-row"><Link to="/#work" className="ledger-link"><span className="ledger-title">Selected work</span></Link></li>
+          <li className="ledger-row"><Link to="/projects" className="ledger-link"><span className="ledger-title">Projects</span></Link></li>
           <li className="ledger-row"><Link to="/cv" className="ledger-link"><span className="ledger-title">Experience and CV</span></Link></li>
-          <li className="ledger-row"><Link to="/blog" className="ledger-link"><span className="ledger-title">Writing</span></Link></li>
+          <li className="ledger-row"><Link to="/blog" className="ledger-link"><span className="ledger-title">Blog</span></Link></li>
         </ul>
       </div>
     </main>
@@ -204,6 +211,8 @@ const app = (
             {BLOG_ENABLED && <Route path="/blog" element={<BlogPage />} />}
             <Route path="/notes" element={<TechnicalNotesPage />} />
             <Route path="/open-source" element={<OpenSourcePage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             {BLOG_ENABLED && <Route path="/blog/when-a-self-parking-car-cannot-trust-its-imagination" element={<BlogLatentParking />} />}
             {BLOG_ENABLED && <Route path="/blog/rag-pipeline" element={<BlogRagPipeline />} />}
             {BLOG_ENABLED && <Route path="/blog/steam-genre-networks" element={<BlogSteamGenreNetworks />} />}
@@ -221,6 +230,7 @@ const app = (
             <Route path="/lab/b" element={<LabHomeB />} />
             <Route path="/lab/article" element={<LabArticle />} />
             <Route path="/lab/logos" element={<LabLogos />} />
+            <Route path="/lab/concepts" element={<LabConcepts />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

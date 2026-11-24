@@ -22,7 +22,7 @@ export default function OpenSourcePage() {
           <h1>Open source</h1>
           <p>
             <span className="mark-static">{prCount}</span> across {repoCount} I don’t maintain. My own work is on the{' '}
-            <Link className="link" to="/#work">homepage</Link>.
+            <Link className="link" to="/projects">projects page</Link>.
           </p>
         </header>
 

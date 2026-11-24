@@ -1,0 +1,110 @@
+/* Projects page: selected-work cards and the GitHub catalogue. Tokens: index.css @theme. */
+
+/* ── selected work: image-led cards ─────────────────────────────────
+   The screenshot is the hook, the result number is the proof, the summary says what it is.
+   No box around the card: the framed image and the type carry it, like a printed portfolio. */
+.pc-grid { list-style: none; display: grid; gap: 3rem 2rem; margin-top: 2rem; }
+@media (min-width: 760px) { .pc-grid { grid-template-columns: 1fr 1fr; gap: 3.5rem 2.25rem; } }
+.pc { display: flex; flex-direction: column; min-width: 0; }
+.pc-link { display: grid; gap: 1.125rem; color: inherit; text-decoration: none; border-radius: var(--radius-lg); }
+.pc-media {
+  display: block; overflow: hidden; aspect-ratio: 16 / 10; border-radius: var(--radius-lg);
+  background: var(--color-code); border: 1px solid var(--color-rule);
+  box-shadow: 0 1px 2px rgb(16 24 32 / 0.04), 0 8px 24px -12px rgb(16 24 32 / 0.18);
+  transition: box-shadow var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+}
+.pc-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 500ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .pc-link:hover .pc-media { transform: translateY(-3px); box-shadow: 0 2px 4px rgb(16 24 32 / 0.05), 0 18px 36px -14px rgb(16 24 32 / 0.28); }
+  .pc-link:hover .pc-media img { transform: scale(1.025); }
+  .pc-link:hover .pc-title { color: var(--color-accent); }
+  .pc-link:hover .pc-arrow { color: var(--color-accent); transform: translateX(4px); }
+  .pc-link:hover .pc-arrow--out { transform: translate(2px, -2px); }
+}
+.pc-link:focus-visible .pc-title { color: var(--color-accent); }
+.pc-link--static .pc-media { box-shadow: none; }
+/* Charts keep their whole frame, set on white like the plot was drawn (both themes: the chart itself is white). */
+.pc-media--contain { background: #fff; }
+.pc-media--contain img { object-fit: contain; object-position: center; padding: 0.75rem; }
+
+.pc-body { display: grid; gap: 0.375rem; }
+.pc-kind { font-size: var(--text-meta); color: var(--color-ink-3); }
+.pc-title { display: flex; align-items: center; gap: 0.4rem; font-size: 1.375rem; font-weight: 650; letter-spacing: -0.018em; line-height: 1.2; transition: color var(--dur-1) var(--ease-standard); }
+.pc-arrow { color: var(--color-ink-3); flex: none; transition: transform var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+/* The accent marks evidence (same job as the hero pen), so the result carries it. */
+.pc-result { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.15rem 0.6rem; margin-top: 0.25rem; }
+.pc-result-value { font-size: 1.5rem; font-weight: 650; letter-spacing: -0.025em; line-height: 1.1; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--color-accent); }
+.pc-result-label { font-size: var(--text-meta); line-height: 1.4; color: var(--color-ink-2); text-wrap: pretty; }
+.pc-summary { margin-top: 0.25rem; font-size: 0.9375rem; line-height: 1.6; color: var(--color-ink-2); text-wrap: pretty; max-width: 38em; }
+.pc-foot { margin-top: auto; padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: var(--text-meta); color: var(--color-ink-3); }
+.pc-repo { display: inline-flex; align-items: center; gap: 2px; min-height: 40px; font-size: 0.875rem; flex: none; }
+
+/* Feature: the lead project gets the full width, image left and the story beside it. */
+@media (min-width: 760px) {
+  .pc--feature { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); column-gap: 2.5rem; }
+  .pc--feature .pc-link { grid-column: 1 / -1; grid-template-columns: subgrid; column-gap: 2.5rem; align-items: center; }
+  .pc--feature .pc-media { grid-column: 1; }
+  .pc--feature .pc-body { grid-column: 2; gap: 0.5rem; }
+  .pc--feature .pc-foot { grid-column: 2; }
+  .pc--feature .pc-title { font-size: 1.75rem; }
+  .pc--feature .pc-result-value { font-size: 2rem; }
+}
+
+/* ── page ─────────────────────────────────────────────────────────── */
+.pj .site-section:first-of-type { margin-top: 0; }
+.pj-intro-count { font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) {
+  .pj *, .pj *::before, .pj *::after { transition-duration: 1ms !important; }
+}
+
+/* ── more from GitHub: a title that leaves for the repo, a line, then where else it lives ── */
+.pj-repos { list-style: none; }
+.pj-repo { padding: 1.25rem 0; border-bottom: 1px solid var(--color-rule); display: grid; gap: 0.375rem; }
+@media (min-width: 720px) { .pj-repo { grid-template-columns: minmax(0, 1fr) 9rem; gap: 0.375rem 2rem; } }
+.pj-repo-title {
+  display: inline-flex; align-items: center; gap: 0.35rem; min-height: 32px;
+  font-size: 1.125rem; font-weight: 650; letter-spacing: -0.01em; line-height: 1.3;
+  color: var(--color-ink); text-decoration: none; transition: color var(--dur-1) var(--ease-standard);
+}
+.pj-repo-title svg { color: var(--color-ink-3); flex: none; transition: transform var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+.pj-repo-title:hover, .pj-repo-title:focus-visible { color: var(--color-accent); }
+.pj-repo-title:hover svg, .pj-repo-title:focus-visible svg { color: var(--color-accent); transform: translate(2px, -2px); }
+.pj-repo-desc { font-size: 0.9375rem; color: var(--color-ink-2); max-width: 38em; text-wrap: pretty; }
+.pj-repo-meta { font-size: var(--text-meta); color: var(--color-ink-3); font-variant-numeric: tabular-nums; }
+@media (min-width: 720px) {
+  .pj-repo-main { grid-column: 1; grid-row: 1 / span 2; }
+  .pj-repo-meta { grid-column: 2; grid-row: 1; text-align: right; padding-top: 0.45rem; }
+  .pj-repo-links { grid-column: 2; grid-row: 2; justify-content: flex-end; }
+}
+.pj-repo-links { display: flex; flex-wrap: wrap; gap: 0 1rem; font-size: 0.875rem; }
+.pj-repo-links a { min-height: 36px; display: inline-flex; align-items: center; }
+
+/* ── practice + archive: one line per repo, the year in the margin like a ledger entry ── */
+.pj-index { list-style: none; }
+.pj-index-row { border-bottom: 1px solid var(--color-rule); }
+.pj-index-link {
+  display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 0.125rem 1rem; align-items: baseline;
+  padding: 0.75rem 0.75rem; margin: 0 -0.75rem; border-radius: var(--radius-md);
+  color: inherit; text-decoration: none; transition: background-color var(--dur-2) var(--ease-standard);
+}
+@media (hover: hover) { .pj-index-link:hover { background: color-mix(in srgb, var(--color-ink) 3.5%, transparent); } }
+.pj-index-year { grid-row: 1 / span 2; font-size: var(--text-meta); color: var(--color-ink-3); font-variant-numeric: tabular-nums; }
+.pj-index-title { font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem; transition: color var(--dur-1) var(--ease-standard); }
+.pj-index-title svg { color: var(--color-ink-3); opacity: 0; transform: translate(-3px, 3px); transition: opacity var(--dur-1) ease, transform var(--dur-2) var(--ease-out), color var(--dur-1) ease; }
+.pj-index-link:hover .pj-index-title, .pj-index-link:focus-visible .pj-index-title { color: var(--color-accent); }
+.pj-index-link:hover .pj-index-title svg, .pj-index-link:focus-visible .pj-index-title svg { opacity: 1; transform: none; color: var(--color-accent); }
+.pj-index-desc { font-size: 0.875rem; color: var(--color-ink-2); text-wrap: pretty; }
+.pj-index-lang { font-size: var(--text-meta); color: var(--color-ink-3); }
+@media (min-width: 720px) {
+  /* year · title over language · description: the line gets the width, the language rides under the name */
+  .pj-index-link { grid-template-columns: 3rem 13rem minmax(0, 1fr); }
+  .pj-index-year { grid-row: 1; }
+  .pj-index-lang { grid-column: 2; grid-row: 2; }
+  .pj-index-desc { grid-column: 3; grid-row: 1 / span 2; padding-top: 0.1rem; }
+}
+@media (max-width: 719px) { .pj-index-lang { display: none; } }
+.pj-index-extra { padding: 0 0 0.75rem 4rem; margin-top: -0.625rem; font-size: 0.8125rem; }
+@media (min-width: 720px) { .pj-index-extra { padding-left: 18rem; } }
+
+/* Closing note: the stack ledger, after the archive. */
+.pj-range { margin-top: 4rem; }

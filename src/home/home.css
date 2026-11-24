@@ -2,13 +2,6 @@
 
 
 
-.hm-copy-icon { position: relative; width: 16px; height: 16px; display: inline-block; }
-.hm-copy-icon svg { position: absolute; inset: 0; transition: opacity 140ms var(--ease-out), transform 180ms var(--ease-out), filter 140ms ease; }
-.hm-copy-icon svg { filter: blur(0); }
-.hm-copy-b { opacity: 0; transform: scale(0.8); filter: blur(2px); color: #2f9e5b; }
-.hm-copy[data-copied] .hm-copy-a { opacity: 0; transform: scale(0.8); filter: blur(2px); }
-.hm-copy[data-copied] .hm-copy-b { opacity: 1; transform: none; }
-
 /* ── hero ─────────────────────────────────────────────────────────── */
 .hm-col { max-width: var(--col); margin: 0 auto; padding: 0 var(--gutter) 6rem; }
 .hm-hero { padding: 3rem 0 3.5rem; }
@@ -21,15 +14,8 @@
   max-width: 21em; text-wrap: pretty;
 }
 
-/* The one authored moment: a reviewer's pen underlines the evidence, left to right.
-   A hand-drawn stroke (slightly uneven, round caps) rather than a flat highlighter block.
-   Drawn per line fragment (box-decoration-break: clone) so it survives wrapping. */
-:root {
-  --pen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M3 10.5 C 28 6.5, 58 12.5, 92 9 S 152 5.5, 197 9.5' fill='none' stroke='%23cf3a0e' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E");
-}
-.dark {
-  --pen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M3 10.5 C 28 6.5, 58 12.5, 92 9 S 152 5.5, 197 9.5' fill='none' stroke='%23ff7a52' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E");
-}
+/* The one authored moment: the reviewer's pen underlines the evidence, left to right.
+   The stroke itself (--pen) is shared sitewide in site.css; here it draws in. */
 .hm-mark {
   color: inherit; background-color: transparent;
   background-image: var(--pen);
@@ -46,15 +32,6 @@
 }
 @keyframes hm-pen { from { background-size: 0% 0.34em; } to { background-size: 100% 0.34em; } }
 
-.hm-facts {
-  margin-top: 2.25rem; padding-top: 1.25rem; border-top: 1px solid var(--color-rule);
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.5rem;
-}
-@media (min-width: 720px) { .hm-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.hm-fact dt { font-size: var(--text-meta); color: var(--color-ink-3); }
-.hm-fact dd { margin-top: 0.125rem; font-size: 0.9375rem; line-height: 1.45; text-wrap: pretty; }
-.hm-fact-note { color: var(--color-ink-2); }
-.hm-clock time { font-variant-numeric: tabular-nums; }
 
 .hm-cta { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
 @media (max-width: 479px) { .hm-hero .hm-cta > .btn--primary { flex: 1 0 100%; } }
@@ -63,83 +40,6 @@
 .hm-section { margin-top: 4.5rem; scroll-margin-top: 1.5rem; }
 .hm-hero + .hm-section { margin-top: 0; }
 
-/* ── work rows ────────────────────────────────────────────────────── */
-.hm-work { position: relative; }
-.hm-rows { list-style: none; }
-.hm-row { border-bottom: 1px solid var(--color-rule); padding: 0.5rem 0 1rem; }
-.hm-row-link {
-  display: grid; gap: 0.75rem; padding: 1rem 0.75rem 0.5rem; margin: 0 -0.75rem;
-  border-radius: var(--radius-md); text-decoration: none; color: inherit;
-  transition: background-color var(--dur-2) var(--ease-standard);
-}
-@media (hover: hover) { .hm-row-link:hover { background: color-mix(in srgb, var(--color-ink) 3.5%, transparent); } }
-.hm-row-title { font-size: var(--text-h3); font-weight: 650; letter-spacing: -0.012em; line-height: 1.25; display: flex; align-items: center; gap: 0.4rem; transition: color var(--dur-1) var(--ease-standard); }
-.hm-row-arrow { color: var(--color-ink-3); flex: none; transition: transform var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
-.hm-row-link:focus-visible .hm-row-title { color: var(--color-accent); }
-.hm-row-link:focus-visible .hm-row-arrow { color: var(--color-accent); }
-@media (hover: hover) and (pointer: fine) {
-  .hm-row-link:hover .hm-row-title { color: var(--color-accent); }
-  .hm-row-link:hover .hm-row-arrow { transform: translateX(4px); color: var(--color-accent); }
-}
-.hm-row-kind { font-size: var(--text-meta); color: var(--color-ink-3); margin-top: 0.125rem; }
-.hm-row-line { margin-top: 0.625rem; max-width: 37em; text-wrap: pretty; display: grid; grid-template-columns: 4rem minmax(0, 1fr); }
-.hm-row-line--built { margin-top: 0.375rem; color: var(--color-ink-2); font-size: 0.9375rem; }
-.hm-label { font-size: var(--text-meta); font-weight: 600; color: var(--color-ink-3); padding-top: 0.15em; }
-.hm-row-result { display: flex; flex-direction: column; gap: 0.25rem; }
-/* The accent marks evidence (same job as the hero highlighter), so results carry it. */
-.hm-result-value { font-size: 1.75rem; font-weight: 650; letter-spacing: -0.025em; line-height: 1.05; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--color-accent); }
-.hm-result-label { font-size: var(--text-meta); line-height: 1.4; color: var(--color-ink-2); max-width: 15em; text-wrap: pretty; }
-.hm-row-foot { margin-top: 0.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: var(--text-meta); color: var(--color-ink-3); }
-.hm-row-repo { display: inline-flex; align-items: center; gap: 2px; min-height: 40px; font-size: 0.875rem; }
-@media (min-width: 720px) {
-  .hm-row-link { grid-template-columns: minmax(0, 1fr) 12.5rem; gap: 2rem; align-items: start; }
-  .hm-row-result { text-align: right; align-items: flex-end; padding-top: 0.125rem; }
-}
-
-/* Margin preview: follows the active row; only where there is room and a fine pointer. */
-.hm-preview { display: none; }
-@media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
-  .hm-preview {
-    display: block; position: absolute; top: 0; left: calc(100% + 2rem); width: 13.5rem; aspect-ratio: 16 / 10;
-    border-radius: var(--radius-lg); overflow: hidden; background: var(--color-code);
-    box-shadow: var(--shadow-pop); pointer-events: none;
-    transform: translate3d(0, calc(var(--y, 0px) + 1.25rem), 0);
-    opacity: 0; clip-path: inset(12% 12% 12% 12% round var(--radius-lg));
-    /* closing: fast and quiet */
-    transition: transform 280ms var(--ease-out), opacity 120ms ease, clip-path 160ms var(--ease-out);
-  }
-  /* opening: the reveal can take a little longer than the exit */
-  .hm-preview[data-open] { opacity: 1; clip-path: inset(0 0 0 0 round var(--radius-lg)); transition: transform 280ms var(--ease-out), opacity 160ms ease, clip-path 260ms var(--ease-arrive); }
-  .hm-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 200ms var(--ease-standard); }
-  .hm-preview img[data-on] { opacity: 1; }
-}
-@media (min-width: 1440px) { .hm-preview { width: 16.5rem; left: calc(100% + 2.5rem); } }
-@media (prefers-reduced-motion: reduce) {
-  .hm-preview { transition: opacity 1ms !important; clip-path: none !important; }
-}
-
-/* ── proof ────────────────────────────────────────────────────────── */
-.hm-quote { margin-top: 4.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-rule); }
-.hm-quote blockquote p { font-family: var(--font-prose); font-size: clamp(1.1875rem, 1rem + 0.7vw, 1.375rem); line-height: 1.45; letter-spacing: -0.005em; text-wrap: pretty; max-width: 32em; text-indent: -0.42em; }
-.hm-quote figcaption { margin-top: 1rem; font-size: 0.875rem; color: var(--color-ink-2); display: flex; align-items: center; gap: 0.75rem; }
-.hm-quote figcaption img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex: none; }
-
-/* ── experience ───────────────────────────────────────────────────── */
-.hm-exp { list-style: none; }
-.hm-job { display: grid; gap: 0.25rem; padding: 1.25rem 0; border-bottom: 1px solid var(--color-rule); }
-.hm-job-period { font-size: var(--text-meta); color: var(--color-ink-3); font-variant-numeric: tabular-nums; padding-top: 0.2rem; }
-.hm-job h3 { font-size: 1.0625rem; font-weight: 650; display: flex; flex-wrap: wrap; gap: 0 0.5rem; align-items: baseline; }
-.hm-job-org { font-weight: 450; color: var(--color-ink-2); }
-.hm-job ul { list-style: none; margin-top: 0.375rem; display: grid; gap: 0.375rem; }
-.hm-job ul li { color: var(--color-ink-2); font-size: 0.9375rem; max-width: 36em; padding-left: 1rem; position: relative; text-wrap: pretty; }
-.hm-job ul li::before { content: ''; position: absolute; left: 0.125rem; top: 0.68em; width: 5px; height: 1px; background: var(--color-ink-3); }
-@media (min-width: 720px) { .hm-job { grid-template-columns: 8.5rem 1fr; gap: 1.5rem; } }
-
-/* ── writing ──────────────────────────────────────────────────────── */
-.hm-posts { list-style: none; }
-.hm-posts li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.875rem 0; border-bottom: 1px solid var(--color-rule); }
-.hm-posts .link { text-wrap: pretty; }
-.hm-post-date { font-size: var(--text-meta); color: var(--color-ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 /* ── footer ───────────────────────────────────────────────────────── */
 .hm-foot { padding-top: 2.5rem; border-top: 1px solid var(--color-ink); }
@@ -152,18 +52,6 @@
   .hm *, .hm *::before, .hm *::after { transition-duration: 1ms !important; }
 }
 
-/* Row variants: external product (arrow points out), confidential work (no link, no hover). */
-@media (hover: hover) and (pointer: fine) { .hm-row-link:hover .hm-row-arrow--out { transform: translate(2px, -2px); } }
-.hm-row-link:focus-visible .hm-row-arrow--out { transform: translate(2px, -2px); }
-.hm-row-link--static { cursor: default; }
-@media (hover: hover) { .hm-row-link--static:hover { background: none; } }
-
-/* Preview swap: the outgoing shot softens and settles while the next one sharpens in. */
-@media (min-width: 1280px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .hm-preview img { filter: blur(4px); transform: scale(1.03); transition: opacity 200ms ease, filter 220ms var(--ease-out), transform 280ms var(--ease-out); }
-  .hm-preview img[data-on] { filter: none; transform: none; }
-}
-.hm-row-link--static:hover .hm-row-title { color: inherit; }
 
 /* Hero: display voice in the brand face; the sentence itself is the headline. */
 .hm-lede {
@@ -172,11 +60,119 @@
 }
 /* Elsewhere: quiet text actions under the two buttons (email, LinkedIn, GitHub). */
 .hm-elsewhere { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
-.hm-elsewhere-link {
-  display: inline-flex; align-items: center; gap: 0.4rem; min-height: 40px; padding: 0;
-  font: 500 0.9375rem/1 var(--font-ui); color: var(--color-ink-2); background: none; border: 0; cursor: pointer;
-  text-decoration: none; transition: color var(--dur-1) var(--ease-standard);
+
+
+.hm-projects-link { display: inline-flex; align-items: center; gap: 0.3rem; min-height: 46px; padding: 0 0.25rem; font-weight: 600; font-size: 0.9375rem; text-decoration: none; color: var(--color-ink); }
+.hm-projects-link svg { color: var(--color-ink-3); transition: transform var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out); }
+.hm-projects-link:hover { color: var(--color-accent); }
+.hm-projects-link:hover svg { color: var(--color-accent); transform: translateX(3px); }
+.hm-hero + .hm-foot { margin-top: 1.5rem; }
+.hm-foot-quiet { margin-top: 2.5rem; padding-top: 0.5rem; border-top: 1px solid var(--color-rule); }
+.hm-foot-quiet .site-links { margin-top: 0.5rem; }
+
+/* ── profile sheet: the screening checklist as one spec panel ──
+   Hairlines come from a 1px gap over a rule-coloured ground, so every breakpoint gets clean dividers.
+   Desktop: Role · Focus · Stack over Education · Based (Based runs wide for the clock). */
+.ps {
+  margin-top: 2.75rem; display: grid; gap: 1px; overflow: hidden;
+  background: var(--color-rule); border: 1px solid var(--color-rule); border-radius: var(--radius-lg);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas: "role edu" "focus focus" "stack stack" "based based";
 }
-.hm-elsewhere-link:hover { color: var(--color-ink); }
-.hm-elsewhere-link svg { color: var(--color-ink-3); transition: color var(--dur-1) var(--ease-standard); }
-.hm-elsewhere-link:hover svg { color: var(--color-accent); }
+@media (min-width: 720px) {
+  .ps { grid-template-columns: 0.95fr 1.1fr 1.3fr; grid-template-areas: "role focus stack" "edu based based"; }
+}
+.ps-cell { background: var(--color-surface); padding: 1rem 1rem 1.125rem; min-width: 0; }
+@media (min-width: 720px) { .ps-cell { padding: 1.125rem 1.25rem 1.25rem; } }
+.ps-role { grid-area: role; } .ps-focus { grid-area: focus; } .ps-stack { grid-area: stack; }
+.ps-edu { grid-area: edu; } .ps-based { grid-area: based; }
+
+.ps dt { display: flex; align-items: center; gap: 0.4rem; font-size: var(--text-meta); color: var(--color-ink-3); }
+.ps dt svg { color: var(--color-ink-3); flex: none; }
+.ps dd { margin-top: 0.5rem; display: grid; gap: 0.2rem; }
+.ps-main { font-size: 1rem; font-weight: 600; line-height: 1.35; letter-spacing: -0.005em; color: var(--color-ink); text-wrap: pretty; }
+.ps-sub { font-size: var(--text-meta); line-height: 1.45; color: var(--color-ink-2); text-wrap: pretty; }
+
+/* Focus: the wordmark's accent square, reused as the list marker. */
+.ps-focus-list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; }
+.ps-focus-list li { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; }
+.ps-focus-list li::before { content: ''; width: 5px; height: 5px; border-radius: 1px; background: var(--color-accent); flex: none; }
+
+/* Stack: monochrome marks that take their own brand colour when pointed at. */
+.ps-icons { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 0.6rem; }
+.ps-icons li { display: grid; place-items: center; width: 22px; height: 22px; }
+.ps-icons svg { fill: var(--color-ink-2); transition: fill var(--dur-2) var(--ease-standard), transform var(--dur-2) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .ps-icons li:hover svg { fill: var(--brand, var(--color-accent)); transform: translateY(-2px); }
+  .dark .ps-icons li:hover svg { fill: var(--color-accent); }
+}
+.ps-icon-fallback { font-size: 0.6875rem; font-weight: 700; color: var(--color-ink-2); }
+
+/* Based: a watch face set to Kathmandu, then the time large enough to do the overlap maths. */
+.ps-clock { display: flex; align-items: center; gap: 0.75rem; }
+.ps-clock > span:last-child { display: grid; gap: 0.1rem; }
+.ps-time { font-size: 1.5rem; line-height: 1.1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+
+/* The watch face, set to Kathmandu. */
+.ps-face { flex: none; }
+.ps-face-rim { fill: var(--color-surface); stroke: var(--color-ink-3); stroke-width: 1.25; }
+.ps-face-tick { stroke: var(--color-ink-3); stroke-width: 1.25; stroke-linecap: round; }
+.ps-face-hour { stroke: var(--color-ink); stroke-width: 2.4; stroke-linecap: round; }
+.ps-face-min { stroke: var(--color-ink); stroke-width: 1.5; stroke-linecap: round; }
+.ps-face-pin { fill: var(--color-accent); }
+
+
+/* ── quiet hero: plain intro at reading-plus size, so intro, profile and claim share the first screen ── */
+@media (min-width: 720px) { .hm-hero { padding: 3rem 0 3rem; } }
+.hm-intro {
+  font-family: var(--font-ui); font-weight: 450; color: var(--color-ink);
+  font-size: clamp(1.1875rem, 1rem + 0.7vw, 1.5rem); line-height: 1.4; letter-spacing: -0.012em;
+  max-width: 34em; text-wrap: pretty;
+}
+.hm-hero .hm-cta { margin-top: 1.5rem; }
+.hm-elsewhere { margin-top: 0.5rem; }
+.ps { margin-top: 2rem; }
+@media (min-width: 720px) { .ps { margin-top: 2.25rem; } }
+
+@media (min-width: 720px) {
+  .hm-hero { padding: 2.25rem 0 0; }
+  .hm-col { padding-bottom: 2.5rem; }
+}
+.hm-foot-quiet { margin-top: 1.75rem; }
+/* One-screen fit with the five-cell panel: a little less air inside the cells and between the blocks. */
+@media (min-width: 720px) {
+  .ps { margin-top: 1.75rem; }
+  .ps-cell { padding: 0.95rem 1.25rem 1.05rem; }
+}
+
+/* ── profile ledger: the checklist as ruled rows, label left and answer right ── */
+.pl { margin-top: 1.75rem; border-top: 1px solid var(--color-ink); }
+.pl > div { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 0.25rem 1rem; align-items: center; min-height: 44px; padding: 0.55rem 0; border-bottom: 1px solid var(--color-rule); }
+@media (min-width: 720px) { .pl > div { grid-template-columns: 9rem minmax(0, 1fr); gap: 1.5rem; } }
+.pl dt { font-size: var(--text-meta); color: var(--color-ink-3); }
+.pl dd { font-size: 0.9375rem; line-height: 1.45; color: var(--color-ink-2); text-wrap: pretty; }
+.pl dd strong { color: var(--color-ink); font-weight: 600; }
+.pl-sep { margin: 0 0.45em; color: var(--color-ink-3); }
+/* Focus keeps the wordmark's accent square as its marker. */
+.pl-focus { list-style: none; display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; color: var(--color-ink); }
+.pl-focus li { display: inline-flex; align-items: center; gap: 0.45rem; }
+.pl-focus li::before { content: ''; width: 5px; height: 5px; border-radius: 1px; background: var(--color-accent); flex: none; }
+.pl-icons { gap: 0.4rem 0.7rem; }
+.pl-based { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0; row-gap: 0.25rem; }
+.pl-based .ps-face { margin-right: 0.6rem; }
+.pl-time { font-variant-numeric: tabular-nums; margin-right: 0.3em; }
+
+/* Hello, as a hand: drawn in the accent, it waves once from the wrist when the page lands. */
+.hm-wave { display: inline-block; vertical-align: -0.12em; margin-right: 0.3em; color: var(--color-accent); transform-origin: 70% 90%; }
+.hm-wave svg { display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  .hm-wave { animation: hm-wave 1.4s var(--ease-in-out) 0.3s both; }
+}
+@keyframes hm-wave {
+  0%, 100% { transform: rotate(0deg); }
+  15% { transform: rotate(16deg); }
+  30% { transform: rotate(-8deg); }
+  45% { transform: rotate(14deg); }
+  60% { transform: rotate(-4deg); }
+  75% { transform: rotate(8deg); }
+}

@@ -4,6 +4,7 @@ import { usePageSeo } from './hooks/usePageSeo'
 import posthog from './posthog'
 import { BLOG_ENABLED } from './config'
 import { CvDownload, SiteFooter } from './site/SiteChrome'
+import { recommendation } from './home/home-content'
 import './site/cv.css'
 
 // Source of truth: CV_November_2026 (public/) and src/i18n.ts. Nothing here is new information.
@@ -12,7 +13,6 @@ const ROLES = [
     role: 'AI/ML Engineer (remote)', org: 'Scopic Software', period: 'Oct 2024 – now',
     points: [
       'Benchmarked a replacement routing classifier against GPT-4o-mini on the team’s golden set: 88% vs 80% handler accuracy, 86% vs 77% intent accuracy, about 6× cheaper, p95 under 0.6 s against 2–3 s.',
-      'Lead development and deployment of a GenAI sales chatbot integrated with Zoho CRM: LangGraph, RAG and Qdrant for lead qualification, intent detection, user-info extraction, lead scoring and SEO tracking. It processes 5+ warm leads a month.',
       'Build evaluation pipelines for chatbot and RAG performance; continuous grounding improvements raised response accuracy by 20% while lowering latency and cost.',
       'Develop and maintain an AI receptionist platform across multiple deployments, including its voice-agent layer, and resolve production issues to keep conversations reliable.',
       'Maintain and expand the AI service layer of an interviewer platform: question generation, grading logic, prompt engineering and end-to-end GenAI integration.',
@@ -92,6 +92,21 @@ export default function CvPage() {
               </li>
             ))}
           </ol>
+          <figure className="cv-rec">
+            <blockquote>
+              <p>“{recommendation.quote}”</p>
+            </blockquote>
+            <figcaption>
+              <img src="/akash.webp" alt="" width={36} height={36} loading="lazy" decoding="async" />
+              <span>
+                <a className="link" href={recommendation.href} target="_blank" rel="noopener noreferrer"
+                  onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'recommendation' })}>
+                  {recommendation.author}
+                </a>
+                , {recommendation.role} · {recommendation.source}
+              </span>
+            </figcaption>
+          </figure>
         </section>
 
         <section aria-labelledby="cv-talks" className="cv-section">

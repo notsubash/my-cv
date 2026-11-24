@@ -7,9 +7,9 @@ import { person } from '../home/home-content'
 import './site.css'
 
 const NAV = [
-  { to: '/#work', match: (p: string) => p.startsWith('/projects'), label: 'Work' },
+  { to: '/projects', match: (p: string) => p.startsWith('/projects'), label: 'Projects' },
   { to: '/cv', match: (p: string) => p === '/cv', label: 'Experience' },
-  ...(BLOG_ENABLED ? [{ to: '/blog', match: (p: string) => p.startsWith('/blog') || p === '/notes', label: 'Writing' }] : []),
+  ...(BLOG_ENABLED ? [{ to: '/blog', match: (p: string) => p.startsWith('/blog') || p === '/notes', label: 'Blog' }] : []),
   { to: '/about', match: (p: string) => p === '/about', label: 'About' },
 ]
 
@@ -33,6 +33,22 @@ export function CvDownload({ placement, className = 'link', children = 'Download
   )
 }
 
+/** Footer question shared by home and inner pages. */
+export const FOOTER_LINE = 'Hiring for an ML or AI engineering role, or building something? I’d like to hear about it.'
+
+export type ContactPlacement = 'hero' | 'nav' | 'footer' | 'case_study' | 'article' | 'cv' | 'about'
+
+/** The site's main call to action: a low-stakes "let's talk" that leads to the contact page (message or booking). */
+export function ContactCta({ placement, className, children }: { placement: ContactPlacement; className: string; children: ReactNode }) {
+  const { pathname } = useLocation()
+  return (
+    <Link to="/contact" className={className} aria-current={pathname === '/contact' ? 'page' : undefined}
+      onClick={() => posthog.capture('contact_cta_clicked', { placement })}>
+      {children}
+    </Link>
+  )
+}
+
 /** One header for every page: who, where to go, and the booking action. */
 export function SiteHeader({ width = 'col' }: { width?: 'col' | 'wide' }) {
   const { pathname } = useLocation()
@@ -49,7 +65,7 @@ export function SiteHeader({ width = 'col' }: { width?: 'col' | 'wide' }) {
             : <Link key={n.label} to={href} aria-current={current ? 'page' : undefined}>{n.label}</Link>
         })}
       </nav>
-      <CalBookButton placement="nav" className="btn btn--small site-bar-cta">Book a call</CalBookButton>
+      <ContactCta placement="nav" className="btn btn--small site-bar-cta">Let’s talk</ContactCta>
     </header>
   )
 }
@@ -58,9 +74,10 @@ export function SiteHeader({ width = 'col' }: { width?: 'col' | 'wide' }) {
 export function SiteFooter({ placement, width = 'col' }: { placement: 'case_study' | 'article' | 'cv' | 'about' | 'footer'; width?: 'col' | 'wide' }) {
   return (
     <footer className={`site-foot site-foot--${width}`} aria-labelledby="site-foot-h">
-      <h2 id="site-foot-h" className="site-foot-line">Hiring for an ML or AI engineering role? Thirty minutes is enough to see if there’s a fit.</h2>
+      <h2 id="site-foot-h" className="site-foot-line">{FOOTER_LINE}</h2>
       <div className="site-foot-cta">
-        <CalBookButton placement={placement} className="btn btn--primary">Book a 30-min intro</CalBookButton>
+        <ContactCta placement={placement} className="btn btn--primary">Let’s talk</ContactCta>
+        <CalBookButton placement={placement} className="link">Or book a call</CalBookButton>
         <a className="link" href={`mailto:${person.email}`} onClick={() => posthog.capture('contact_email_clicked', { placement })}>{person.email}</a>
       </div>
       <SiteLinks />
@@ -73,6 +90,7 @@ export function SiteLinks() {
     <p className="site-links">
       <a className="link" href={person.linkedin} target="_blank" rel="noopener noreferrer" onClick={() => posthog.capture('outbound_link_clicked', { destination: 'linkedin', placement: 'footer' })}>LinkedIn</a>
       <a className="link" href={person.github} target="_blank" rel="noopener noreferrer" onClick={() => posthog.capture('outbound_link_clicked', { destination: 'github', placement: 'footer' })}>GitHub</a>
+      <Link className="link" to="/contact">Contact</Link>
       <Link className="link" to="/open-source">Open source</Link>
       <Link className="link" to="/notes">Notes</Link>
       <Link className="link" to="/privacy">Privacy</Link>
@@ -81,8 +99,7 @@ export function SiteLinks() {
 }
 
 /**
- * Router-level chrome: the shared header on every inner page (home renders its own
- * inside its layout), and keyboard access to anything that scrolls sideways
+ * Router-level chrome: the shared header on every page, and keyboard access to anything that scrolls sideways
  * (wide code, equations, diagrams) so it passes axe scrollable-region-focusable.
  */
 export function SiteShell() {
@@ -112,6 +129,8 @@ export function SiteShell() {
     window.addEventListener('resize', onResize)
     return () => { window.clearTimeout(t); window.clearTimeout(r); window.removeEventListener('resize', onResize) }
   }, [pathname])
-  if (pathname === '/' || pathname.startsWith('/lab/')) return null
+  // Every page, home included, shares this one header. It lives outside the page transition,
+  // so it never remounts or fades between routes.
+  if (pathname.startsWith('/lab/')) return null
   return <SiteHeader />
 }
