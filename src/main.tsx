@@ -27,6 +27,7 @@ const loadBlogMLFromScratch = () => import('./articles/blog-ml-from-scratch')
 const loadBlogActivityRecognitionPipeline = () => import('./articles/blog-activity-recognition-pipeline')
 const loadBlogIdeaWorkbench = () => import('./articles/blog-idea-workbench')
 const loadBlogCloudNativeAiPlatform = () => import('./articles/blog-cloud-native-ai-platform')
+const loadBlogLastcall = () => import('./articles/blog-lastcall')
 const loadGavel = () => import('./articles/gavel')
 const loadTheUnderlyingCurve = () => import('./articles/the-underlying-curve')
 const loadActivityRecognition = () => import('./articles/activity-recognition')
@@ -48,6 +49,7 @@ const BlogMLFromScratch = lazy(loadBlogMLFromScratch)
 const BlogActivityRecognitionPipeline = lazy(loadBlogActivityRecognitionPipeline)
 const BlogIdeaWorkbench = lazy(loadBlogIdeaWorkbench)
 const BlogCloudNativeAiPlatform = lazy(loadBlogCloudNativeAiPlatform)
+const BlogLastcall = lazy(loadBlogLastcall)
 const Gavel = lazy(loadGavel)
 const TheUnderlyingCurve = lazy(loadTheUnderlyingCurve)
 const ActivityRecognition = lazy(loadActivityRecognition)
@@ -77,6 +79,7 @@ const ROUTE_PRELOADERS: Record<string, () => Promise<unknown>> = {
   '/blog/activity-recognition-pipeline': loadBlogActivityRecognitionPipeline,
   '/blog/building-an-idea-workbench': loadBlogIdeaWorkbench,
   '/blog/building-a-cloud-native-ai-platform': loadBlogCloudNativeAiPlatform,
+  '/blog/building-lastcall': loadBlogLastcall,
   '/projects/gavel': loadGavel,
   '/projects/the-underlying-curve': loadTheUnderlyingCurve,
   '/projects/activity-recognition': loadActivityRecognition,
@@ -220,6 +223,7 @@ const app = (
             {BLOG_ENABLED && <Route path="/blog/activity-recognition-pipeline" element={<BlogActivityRecognitionPipeline />} />}
             {BLOG_ENABLED && <Route path="/blog/building-an-idea-workbench" element={<BlogIdeaWorkbench />} />}
             {BLOG_ENABLED && <Route path="/blog/building-a-cloud-native-ai-platform" element={<BlogCloudNativeAiPlatform />} />}
+            {BLOG_ENABLED && <Route path="/blog/building-lastcall" element={<BlogLastcall />} />}
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/projects/gavel" element={<Gavel />} />
             <Route path="/projects/the-underlying-curve" element={<TheUnderlyingCurve />} />

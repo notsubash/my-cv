@@ -621,6 +621,14 @@ export const translations = {
       noPosts: 'First posts coming soon. Stay tuned.',
       items: [
         {
+          slug: 'building-lastcall',
+          title: 'Building Lastcall: Catching Scheduled Posts Before They Go Stale',
+          date: 'November 2026',
+          summary: "A Buffer engineer's Pokémon cards kept selling before their posts went out. How I built an app that checks the links in scheduled posts, holds the stale ones, and only acts when it can show why.",
+          tags: ['TypeScript', 'Hono', 'SQLite', 'Buffer API'],
+          image: '/og-blog-lastcall.webp',
+        },
+        {
           slug: 'when-a-self-parking-car-cannot-trust-its-imagination',
           title: 'Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It',
           date: 'August 2026',

@@ -496,7 +496,8 @@ figure:has(svg[role="img"]) > :not(figcaption):has(svg[role="img"]) {
   max-width: 100%;
 }
 @media (max-width: 639px) {
-  figure svg[role="img"] {
+  /* data-fluid: a figure designed to scale down to the column (no pan) */
+  figure svg[role="img"]:not([data-fluid]) {
     display: block;
     min-width: 34rem;
   }

@@ -43,6 +43,7 @@ const ROUTES = [
   '/blog/activity-recognition-pipeline',
   '/blog/building-an-idea-workbench',
   '/blog/building-a-cloud-native-ai-platform',
+  '/blog/building-lastcall',
   '/projects/gavel',
   '/projects/the-underlying-curve',
   '/projects/activity-recognition',
