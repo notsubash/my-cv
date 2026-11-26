@@ -188,6 +188,9 @@ body {
     radial-gradient(64rem 36rem at 10% -6rem, color-mix(in srgb, var(--color-accent-wash) 60%, transparent), transparent 72%),
     radial-gradient(48rem 28rem at 100% -4rem, color-mix(in srgb, var(--color-accent-wash) 28%, transparent), transparent 70%);
   background-repeat: no-repeat;
+  /* A fixed tile height: by default a gradient tile is as tall as the page, so a page shorter than the glow
+     (e.g. only the header while a route loads) cut it off in a hard line. The glow fades out by ~20rem. */
+  background-size: 100% 40rem;
 }
 .dark body {
   background-image:
