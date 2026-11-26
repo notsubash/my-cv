@@ -64,10 +64,10 @@ export const work: readonly WorkItem[] = [
   },
   {
     slug: 'lastcall',
-    title: 'LastCall',
+    title: 'Lastcall',
     kind: 'Full-stack product, built for Buffer Commit',
     summary: 'A Buffer app that checks the links in your scheduled posts and holds any post whose product has sold out or whose job has closed, so nothing stale goes out. Plain rules decide, never a model.',
-    result: { value: '100% / 95%', label: 'precision / recall on 150 real links; 1,773 tests' },
+    result: { value: '100% / 95%', label: 'precision / recall on 150 real links; 1,775 tests' },
     href: 'https://lastcall.subash-pandey.com',
     external: true,
     linkLabel: 'Open the live app',
@@ -163,7 +163,7 @@ export const range = {
   claim: 'In the age of AI, the stack is a choice, not a ceiling.',
   caption: 'Five builds, five stacks.',
   rows: [
-    { project: 'LastCall', stack: ['TypeScript', 'Hono'], href: 'https://lastcall.subash-pandey.com', external: true },
+    { project: 'Lastcall', stack: ['TypeScript', 'Hono'], href: 'https://lastcall.subash-pandey.com', external: true },
     { project: 'Gavel', stack: ['Python', 'LangGraph', 'FastAPI'], href: '/blog/building-an-idea-workbench' },
     { project: 'AI platform', stack: ['Terraform', 'Kubernetes', 'Argo CD'], href: '/blog/building-a-cloud-native-ai-platform' },
     { project: 'Latent Parking', stack: ['PyTorch'], href: '/blog/when-a-self-parking-car-cannot-trust-its-imagination' },
@@ -180,6 +180,7 @@ export const recommendation = {
 }
 
 export const posts = [
+  { slug: 'building-lastcall', title: 'Building Lastcall: Catching Scheduled Posts Before They Go Stale', date: 'Nov 2026' },
   { slug: 'when-a-self-parking-car-cannot-trust-its-imagination', title: 'Teaching a Car to Park by Imagining the Future, and Learning When Not to Trust It', date: 'Aug 2026' },
   { slug: 'activity-recognition-pipeline', title: 'Rebuilding WISDM HAR after a leaky 0.89', date: 'Aug 2026' },
   { slug: 'building-a-cloud-native-ai-platform', title: 'Building a Cloud Native AI Platform Under $15 a Month', date: 'Aug 2026' },

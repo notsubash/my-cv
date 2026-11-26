@@ -108,6 +108,7 @@ export function getAltPaths(): Record<string, string> {
     '/blog/activity-recognition-pipeline': '/blog/activity-recognition-pipeline',
     '/blog/building-an-idea-workbench': '/blog/building-an-idea-workbench',
     '/blog/building-a-cloud-native-ai-platform': '/blog/building-a-cloud-native-ai-platform',
+    '/blog/building-lastcall': '/blog/building-lastcall',
     '/privacy': '/privacy',
   }
   for (const article of articleRegistry) {
@@ -133,6 +134,7 @@ export function getPageTitles(): Record<string, string> {
     '/blog/activity-recognition-pipeline': 'Rebuilding WISDM HAR after a leaky 0.89',
     '/blog/building-an-idea-workbench': 'Building Gavel: Turning AI Opinions Into Experiments',
     '/blog/building-a-cloud-native-ai-platform': 'Building a Cloud Native AI Platform Under $15 a Month',
+    '/blog/building-lastcall': 'Building Lastcall: Catching Scheduled Posts Before They Go Stale',
   }
   for (const article of articleRegistry) {
     titles[`/${article.slugs.en}`] = article.titles.en

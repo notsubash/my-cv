@@ -147,6 +147,21 @@ Weak:
 
 Do not merely replace banned phrases. Rewrite the paragraph around a concrete observation.
 
+## Story craft
+
+Habits taken from engineers whose posts people finish reading:
+
+- **Open with someone else's real problem, in their words.** Quote the person or post that made the problem real, and link it. Then say what you built in two sentences.
+- **Tell how you took it on.** The first thing you tested, the order you built in, and the moment it first worked end to end. Readers trust a build story that has a day one.
+- **Write about what you struggled with** (Julia Evans). The surprise, the wrong first idea and who caught it are worth more than the parts that went to plan.
+- **Show the failure before the fix** (Sam Rose, samwho.dev). Describe what breaks without the solution, then the solution.
+- **Use the project's real numbers** (Dan Luu on good engineering blogs: specifics are what engineers read for). Counts, dates, limits, request costs.
+- **Pre-empt the obvious alternative** (Julia Evans): "I didn't do X because ..." in one sentence.
+- **Say what is unproven** near the end, plainly, and end on the concrete object the post started with, not a slogan.
+- **Explain what the code does, not the code.** Use a figure (see `.claude/skills/blog-visuals`) or a sentence instead of a code block unless the reader will run it.
+
+Plan the post's figures with the `blog-visuals` skill before drafting the TSX.
+
 ## SEO standard
 
 Write for the reader first.
