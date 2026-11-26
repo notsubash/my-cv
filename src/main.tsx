@@ -202,8 +202,12 @@ const app = (
       </a>
       <GlobalNav />
       <SiteShell />
-      <PageTransition>
-        <Suspense fallback={null}>
+      {/* Suspense sits above the keyed PageTransition on purpose: router navigations are transitions,
+          so an already-mounted boundary keeps the current page on screen until the next route's chunk
+          arrives, and header + page swap in one commit. Inside the key, every route got a fresh
+          boundary that showed the empty fallback under a lone header. */}
+      <Suspense fallback={null}>
+        <PageTransition>
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/about" element={<AboutPage />} />
@@ -233,8 +237,8 @@ const app = (
             <Route path="/lab/concepts" element={<LabConcepts />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </Suspense>
-      </PageTransition>
+        </PageTransition>
+      </Suspense>
       <Analytics />
       <SpeedInsights />
     </BrowserRouter>
